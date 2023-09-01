@@ -655,8 +655,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1351,8 +1351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54045ef1534741148963cc0a07657d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  registerPage: {fileID: 0}
-  loginPage: {fileID: 0}
+  registerPage: {fileID: 359097713}
+  loginPage: {fileID: 730233603}
 --- !u!1 &896497285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,7 +1438,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 896497290}
-        m_TargetAssemblyTypeName: LoginHerePressed, Assembly-CSharp
+        m_TargetAssemblyTypeName: RegisterLoginChange, Assembly-CSharp
         m_MethodName: ChangeToLogin
         m_Mode: 1
         m_Arguments:
@@ -1462,7 +1462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1496,7 +1496,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 896497285}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd4403dedc47f164c8a4a87d682090c5, type: 3}
+  m_Script: {fileID: 11500000, guid: ccaccb65ce2438943b46ee5500476452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   registerPage: {fileID: 359097713}
@@ -1980,8 +1980,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2782,7 +2782,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1881428224}
-        m_TargetAssemblyTypeName: RegisterHerePressed, Assembly-CSharp
+        m_TargetAssemblyTypeName: RegisterLoginChange, Assembly-CSharp
         m_MethodName: ChangeToRegister
         m_Mode: 1
         m_Arguments:
@@ -2806,7 +2806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2840,7 +2840,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1881428219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7154ddda50b2d45b90d6608bb5eade, type: 3}
+  m_Script: {fileID: 11500000, guid: ccaccb65ce2438943b46ee5500476452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   registerPage: {fileID: 359097713}
