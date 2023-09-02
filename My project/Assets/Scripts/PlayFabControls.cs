@@ -11,7 +11,7 @@ public class PlayFabControls : MonoBehaviour
 {
     public GameObject registerPage, loginPage;
     public TMP_Text registerEmail, registerPassword, registerError, loginEmail, loginPassword, loginError;
-
+    public TMP_Dropdown identityDropdown;
     // Update is called once per frame
     void Update()
     {
@@ -28,21 +28,46 @@ public class PlayFabControls : MonoBehaviour
         }
     }
 
-    private string extractUsername(string registerEmail)
+    public void SaveIdentity(string identity)
     {
-        string[] splitString = registerEmail.Split("@");
-        return splitString[0];
+        var request = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+            {
+                {"Identity", identity}
+            }
+        };
+        PlayFabClientAPI.UpdateUserData(request, SaveIdentitySuccess, SaveIdentityFail);
+    }
+
+    void SaveIdentitySuccess(UpdateUserDataResult result)
+    {
+        Debug.Log("Identity is " +  result);
+    }
+
+    void SaveIdentityFail(PlayFabError error)
+    {
+        Debug.Log(error);
+    }
+
+    public string identity()
+    {
+        if (identityDropdown.value == 0) return "Student";
+        else if (identityDropdown.value == 1) return "Professor/TA";
+        else if (identityDropdown.value == 2) return "Staff";
+        else return "";
     }
 
     public void Register()
     {
-        var registerRequest = new RegisterPlayFabUserRequest { Email = registerEmail.text, Password = registerPassword.text, Username = extractUsername(registerEmail.text) };
+        var registerRequest = new RegisterPlayFabUserRequest { Email = registerEmail.text, Password = registerPassword.text, RequireBothUsernameAndEmail = false };
         PlayFabClientAPI.RegisterPlayFabUser(registerRequest, RegisterSuccess, RegisterFail);
     }
 
     public void RegisterSuccess(RegisterPlayFabUserResult result)
     {
         registerError.text = " ";
+        SaveIdentity(identity());
         StartGame();
     }
 
