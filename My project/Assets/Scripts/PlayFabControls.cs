@@ -11,7 +11,6 @@ public class PlayFabControls : MonoBehaviour
 {
     public GameObject registerPage, loginPage;
     public TMP_Text registerEmail, registerPassword, registerError, loginEmail, loginPassword, loginError;
-    public Text registerUsernameLegacy;
 
     // Update is called once per frame
     void Update()
@@ -29,9 +28,15 @@ public class PlayFabControls : MonoBehaviour
         }
     }
 
+    private string extractUsername(string registerEmail)
+    {
+        string[] splitString = registerEmail.Split("@");
+        return splitString[0];
+    }
+
     public void Register()
     {
-        var registerRequest = new RegisterPlayFabUserRequest { Email = registerEmail.text, Password = registerPassword.text, Username = registerUsernameLegacy.text };
+        var registerRequest = new RegisterPlayFabUserRequest { Email = registerEmail.text, Password = registerPassword.text, Username = extractUsername(registerEmail.text) };
         PlayFabClientAPI.RegisterPlayFabUser(registerRequest, RegisterSuccess, RegisterFail);
     }
 

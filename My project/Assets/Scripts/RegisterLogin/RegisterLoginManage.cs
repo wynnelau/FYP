@@ -9,9 +9,8 @@ public class RegisterLoginManage : MonoBehaviour
 {
     public GameObject registerPage, loginPage;
     // Cannot clear input field when declared as Text or TMP_Text
-    public InputField registerUsernameLegacy;
     public TMP_InputField registerEmail, registerPassword, loginEmail, loginPassword;
-
+    public TMP_Dropdown identityDropdown;
     public TMP_Text registerError, loginError;
 
     // Change to login page
@@ -29,18 +28,17 @@ public class RegisterLoginManage : MonoBehaviour
     {
         loginPage.SetActive(false);
         registerPage.SetActive(true);
-        registerUsernameLegacy.text = "";
         registerEmail.text = "";
         registerPassword.text = "";
         registerError.text = " ";
+        identityDropdown.value = 0;
     }
 
     // Start is called before the first frame update
     // Start application at login page
     void Start()
     {
-        registerPage.SetActive(false);
-        loginPage.SetActive(true);
+        ChangeToLogin();
     }
 
     // Update is called once per frame
