@@ -7,7 +7,7 @@ using TMPro;
 
 public class RegisterLoginManage : MonoBehaviour
 {
-    public GameObject registerPage, loginPage;
+    public GameObject registerPage, loginPage, getUserProfileDataPageStudent, getUserProfileDataPageOthers;
     // Cannot clear input field when declared as Text or TMP_Text
     public TMP_InputField registerEmail, registerPassword, loginEmail, loginPassword;
     public TMP_Dropdown identityDropdown;
@@ -18,6 +18,8 @@ public class RegisterLoginManage : MonoBehaviour
     {
         loginPage.SetActive(true);
         registerPage.SetActive(false);
+        getUserProfileDataPageStudent.SetActive(false);
+        getUserProfileDataPageOthers.SetActive(false);
         loginEmail.text = "";
         loginPassword.text = "";
         loginError.text = " ";
@@ -28,6 +30,8 @@ public class RegisterLoginManage : MonoBehaviour
     {
         loginPage.SetActive(false);
         registerPage.SetActive(true);
+        getUserProfileDataPageStudent.SetActive(false);
+        getUserProfileDataPageOthers.SetActive(false);
         registerEmail.text = "";
         registerPassword.text = "";
         registerError.text = " ";

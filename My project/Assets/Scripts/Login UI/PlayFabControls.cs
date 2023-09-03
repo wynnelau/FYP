@@ -9,12 +9,13 @@ using UnityEditor.PackageManager;
 
 public class PlayFabControls : MonoBehaviour
 {
-    public GameObject registerPage, loginPage;
+    public GameObject registerPage, loginPage, getUserProfileDataPageStudent, getUserProfileDataPageOthers;
     public TMP_Text registerEmail, registerPassword, registerError, loginEmail, loginPassword, loginError;
     public TMP_Dropdown identityDropdown;
     // Update is called once per frame
     void Update()
     {
+        // Enable "enter" as send data
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if (registerPage.activeSelf)
@@ -28,6 +29,7 @@ public class PlayFabControls : MonoBehaviour
         }
     }
 
+    // Send the identity of the user
     public void SaveIdentity(string identity)
     {
         var request = new UpdateUserDataRequest
@@ -58,6 +60,7 @@ public class PlayFabControls : MonoBehaviour
         else return "";
     }
 
+    // Register for an account
     public void Register()
     {
         var registerRequest = new RegisterPlayFabUserRequest { Email = registerEmail.text, Password = registerPassword.text, RequireBothUsernameAndEmail = false };
@@ -68,7 +71,7 @@ public class PlayFabControls : MonoBehaviour
     {
         registerError.text = " ";
         SaveIdentity(identity());
-        StartGame();
+        KnowMore(identity());
     }
 
     public void RegisterFail(PlayFabError error)
@@ -76,6 +79,7 @@ public class PlayFabControls : MonoBehaviour
         registerError.text = error.GenerateErrorReport();
     }
 
+    // Login to existing account
     public void Login()
     {
         var request = new LoginWithEmailAddressRequest { Email = loginEmail.text, Password = loginPassword.text };
@@ -85,7 +89,7 @@ public class PlayFabControls : MonoBehaviour
     public void LoginSuccess(LoginResult result)
     {
         loginError.text = " ";
-        StartGame();
+        MainScene();
     }
 
     public void LoginFail(PlayFabError error)
@@ -93,7 +97,24 @@ public class PlayFabControls : MonoBehaviour
         loginError.text = error.GenerateErrorReport();
     }
 
-    void StartGame()
+    // Go to set up user profile page after registering
+    void KnowMore(string identity)
+    {
+        loginPage.SetActive(false);
+        registerPage.SetActive(false);
+        if (identity == "Student")
+        {
+            getUserProfileDataPageStudent.SetActive(true);
+        } 
+        else if (identity == "Professor/TA" || identity == "Staff")
+        {
+            getUserProfileDataPageOthers.SetActive(true);
+        }
+        
+    }
+
+    // Go to Main Scene after login
+    void MainScene()
     {
         loginPage.SetActive(false);
         registerPage.SetActive(false);
