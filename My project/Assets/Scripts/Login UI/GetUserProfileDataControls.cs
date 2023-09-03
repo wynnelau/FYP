@@ -15,7 +15,14 @@ public class GetUserProfileDataControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (getUserProfileDataPageStudent.activeSelf)
+        {
+            displayNameStudent.text = string.Empty;
+            schoolStudent.text = string.Empty;
+            courseStudent.text = string.Empty;
+            yearStudent.text = string.Empty;
+            descriptionStudent.text = string.Empty;
+        }
     }
 
     // Update is called once per frame
