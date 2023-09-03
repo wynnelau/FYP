@@ -15,14 +15,7 @@ public class GetUserProfileDataControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (getUserProfileDataPageStudent.activeSelf)
-        {
-            displayNameStudent.text = string.Empty;
-            schoolStudent.text = string.Empty;
-            courseStudent.text = string.Empty;
-            yearStudent.text = string.Empty;
-            descriptionStudent.text = string.Empty;
-        }
+        
     }
 
     // Update is called once per frame
@@ -35,21 +28,16 @@ public class GetUserProfileDataControls : MonoBehaviour
                 SendStudentInfo();
             }
         }
-        
+
     }
 
     public void SendStudentInfo()
     {
-        if (CheckMissingInputs()) 
+
+        Debug.Log("Entered else");
+        var request = new UpdateUserDataRequest
         {
-            errorStudent.text = "Unable to continue. Missing input(s)";
-        }
-        else
-        {
-            Debug.Log("Entered else");
-            var request = new UpdateUserDataRequest
-            {
-                Data = new Dictionary<string, string>
+            Data = new Dictionary<string, string>
                     {
                         {"DisplayName", displayNameStudent.text},
                         {"School", schoolStudent.text},
@@ -57,10 +45,9 @@ public class GetUserProfileDataControls : MonoBehaviour
                         {"Year", yearStudent.text},
                         {"Description", descriptionStudent.text}
                     }
-            };
-            PlayFabClientAPI.UpdateUserData(request, SaveStudentInfoSuccess, SaveStudentInfoFail);
-        }
-        
+        };
+        PlayFabClientAPI.UpdateUserData(request, SaveStudentInfoSuccess, SaveStudentInfoFail);
+
     }
 
     void SaveStudentInfoSuccess(UpdateUserDataResult result)
@@ -71,14 +58,5 @@ public class GetUserProfileDataControls : MonoBehaviour
     void SaveStudentInfoFail(PlayFabError error)
     {
         Debug.Log(error);
-    }
-
-    public bool CheckMissingInputs()
-    {
-        if (displayNameStudent.text == "" || schoolStudent.text == "" || courseStudent.text == "" || yearStudent.text == "")
-        {
-            return true;
-        }
-        else return false;
     }
 }
