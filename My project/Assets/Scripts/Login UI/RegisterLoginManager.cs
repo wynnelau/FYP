@@ -1,9 +1,5 @@
-
 using UnityEngine;
-
 using TMPro;
-
-
 
 public class RegisterLoginManager : MonoBehaviour
 {

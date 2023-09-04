@@ -1,11 +1,9 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-
 using PlayFab;
 using PlayFab.ClientModels;
 using TMPro;
-
 using UnityEngine.SceneManagement;
 
 public class PlayFabLoginRegister : MonoBehaviour
