@@ -5,35 +5,35 @@ using UnityEngine;
 public class CameraSwitch : MonoBehaviour
 {
     public Camera firstPersonCamera;
-    public Camera orthographicCamera;
+    public Camera thirdPersonCamera;
     // Start is called before the first frame update
 
     void SwitchToFirstPerson()
     {
         firstPersonCamera.enabled = true;
-        orthographicCamera.enabled = false;
+        thirdPersonCamera.enabled = false;
     }
 
-    void SwitchToOrthographic()
+    void SwitchToThirdPerson()
     {
         firstPersonCamera.enabled = false;
-        orthographicCamera.enabled = true;
+        thirdPersonCamera.enabled = true;
     }
     void Start()
     {
-        SwitchToOrthographic();
+        SwitchToThirdPerson();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             SwitchToFirstPerson();
         }
-        else if (Input.GetKeyDown(KeyCode.I))
+        else if (Input.GetKeyDown(KeyCode.T))
         {
-            SwitchToOrthographic();
+            SwitchToThirdPerson();
         }
     }
 }
