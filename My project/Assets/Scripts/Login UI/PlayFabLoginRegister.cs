@@ -1,13 +1,14 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 using PlayFab;
 using PlayFab.ClientModels;
 using TMPro;
-using UnityEditor.PackageManager;
 
-public class PlayFabControls : MonoBehaviour
+using UnityEngine.SceneManagement;
+
+public class PlayFabLoginRegister : MonoBehaviour
 {
     public GameObject registerPage, loginPage, getUserProfileDataPageStudent, getUserProfileDataPageOthers;
     public TMP_Text registerEmail, registerPassword, registerError, loginEmail, loginPassword, loginError;
@@ -118,6 +119,8 @@ public class PlayFabControls : MonoBehaviour
     {
         loginPage.SetActive(false);
         registerPage.SetActive(false);
+        SceneManager.LoadScene("Main Scene Student");
+        /*SceneManager.SetActiveScene(SceneManager.GetSceneByName("Main Scene Student"));*/
     }
     
 }

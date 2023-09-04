@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.UI;
+
 using TMPro;
 
 
-public class RegisterLoginManage : MonoBehaviour
+
+public class RegisterLoginManager : MonoBehaviour
 {
     public GameObject registerPage, loginPage, getUserProfileDataPageStudent, getUserProfileDataPageOthers;
     // Cannot clear input field when declared as Text or TMP_Text

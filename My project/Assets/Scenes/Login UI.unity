@@ -641,6 +641,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 974f58cf11530ad4d947b766254ef931, type: 3}
+--- !u!114 &125785216 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8735688882084023097, guid: c1e6b5d1c971fac4881371d8a677c23e, type: 3}
+  m_PrefabInstance: {fileID: 814186803}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &141977652
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +742,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!114 &180089078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8735688882084023097, guid: c1e6b5d1c971fac4881371d8a677c23e, type: 3}
+  m_PrefabInstance: {fileID: 825273399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &197805350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -849,6 +871,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 43400384620980601, guid: 2a774e9f38bc5204cb74a8e3a9952691, type: 3}
   m_PrefabInstance: {fileID: 29548815}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &212718473 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8735688882084023097, guid: c1e6b5d1c971fac4881371d8a677c23e, type: 3}
+  m_PrefabInstance: {fileID: 197805350}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &241763323 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8735688882084023097, guid: c1e6b5d1c971fac4881371d8a677c23e, type: 3}
@@ -2525,7 +2558,7 @@ GameObject:
   - component: {fileID: 800851055}
   - component: {fileID: 800851056}
   m_Layer: 5
-  m_Name: Controls
+  m_Name: UIControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2615,7 +2648,9 @@ MonoBehaviour:
   courseStudent: {fileID: 49334020}
   yearStudent: {fileID: 2141519852}
   descriptionStudent: {fileID: 374875079}
-  errorStudent: {fileID: 1364355931}
+  displayNameOthers: {fileID: 212718473}
+  schoolOthers: {fileID: 180089078}
+  descriptionOthers: {fileID: 125785216}
 --- !u!1 &801545313
 GameObject:
   m_ObjectHideFlags: 0
@@ -6161,9 +6196,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 800851054}
-        m_TargetAssemblyTypeName: PlayFabControls, Assembly-CSharp
-        m_MethodName: Register
+      - m_Target: {fileID: 800851056}
+        m_TargetAssemblyTypeName: GetUserProfileDataControls, Assembly-CSharp
+        m_MethodName: SendOthersInfo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

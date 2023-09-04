@@ -1,17 +1,16 @@
 using PlayFab.ClientModels;
 using PlayFab;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Principal;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GetUserProfileDataControls : MonoBehaviour
 {
     public GameObject getUserProfileDataPageStudent, getUserProfileDataPageOthers;
     public TMP_Text displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
-    public Text errorStudent;
+    public TMP_Text displayNameOthers, schoolOthers, descriptionOthers;
+    /*public Text errorStudent, errorOthers;*/
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +20,16 @@ public class GetUserProfileDataControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if press "enter", send data
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if (getUserProfileDataPageStudent.activeSelf)
             {
                 SendStudentInfo();
+            }
+            else if (getUserProfileDataPageOthers.activeSelf)
+            {
+                SendOthersInfo();
             }
         }
 
@@ -34,7 +38,7 @@ public class GetUserProfileDataControls : MonoBehaviour
     public void SendStudentInfo()
     {
 
-        Debug.Log("Entered else");
+        Debug.Log("Entered SendStudentInfo");
         var request = new UpdateUserDataRequest
         {
             Data = new Dictionary<string, string>
@@ -47,15 +51,43 @@ public class GetUserProfileDataControls : MonoBehaviour
                     }
         };
         PlayFabClientAPI.UpdateUserData(request, SaveStudentInfoSuccess, SaveStudentInfoFail);
-
+        SceneManager.LoadScene("Main Scene Student");
+        /*SceneManager.SetActiveScene(SceneManager.GetSceneByName("Main Scene Student"));*/
     }
 
     void SaveStudentInfoSuccess(UpdateUserDataResult result)
     {
-        Debug.Log("Saved info " + result);
+        Debug.Log("Saved student info success");
     }
 
     void SaveStudentInfoFail(PlayFabError error)
+    {
+        Debug.Log(error);
+    }
+
+    public void SendOthersInfo()
+    {
+
+        Debug.Log("Entered SendOthersInfo");
+        var request = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+                    {
+                        {"DisplayName", displayNameOthers.text},
+                        {"School", schoolOthers.text},
+                        {"Description", descriptionOthers.text}
+                    }
+        };
+        PlayFabClientAPI.UpdateUserData(request, SaveOthersInfoSuccess, SaveOthersInfoFail);
+
+    }
+
+    void SaveOthersInfoSuccess(UpdateUserDataResult result)
+    {
+        Debug.Log("Saved others info success");
+    }
+
+    void SaveOthersInfoFail(PlayFabError error)
     {
         Debug.Log(error);
     }
