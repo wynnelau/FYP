@@ -23,7 +23,7 @@ public class CameraSwitch : MonoBehaviour
         buildingFirstPerson.SetActive(false);
         middleWall.SetActive(true);
         player.BottomLimit();
-
+        player.transform.rotation = Quaternion.Euler(0, 180, 0);
     }
     void Start()
     {
