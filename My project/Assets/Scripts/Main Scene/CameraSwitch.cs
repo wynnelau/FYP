@@ -6,18 +6,22 @@ public class CameraSwitch : MonoBehaviour
 {
     public Camera firstPersonCamera;
     public Camera thirdPersonCamera;
+    public GameObject buildingFirstPerson;
     // Start is called before the first frame update
 
     void SwitchToFirstPerson()
     {
         firstPersonCamera.enabled = true;
         thirdPersonCamera.enabled = false;
+        buildingFirstPerson.SetActive(true);
+
     }
 
     void SwitchToThirdPerson()
     {
         firstPersonCamera.enabled = false;
         thirdPersonCamera.enabled = true;
+        buildingFirstPerson.SetActive(false);
     }
     void Start()
     {

@@ -1,6 +1,7 @@
 using PlayFab.ClientModels;
 using PlayFab;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -8,9 +9,9 @@ using UnityEngine.SceneManagement;
 public class GetUserProfileDataControls : MonoBehaviour
 {
     public GameObject getUserProfileDataPageStudent, getUserProfileDataPageOthers;
-    public TMP_Text displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
-    public TMP_Text displayNameOthers, schoolOthers, descriptionOthers;
-    /*public Text errorStudent, errorOthers;*/
+    public Text displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
+    public Text displayNameOthers, schoolOthers, descriptionOthers;
+    public Text errorStudent, errorOthers;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,13 +36,30 @@ public class GetUserProfileDataControls : MonoBehaviour
 
     }
 
+    bool CheckMissingInputsStudent()
+    {
+        if (displayNameStudent.text == "" || schoolStudent.text == "" || courseStudent.text == "" || yearStudent.text == "")
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void SendStudentInfo()
     {
-
-        Debug.Log("Entered SendStudentInfo");
-        var request = new UpdateUserDataRequest
+        Debug.Log("Entered SendStudentsInfo");
+        if (CheckMissingInputsStudent())
         {
-            Data = new Dictionary<string, string>
+            Debug.Log("Missing inputs student");
+            errorStudent.text = "Unable to continue. Missing input(s).";
+        }
+        else
+        {
+            Debug.Log("Update student data");
+            errorStudent.text = "";
+            var request = new UpdateUserDataRequest
+            {
+                Data = new Dictionary<string, string>
                     {
                         {"DisplayName", displayNameStudent.text},
                         {"School", schoolStudent.text},
@@ -49,10 +67,10 @@ public class GetUserProfileDataControls : MonoBehaviour
                         {"Year", yearStudent.text},
                         {"Description", descriptionStudent.text}
                     }
-        };
-        PlayFabClientAPI.UpdateUserData(request, SaveStudentInfoSuccess, SaveStudentInfoFail);
-        SceneManager.LoadScene("Main Scene Student");
-        /*SceneManager.SetActiveScene(SceneManager.GetSceneByName("Main Scene Student"));*/
+            };
+            PlayFabClientAPI.UpdateUserData(request, SaveStudentInfoSuccess, SaveStudentInfoFail);
+            SceneManager.LoadScene("Main Scene");
+        }
     }
 
     void SaveStudentInfoSuccess(UpdateUserDataResult result)
@@ -65,21 +83,41 @@ public class GetUserProfileDataControls : MonoBehaviour
         Debug.Log(error);
     }
 
+    bool CheckMissingInputsOthers()
+    {
+        if (displayNameOthers.text == "" || schoolOthers.text == "")
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void SendOthersInfo()
     {
 
         Debug.Log("Entered SendOthersInfo");
-        var request = new UpdateUserDataRequest
+        if (CheckMissingInputsOthers())
         {
-            Data = new Dictionary<string, string>
+            Debug.Log("Missing inputs others");
+            errorOthers.text = "Unable to continue. Missing input(s).";
+        }
+        else
+        {
+            Debug.Log("Update others data");
+            errorOthers.text = "";
+            var request = new UpdateUserDataRequest
+            {
+                Data = new Dictionary<string, string>
                     {
                         {"DisplayName", displayNameOthers.text},
                         {"School", schoolOthers.text},
                         {"Description", descriptionOthers.text}
                     }
-        };
-        PlayFabClientAPI.UpdateUserData(request, SaveOthersInfoSuccess, SaveOthersInfoFail);
-
+            };
+            PlayFabClientAPI.UpdateUserData(request, SaveOthersInfoSuccess, SaveOthersInfoFail);
+            SceneManager.LoadScene("Main Scene");
+        }
+        
     }
 
     void SaveOthersInfoSuccess(UpdateUserDataResult result)
@@ -91,4 +129,6 @@ public class GetUserProfileDataControls : MonoBehaviour
     {
         Debug.Log(error);
     }
+
+    
 }

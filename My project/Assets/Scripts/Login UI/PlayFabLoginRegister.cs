@@ -117,7 +117,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     {
         loginPage.SetActive(false);
         registerPage.SetActive(false);
-        SceneManager.LoadScene("Main Scene Student");
+        SceneManager.LoadScene("Main Scene");
         /*SceneManager.SetActiveScene(SceneManager.GetSceneByName("Main Scene Student"));*/
     }
     

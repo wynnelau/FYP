@@ -9,6 +9,7 @@ public class PlayerControls : MonoBehaviour
     private float leftBoundary = -7;
     private float rightBoundary = 22;
     private Vector3 offset;
+    
 
 
     // Start is called before the first frame update
@@ -22,8 +23,8 @@ public class PlayerControls : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime);
-        transform.Translate(Vector3.forward * verticalInput * speed * Time.deltaTime);
+        transform.Translate(-Vector3.right * horizontalInput * speed * Time.deltaTime);
+        transform.Translate(-Vector3.forward * verticalInput * speed * Time.deltaTime);
 
         /*// Keep player in bounds
 
