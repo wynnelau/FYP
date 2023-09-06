@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LogOut : MonoBehaviour
+public class LogOutBed : MonoBehaviour
 {
+    public GameObject logoutUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +13,10 @@ public class LogOut : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        logoutUI.SetActive(true);
     }
 }
