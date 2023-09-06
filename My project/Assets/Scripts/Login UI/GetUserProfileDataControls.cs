@@ -3,7 +3,6 @@ using PlayFab;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine.SceneManagement;
 
 public class GetUserProfileDataControls : MonoBehaviour
@@ -69,13 +68,14 @@ public class GetUserProfileDataControls : MonoBehaviour
                     }
             };
             PlayFabClientAPI.UpdateUserData(request, SaveStudentInfoSuccess, SaveStudentInfoFail);
-            SceneManager.LoadScene("Main Scene");
         }
     }
 
     void SaveStudentInfoSuccess(UpdateUserDataResult result)
     {
         Debug.Log("Saved student info success");
+        getUserProfileDataPageStudent.SetActive(false);
+        SceneManager.LoadScene("Main Scene");
     }
 
     void SaveStudentInfoFail(PlayFabError error)
@@ -115,7 +115,7 @@ public class GetUserProfileDataControls : MonoBehaviour
                     }
             };
             PlayFabClientAPI.UpdateUserData(request, SaveOthersInfoSuccess, SaveOthersInfoFail);
-            SceneManager.LoadScene("Main Scene");
+            
         }
         
     }
@@ -123,6 +123,8 @@ public class GetUserProfileDataControls : MonoBehaviour
     void SaveOthersInfoSuccess(UpdateUserDataResult result)
     {
         Debug.Log("Saved others info success");
+        getUserProfileDataPageOthers.SetActive(false);
+        SceneManager.LoadScene("Main Scene");
     }
 
     void SaveOthersInfoFail(PlayFabError error)

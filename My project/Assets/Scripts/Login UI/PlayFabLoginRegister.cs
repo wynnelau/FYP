@@ -43,7 +43,7 @@ public class PlayFabLoginRegister : MonoBehaviour
 
     void SaveIdentitySuccess(UpdateUserDataResult result)
     {
-        Debug.Log("Identity is " +  result);
+        Debug.Log("Identity saved" +  result);
     }
 
     void SaveIdentityFail(PlayFabError error)
@@ -53,24 +53,36 @@ public class PlayFabLoginRegister : MonoBehaviour
 
     public string identity()
     {
-        if (identityDropdown.value == 0) return "Student";
-        else if (identityDropdown.value == 1) return "Professor/TA";
-        else if (identityDropdown.value == 2) return "Staff";
+        if (identityDropdown.value == 1) return "Student";
+        else if (identityDropdown.value == 2) return "Professor/TA";
+        else if (identityDropdown.value == 3) return "Staff";
         else return "";
     }
 
     // Register for an account
     public void Register()
     {
-        var registerRequest = new RegisterPlayFabUserRequest { Email = registerEmail.text, Password = registerPassword.text, RequireBothUsernameAndEmail = false };
-        PlayFabClientAPI.RegisterPlayFabUser(registerRequest, RegisterSuccess, RegisterFail);
+        // if identity not given, do not register
+        if (identityDropdown.value == 0)
+        {
+            Debug.Log("Missing identity register");
+            registerError.text = "Unable to register. Missing input(s).";
+        }
+        else
+        {
+            registerError.text = " ";
+            var registerRequest = new RegisterPlayFabUserRequest { Email = registerEmail.text, Password = registerPassword.text, RequireBothUsernameAndEmail = false };
+            PlayFabClientAPI.RegisterPlayFabUser(registerRequest, RegisterSuccess, RegisterFail);
+        }
     }
 
     public void RegisterSuccess(RegisterPlayFabUserResult result)
     {
-        registerError.text = " ";
-        SaveIdentity(identity());
-        KnowMore(identity());
+        string userIdentity = identity();
+        // Save the user's identity
+        SaveIdentity(userIdentity);
+        // Go to the user profile set up page according to their identity;
+        KnowMore(userIdentity);
     }
 
     public void RegisterFail(PlayFabError error)
@@ -81,13 +93,13 @@ public class PlayFabLoginRegister : MonoBehaviour
     // Login to existing account
     public void Login()
     {
+        loginError.text = " ";
         var request = new LoginWithEmailAddressRequest { Email = loginEmail.text, Password = loginPassword.text };
         PlayFabClientAPI.LoginWithEmailAddress(request, LoginSuccess, LoginFail);
     }
 
     public void LoginSuccess(LoginResult result)
     {
-        loginError.text = " ";
         MainScene();
     }
 
@@ -101,6 +113,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     {
         loginPage.SetActive(false);
         registerPage.SetActive(false);
+        // Set the different profile pages as active
         if (identity == "Student")
         {
             getUserProfileDataPageStudent.SetActive(true);
@@ -117,8 +130,8 @@ public class PlayFabLoginRegister : MonoBehaviour
     {
         loginPage.SetActive(false);
         registerPage.SetActive(false);
+        // Load the Main Scene
         SceneManager.LoadScene("Main Scene");
-        /*SceneManager.SetActiveScene(SceneManager.GetSceneByName("Main Scene Student"));*/
     }
     
 }
