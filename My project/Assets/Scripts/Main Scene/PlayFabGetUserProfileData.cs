@@ -21,27 +21,27 @@ public class PlayFabGetUserProfileData : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GetUserData();
+        GetUserIdentityData();
     }
 
-    public void GetUserData()
+    public void GetUserIdentityData()
     {
         PlayFabClientAPI.GetUserData(new GetUserDataRequest()
         {
             Keys = getUserIdentity
-        }, GetUserDataSuccess, GetUserDataFail);
+        }, GetUserIdentityDataSuccess, GetUserIdentityDataFail);
     }
 
-    void GetUserDataSuccess(GetUserDataResult result)
+    void GetUserIdentityDataSuccess(GetUserDataResult result)
     {
         if (result.Data["Identity"].Value == "Student")
         {
-            Debug.Log("GetUserDataSuccess student");
+            Debug.Log("GetUserIdentityDataSuccess student");
             userProfileStudent.SetActive(true);
         }
     }
 
-    void GetUserDataFail(PlayFabError error)
+    void GetUserIdentityDataFail(PlayFabError error)
     {
         Debug.Log(error);
     }
