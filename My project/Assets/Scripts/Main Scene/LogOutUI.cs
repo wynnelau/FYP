@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+/*
+ *Location: Main Scene, LogoutUI
+ *Purpose: Logout when user clicks confirm in the logoutUI, attached to "StudentControls"
+ */
 
 public class LogOutUI : MonoBehaviour
 {
@@ -18,11 +20,19 @@ public class LogOutUI : MonoBehaviour
         
     }
 
+    /*
+     * Purpose: Quit application when button pressed, used by "logoutConfirmButton"
+     * Outcomes: quit application
+     */
     public void logoutConfirm()
     {
         Application.Quit();
     }
 
+    /*
+     * Purpose: Deactivate logoutUI when button pressed, used by "logoutCancelButton"
+     * Outcomes: deactivate logoutUI
+     */
     public void logoutCancel()
     {
         logoutUI.SetActive(false);

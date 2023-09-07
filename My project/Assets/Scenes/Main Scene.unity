@@ -405,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &150010400
 Transform:
   m_ObjectHideFlags: 0
@@ -1505,6 +1505,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userProfileStudent: {fileID: 779377154}
+  userProfileOthers: {fileID: 1854740283}
+  displayNameStudent: {fileID: 676087560}
+  schoolStudent: {fileID: 1107541255}
+  courseStudent: {fileID: 943226616}
+  yearStudent: {fileID: 2094613929}
+  descriptionStudent: {fileID: 1642432750}
 --- !u!65 &440308191
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1940,7 +1946,7 @@ Transform:
   m_GameObject: {fileID: 537464554}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.6, z: -25.5}
+  m_LocalPosition: {x: 0, y: 3.6, z: -26.38}
   m_LocalScale: {x: 50, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2833,7 +2839,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791499105}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &791499107
 Camera:
   m_ObjectHideFlags: 0
@@ -5781,7 +5787,7 @@ Transform:
   m_GameObject: {fileID: 1798409022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18, y: 3, z: -13.3}
+  m_LocalPosition: {x: 18, y: 3, z: -13}
   m_LocalScale: {x: 8, y: 4, z: 14}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6066,7 +6072,7 @@ Transform:
   m_GameObject: {fileID: 1871160644}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1, y: 7, z: -20}
+  m_LocalPosition: {x: -10.7, y: 7, z: -20}
   m_LocalScale: {x: 5, y: 6, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6742,7 +6748,6 @@ GameObject:
   - component: {fileID: 2096900201}
   - component: {fileID: 2096900200}
   - component: {fileID: 2096900199}
-  - component: {fileID: 2096900198}
   m_Layer: 0
   m_Name: FirstPersonCamera
   m_TagString: Untagged
@@ -6750,19 +6755,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2096900198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096900197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1990ced4bccdcfc48bfe6d6c029fb1f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1871160644}
 --- !u!81 &2096900199
 AudioListener:
   m_ObjectHideFlags: 0

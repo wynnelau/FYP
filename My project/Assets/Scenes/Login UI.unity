@@ -1664,7 +1664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 567160212}
   m_Layer: 0
-  m_Name: GetUserProfileDataPageStudent
+  m_Name: SetUserProfileDataPageStudent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2805,8 +2805,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 800851053}
-  - component: {fileID: 800851054}
   - component: {fileID: 800851055}
+  - component: {fileID: 800851054}
   - component: {fileID: 800851056}
   m_Layer: 5
   m_Name: UIControls
@@ -2848,8 +2848,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   registerPage: {fileID: 359097713}
   loginPage: {fileID: 730233603}
-  getUserProfileDataPageStudent: {fileID: 567160211}
-  getUserProfileDataPageOthers: {fileID: 1801020647}
+  setUserProfileDataPageStudent: {fileID: 567160211}
+  setUserProfileDataPageOthers: {fileID: 1801020647}
   registerEmail: {fileID: 253093318}
   registerPassword: {fileID: 1314306292}
   registerError: {fileID: 8914256}
@@ -2871,8 +2871,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   registerPage: {fileID: 359097713}
   loginPage: {fileID: 730233603}
-  getUserProfileDataPageStudent: {fileID: 567160211}
-  getUserProfileDataPageOthers: {fileID: 1801020647}
+  setUserProfileDataPageStudent: {fileID: 567160211}
+  setUserProfileDataPageOthers: {fileID: 1801020647}
   registerEmail: {fileID: 681563008}
   registerPassword: {fileID: 1707538831}
   loginEmail: {fileID: 1785242610}
@@ -2892,8 +2892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b494487898290924a973c613d86cd4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getUserProfileDataPageStudent: {fileID: 567160211}
-  getUserProfileDataPageOthers: {fileID: 1801020647}
+  setUserProfileDataPageStudent: {fileID: 567160211}
+  setUserProfileDataPageOthers: {fileID: 1801020647}
   displayNameStudent: {fileID: 205836146}
   schoolStudent: {fileID: 2002083724}
   courseStudent: {fileID: 507798852}
@@ -7615,7 +7615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1801020648}
   m_Layer: 0
-  m_Name: GetUserProfileDataPageOthers
+  m_Name: SetUserProfileDataPageOthers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

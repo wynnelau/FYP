@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/*
+ *Location: Main Scene
+ *Purpose: Control the player, attached to "Player"
+ */
+
 public class PlayerControls : MonoBehaviour
 {
     public Camera firstPersonCamera;
@@ -7,12 +12,12 @@ public class PlayerControls : MonoBehaviour
     private float verticalInput;
     private float translateSpeed = 10.0f;
 
-    private float firstPersonBoundary = -22.5f;
-
     private float leftRotationInput;
     private float rightRotationInput;
     private float rotationSpeed = 2.5f;
     private float rotateRight = -90f;
+
+    private float firstPersonBoundary = -23f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +26,10 @@ public class PlayerControls : MonoBehaviour
     }
 
     // Update is called once per frame
+    /*
+     * Purpose: Allow user to move around, and if user is in firstPerson mode, allow to look left and right
+     * Outcomes: 
+     */
     void Update()
     {
         // Allow player to move around
@@ -42,9 +51,12 @@ public class PlayerControls : MonoBehaviour
             }
         }
         
-    }        
+    }
 
-
+    /*
+     * Purpose: Allow user to look left
+     * Outcomes: User rotates left with camera
+     */
     void TurnLeft()
     {
         leftRotationInput = -rotateRight;
@@ -52,13 +64,20 @@ public class PlayerControls : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotationTargetLeft, rotationSpeed * Time.deltaTime);
     }
 
+    /*
+     * Purpose: Allow user to look right
+     * Outcomes: User rotates right with camera
+     */
     void TurnRight()
     {
         rightRotationInput = rotateRight;
         Quaternion rotationTargetRight = Quaternion.Euler(0, rightRotationInput, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotationTargetRight, rotationSpeed * Time.deltaTime);
     }
-
+    /*
+     * Purpose: Translate the user when they change to thirdPerson mode, called by CameraSwitch
+     * Outcomes: User translates in the z direction
+     */
     public void BottomLimit()
     {
         // Limit bottom
