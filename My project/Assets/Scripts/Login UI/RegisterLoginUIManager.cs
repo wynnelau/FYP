@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 
 /*
- * Location: Login UI
+ * Location: Login UI, used by UIControls
  * Purpose: Manage the register and login UI pages
  */
 public class RegisterLoginUIManager : MonoBehaviour

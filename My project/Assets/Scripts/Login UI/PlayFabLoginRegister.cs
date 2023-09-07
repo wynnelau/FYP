@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
@@ -7,8 +6,8 @@ using TMPro;
 using UnityEngine.SceneManagement;
 
 /*
- * Location: Login UI
- * Purpose: Manage the register and login PlayFab API calls
+ * Location: Login UI, used by UIControls
+ * Purpose: Manage the register and login using PlayFab API calls
  */
 public class PlayFabLoginRegister : MonoBehaviour
 {
@@ -101,7 +100,7 @@ public class PlayFabLoginRegister : MonoBehaviour
 
     void SaveIdentitySuccess(UpdateUserDataResult result)
     {
-        Debug.Log("Identity saved" + result);
+        Debug.Log("SaveIdentitySuccess");
     }
 
     void SaveIdentityFail(PlayFabError error)

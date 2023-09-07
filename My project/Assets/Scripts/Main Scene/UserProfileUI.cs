@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 public class UserProfileUI : MonoBehaviour
 {
-    public GameObject userProfileStudent;
+    public GameObject userProfileStudent, userProfileOthers;
     
     // Start is called before the first frame update
     void Start()
@@ -26,12 +26,19 @@ public class UserProfileUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To close the User profile UI
+     * Purpose: To close the User profile UI, attached to "closeUserProfileButton"
      * Outcomes: deactivate user profile
      */
     public void closeUserProfile()
     {
-        userProfileStudent.SetActive(false);
+        if (userProfileStudent.activeSelf == true) 
+        {
+            userProfileStudent.SetActive(false);
+        }
+        else if (userProfileOthers.activeSelf == true) 
+        { 
+            userProfileOthers.SetActive(false); 
+        }
     }
 
     

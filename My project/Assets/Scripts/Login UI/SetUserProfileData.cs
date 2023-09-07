@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 /*
- *Location: Login UI
+ *Location: Login UI, used by UIControls
  *Purpose: Get user data from user once they register for an account (Sudent and others) and write to database
  */
 public class SetUserProfileData : MonoBehaviour
@@ -58,7 +58,7 @@ public class SetUserProfileData : MonoBehaviour
         }
         else
         {
-            Debug.Log("Update student data");
+            Debug.Log("Update data student");
             errorStudent.text = "";
             var request = new UpdateUserDataRequest
             {
@@ -77,7 +77,7 @@ public class SetUserProfileData : MonoBehaviour
 
     void SaveStudentInfoSuccess(UpdateUserDataResult result)
     {
-        Debug.Log("Saved student info success");
+        Debug.Log("SaveStudentInfoSuccess");
         setUserProfileDataPageStudent.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }
@@ -116,7 +116,7 @@ public class SetUserProfileData : MonoBehaviour
         }
         else
         {
-            Debug.Log("Update others data");
+            Debug.Log("Update data others");
             errorOthers.text = "";
             var request = new UpdateUserDataRequest
             {

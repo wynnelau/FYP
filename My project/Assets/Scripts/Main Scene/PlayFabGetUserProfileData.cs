@@ -13,7 +13,8 @@ public class PlayFabGetUserProfileData : MonoBehaviour
 {
     public GameObject userProfileStudent, userProfileOthers;
     public InputField displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
-    List<string> getUserIdentity = new List<string> { "Identity" };
+    public InputField displayNameOthers, schoolOthers, descriptionOthers;
+    /*List<string> getUserIdentity = new List<string> { "Identity" };*/
     // Start is called before the first frame update
     void Start()
     {
@@ -32,44 +33,11 @@ public class PlayFabGetUserProfileData : MonoBehaviour
      */
     private void OnTriggerEnter(Collider other)
     {
-        GetUserIdentityData();
+        GetUserProfileData();
     }
 
     /*
-     * Purpose: Read user profile data from database
-     * Outcomes: if successful, data read
-     */
-
-    public void GetUserIdentityData()
-    {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
-        {
-            Keys = getUserIdentity
-        }, GetUserIdentityDataSuccess, GetUserIdentityDataFail);
-    }
-
-    void GetUserIdentityDataSuccess(GetUserDataResult result)
-    {
-        if (result.Data["Identity"].Value == "Student")
-        {
-            Debug.Log("GetUserIdentityDataSuccess student");
-            GetUserProfileData();
-            userProfileStudent.SetActive(true);
-        } 
-        else if (result.Data["Identity"].Value == "Staff" || result.Data["Identity"].Value == "Professor/TA")
-        {
-            Debug.Log("GetUserIdentityDataSuccess others");
-            userProfileOthers.SetActive(true);
-        }
-    }
-
-    void GetUserIdentityDataFail(PlayFabError error)
-    {
-        Debug.Log(error);
-    }
-
-    /*
-     * Purpose: Read user profile data from database
+     * Purpose: Read user identity data from database
      * Outcomes: if successful, data read
      */
     public void GetUserProfileData()
@@ -81,19 +49,29 @@ public class PlayFabGetUserProfileData : MonoBehaviour
     }
 
     /*
-     * Purpose: Read user profile data from database
-     * Outcomes: if successful, data read
+     * Purpose: Display the User profile UI according to their identity
+     * Outcomes: if "student", display the student ver 
+     *           else, display others ver
      */
     void GetUserProfileDataSuccess(GetUserDataResult result)
     {
-        Debug.Log("GetUserProfileDataSuccess student");
         if (result.Data["Identity"].Value == "Student")
         {
+            Debug.Log("GetUserIdentityDataSuccess student");
             displayNameStudent.text = result.Data["DisplayName"].Value;
             schoolStudent.text = result.Data["School"].Value;
             courseStudent.text = result.Data["Course"].Value;
             yearStudent.text = result.Data["Year"].Value;
             descriptionStudent.text = result.Data["Description"].Value;
+            userProfileStudent.SetActive(true);
+        } 
+        else if (result.Data["Identity"].Value == "Staff" || result.Data["Identity"].Value == "Professor/TA")
+        {
+            Debug.Log("GetUserIdentityDataSuccess others");
+            displayNameOthers.text = result.Data["DisplayName"].Value;
+            schoolOthers.text = result.Data["School"].Value;
+            descriptionOthers.text = result.Data["Description"].Value;
+            userProfileOthers.SetActive(true);
         }
     }
 
