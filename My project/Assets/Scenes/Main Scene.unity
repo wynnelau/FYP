@@ -2007,6 +2007,7 @@ MonoBehaviour:
   displayNameOthers: {fileID: 1226705416}
   schoolOthers: {fileID: 1831671030}
   descriptionOthers: {fileID: 169198513}
+  player: {fileID: 1871160649}
 --- !u!65 &440308191
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3666,6 +3667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logoutUI: {fileID: 590285967}
+  player: {fileID: 1871160649}
 --- !u!114 &849384653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3680,6 +3682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userProfileStudent: {fileID: 779377154}
   userProfileOthers: {fileID: 1854740283}
+  player: {fileID: 1871160649}
 --- !u!1 &898375208
 GameObject:
   m_ObjectHideFlags: 0
@@ -6821,6 +6824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logoutUI: {fileID: 590285967}
+  player: {fileID: 1871160649}
 --- !u!65 &1798409028
 BoxCollider:
   m_ObjectHideFlags: 0

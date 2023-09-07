@@ -12,7 +12,8 @@ using System.Collections.Generic;
 public class UserProfileUI : MonoBehaviour
 {
     public GameObject userProfileStudent, userProfileOthers;
-    
+    public PlayerControls player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +40,7 @@ public class UserProfileUI : MonoBehaviour
         { 
             userProfileOthers.SetActive(false); 
         }
+        player.enabled = true;
     }
 
     

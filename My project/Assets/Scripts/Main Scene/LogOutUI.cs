@@ -8,6 +8,7 @@ using UnityEngine;
 public class LogOutUI : MonoBehaviour
 {
     public GameObject logoutUI;
+    public PlayerControls player;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,5 +37,6 @@ public class LogOutUI : MonoBehaviour
     public void logoutCancel()
     {
         logoutUI.SetActive(false);
+        player.enabled = true;
     }
 }

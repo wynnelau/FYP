@@ -9,11 +9,12 @@ using System.Collections.Generic;
  *Purpose: Trigger the different profile pages according to their identity, attached to "Wardrobe"
  */
 
-public class PlayFabGetUserProfileData : MonoBehaviour
+public class UserProfileWardrobe : MonoBehaviour
 {
     public GameObject userProfileStudent, userProfileOthers;
     public InputField displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
     public InputField displayNameOthers, schoolOthers, descriptionOthers;
+    public PlayerControls player;
     /*List<string> getUserIdentity = new List<string> { "Identity" };*/
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,7 @@ public class PlayFabGetUserProfileData : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GetUserProfileData();
+        player.enabled = false;
     }
 
     /*
