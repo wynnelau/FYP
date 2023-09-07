@@ -22,17 +22,19 @@ public class SetUserProfileData : MonoBehaviour
     }
 
     // Update is called once per frame
-/*
- * Purpose: Whenever the "enter" key is pressed, it tries to send the data to the database
- */
+    /*
+     * Purpose: Whenever the "enter" key is pressed, it tries to send the data to the database
+     */
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            // for student
             if (setUserProfileDataPageStudent.activeSelf)
             {
                 SendStudentInfo();
             }
+            // for others
             else if (setUserProfileDataPageOthers.activeSelf)
             {
                 SendOthersInfo();
@@ -41,23 +43,11 @@ public class SetUserProfileData : MonoBehaviour
 
     }
 
-/*
- * Purpose: Checks whether the user (student) has inputs for all except for description
- * Outcomes: returns true if there is missing inputs
- */
-    bool CheckMissingInputsStudent()
-    {
-        if (displayNameStudent.text == "" || schoolStudent.text == "" || courseStudent.text == "" || yearStudent.text == "")
-        {
-            return true;
-        }
-        return false;
-    }
-/*
- * Purpose: Tries to send user data to database
- * Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
- *           else, sends all data (including empty descriptions) to the database and load next scene
- */
+    /*
+     * Purpose: Tries to send user data to database, tied to the "continueButtonStudent"
+     * Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
+     *           else, sends all data (including empty descriptions) to the database and load next scene
+     */
     public void SendStudentInfo()
     {
         Debug.Log("Entered SendStudentsInfo");
@@ -97,24 +87,24 @@ public class SetUserProfileData : MonoBehaviour
         Debug.Log(error);
     }
 
-/*
-* Purpose: Checks whether the user (others) has inputs for all except for description
-* Outcomes: returns true if there is missing inputs
-*/
-    bool CheckMissingInputsOthers()
+    /*
+     * Purpose: Checks whether the user (student) has inputs for all except for description
+     * Outcomes: returns true if there is missing inputs
+     */
+    bool CheckMissingInputsStudent()
     {
-        if (displayNameOthers.text == "" || schoolOthers.text == "")
+        if (displayNameStudent.text == "" || schoolStudent.text == "" || courseStudent.text == "" || yearStudent.text == "")
         {
             return true;
         }
         return false;
     }
 
-/*
-* Purpose: Tries to send user data to database
-* Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
-*           else, sends all data (including empty descriptions) to the database and load next scene
-*/
+    /*
+    * Purpose: Tries to send user data to database, tied to the "continueButtonOthers"
+    * Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
+    *           else, sends all data (including empty descriptions) to the database and load next scene
+    */
     public void SendOthersInfo()
     {
 
@@ -155,5 +145,19 @@ public class SetUserProfileData : MonoBehaviour
         Debug.Log(error);
     }
 
-    
+    /*
+    * Purpose: Checks whether the user (others) has inputs for all except for description
+    * Outcomes: returns true if there is missing inputs
+    */
+    bool CheckMissingInputsOthers()
+    {
+        if (displayNameOthers.text == "" || schoolOthers.text == "")
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+
 }

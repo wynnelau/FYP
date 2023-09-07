@@ -6,15 +6,21 @@ using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+/*
+ * Location: Login UI
+ * Purpose: Manage the register and login PlayFab API calls
+ */
 public class PlayFabLoginRegister : MonoBehaviour
 {
-    public GameObject registerPage, loginPage, getUserProfileDataPageStudent, getUserProfileDataPageOthers;
+    public GameObject registerPage, loginPage, setUserProfileDataPageStudent, setUserProfileDataPageOthers;
     public TMP_Text registerEmail, registerPassword, registerError, loginEmail, loginPassword, loginError;
     public TMP_Dropdown identityDropdown;
     // Update is called once per frame
+    /*
+     * Purpose: Whenever the "enter" key is pressed, it tries to send the data to the database
+     */
     void Update()
     {
-        // Enable "enter" as send data
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if (registerPage.activeSelf)
@@ -28,38 +34,12 @@ public class PlayFabLoginRegister : MonoBehaviour
         }
     }
 
-    // Send the identity of the user
-    public void SaveIdentity(string identity)
-    {
-        var request = new UpdateUserDataRequest
-        {
-            Data = new Dictionary<string, string>
-            {
-                {"Identity", identity}
-            }
-        };
-        PlayFabClientAPI.UpdateUserData(request, SaveIdentitySuccess, SaveIdentityFail);
-    }
 
-    void SaveIdentitySuccess(UpdateUserDataResult result)
-    {
-        Debug.Log("Identity saved" +  result);
-    }
-
-    void SaveIdentityFail(PlayFabError error)
-    {
-        Debug.Log(error);
-    }
-
-    public string identity()
-    {
-        if (identityDropdown.value == 1) return "Student";
-        else if (identityDropdown.value == 2) return "Professor/TA";
-        else if (identityDropdown.value == 3) return "Staff";
-        else return "";
-    }
-
-    // Register for an account
+    /*
+     * Purpose: Tries to send register data to database, tied to the "registerButton"
+     * Outcomes: if there are missing inputs or PlayFabError, unable to send register data 
+     *           else, sends all data to the database
+     */
     public void Register()
     {
         // if identity not given, do not register
@@ -79,7 +59,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     public void RegisterSuccess(RegisterPlayFabUserResult result)
     {
         string userIdentity = identity();
-        // Save the user's identity
+        // Send user's identity to db
         SaveIdentity(userIdentity);
         // Go to the user profile set up page according to their identity;
         KnowMore(userIdentity);
@@ -90,7 +70,70 @@ public class PlayFabLoginRegister : MonoBehaviour
         registerError.text = error.GenerateErrorReport();
     }
 
-    // Login to existing account
+    /*
+     * Purpose: Gets the identity of the user through the dropdown 
+     * Outcomes: returns string of user's identity
+     */
+    public string identity()
+    {
+        if (identityDropdown.value == 1) return "Student";
+        else if (identityDropdown.value == 2) return "Professor/TA";
+        else if (identityDropdown.value == 3) return "Staff";
+        else return "";
+    }
+
+    /*
+     * Purpose: Tries to send identity of user to database, called after registration is successful
+     * Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
+     *           else, sends identity data to the database
+     */
+    public void SaveIdentity(string identity)
+    {
+        var request = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+            {
+                {"Identity", identity}
+            }
+        };
+        PlayFabClientAPI.UpdateUserData(request, SaveIdentitySuccess, SaveIdentityFail);
+    }
+
+    void SaveIdentitySuccess(UpdateUserDataResult result)
+    {
+        Debug.Log("Identity saved" + result);
+    }
+
+    void SaveIdentityFail(PlayFabError error)
+    {
+        Debug.Log(error);
+    }
+
+    /*
+     * Purpose: Opens the setUserProfileDataPage according to their identity, called after registration is successful
+     * Outcomes: sets the different versions according to their identity;
+     */
+    void KnowMore(string identity)
+    {
+        loginPage.SetActive(false);
+        registerPage.SetActive(false);
+        // Set the different profile pages as active
+        if (identity == "Student")
+        {
+            setUserProfileDataPageStudent.SetActive(true);
+        }
+        else if (identity == "Professor/TA" || identity == "Staff")
+        {
+            setUserProfileDataPageOthers.SetActive(true);
+        }
+
+    }
+
+    /*
+     * Purpose: Tries to send login data to database, tied to the "loginButton"
+     * Outcomes: if there is PlayFabError, unable to send login data 
+     *           else, sends all data to the database and load "Main Scene
+     */
     public void Login()
     {
         loginError.text = " ";
@@ -108,23 +151,6 @@ public class PlayFabLoginRegister : MonoBehaviour
         loginError.text = error.GenerateErrorReport();
     }
 
-    // Go to set up user profile page after registering
-    void KnowMore(string identity)
-    {
-        loginPage.SetActive(false);
-        registerPage.SetActive(false);
-        // Set the different profile pages as active
-        if (identity == "Student")
-        {
-            getUserProfileDataPageStudent.SetActive(true);
-        } 
-        else if (identity == "Professor/TA" || identity == "Staff")
-        {
-            getUserProfileDataPageOthers.SetActive(true);
-        }
-        
-    }
-
     // Go to Main Scene after login
     void MainScene()
     {
@@ -133,5 +159,9 @@ public class PlayFabLoginRegister : MonoBehaviour
         // Load the Main Scene
         SceneManager.LoadScene("Main Scene");
     }
-    
+
+
+
+
+
 }
