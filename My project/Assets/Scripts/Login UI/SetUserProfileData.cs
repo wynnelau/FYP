@@ -5,9 +5,13 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class GetUserProfileDataControls : MonoBehaviour
+/*
+ *Location: Login UI
+ *Purpose: Get user data from user once they register for an account (Sudent and others) and write to database
+ */
+public class SetUserProfileData : MonoBehaviour
 {
-    public GameObject getUserProfileDataPageStudent, getUserProfileDataPageOthers;
+    public GameObject setUserProfileDataPageStudent, setUserProfileDataPageOthers;
     public Text displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
     public Text displayNameOthers, schoolOthers, descriptionOthers;
     public Text errorStudent, errorOthers;
@@ -18,16 +22,18 @@ public class GetUserProfileDataControls : MonoBehaviour
     }
 
     // Update is called once per frame
+/*
+ * Purpose: Whenever the "enter" key is pressed, it tries to send the data to the database
+ */
     void Update()
     {
-        // if press "enter", send data
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (getUserProfileDataPageStudent.activeSelf)
+            if (setUserProfileDataPageStudent.activeSelf)
             {
                 SendStudentInfo();
             }
-            else if (getUserProfileDataPageOthers.activeSelf)
+            else if (setUserProfileDataPageOthers.activeSelf)
             {
                 SendOthersInfo();
             }
@@ -35,6 +41,10 @@ public class GetUserProfileDataControls : MonoBehaviour
 
     }
 
+/*
+ * Purpose: Checks whether the user (student) has inputs for all except for description
+ * Outcomes: returns true if there is missing inputs
+ */
     bool CheckMissingInputsStudent()
     {
         if (displayNameStudent.text == "" || schoolStudent.text == "" || courseStudent.text == "" || yearStudent.text == "")
@@ -43,7 +53,11 @@ public class GetUserProfileDataControls : MonoBehaviour
         }
         return false;
     }
-
+/*
+ * Purpose: Tries to send user data to database
+ * Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
+ *           else, sends all data (including empty descriptions) to the database and load next scene
+ */
     public void SendStudentInfo()
     {
         Debug.Log("Entered SendStudentsInfo");
@@ -74,7 +88,7 @@ public class GetUserProfileDataControls : MonoBehaviour
     void SaveStudentInfoSuccess(UpdateUserDataResult result)
     {
         Debug.Log("Saved student info success");
-        getUserProfileDataPageStudent.SetActive(false);
+        setUserProfileDataPageStudent.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }
 
@@ -83,6 +97,10 @@ public class GetUserProfileDataControls : MonoBehaviour
         Debug.Log(error);
     }
 
+/*
+* Purpose: Checks whether the user (others) has inputs for all except for description
+* Outcomes: returns true if there is missing inputs
+*/
     bool CheckMissingInputsOthers()
     {
         if (displayNameOthers.text == "" || schoolOthers.text == "")
@@ -92,6 +110,11 @@ public class GetUserProfileDataControls : MonoBehaviour
         return false;
     }
 
+/*
+* Purpose: Tries to send user data to database
+* Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
+*           else, sends all data (including empty descriptions) to the database and load next scene
+*/
     public void SendOthersInfo()
     {
 
@@ -123,7 +146,7 @@ public class GetUserProfileDataControls : MonoBehaviour
     void SaveOthersInfoSuccess(UpdateUserDataResult result)
     {
         Debug.Log("Saved others info success");
-        getUserProfileDataPageOthers.SetActive(false);
+        setUserProfileDataPageOthers.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }
 
