@@ -1,9 +1,8 @@
 using PlayFab.ClientModels;
 using PlayFab;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.PackageManager;
+
 
 /*
  *Location: Main Scene, attached to "table"
