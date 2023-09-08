@@ -6,19 +6,20 @@ using UnityEngine;
 using UnityEditor.PackageManager;
 
 /*
- *Location: Main Scene, attached to "StudentControls"
- *Purpose: Get the user's identity once Main Scene is loaded, and store it in a variable
+ *Location: Main Scene, attached to "table"
+ *Purpose: Get the user's identity and open the corresponding menu
  */
-public class GetUserIdentity : MonoBehaviour
+public class MainMenuTable : MonoBehaviour
 {
+    public GameObject mainMenuStudent, mainMenuOthers;
+    public PlayerControls player;
     private string userIdentity;
     List<string> getUserIdentity = new List<string> { "Identity" };
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("GetUserIdentity userIdentity == null");
-        GetUserIdentityData();
+
     }
 
     // Update is called once per frame
@@ -28,13 +29,13 @@ public class GetUserIdentity : MonoBehaviour
     }
 
     /*
-     * Purpose: To get the user's identity, used by other scripts
-     * Outcomes: returns the value of userIdentity
+     * Purpose: Display main menu UI
+     * Outcomes: 
      */
-    public string GetIdentity()
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("returning user identity");
-        return userIdentity;
+        GetUserIdentityData();
+        player.enabled = false;
     }
 
     /*
@@ -51,8 +52,17 @@ public class GetUserIdentity : MonoBehaviour
 
     void GetUserIdentitySuccess(GetUserDataResult result)
     {
-        Debug.Log("GetUserIdentitySuccess");
         userIdentity = result.Data["Identity"].Value;
+        Debug.Log("GetUserIdentitySuccess " + userIdentity);
+        if (userIdentity == "Student")
+        {
+            Debug.Log("GetUserIdentity Student ");
+            mainMenuStudent.SetActive(true);
+        }
+        else if (userIdentity == "Staff" || userIdentity == "Professor/TA")
+        {
+            mainMenuOthers.SetActive(true);
+        }
     }
 
     void GetUserIdentityFail(PlayFabError error)
