@@ -3672,7 +3672,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 373196305252029733, guid: 974f58cf11530ad4d947b766254ef931, type: 3}
       propertyPath: m_text
-      value: Any addtional information about yourself (optional)
+      value: Any additional information about yourself (optional)
       objectReference: {fileID: 0}
     - target: {fileID: 1818021573636742490, guid: 974f58cf11530ad4d947b766254ef931, type: 3}
       propertyPath: m_Name
@@ -6602,7 +6602,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 373196305252029733, guid: 974f58cf11530ad4d947b766254ef931, type: 3}
       propertyPath: m_text
-      value: Any addtional information about yourself
+      value: Any additional information about yourself
       objectReference: {fileID: 0}
     - target: {fileID: 1818021573636742490, guid: 974f58cf11530ad4d947b766254ef931, type: 3}
       propertyPath: m_Name

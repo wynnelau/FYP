@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene
- *Purpose: Control the player, attached to "Player"
+ *Location: Main Scene, attached to "Player"
+ *Purpose: Control the player
  */
 
 public class PlayerControls : MonoBehaviour

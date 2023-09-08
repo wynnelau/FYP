@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene
- *Purpose: Trigger the logoutUI when user comes into contact with "Bed", attached to "Bed"
+ *Location: Main Scene, attached to "Bed"
+ *Purpose: Trigger the logoutUI when user comes into contact with "Bed"
  */
 
 public class LogOutBed : MonoBehaviour

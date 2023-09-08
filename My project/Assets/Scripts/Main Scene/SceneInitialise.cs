@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene
- *Purpose: deactivate the UIs when user enters, attached to "StudentControls"
+ *Location: Main Scene, attached to "StudentControls"
+ *Purpose: deactivate the UIs when user enters
  */
 
 public class SceneInitialise : MonoBehaviour

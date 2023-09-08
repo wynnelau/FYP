@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene, LogoutUI
- *Purpose: Logout when user clicks confirm in the logoutUI, attached to "StudentControls"
+ *Location: Main Scene, attached to "StudentControls"
+ *Purpose: Logout when user clicks confirm in the logoutUI
  */
 
 public class LogOutUI : MonoBehaviour

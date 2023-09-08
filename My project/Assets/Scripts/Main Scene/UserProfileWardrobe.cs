@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 /*
- *Location: Main Scene, userProfileUI
- *Purpose: Trigger the different profile pages according to their identity, attached to "Wardrobe"
+ *Location: Main Scene, attached to "Wardrobe"
+ *Purpose: Trigger the different profile pages according to their identity
  */
 
 public class UserProfileWardrobe : MonoBehaviour
@@ -15,7 +15,7 @@ public class UserProfileWardrobe : MonoBehaviour
     public InputField displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
     public InputField displayNameOthers, schoolOthers, descriptionOthers;
     public PlayerControls player;
-    /*List<string> getUserIdentity = new List<string> { "Identity" };*/
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +29,7 @@ public class UserProfileWardrobe : MonoBehaviour
     }
 
     /*
-     * Purpose: 
+     * Purpose: Display user profile UI
      * Outcomes: if successful, data read
      */
     private void OnTriggerEnter(Collider other)
@@ -81,4 +81,5 @@ public class UserProfileWardrobe : MonoBehaviour
     {
         Debug.Log(error);
     }
+
 }

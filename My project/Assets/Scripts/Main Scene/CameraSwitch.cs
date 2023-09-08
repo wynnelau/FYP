@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene
- *Purpose: Switch to the different cameras, attached to "StudentControls"
+ *Location: Main Scene, attached to "StudentControls"
+ *Purpose: Switch to the different cameras
  */
 
 public class CameraSwitch : MonoBehaviour
@@ -28,11 +28,11 @@ public class CameraSwitch : MonoBehaviour
      */
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C) && !firstPersonCamera.enabled)
+        if (Input.GetKeyDown(KeyCode.C) && !firstPersonCamera.enabled && player.enabled)
         {
             SwitchToFirstPerson();
         }
-        else if (Input.GetKeyDown(KeyCode.C) && !thirdPersonCamera.enabled)
+        else if (Input.GetKeyDown(KeyCode.C) && !thirdPersonCamera.enabled && player.enabled)
         {
             SwitchToThirdPerson();
         }
