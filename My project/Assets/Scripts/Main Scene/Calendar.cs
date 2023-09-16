@@ -2,8 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.UIElements;
+using TMPro;
 
-
+/*
+ *Location: Main Scene, attached to "StudentControls"
+ *Purpose: Manage the calendar
+ *Tutorial used: https://www.youtube.com/watch?v=cMwCZhZnE4k
+ */
 public class Calendar : MonoBehaviour
 {
     public class Day
@@ -20,16 +26,21 @@ public class Calendar : MonoBehaviour
             UpdateDay(dayInt);
         }
 
+        public void GetDayInt()
+        {
+            Debug.Log(dayInt);
+        }
+
         public void UpdateColor(Color newColor)
         {
-            dayButton.GetComponent<Image>().color = newColor;
+            dayButton.GetComponent<UnityEngine.UI.Image>().color = newColor;
             availability = newColor;
         }
 
         public void UpdateDay(int newDayInt)
         {
             this.dayInt = newDayInt;
-            if (availability == Color.white || availability == Color.green)
+            if (availability == Color.white || availability == Color.green || availability == Color.gray)
             {
                 dayButton.GetComponentInChildren<Text>().text = (dayInt+1).ToString();
             }
@@ -40,17 +51,27 @@ public class Calendar : MonoBehaviour
         }
     }
 
+    public GameObject resourceReservation;
+    public PlayerControls player;
+
     private List<Day> days = new List<Day>();
     public Transform[] weeks;
     public Text MonthAndYear;
-    public DateTime currDate = DateTime.Now;
+    public DateTime currMonthYear = DateTime.Now;
 
     // Start is called before the first frame update
+    /*
+     * Purpose: Instantiate all Day gameObjects and addListener to all buttons in the calendar
+     * Outcomes: addListener will be used when user clicks on the buttons
+     */
     void Start()
     {
-        Debug.Log(DateTime.Now.Year);
-        Debug.Log(DateTime.Now.Month);
         UpdateCalendar(DateTime.Now.Year, DateTime.Now.Month);
+        for (int i = 0; i < 42; i++)
+        {
+            var dateSelected = days[i];
+            dateSelected.dayButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => { openDetails(dateSelected.dayButton); });
+        }
     }
 
     // Update is called once per frame
@@ -59,48 +80,111 @@ public class Calendar : MonoBehaviour
         
     }
 
+    /*
+     * Purpose: To close the calendar UI, attached to "closeResourceReservation" button
+     * Outcomes: deactivate calendar UI
+     */
+    public void closeResourceReservation()
+    {
+        if (resourceReservation.activeSelf == true)
+        {
+            resourceReservation.SetActive(false);
+        }
+        else if (resourceReservation.activeSelf == true)
+        {
+            resourceReservation.SetActive(false);
+        }
+        player.enabled = true;
+    }
+
+    /*
+     * Purpose: To open the respective details of the chosen date, 
+     * Outcomes: open details of chosen date
+     */
+    public void openDetails(GameObject dateSelected)
+    {
+        if (resourceReservation.activeSelf == true)
+        {
+            resourceReservation.SetActive(false);
+        }
+        Debug.Log(dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
+
+    }
+
+    /*
+     * Purpose: To update the calendar
+     * Outcomes: updates calendar
+     */
     void UpdateCalendar(int year, int month)
     {
-
-        DateTime temp = new DateTime(year, month, 1);
-        currDate = temp;
-        Debug.Log(temp);
-        MonthAndYear.text = temp.ToString("MMMM") + " " + temp.Year.ToString();
+        DateTime date = new DateTime(year, month, 1);
+        currMonthYear = date;
+        MonthAndYear.text = date.ToString("MMMM") + " " + date.Year.ToString();
         int startDay = GetMonthStartDay(year, month);
         int endDay = GetTotalNumberOfDays(year, month);
 
-
-        ///Create the days
-        ///This only happens for our first Update Calendar when we have no Day objects therefore we must create them
+        /* Used to create Day objects when there are no Day objects */
         if (days.Count == 0)
         {
-            for (int w = 0; w < 6; w++)
+            for (int week = 0; week < 6; week++)
             {
                 for (int i = 0; i < 7; i++)
                 {
                     Day newDay;
-                    int currDay = (w * 7) + i;
+                    int currDay = (week * 7) + i;
                     if (currDay < startDay || currDay - startDay >= endDay)
                     {
-                        newDay = new Day(currDay - startDay, Color.grey, weeks[w].GetChild(i).gameObject);
+                        newDay = new Day(currDay - startDay, Color.black, weeks[week].GetChild(i).gameObject);
+                    }
+                    else if (DateTime.Now.Day > currDay - startDay)
+                    {
+                        newDay = new Day(currDay - startDay, Color.gray, weeks[week].GetChild(i).gameObject);
                     }
                     else
                     {
-                        newDay = new Day(currDay - startDay, Color.white, weeks[w].GetChild(i).gameObject);
+                        newDay = new Day(currDay - startDay, Color.white, weeks[week].GetChild(i).gameObject);
                     }
                     days.Add(newDay);
                 }
             }
         }
-        ///loop through days
-        ///Since we already have the days objects, we can just update them rather than creating new ones
+        /* Used to update the Day objects when they are already present */
         else
         {
             for (int i = 0; i < 42; i++)
             {
                 if (i < startDay || i - startDay >= endDay)
                 {
-                    days[i].UpdateColor(Color.grey);
+                    days[i].UpdateColor(Color.black);
+                }
+                else if (DateTime.Now.Year >= year)
+                {
+                    if (DateTime.Now.Year > year)
+                    {
+                        days[i].UpdateColor(Color.gray);
+                    }
+                    else if (DateTime.Now.Year == year)
+                    {
+                        if (DateTime.Now.Month > month)
+                        {
+                            days[i].UpdateColor(Color.gray);
+                        }
+                        else if (DateTime.Now.Month == month)
+                        {
+                            if (DateTime.Now.Day > i - startDay)
+                            {
+                                days[i].UpdateColor(Color.gray);
+                            } 
+                            else
+                            {
+                                days[i].UpdateColor(Color.white);
+                            }
+                        } 
+                        else
+                        {
+                            days[i].UpdateColor(Color.white);
+                        }
+                    }
                 }
                 else
                 {
@@ -111,7 +195,7 @@ public class Calendar : MonoBehaviour
             }
         }
 
-        ///This just checks if today is on our calendar. If so, we highlight it in green
+        /* Highlight the current day */
         if (DateTime.Now.Year == year && DateTime.Now.Month == month)
         {
             days[(DateTime.Now.Day - 1) + startDay].UpdateColor(Color.green);
@@ -119,31 +203,43 @@ public class Calendar : MonoBehaviour
 
     }
 
-    int GetMonthStartDay(int year, int month)
+    /*
+     * Purpose: To get the first day of the month. DayOfWeek: Sun == 0, Saturday == 6
+     * Outcomes: return the first day of the month
+     */
+    int GetMonthStartDay(int dateYear, int dateMonth)
     {
-        DateTime temp = new DateTime(year, month, 1);
-
-        //DayOfWeek Sunday == 0, Saturday == 6 etc.
-        return (int)temp.DayOfWeek;
+        DateTime day = new DateTime(dateYear, dateMonth, 1);
+        return (int)day.DayOfWeek;
     }
 
-    int GetTotalNumberOfDays(int year, int month)
+    /*
+     * Purpose: To get the total number of days of the month
+     * Outcomes: return number of days in the month
+     */
+    int GetTotalNumberOfDays(int dateYear, int dateMonth)
     {
-        return DateTime.DaysInMonth(year, month);
+        return DateTime.DaysInMonth(dateYear, dateMonth);
     }
 
-    public void SwitchMonth(int direction)
+    /*
+     * Purpose: To navigate between the different months, attached to "left" button in resourceReservation
+     * Outcomes: call UpdateCalendar with updated dates
+     */
+    public void PrevMonth()
     {
-        if (direction < 0)
-        {
-            currDate = currDate.AddMonths(-1);
-        }
-        else
-        {
-            currDate = currDate.AddMonths(1);
-        }
+        currMonthYear = currMonthYear.AddMonths(-1);
+        UpdateCalendar(currMonthYear.Year, currMonthYear.Month);
+    }
 
-        UpdateCalendar(currDate.Year, currDate.Month);
+    /*
+     * Purpose: To navigate between the different months, attached to "right" button in resourceReservation
+     * Outcomes: call UpdateCalendar with updated dates
+     */
+    public void NextMonth()
+    {
+        currMonthYear = currMonthYear.AddMonths(1);
+        UpdateCalendar(currMonthYear.Year, currMonthYear.Month);
     }
 
 
