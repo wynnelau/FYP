@@ -51,7 +51,7 @@ public class Calendar : MonoBehaviour
         }
     }
 
-    public GameObject resourceReservation;
+    public GameObject resourceReservation, mainMenuOthers;
     public PlayerControls player;
 
     private List<Day> days = new List<Day>();
@@ -90,10 +90,7 @@ public class Calendar : MonoBehaviour
         {
             resourceReservation.SetActive(false);
         }
-        else if (resourceReservation.activeSelf == true)
-        {
-            resourceReservation.SetActive(false);
-        }
+        mainMenuOthers.SetActive(true);
         player.enabled = true;
     }
 
