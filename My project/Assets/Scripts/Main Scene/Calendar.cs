@@ -51,7 +51,8 @@ public class Calendar : MonoBehaviour
         }
     }
 
-    public GameObject resourceReservation, mainMenuOthers;
+    public GameObject resourceReservation, mainMenuOthers, dateDetails;
+    public Text dateDetailsDate;
     public PlayerControls player;
 
     private List<Day> days = new List<Day>();
@@ -91,7 +92,6 @@ public class Calendar : MonoBehaviour
             resourceReservation.SetActive(false);
         }
         mainMenuOthers.SetActive(true);
-        player.enabled = true;
     }
 
     /*
@@ -104,6 +104,8 @@ public class Calendar : MonoBehaviour
         {
             resourceReservation.SetActive(false);
         }
+        dateDetails.SetActive(true);
+        dateDetailsDate.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
         Debug.Log(dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
 
     }

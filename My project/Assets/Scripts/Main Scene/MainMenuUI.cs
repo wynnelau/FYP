@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  *Location: Main Scene, attached to "StudentControls"
@@ -7,6 +8,8 @@ using UnityEngine;
 public class MainMenuUI : MonoBehaviour
 {
     public GameObject mainMenuStudent, mainMenuOthers, resourceReservation;
+    public Text identity;
+    public GameObject addslots;
     public PlayerControls player;
     // Start is called before the first frame update
     void Start()
@@ -43,6 +46,13 @@ public class MainMenuUI : MonoBehaviour
         {
             resourceReservation.SetActive(true);
             mainMenuOthers.SetActive(false);
+        }
+        if (identity.text == "Staff")
+        {
+            addslots.SetActive(true);
+        } else
+        {
+            addslots.SetActive(false);
         }
     }
 }

@@ -2,6 +2,7 @@ using PlayFab.ClientModels;
 using PlayFab;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 /*
@@ -11,6 +12,7 @@ using UnityEngine;
 public class MainMenuTable : MonoBehaviour
 {
     public GameObject mainMenuStudent, mainMenuOthers;
+    public Text identity;
     public PlayerControls player;
     private string userIdentity;
     List<string> getUserIdentity = new List<string> { "Identity" };
@@ -60,6 +62,14 @@ public class MainMenuTable : MonoBehaviour
         }
         else if (userIdentity == "Staff" || userIdentity == "Professor/TA")
         {
+            if (userIdentity == "Staff")
+            {
+                identity.text = "Staff";
+            }
+            else if (userIdentity == "Professor/TA")
+            {
+                identity.text = "Professor/TA";
+            }
             mainMenuOthers.SetActive(true);
         }
     }

@@ -55,12 +55,21 @@ public class UserProfileUI : MonoBehaviour
      */
     public void UpdateStudentProfile()
     {
+        Debug.Log("Entered UpdateStudentProfile");
         if (userProfileStudent.activeSelf)
         {
-            Debug.Log("UpdateStudentProfile");
-            var request = new UpdateUserDataRequest
+            if (CheckMissingInputsStudent()) 
             {
-                Data = new Dictionary<string, string>
+                Debug.Log("Missing inputs student");
+                errorStudent.text = "Error. Display name, School, Course and/or Year of study cannot be empty.";
+            }
+            else
+            {
+                Debug.Log("UpdateStudentProfile");
+                errorStudent.text = "";
+                var request = new UpdateUserDataRequest
+                {
+                    Data = new Dictionary<string, string>
                     {
                         {"DisplayName", displayNameStudent.text},
                         {"School", schoolStudent.text},
@@ -68,8 +77,10 @@ public class UserProfileUI : MonoBehaviour
                         {"Year", yearStudent.text},
                         {"Description", descriptionStudent.text}
                     }
-            };
-            PlayFabClientAPI.UpdateUserData(request, UpdateStudentProfileSuccess, UpdateStudentProfileFail);
+                };
+                PlayFabClientAPI.UpdateUserData(request, UpdateStudentProfileSuccess, UpdateStudentProfileFail);
+            }
+
         }
     }
 
@@ -87,24 +98,47 @@ public class UserProfileUI : MonoBehaviour
     }
 
     /*
+     * Purpose: Checks whether the user (student) has inputs for all except for description
+     * Outcomes: returns true if there is missing inputs
+     */
+    bool CheckMissingInputsStudent()
+    {
+        if (displayNameStudent.text == "" || schoolStudent.text == "" || courseStudent.text == "" || yearStudent.text == "")
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /*
      * Purpose: To close the User profile UI, attached to "updateProfileButton"
      * Outcomes: deactivate user profile
      */
     public void UpdateOthersProfile()
     {
+        Debug.Log("Entered UpdateOthersProfile");
         if (userProfileOthers.activeSelf)
         {
-            Debug.Log("UpdateOthersProfile");
-            var request = new UpdateUserDataRequest
+            if(CheckMissingInputsOthers())
             {
-                Data = new Dictionary<string, string>
+                Debug.Log("Missing inputs others");
+                errorOthers.text = "Error. Display name and/or School cannot be empty.";
+            }
+            else
+            {
+                Debug.Log("UpdateOthersProfile");
+                errorOthers.text = "";
+                var request = new UpdateUserDataRequest
+                {
+                    Data = new Dictionary<string, string>
                     {
                         {"DisplayName", displayNameOthers.text},
                         {"School", schoolOthers.text},
                         {"Description", descriptionOthers.text}
                     }
-            };
-            PlayFabClientAPI.UpdateUserData(request, UpdateOthersProfileSuccess, UpdateOthersProfileFail);
+                };
+                PlayFabClientAPI.UpdateUserData(request, UpdateOthersProfileSuccess, UpdateOthersProfileFail);
+            }
         }
     }
 
@@ -119,6 +153,19 @@ public class UserProfileUI : MonoBehaviour
     {
         Debug.Log(error);
         errorOthers.text = "Error. Try again";
+    }
+
+    /*
+    * Purpose: Checks whether the user (others) has inputs for all except for description
+    * Outcomes: returns true if there is missing inputs
+    */
+    bool CheckMissingInputsOthers()
+    {
+        if (displayNameOthers.text == "" || schoolOthers.text == "")
+        {
+            return true;
+        }
+        return false;
     }
 
 
