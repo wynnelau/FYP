@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene, attached to "StudentControls"
+ *Location: Main Scene, attached to "Controls"
  *Purpose: Switch to the different cameras
  */
 
@@ -22,9 +22,8 @@ public class CameraSwitch : MonoBehaviour
 
     // Update is called once per frame
     /*
-     * Purpose: Different keys to toggle between the two cameras
-     * Outcomes: if there are missing inputs or PlayFabError, unable to send register data 
-     *           else, sends all data to the database
+     * Purpose: Key 'C' to toggle between the two cameras
+     * Outcomes: 
      */
     void Update()
     {

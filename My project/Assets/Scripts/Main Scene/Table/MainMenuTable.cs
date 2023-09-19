@@ -2,11 +2,10 @@ using PlayFab.ClientModels;
 using PlayFab;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 /*
- *Location: Main Scene, attached to "table"
+ *Location: Main Scene, attached to "Table"
  *Purpose: Get the user's identity and open the corresponding menu
  */
 public class MainMenuTable : MonoBehaviour
@@ -29,8 +28,8 @@ public class MainMenuTable : MonoBehaviour
     }
 
     /*
-     * Purpose: Display main menu UI
-     * Outcomes: 
+     * Purpose: Trigger the mainMenuUI when user comes into contact with "Table"
+     * Outcomes: mainMenuUI is activated
      */
     private void OnTriggerEnter(Collider other)
     {
@@ -55,20 +54,20 @@ public class MainMenuTable : MonoBehaviour
     void GetUserIdentitySuccess(GetUserDataResult result)
     {
         userIdentity = result.Data["Identity"].Value;
-        Debug.Log("MainMenuTable GetUserIdentitySuccess " + userIdentity);
+        Debug.Log("MainMenuTable GetUserIdentitySuccess");
         if (userIdentity == "Student")
         {
-            Debug.Log("MainMenuTable GetUserIdentity Student");
+            Debug.Log("MainMenuTable GetUserIdentitySuccess Student");
             mainMenuStudent.SetActive(true);
         }
         else if (userIdentity == "Staff")
         {
-            Debug.Log("MainMenuTable GetUserIdentity Staff");
+            Debug.Log("MainMenuTable GetUserIdentitySuccess Staff");
             mainMenuStaff.SetActive(true);
         }
         else if(userIdentity == "Professor/TA")
         {
-            Debug.Log("MainMenuTable GetUserIdentity Prof");
+            Debug.Log("MainMenuTable GetUserIdentitySuccess Prof");
             mainMenuProf.SetActive(true);
         }
     }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 /*
- *Location: Main Scene, attached to "StudentControls"
+ *Location: Main Scene, attached to "Controls"
  *Purpose: read user profile data from database and display
  */
 
@@ -39,12 +39,10 @@ public class UserProfileUI : MonoBehaviour
         if (userProfileStudent.activeSelf == true) 
         {
             userProfileStudent.SetActive(false);
-            errorStudent.text = "";
         }
         else if (userProfileOthers.activeSelf == true) 
         { 
             userProfileOthers.SetActive(false);
-            errorOthers.text = "";
         }
         player.enabled = true;
     }

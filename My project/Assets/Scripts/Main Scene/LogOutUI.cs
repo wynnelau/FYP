@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene, attached to "StudentControls"
+ *Location: Main Scene, attached to "Controls"
  *Purpose: Logout when user clicks confirm in the logoutUI
  */
 

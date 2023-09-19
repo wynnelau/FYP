@@ -9,6 +9,7 @@ public class SceneInitialise : MonoBehaviour
 {
     public GameObject logoutUI, userProfileStudentUI, userProfileOthersUI, mainMenuStudentUI, mainMenuStaffUI, mainMenuProfUI;
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
+    public GameObject manageSlotsUI;
     // Start is called before the first frame update
     /*
      * Purpose: deactivates all the UIs when the user enters
@@ -26,6 +27,7 @@ public class SceneInitialise : MonoBehaviour
         resourceReservationProfUI.SetActive(false);
         dateDetailsProfUI.SetActive(false);
         dateDetailsStaffUI.SetActive(false);
+        manageSlotsUI.SetActive(false);
     }
 
     // Update is called once per frame

@@ -2,15 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.UIElements;
-using TMPro;
 
 /*
- *Location: Main Scene, attached to "StudentControls"
- *Purpose: Manage the calendar
+ *Location: Main Scene, attached to "Controls"
+ *Purpose: Manage the ResourceReservation calendar
  *Tutorial used: https://www.youtube.com/watch?v=cMwCZhZnE4k
  */
-public class Calendar : MonoBehaviour
+public class ResourceReservationUI : MonoBehaviour
 {
     public class Day
     {
@@ -51,8 +49,8 @@ public class Calendar : MonoBehaviour
         }
     }
 
-    public GameObject resourceReservation, mainMenu, dateDetails;
-    public Text dateDetailsDate;
+    public GameObject resourceReservationStaff, mainMenuStaff, dateDetailsStaff, resourceReservationProf, mainMenuProf, dateDetailsProf, reservationSlots;
+    public Text dateDetailsDateStaff, dateDetailsDateProf;
     public PlayerControls player;
 
     private List<Day> days = new List<Day>();
@@ -88,8 +86,18 @@ public class Calendar : MonoBehaviour
     public void closeResourceReservation()
     {
         Debug.Log("Calendar closeResourceReservation");
-        resourceReservation.SetActive(false);
-        mainMenu.SetActive(true);
+        if (resourceReservationStaff.activeSelf == true)
+        {
+            Debug.Log("Calendar closeResourceReservation Staff");
+            resourceReservationStaff.SetActive(false);
+            mainMenuStaff.SetActive(true);
+        }
+        else if (resourceReservationProf.activeSelf == true)
+        {
+            Debug.Log("Calendar closeResourceReservation Prof");
+            resourceReservationProf.SetActive(false);
+            mainMenuProf.SetActive(true);
+        }
     }
 
     /*
@@ -99,10 +107,41 @@ public class Calendar : MonoBehaviour
     public void openDetails(GameObject dateSelected)
     {
         Debug.Log("Calendar openDetails");
-        resourceReservation.SetActive(false);
-        dateDetails.SetActive(true);
-        dateDetailsDate.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
-        Debug.Log(dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
+        if (dateSelected.GetComponentInChildren<Text>().text != "")
+        {
+            if (resourceReservationStaff.activeSelf == true)
+            {
+                Debug.Log("Calendar openDetails Staff");
+                resourceReservationStaff.SetActive(false);
+                dateDetailsStaff.SetActive(true);
+                dateDetailsDateStaff.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
+            }
+            else if (resourceReservationProf.activeSelf == true)
+            {
+                Debug.Log("Calendar openDetails Prof");
+                resourceReservationProf.SetActive(false);
+                dateDetailsProf.SetActive(true);
+                dateDetailsDateProf.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
+            }
+
+            Debug.Log(dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
+        }
+
+    }
+
+    /*
+     * Purpose: To open the manageSlotsUI, attached to "addSlots" button, used by staff only
+     * Outcomes: activate manageSlotsUI
+     */
+    public void openReservationSlots()
+    {
+        if (resourceReservationStaff.activeSelf == true)
+        {
+            Debug.Log("Calendar openReservationSlots Staff");
+            resourceReservationStaff.SetActive(false);
+            reservationSlots.SetActive(true);
+        }
+
     }
 
     /*

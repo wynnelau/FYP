@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*
- *Location: Main Scene, attached to "StudentControls"
+ *Location: Main Scene, attached to "Controls"
  *Purpose: manage main menu UI
  */
 public class MainMenuUI : MonoBehaviour
@@ -29,30 +29,37 @@ public class MainMenuUI : MonoBehaviour
     {
         if (mainMenuStudent.activeSelf == true)
         {
+            Debug.Log("MainMenuUI closeMainMenu Student");
             mainMenuStudent.SetActive(false);
         }
         else if (mainMenuStaff.activeSelf == true)
         {
+            Debug.Log("MainMenuUI closeMainMenu Staff");
             mainMenuStaff.SetActive(false);
         }
         else if (mainMenuProf.activeSelf == true) 
-        { 
+        {
+            Debug.Log("MainMenuUI closeMainMenu Prof");
             mainMenuProf.SetActive(false); 
         }
         player.enabled = true;
     }
 
+    /*
+     * Purpose: To open the resourceReservation UI, attached to "resourceReservation" in "mainMenuUI"
+     * Outcomes: activates resourceReservation and deactivates mainmenu
+     */
     public void openResourceReservation()
     {
         if (mainMenuStaff.activeSelf == true)
         {
-            Debug.Log("openResourceReservation Staff");
+            Debug.Log("MainMenuUI openResourceReservation Staff");
             resourceReservationStaff.SetActive(true);
             mainMenuStaff.SetActive(false);
         } 
         else if (mainMenuProf.activeSelf == true)
         {
-            Debug.Log("openResourceReservation Prof");
+            Debug.Log("MainMenuUI openResourceReservation Prof");
             resourceReservationProf.SetActive(true);
             mainMenuProf.SetActive(false);
         }

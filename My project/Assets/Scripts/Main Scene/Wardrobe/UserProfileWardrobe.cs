@@ -2,18 +2,17 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 /*
  *Location: Main Scene, attached to "Wardrobe"
  *Purpose: Trigger the different profile pages according to their identity
  */
-
 public class UserProfileWardrobe : MonoBehaviour
 {
     public GameObject userProfileStudent, userProfileOthers;
     public InputField displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
     public InputField displayNameOthers, schoolOthers, descriptionOthers;
+    public Text errorStudent, errorOthers;
     public PlayerControls player;
 
     // Start is called before the first frame update
@@ -29,8 +28,8 @@ public class UserProfileWardrobe : MonoBehaviour
     }
 
     /*
-     * Purpose: Display user profile UI
-     * Outcomes: if successful, data read
+     * Purpose: Trigger the userProfileUI when user comes into contact with "Wardrobe"
+     * Outcomes: userProfileUI is activated
      */
     private void OnTriggerEnter(Collider other)
     {
@@ -68,6 +67,7 @@ public class UserProfileWardrobe : MonoBehaviour
             courseStudent.text = result.Data["Course"].Value;
             yearStudent.text = result.Data["Year"].Value;
             descriptionStudent.text = result.Data["Description"].Value;
+            errorStudent.text = "";
             userProfileStudent.SetActive(true);
         } 
         else if (result.Data["Identity"].Value == "Staff" || result.Data["Identity"].Value == "Professor/TA")
@@ -76,6 +76,7 @@ public class UserProfileWardrobe : MonoBehaviour
             displayNameOthers.text = result.Data["DisplayName"].Value;
             schoolOthers.text = result.Data["School"].Value;
             descriptionOthers.text = result.Data["Description"].Value;
+            errorOthers.text = "";
             userProfileOthers.SetActive(true);
         }
     }
