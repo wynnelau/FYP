@@ -11,8 +11,7 @@ using UnityEngine.UI;
  */
 public class MainMenuTable : MonoBehaviour
 {
-    public GameObject mainMenuStudent, mainMenuOthers;
-    public Text identity;
+    public GameObject mainMenuStudent, mainMenuStaff, mainMenuProf;
     public PlayerControls player;
     private string userIdentity;
     List<string> getUserIdentity = new List<string> { "Identity" };
@@ -35,6 +34,7 @@ public class MainMenuTable : MonoBehaviour
      */
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("MainMenuTable onTriggerEnter activateMainMenuUI");
         GetUserIdentityData();
         player.enabled = false;
     }
@@ -45,6 +45,7 @@ public class MainMenuTable : MonoBehaviour
      */
     public void GetUserIdentityData()
     {
+        Debug.Log("MainMenuTable GetUserIdentityData");
         PlayFabClientAPI.GetUserData(new GetUserDataRequest()
         {
             Keys = getUserIdentity
@@ -54,28 +55,26 @@ public class MainMenuTable : MonoBehaviour
     void GetUserIdentitySuccess(GetUserDataResult result)
     {
         userIdentity = result.Data["Identity"].Value;
-        Debug.Log("GetUserIdentitySuccess " + userIdentity);
+        Debug.Log("MainMenuTable GetUserIdentitySuccess " + userIdentity);
         if (userIdentity == "Student")
         {
-            Debug.Log("GetUserIdentity Student ");
+            Debug.Log("MainMenuTable GetUserIdentity Student");
             mainMenuStudent.SetActive(true);
         }
-        else if (userIdentity == "Staff" || userIdentity == "Professor/TA")
+        else if (userIdentity == "Staff")
         {
-            if (userIdentity == "Staff")
-            {
-                identity.text = "Staff";
-            }
-            else if (userIdentity == "Professor/TA")
-            {
-                identity.text = "Professor/TA";
-            }
-            mainMenuOthers.SetActive(true);
+            Debug.Log("MainMenuTable GetUserIdentity Staff");
+            mainMenuStaff.SetActive(true);
+        }
+        else if(userIdentity == "Professor/TA")
+        {
+            Debug.Log("MainMenuTable GetUserIdentity Prof");
+            mainMenuProf.SetActive(true);
         }
     }
 
     void GetUserIdentityFail(PlayFabError error)
     {
-        Debug.Log("GetUserIdentityFail " + error);
+        Debug.Log("MainMenuTable GetUserIdentityFail " + error);
     }
 }

@@ -7,9 +7,7 @@ using UnityEngine.UI;
  */
 public class MainMenuUI : MonoBehaviour
 {
-    public GameObject mainMenuStudent, mainMenuOthers, resourceReservation;
-    public Text identity;
-    public GameObject addslots;
+    public GameObject mainMenuStudent, mainMenuStaff, mainMenuProf, resourceReservationStaff, resourceReservationProf;
     public PlayerControls player;
     // Start is called before the first frame update
     void Start()
@@ -33,26 +31,30 @@ public class MainMenuUI : MonoBehaviour
         {
             mainMenuStudent.SetActive(false);
         }
-        else if (mainMenuOthers.activeSelf == true)
+        else if (mainMenuStaff.activeSelf == true)
         {
-            mainMenuOthers.SetActive(false);
+            mainMenuStaff.SetActive(false);
+        }
+        else if (mainMenuProf.activeSelf == true) 
+        { 
+            mainMenuProf.SetActive(false); 
         }
         player.enabled = true;
     }
 
     public void openResourceReservation()
     {
-        if (resourceReservation.activeSelf == false)
+        if (mainMenuStaff.activeSelf == true)
         {
-            resourceReservation.SetActive(true);
-            mainMenuOthers.SetActive(false);
-        }
-        if (identity.text == "Staff")
+            Debug.Log("openResourceReservation Staff");
+            resourceReservationStaff.SetActive(true);
+            mainMenuStaff.SetActive(false);
+        } 
+        else if (mainMenuProf.activeSelf == true)
         {
-            addslots.SetActive(true);
-        } else
-        {
-            addslots.SetActive(false);
+            Debug.Log("openResourceReservation Prof");
+            resourceReservationProf.SetActive(true);
+            mainMenuProf.SetActive(false);
         }
     }
 }

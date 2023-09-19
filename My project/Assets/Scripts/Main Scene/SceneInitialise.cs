@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class SceneInitialise : MonoBehaviour
 {
-    public GameObject logoutUI, userProfileStudentUI, userProfileOthersUI, mainMenuStudentUI, mainMenuOthersUI;
-    public GameObject resourceReservationUI, dateDetailsUI;
+    public GameObject logoutUI, userProfileStudentUI, userProfileOthersUI, mainMenuStudentUI, mainMenuStaffUI, mainMenuProfUI;
+    public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
     // Start is called before the first frame update
     /*
      * Purpose: deactivates all the UIs when the user enters
@@ -20,9 +20,12 @@ public class SceneInitialise : MonoBehaviour
         userProfileStudentUI.SetActive(false);
         userProfileOthersUI.SetActive(false);
         mainMenuStudentUI.SetActive(false);
-        mainMenuOthersUI.SetActive(false);
-        resourceReservationUI.SetActive(false);
-        dateDetailsUI.SetActive(false);
+        mainMenuStaffUI.SetActive(false);
+        mainMenuProfUI.SetActive(false);
+        resourceReservationStaffUI.SetActive(false);
+        resourceReservationProfUI.SetActive(false);
+        dateDetailsProfUI.SetActive(false);
+        dateDetailsStaffUI.SetActive(false);
     }
 
     // Update is called once per frame

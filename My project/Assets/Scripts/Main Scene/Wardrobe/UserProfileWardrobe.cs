@@ -34,6 +34,7 @@ public class UserProfileWardrobe : MonoBehaviour
      */
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("UserProfileWardrobe onTriggerEnter activateUserProfileUI");
         GetUserProfileData();
         player.enabled = false;
     }
@@ -44,6 +45,7 @@ public class UserProfileWardrobe : MonoBehaviour
      */
     public void GetUserProfileData()
     {
+        Debug.Log("UserProfileWardrobe GetUserProfileData");
         PlayFabClientAPI.GetUserData(new GetUserDataRequest()
         {
             Keys = null
@@ -57,9 +59,10 @@ public class UserProfileWardrobe : MonoBehaviour
      */
     void GetUserProfileDataSuccess(GetUserDataResult result)
     {
+        Debug.Log("UserProfileWardrobe GetUserProfileDataSuccess");
         if (result.Data["Identity"].Value == "Student")
         {
-            Debug.Log("GetUserIdentityDataSuccess student");
+            Debug.Log("UserProfileWardrobe GetUserProfileDataSuccess student");
             displayNameStudent.text = result.Data["DisplayName"].Value;
             schoolStudent.text = result.Data["School"].Value;
             courseStudent.text = result.Data["Course"].Value;
@@ -69,7 +72,7 @@ public class UserProfileWardrobe : MonoBehaviour
         } 
         else if (result.Data["Identity"].Value == "Staff" || result.Data["Identity"].Value == "Professor/TA")
         {
-            Debug.Log("GetUserIdentityDataSuccess others");
+            Debug.Log("UserProfileWardrobe GetUserProfileDataSuccess others");
             displayNameOthers.text = result.Data["DisplayName"].Value;
             schoolOthers.text = result.Data["School"].Value;
             descriptionOthers.text = result.Data["Description"].Value;
@@ -79,7 +82,7 @@ public class UserProfileWardrobe : MonoBehaviour
 
     void GetUserProfileDataFail(PlayFabError error)
     {
-        Debug.Log(error);
+        Debug.Log("UserProfileWardrobe GetUserProfileDataFail " + error);
     }
 
 }

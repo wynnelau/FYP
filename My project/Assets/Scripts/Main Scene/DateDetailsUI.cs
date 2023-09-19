@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DateDetailsUI : MonoBehaviour
 {
-    public GameObject dateDetails, resourceReservation;
+    public GameObject dateDetailsStaff, dateDetailsProf, resourceReservationProf, resourceReservationStaff;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +19,15 @@ public class DateDetailsUI : MonoBehaviour
 
     public void closeDetails()
     {
-        if(dateDetails.activeSelf == true)
+        if(dateDetailsProf.activeSelf == true)
         {
-            dateDetails.SetActive(false);
-            resourceReservation.SetActive(true);
+            dateDetailsProf.SetActive(false);
+            resourceReservationProf.SetActive(true);
+        }
+        else if (dateDetailsStaff.activeSelf == true)
+        {
+            dateDetailsStaff.SetActive(false);
+            resourceReservationStaff.SetActive(true);
         }
 
     }

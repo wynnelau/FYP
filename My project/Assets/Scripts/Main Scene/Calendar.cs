@@ -51,7 +51,7 @@ public class Calendar : MonoBehaviour
         }
     }
 
-    public GameObject resourceReservation, mainMenuOthers, dateDetails;
+    public GameObject resourceReservation, mainMenu, dateDetails;
     public Text dateDetailsDate;
     public PlayerControls player;
 
@@ -87,11 +87,9 @@ public class Calendar : MonoBehaviour
      */
     public void closeResourceReservation()
     {
-        if (resourceReservation.activeSelf == true)
-        {
-            resourceReservation.SetActive(false);
-        }
-        mainMenuOthers.SetActive(true);
+        Debug.Log("Calendar closeResourceReservation");
+        resourceReservation.SetActive(false);
+        mainMenu.SetActive(true);
     }
 
     /*
@@ -100,14 +98,11 @@ public class Calendar : MonoBehaviour
      */
     public void openDetails(GameObject dateSelected)
     {
-        if (resourceReservation.activeSelf == true)
-        {
-            resourceReservation.SetActive(false);
-        }
+        Debug.Log("Calendar openDetails");
+        resourceReservation.SetActive(false);
         dateDetails.SetActive(true);
         dateDetailsDate.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
         Debug.Log(dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
-
     }
 
     /*
