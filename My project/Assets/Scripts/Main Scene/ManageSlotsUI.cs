@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+
 /*
  *Location: Main Scene, attached to "Controls"
  *Purpose: manage manageSlots UI
@@ -10,13 +12,13 @@ public class ManageSlotsUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     /*
@@ -32,3 +34,5 @@ public class ManageSlotsUI : MonoBehaviour
         }
     }
 }
+
+    
