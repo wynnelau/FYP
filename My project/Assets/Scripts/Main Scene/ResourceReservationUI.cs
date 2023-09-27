@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using MongoDB.Bson.Serialization.Serializers;
 
 /*
  *Location: Main Scene, attached to "Controls"
@@ -108,12 +107,7 @@ public class ResourceReservationUI : MonoBehaviour
     public void openDetails(GameObject dateSelected)
     {
         Debug.Log("Calendar openDetails");
-        if (dateSelected.GetComponentInChildren<Text>().text == "" || dateSelected.GetComponent<UnityEngine.UI.Image>().color == Color.gray)
-        {
-            Debug.Log(dateSelected.GetComponentInChildren<Text>().text);
-            Debug.Log(dateSelected.GetComponent<UnityEngine.UI.Image>().color);
-        }
-        else
+        if (dateSelected.GetComponentInChildren<Text>().text != "")
         {
             if (resourceReservationStaff.activeSelf == true)
             {
@@ -131,7 +125,6 @@ public class ResourceReservationUI : MonoBehaviour
             }
 
             Debug.Log(dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
-            
         }
 
     }
