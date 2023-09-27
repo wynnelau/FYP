@@ -4,6 +4,7 @@ using TMPro;
 /*
  * Location: Login UI, used by UIControls
  * Purpose: Manage the register and login UI pages
+ * Tutorial used: https://www.youtube.com/watch?v=XPTPRaF2pd4
  */
 public class RegisterLoginUIManager : MonoBehaviour
 {

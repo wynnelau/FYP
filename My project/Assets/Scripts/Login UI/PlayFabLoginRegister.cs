@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /*
  * Location: Login UI, used by UIControls
  * Purpose: Manage the register and login using PlayFab API calls
+ * Tutorial used: https://www.youtube.com/watch?v=XPTPRaF2pd4
  */
 public class PlayFabLoginRegister : MonoBehaviour
 {
