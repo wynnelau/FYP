@@ -13,6 +13,7 @@ using UnityEngine.SocialPlatforms.Impl;
 using System.Collections;
 using UnityEngine.UI;
 using static UnityEditor.FilePathAttribute;
+using PlayFab.Internal;
 
 /*
  * Tutorial used: https://www.youtube.com/watch?v=f-IQwVReQ-c
@@ -58,10 +59,43 @@ public class RealmController : MonoBehaviour
         Debug.Log("Adding available to Realm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
-        StartCoroutine(PerformRealmWrite());
+        StartCoroutine(PerformRealmWriteAdd());
     }
 
-    private IEnumerator PerformRealmWrite()
+    public void RemoveAvailable()
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("Realm initialization is not complete, cannot addAvailable.");
+            return;
+        }
+
+        Debug.Log("Adding available to Realm");
+
+        // Schedule a coroutine to execute Realm write operation on the main thread
+        StartCoroutine(PerformRealmWriteRemove());
+    }
+
+    private IEnumerator PerformRealmWriteRemove()
+    {
+        try
+        {
+            realm.Write(() =>
+            {
+                realm.RemoveAll();
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error writing to Realm: " + ex.Message);
+        }
+
+        yield return null; // Yielding once to ensure the write operation is executed
+
+        Debug.Log("Realm write operation remove completed.");
+    }
+
+    private IEnumerator PerformRealmWriteAdd()
     {
         string loc = location.text;
         int date = int.Parse(fromDate.text); 
@@ -102,23 +136,29 @@ public class RealmController : MonoBehaviour
                 }
             }
             
-            if (date < noOfDays)
+            if (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text))
             {
-                date++;
-            } 
-            else if (date == noOfDays && month < 12)
-            {
-                date = 1;
-                month++;
-                noOfDays = DateTime.DaysInMonth(2000 + year, month);
-            } 
-            else if (date == noOfDays && month == 12)
-            {
-                date = 1;
-                month = 1;
-                year++;
-                noOfDays = DateTime.DaysInMonth(2000 + year, month);
+                if (date < noOfDays)
+                {
+                    date++;
+                }
+                else if (date == noOfDays && month < 12)
+                {
+                    date = 1;
+                    month++;
+                    noOfDays = DateTime.DaysInMonth(2000 + year, month);
+                }
+                else if (date == noOfDays && month == 12)
+                {
+                    date = 1;
+                    month = 1;
+                    year++;
+                    noOfDays = DateTime.DaysInMonth(2000 + year, month);
+                }
+                hr = GetHr(fromAm.value, fromHr.value);
+                min = fromMin.value == 0 ? 0 : 30;
             }
+            
 
             
 
@@ -126,7 +166,7 @@ public class RealmController : MonoBehaviour
         
         yield return null; // Yielding once to ensure the write operation is executed
 
-        Debug.Log("Realm write operation completed.");
+        Debug.Log("Realm write operation add completed.");
     }
 
     private int GetHr(int am, int hr)
