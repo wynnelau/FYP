@@ -83,7 +83,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     }
 
     /*
-     * Purpose: Tries to send identity of user to database, called after registration is successful
+     * Purpose: Tries to send identity and email of user to database, called after registration is successful
      * Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
      *           else, sends identity data to the database
      */
@@ -93,7 +93,8 @@ public class PlayFabLoginRegister : MonoBehaviour
         {
             Data = new Dictionary<string, string>
             {
-                {"Identity", identity}
+                {"Identity", identity},
+                {"Email",  registerEmail.text}
             }
         };
         PlayFabClientAPI.UpdateUserData(request, SaveIdentitySuccess, SaveIdentityFail);

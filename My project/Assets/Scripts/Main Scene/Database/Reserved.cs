@@ -19,6 +19,8 @@ public partial class Reserved : IRealmObject
     public int? Min { get; set; }
     [MapTo("month")]
     public int? Month { get; set; }
+    [MapTo("name")]
+    public string? Name { get; set; }
     [MapTo("year")]
     public int? Year { get; set; }
 
@@ -30,6 +32,7 @@ public partial class Reserved : IRealmObject
         Hour = 0;
         Min = 0;
         Month = 0;
+        Name = "Thomas";
         Year = 0;
         Location = "lab2";
     }

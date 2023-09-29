@@ -23,16 +23,16 @@ public partial class Available : IRealmObject
     [MapTo("year")]
     public int? Year { get; set; }
 
-    public Available()
+    public Available(string loc, int date, int month, int year, int hr, int min)
     {
         Id = ObjectId.GenerateNewId();
         Partition = "FYP";
-        Date = 0;
-        Hour = 0;
-        Min = 0;
-        Month = 0;
-        Year = 0;
-        Location = "lab2";
+        Date = date;
+        Hour = hr;
+        Min = min;
+        Month = month;
+        Year = year;
+        Location = loc;
     }
 }
 

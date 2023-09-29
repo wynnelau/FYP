@@ -11,12 +11,19 @@ using System.Linq;
 using System;
 using UnityEngine.SocialPlatforms.Impl;
 using System.Collections;
+using UnityEngine.UI;
+using static UnityEditor.FilePathAttribute;
 
+/*
+ * Tutorial used: https://www.youtube.com/watch?v=f-IQwVReQ-c
+ */
 public class RealmController : MonoBehaviour
 {
     private Realm realm;
     private readonly string myRealmAppId = "application-0-nlkew";
     private bool isRealmInitialized = false;
+    public InputField location, fromDate, fromMonth, fromYear, toDate, toMonth, toYear;
+    public Dropdown fromHr, fromMin, fromAm, toHr, toMin, toAm;
     private async void Start()
     {
         await InitAsync();
@@ -56,14 +63,92 @@ public class RealmController : MonoBehaviour
 
     private IEnumerator PerformRealmWrite()
     {
-        // This code block will run on the main/UI thread
-        realm.Write(() =>
+        string loc = location.text;
+        int date = int.Parse(fromDate.text); 
+        int month = int.Parse(fromMonth.text);
+        int year = int.Parse(fromYear.text);
+        int hr = GetHr(fromAm.value, fromHr.value);
+        int min = fromMin.value == 0 ? 0 : 30;
+        int noOfDays = DateTime.DaysInMonth(2000+year, month);
+        
+        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value) || min != (toMin.value == 0 ? 0 : 30))
         {
-            realm.Add(new Available());
-        });
+            hr = GetHr(fromAm.value, fromHr.value);
+            min = fromMin.value == 0 ? 0 : 30;
 
+            while (hr != GetHr(toAm.value, toHr.value) || min != (toMin.value == 0 ? 0 : 30) )
+            {
+                // This code block will run on the main/UI thread
+                try
+                {
+                    realm.Write(() =>
+                    {
+                        realm.Add(new Available(loc, date, month, year, hr, min));
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("Error writing to Realm: " + ex.Message);
+                }
+
+                if (min == 0)
+                {
+                    min = 30;
+                }
+                else if (min == 30)
+                {
+                    min = 0;
+                    hr++;
+                }
+            }
+            
+            if (date < noOfDays)
+            {
+                date++;
+            } 
+            else if (date == noOfDays && month < 12)
+            {
+                date = 1;
+                month++;
+                noOfDays = DateTime.DaysInMonth(2000 + year, month);
+            } 
+            else if (date == noOfDays && month == 12)
+            {
+                date = 1;
+                month = 1;
+                year++;
+                noOfDays = DateTime.DaysInMonth(2000 + year, month);
+            }
+
+            
+
+        }
+        
         yield return null; // Yielding once to ensure the write operation is executed
 
         Debug.Log("Realm write operation completed.");
     }
+
+    private int GetHr(int am, int hr)
+    {
+        if(am == 0 && hr < 11)
+        {
+            hr++;
+        } 
+        else if (am == 0 && hr == 11)
+        {
+            hr = 0;
+        }
+        else if (am == 1 && hr < 11)
+        {
+            hr += 13;
+        }
+        else if (am == 1 && hr == 11)
+        {
+            hr = 12;
+        }
+        return hr;
+    }
+
+
 }
