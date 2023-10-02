@@ -78,16 +78,72 @@ public class RealmController : MonoBehaviour
 
     private IEnumerator PerformRealmWriteRemove()
     {
-        try
+        string loc = location.text;
+        int date = int.Parse(fromDate.text);
+        int month = int.Parse(fromMonth.text);
+        int year = int.Parse(fromYear.text);
+        int hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
+        int min = fromMin.value == 0 ? 0 : 30;
+        int noOfDays = DateTime.DaysInMonth(2000 + year, month);
+
+        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
         {
-            realm.Write(() =>
+            hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
+            min = fromMin.value == 0 ? 0 : 30;
+
+            while (hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
             {
-                realm.RemoveAll();
-            });
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError("Error writing to Realm: " + ex.Message);
+                // This code block will run on the main/UI thread
+                try
+                {
+                    realm.Write(() =>
+                    {
+                        var results = realm.All<Available>().Where(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min).ToList();
+                        foreach (var item in results)
+                        {
+                            realm.Remove(item);
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("Error writing to Realm: " + ex.Message);
+                }
+
+                if (min == 0)
+                {
+                    min = 30;
+                }
+                else if (min == 30)
+                {
+                    min = 0;
+                    hr++;
+                }
+            }
+
+            if (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text))
+            {
+                if (date < noOfDays)
+                {
+                    date++;
+                }
+                else if (date == noOfDays && month < 12)
+                {
+                    date = 1;
+                    month++;
+                    noOfDays = DateTime.DaysInMonth(2000 + year, month);
+                }
+                else if (date == noOfDays && month == 12)
+                {
+                    date = 1;
+                    month = 1;
+                    year++;
+                    noOfDays = DateTime.DaysInMonth(2000 + year, month);
+                }
+                hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
+                min = fromMin.value == 0 ? 0 : 30;
+            }
+
         }
 
         yield return null; // Yielding once to ensure the write operation is executed
@@ -101,16 +157,16 @@ public class RealmController : MonoBehaviour
         int date = int.Parse(fromDate.text); 
         int month = int.Parse(fromMonth.text);
         int year = int.Parse(fromYear.text);
-        int hr = GetHr(fromAm.value, fromHr.value, false);
+        int hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
         int min = fromMin.value == 0 ? 0 : 30;
         int noOfDays = DateTime.DaysInMonth(2000+year, month);
         
-        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value, true) || min != (toMin.value == 0 ? 0 : 30))
+        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
         {
-            hr = GetHr(fromAm.value, fromHr.value, false);
+            hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
             min = fromMin.value == 0 ? 0 : 30;
 
-            while (hr != GetHr(toAm.value, toHr.value, true) || min != (toMin.value == 0 ? 0 : 30) )
+            while (hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30) )
             {
                 // This code block will run on the main/UI thread
                 try
@@ -155,7 +211,7 @@ public class RealmController : MonoBehaviour
                     year++;
                     noOfDays = DateTime.DaysInMonth(2000 + year, month);
                 }
-                hr = GetHr(fromAm.value, fromHr.value, false);
+                hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
                 min = fromMin.value == 0 ? 0 : 30;
             }
 
@@ -166,9 +222,9 @@ public class RealmController : MonoBehaviour
         Debug.Log("Realm write operation add completed.");
     }
 
-    private int GetHr(int am, int hr, bool to)
+    private int GetHr(int am, int hr, int min, bool to)
     {
-        if (to == true && am == 0 && hr == 11)
+        if (to == true && am == 0 && hr == 11 && min == 0)
         {
             hr = 24;
             return hr;
