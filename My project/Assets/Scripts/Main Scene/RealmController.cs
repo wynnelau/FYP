@@ -66,11 +66,11 @@ public class RealmController : MonoBehaviour
     {
         if (!isRealmInitialized)
         {
-            Debug.Log("Realm initialization is not complete, cannot addAvailable.");
+            Debug.Log("Realm initialization is not complete, cannot removeAvailable.");
             return;
         }
 
-        Debug.Log("Adding available to Realm");
+        Debug.Log("Remove available to Realm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteRemove());
@@ -101,16 +101,16 @@ public class RealmController : MonoBehaviour
         int date = int.Parse(fromDate.text); 
         int month = int.Parse(fromMonth.text);
         int year = int.Parse(fromYear.text);
-        int hr = GetHr(fromAm.value, fromHr.value);
+        int hr = GetHr(fromAm.value, fromHr.value, false);
         int min = fromMin.value == 0 ? 0 : 30;
         int noOfDays = DateTime.DaysInMonth(2000+year, month);
         
-        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value) || min != (toMin.value == 0 ? 0 : 30))
+        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value, true) || min != (toMin.value == 0 ? 0 : 30))
         {
-            hr = GetHr(fromAm.value, fromHr.value);
+            hr = GetHr(fromAm.value, fromHr.value, false);
             min = fromMin.value == 0 ? 0 : 30;
 
-            while (hr != GetHr(toAm.value, toHr.value) || min != (toMin.value == 0 ? 0 : 30) )
+            while (hr != GetHr(toAm.value, toHr.value, true) || min != (toMin.value == 0 ? 0 : 30) )
             {
                 // This code block will run on the main/UI thread
                 try
@@ -155,12 +155,9 @@ public class RealmController : MonoBehaviour
                     year++;
                     noOfDays = DateTime.DaysInMonth(2000 + year, month);
                 }
-                hr = GetHr(fromAm.value, fromHr.value);
+                hr = GetHr(fromAm.value, fromHr.value, false);
                 min = fromMin.value == 0 ? 0 : 30;
             }
-            
-
-            
 
         }
         
@@ -169,8 +166,14 @@ public class RealmController : MonoBehaviour
         Debug.Log("Realm write operation add completed.");
     }
 
-    private int GetHr(int am, int hr)
+    private int GetHr(int am, int hr, bool to)
     {
+        if (to == true && am == 0 && hr == 11)
+        {
+            hr = 24;
+            return hr;
+        }
+
         if(am == 0 && hr < 11)
         {
             hr++;
