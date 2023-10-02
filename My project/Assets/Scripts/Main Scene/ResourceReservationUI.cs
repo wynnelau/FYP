@@ -107,10 +107,10 @@ public class ResourceReservationUI : MonoBehaviour
     public void openDetails(GameObject dateSelected)
     {
         Debug.Log("Calendar openDetails");
-        if (dateSelected.GetComponentInChildren<Text>().text == "" || dateSelected.GetComponent<UnityEngine.UI.Image>().color == Color.gray)
+        if (dateSelected.GetComponentInChildren<Text>().text == "")
         {
             Debug.Log(dateSelected.GetComponentInChildren<Text>().text);
-            Debug.Log(dateSelected.GetComponent<UnityEngine.UI.Image>().color);
+            /*Debug.Log(dateSelected.GetComponent<UnityEngine.UI.Image>().color);*/
         }
         else
         {
