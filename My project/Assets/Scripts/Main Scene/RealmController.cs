@@ -56,6 +56,12 @@ public class RealmController : MonoBehaviour
             return;
         }
 
+        if (DatetimeError())
+        {
+            Debug.Log("DateTime error");
+            return;
+        }
+
         Debug.Log("Adding available to Realm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
@@ -70,10 +76,65 @@ public class RealmController : MonoBehaviour
             return;
         }
 
+        if (DatetimeError())
+        {
+            Debug.Log("DateTime error");
+            return;
+        }
+
         Debug.Log("Remove available to Realm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteRemove());
+    }
+
+    public bool DatetimeError()
+    {
+        DateTime from = new DateTime(2000 + int.Parse(fromYear.text), int.Parse(fromMonth.text), int.Parse(fromDate.text));
+        DateTime to = new DateTime(2000 + int.Parse(toYear.text), int.Parse(toMonth.text), int.Parse(toDate.text));
+        Debug.Log(from.ToString());
+        Debug.Log(to.ToString());
+        if (DateTime.Compare(from, to) > 0)
+        {
+            Debug.Log("from is later");
+            return true;
+        } 
+        else if (DateTime.Compare(from, to) == 0)
+        {
+            Debug.Log("equal");
+        } 
+        else
+        {
+            Debug.Log("from is earlier");
+        }
+        int fhr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
+        int fmin = fromMin.value == 0 ? 0 : 30;
+        int thr = GetHr(toAm.value, toHr.value, toMin.value, true);
+        int tmin = toMin.value == 0 ? 0 : 30;
+        if (fhr > thr)
+        {
+            Debug.Log("fromHr is later" + fhr + " " + thr);
+            return true;
+        }
+        else if (fhr == thr)
+        {
+            if (fmin == tmin)
+            {
+                Debug.Log("equal" + fhr + " " + fmin + " " + thr + " " + tmin);
+                return true;
+            } 
+            else if (fmin < tmin)
+            {
+                Debug.Log("tmin later" + fhr + " " + fmin + " " + thr + " " + tmin);
+                return false;
+            }
+        }
+        else if (fhr < thr) 
+        {
+            Debug.Log("fromHr is earlier" + fhr + " " + thr);
+            return false;
+        }
+        return true;
     }
 
     private IEnumerator PerformRealmWriteRemove()
