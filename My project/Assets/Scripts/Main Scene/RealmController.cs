@@ -82,11 +82,23 @@ public class RealmController : MonoBehaviour
             return;
         }
 
-        Debug.Log("Remove available to Realm");
+        Debug.Log("Remove available from Realm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteRemove());
     }
+
+    /*private IEnumerator PerformRealmWriteRemove2()
+    {
+        realm.Write(() =>
+        {
+            realm.RemoveAll<Available>(); // Remove all objects of the specified type
+        });
+
+        yield return null; // Yielding once to ensure the write operation is executed
+
+        Debug.Log("Realm write operation remove completed.");
+    }*/
 
     public bool DatetimeError()
     {
@@ -234,7 +246,13 @@ public class RealmController : MonoBehaviour
                 {
                     realm.Write(() =>
                     {
-                        realm.Add(new Available(loc, date, month, year, hr, min));
+                        var results = realm.All<Available>().FirstOrDefault(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min);
+                        if (results == null) 
+                        {
+                            realm.Add(new Available(loc, date, month, year, hr, min));
+                            Debug.Log("Added new");
+                        }
+                        
                     });
                 }
                 catch (Exception ex)
