@@ -29,6 +29,7 @@ public class DateDetailsUI : MonoBehaviour
     {
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         buttonCreator.DeleteAllButtons();
+
         if (dateDetailsProf.activeSelf == true)
         {
             Debug.Log("DateDetailsUI closeDetails Prof");

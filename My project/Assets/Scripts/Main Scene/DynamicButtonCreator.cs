@@ -4,15 +4,29 @@ using System.Collections.Generic;
 
 public class DynamicButtonCreator : MonoBehaviour
 {
-    public GameObject buttonPrefab; // Assign your button prefab in the inspector
-    public Transform buttonParent; // Assign the parent transform for the buttons in the inspector
+    public GameObject dateDetailsStaff, dateDetailsProf;
+    public GameObject buttonPrefabStaff, buttonPrefabProf; // Assign your button prefab in the inspector
+    public Transform buttonParentStaff, buttonParentProf; // Assign the parent transform for the buttons in the inspector
 
     private List<GameObject> createdButtons = new List<GameObject>();
 
     // This method creates a dynamic button with the given text and assigns a callback function to it.
     public void CreateButton(string buttonText)
     {
-        GameObject newButton = Instantiate(buttonPrefab, buttonParent);
+        GameObject newButton = null;
+        if (dateDetailsStaff.activeSelf)
+        {
+            newButton = Instantiate(buttonPrefabStaff, buttonParentStaff);
+        } 
+        else if (dateDetailsProf.activeSelf)
+        {
+            newButton = Instantiate(buttonPrefabProf, buttonParentProf);
+        }
+        else
+        {
+            return;
+        }
+        
         Button buttonComponent = newButton.GetComponent<Button>();
 
         // Set the button's text

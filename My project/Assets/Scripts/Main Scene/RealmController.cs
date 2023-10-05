@@ -22,7 +22,7 @@ public class RealmController : MonoBehaviour
     public Dropdown fromHr, fromMin, fromAm, toHr, toMin, toAm;
     public Text errorText;
 
-    public Text value, dateText;
+    public Text value, dateTextProf, dateTextStaff;
     private async void Start()
     {
         await InitAsync();
@@ -380,7 +380,19 @@ public class RealmController : MonoBehaviour
 
     private List<Available> PerformRealmWriteRetrieve()
     {
-        string[] parts = dateText.text.Split('/');
+        string dateText;
+        if (dateTextProf.IsActive())
+        {
+            dateText = dateTextProf.text;
+            Debug.Log("ProfText" + dateText);
+        }
+        else if (dateTextStaff.IsActive())
+        {
+            dateText = dateTextStaff.text;
+            Debug.Log("StaffText" + dateText);
+        }
+        else return null;
+        string[] parts = dateText.Split('/');
         int date = int.Parse(parts[0]);
         int month = int.Parse(parts[1]);
         int year = int.Parse(parts[2]) - 2000;
@@ -390,6 +402,7 @@ public class RealmController : MonoBehaviour
             List<Available> results = realm.All<Available>()
                 .Where(item => item.Date == date && item.Month == month && item.Year == year)
                 .ToList();
+            Debug.Log(results);
             return results;
 
         }

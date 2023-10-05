@@ -117,46 +117,34 @@ public class ResourceReservationUI : MonoBehaviour
         }
         else
         {
+            RealmController = FindObjectOfType<RealmController>();
+            buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+
             if (resourceReservationStaff.activeSelf == true)
             {
                 Debug.Log("Calendar openDetails Staff");
                 resourceReservationStaff.SetActive(false);
                 dateDetailsStaff.SetActive(true);
                 dateDetailsDateStaff.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
-                RealmController = FindObjectOfType<RealmController>();
-                buttonCreator = FindObjectOfType<DynamicButtonCreator>();
-                if (RealmController != null)
-                {
-                    var locationList = RealmController.GetLocations();
-                    if (locationList != null && locationList.Count > 0) 
-                    {
-                        foreach (var location in locationList)
-                        {
-                            buttonCreator.CreateButton(location);
-                        }
-
-                    }
-                }
             }
             else if (resourceReservationProf.activeSelf == true)
             {
                 Debug.Log("Calendar openDetails Prof");
                 resourceReservationProf.SetActive(false);
                 dateDetailsProf.SetActive(true);
-                dateDetailsDateProf.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
-                RealmController = FindObjectOfType<RealmController>();
-                buttonCreator = FindObjectOfType<DynamicButtonCreator>();
-                if (RealmController != null)
-                {
-                    var locationList = RealmController.GetLocations();
-                    if (locationList != null && locationList.Count > 0)
-                    {
-                        foreach (var location in locationList)
-                        {
-                            buttonCreator.CreateButton(location);
-                        }
+                dateDetailsDateProf.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year; 
+            }
 
+            if (RealmController != null)
+            {
+                var locationList = RealmController.GetLocations();
+                if (locationList != null && locationList.Count > 0)
+                {
+                    foreach (var location in locationList)
+                    {
+                        buttonCreator.CreateButton(location);
                     }
+
                 }
             }
 
