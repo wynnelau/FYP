@@ -25,6 +25,7 @@ public class RealmController : MonoBehaviour
     private bool isRealmInitialized = false;
     public InputField location, fromDate, fromMonth, fromYear, toDate, toMonth, toYear;
     public Dropdown fromHr, fromMin, fromAm, toHr, toMin, toAm;
+    public Text errorText;
     private async void Start()
     {
         await InitAsync();
@@ -56,16 +57,26 @@ public class RealmController : MonoBehaviour
             return;
         }
 
+        if (location.text == "" || fromDate.text == "" || fromMonth.text == "" || fromYear.text == "" || toDate.text == "" || toMonth.text == "" || toYear.text == "")
+        {
+            errorText.text = "Unable to add slots. Missing inputs.";
+            return;
+        }
+
         if (DatetimeError())
         {
+            errorText.text = "Unable to add slots. Please make sure fromdate/time is earlier than todate/time";
             Debug.Log("DateTime error");
             return;
         }
 
+        errorText.text = "Adding slots";
         Debug.Log("Adding available to Realm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteAdd());
+
+        errorText.text = "Adding slots complete";
     }
 
     public void RemoveAvailable()
@@ -76,16 +87,26 @@ public class RealmController : MonoBehaviour
             return;
         }
 
+        if (location.text == "" || fromDate.text == "" || fromMonth.text == "" || fromYear.text == "" || toDate.text == "" || toMonth.text == "" || toYear.text == "")
+        {
+            errorText.text = "Unable to add slots. Missing inputs.";
+            return;
+        }
+
         if (DatetimeError())
         {
+            errorText.text = "Unable to remove slots. Please make sure fromdate/time is earlier than todate/time";
             Debug.Log("DateTime error");
             return;
         }
 
+        errorText.text = "Removing slots";
         Debug.Log("Remove available from Realm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteRemove());
+
+        errorText.text = "Removing slots complete";
     }
 
     /*private IEnumerator PerformRealmWriteRemove2()
