@@ -17,6 +17,8 @@ using PlayFab.Internal;
 
 /*
  * Tutorial used: https://www.youtube.com/watch?v=f-IQwVReQ-c
+ * Location: Main Scene, under StudentControls
+ * Purpose: Manage send and retrieve data from MongoDB
  */
 public class RealmController : MonoBehaviour
 {
@@ -49,6 +51,10 @@ public class RealmController : MonoBehaviour
         }
     }
 
+    /*
+     * Purpose: Add available slots by taking in inputs
+     * Outcomes: Call PerformRealmWriteAdd if successful
+     */
     public void AddAvailable()
     {
         if (!isRealmInitialized)
@@ -79,6 +85,10 @@ public class RealmController : MonoBehaviour
         errorText.text = "Adding slots complete";
     }
 
+    /*
+     * Purpose: Remove available slots by taking in inputs
+     * Outcomes: Call PerformRealmWriteRemove if successful
+     */
     public void RemoveAvailable()
     {
         if (!isRealmInitialized)
@@ -121,6 +131,10 @@ public class RealmController : MonoBehaviour
         Debug.Log("Realm write operation remove completed.");
     }*/
 
+    /*
+     * Purpose: Called by AddAvailable and RemoveAvailable, to make sure from < to
+     * Outcomes: return true if there is an error
+     */
     public bool DatetimeError()
     {
         DateTime from = new DateTime(2000 + int.Parse(fromYear.text), int.Parse(fromMonth.text), int.Parse(fromDate.text));
@@ -170,6 +184,10 @@ public class RealmController : MonoBehaviour
         return true;
     }
 
+    /*
+     * Purpose: Separate the slots and write them to db
+     * Outcomes: add slots to db
+     */
     private IEnumerator PerformRealmWriteRemove()
     {
         string loc = location.text;
@@ -245,6 +263,10 @@ public class RealmController : MonoBehaviour
         Debug.Log("Realm write operation remove completed.");
     }
 
+    /*
+     * Purpose: Separate the slots and write them to db
+     * Outcomes: remove slots from db
+     */
     private IEnumerator PerformRealmWriteAdd()
     {
         string loc = location.text;
@@ -322,6 +344,10 @@ public class RealmController : MonoBehaviour
         Debug.Log("Realm write operation add completed.");
     }
 
+    /*
+     * Purpose: Called by PerfromRealmWriteAdd/Remove, to calculate the hr in 24hr
+     * Outcomes: return hr in 24hr format
+     */
     private int GetHr(int am, int hr, int min, bool to)
     {
         if (to == true && am == 0 && hr == 11 && min == 0)
