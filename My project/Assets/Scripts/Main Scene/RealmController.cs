@@ -14,6 +14,7 @@ using System.Collections;
 using UnityEngine.UI;
 using static UnityEditor.FilePathAttribute;
 using PlayFab.Internal;
+using UnityEngine.Windows;
 
 /*
  * Tutorial used: https://www.youtube.com/watch?v=f-IQwVReQ-c
@@ -28,6 +29,8 @@ public class RealmController : MonoBehaviour
     public InputField location, fromDate, fromMonth, fromYear, toDate, toMonth, toYear;
     public Dropdown fromHr, fromMin, fromAm, toHr, toMin, toAm;
     public Text errorText;
+
+    public Text value, dateText;
     private async void Start()
     {
         await InitAsync();
@@ -119,6 +122,24 @@ public class RealmController : MonoBehaviour
         errorText.text = "Removing slots complete";
     }
 
+    public void GetAvailable()
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("Realm initialization is not complete, cannot removeAvailable.");
+            return;
+        }
+
+        var queryResults = PerformRealmWriteRetrieve();
+        if (queryResults != null && queryResults.Count > 0)
+        {
+            // Update UI or perform other actions with the queryResults here
+            value.text = queryResults[0].Location.ToString() + " " + queryResults[0].Hour.ToString() + " " + queryResults[0].Min.ToString();
+        }
+        
+
+    }
+
     /*private IEnumerator PerformRealmWriteRemove2()
     {
         realm.Write(() =>
@@ -135,7 +156,7 @@ public class RealmController : MonoBehaviour
      * Purpose: Called by AddAvailable and RemoveAvailable, to make sure from < to
      * Outcomes: return true if there is an error
      */
-    public bool DatetimeError()
+    private bool DatetimeError()
     {
         DateTime from = new DateTime(2000 + int.Parse(fromYear.text), int.Parse(fromMonth.text), int.Parse(fromDate.text));
         DateTime to = new DateTime(2000 + int.Parse(toYear.text), int.Parse(toMonth.text), int.Parse(toDate.text));
@@ -187,85 +208,6 @@ public class RealmController : MonoBehaviour
     /*
      * Purpose: Separate the slots and write them to db
      * Outcomes: add slots to db
-     */
-    private IEnumerator PerformRealmWriteRemove()
-    {
-        string loc = location.text;
-        int date = int.Parse(fromDate.text);
-        int month = int.Parse(fromMonth.text);
-        int year = int.Parse(fromYear.text);
-        int hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-        int min = fromMin.value == 0 ? 0 : 30;
-        int noOfDays = DateTime.DaysInMonth(2000 + year, month);
-
-        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
-        {
-            hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-            min = fromMin.value == 0 ? 0 : 30;
-
-            while (hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
-            {
-                // This code block will run on the main/UI thread
-                try
-                {
-                    realm.Write(() =>
-                    {
-                        var results = realm.All<Available>().Where(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min).ToList();
-                        foreach (var item in results)
-                        {
-                            realm.Remove(item);
-                        }
-                    });
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError("Error writing to Realm: " + ex.Message);
-                }
-
-                if (min == 0)
-                {
-                    min = 30;
-                }
-                else if (min == 30)
-                {
-                    min = 0;
-                    hr++;
-                }
-            }
-
-            if (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text))
-            {
-                if (date < noOfDays)
-                {
-                    date++;
-                }
-                else if (date == noOfDays && month < 12)
-                {
-                    date = 1;
-                    month++;
-                    noOfDays = DateTime.DaysInMonth(2000 + year, month);
-                }
-                else if (date == noOfDays && month == 12)
-                {
-                    date = 1;
-                    month = 1;
-                    year++;
-                    noOfDays = DateTime.DaysInMonth(2000 + year, month);
-                }
-                hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-                min = fromMin.value == 0 ? 0 : 30;
-            }
-
-        }
-
-        yield return null; // Yielding once to ensure the write operation is executed
-
-        Debug.Log("Realm write operation remove completed.");
-    }
-
-    /*
-     * Purpose: Separate the slots and write them to db
-     * Outcomes: remove slots from db
      */
     private IEnumerator PerformRealmWriteAdd()
     {
@@ -342,6 +284,109 @@ public class RealmController : MonoBehaviour
         yield return null; // Yielding once to ensure the write operation is executed
 
         Debug.Log("Realm write operation add completed.");
+    }
+
+    /*
+     * Purpose: Separate the slots and write them to db
+     * Outcomes: remove slots from db
+     */
+    private IEnumerator PerformRealmWriteRemove()
+    {
+        string loc = location.text;
+        int date = int.Parse(fromDate.text);
+        int month = int.Parse(fromMonth.text);
+        int year = int.Parse(fromYear.text);
+        int hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
+        int min = fromMin.value == 0 ? 0 : 30;
+        int noOfDays = DateTime.DaysInMonth(2000 + year, month);
+
+        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
+        {
+            hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
+            min = fromMin.value == 0 ? 0 : 30;
+
+            while (hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
+            {
+                // This code block will run on the main/UI thread
+                try
+                {
+                    realm.Write(() =>
+                    {
+                        var results = realm.All<Available>().Where(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min).ToList();
+                        foreach (var item in results)
+                        {
+                            realm.Remove(item);
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("Error writing to Realm: " + ex.Message);
+                }
+
+                if (min == 0)
+                {
+                    min = 30;
+                }
+                else if (min == 30)
+                {
+                    min = 0;
+                    hr++;
+                }
+            }
+
+            if (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text))
+            {
+                if (date < noOfDays)
+                {
+                    date++;
+                }
+                else if (date == noOfDays && month < 12)
+                {
+                    date = 1;
+                    month++;
+                    noOfDays = DateTime.DaysInMonth(2000 + year, month);
+                }
+                else if (date == noOfDays && month == 12)
+                {
+                    date = 1;
+                    month = 1;
+                    year++;
+                    noOfDays = DateTime.DaysInMonth(2000 + year, month);
+                }
+                hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
+                min = fromMin.value == 0 ? 0 : 30;
+            }
+
+        }
+
+        yield return null; // Yielding once to ensure the write operation is executed
+
+        Debug.Log("Realm write operation remove completed.");
+    }
+
+    private List<Available> PerformRealmWriteRetrieve()
+    {
+        string[] parts = dateText.text.Split('/');
+        int date = int.Parse(parts[0]);
+        int month = int.Parse(parts[1]);
+        int year = int.Parse(parts[2]) - 2000;
+
+        try
+        {
+            List<Available> results = realm.All<Available>()
+                .Where(item => item.Date == date && item.Month == month && item.Year == year)
+                .ToList();
+            return results;
+
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error querying Realm: " + ex.Message);
+            return null;
+        }
+
+        
     }
 
     /*

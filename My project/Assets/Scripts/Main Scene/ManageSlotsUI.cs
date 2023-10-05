@@ -31,4 +31,9 @@ public class ManageSlotsUI : MonoBehaviour
             resourceReservationStaff.SetActive(true);
         }
     }
+
+    private void OnEnable()
+    {
+        
+    }
 }
