@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.FilePathAttribute;
 
 /*
  *Location: Main Scene, attached to "Controls"
@@ -7,6 +8,7 @@ using UnityEngine;
 public class DateDetailsUI : MonoBehaviour
 {
     public GameObject dateDetailsStaff, dateDetailsProf, resourceReservationProf, resourceReservationStaff;
+    public DynamicButtonCreator buttonCreator;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,9 @@ public class DateDetailsUI : MonoBehaviour
      */
     public void closeDetails()
     {
-        if(dateDetailsProf.activeSelf == true)
+        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+        buttonCreator.DeleteAllButtons();
+        if (dateDetailsProf.activeSelf == true)
         {
             Debug.Log("DateDetailsUI closeDetails Prof");
             dateDetailsProf.SetActive(false);

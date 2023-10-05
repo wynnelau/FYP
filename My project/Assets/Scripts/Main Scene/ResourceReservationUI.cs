@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using static UnityEditor.FilePathAttribute;
 
 /*
  *Location: Main Scene, attached to "Controls"
@@ -52,6 +53,8 @@ public class ResourceReservationUI : MonoBehaviour
     public GameObject resourceReservationStaff, mainMenuStaff, dateDetailsStaff, resourceReservationProf, mainMenuProf, dateDetailsProf, reservationSlots;
     public Text dateDetailsDateStaff, dateDetailsDateProf;
     public PlayerControls player;
+    public RealmController RealmController;
+    public DynamicButtonCreator buttonCreator;
 
     private List<Day> days = new List<Day>();
     public Transform[] weeks;
@@ -120,6 +123,20 @@ public class ResourceReservationUI : MonoBehaviour
                 resourceReservationStaff.SetActive(false);
                 dateDetailsStaff.SetActive(true);
                 dateDetailsDateStaff.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
+                RealmController = FindObjectOfType<RealmController>();
+                buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+                if (RealmController != null)
+                {
+                    var locationList = RealmController.GetLocations();
+                    if (locationList != null && locationList.Count > 0) 
+                    {
+                        foreach (var location in locationList)
+                        {
+                            buttonCreator.CreateButton(location);
+                        }
+
+                    }
+                }
             }
             else if (resourceReservationProf.activeSelf == true)
             {
@@ -127,6 +144,20 @@ public class ResourceReservationUI : MonoBehaviour
                 resourceReservationProf.SetActive(false);
                 dateDetailsProf.SetActive(true);
                 dateDetailsDateProf.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
+                RealmController = FindObjectOfType<RealmController>();
+                buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+                if (RealmController != null)
+                {
+                    var locationList = RealmController.GetLocations();
+                    if (locationList != null && locationList.Count > 0)
+                    {
+                        foreach (var location in locationList)
+                        {
+                            buttonCreator.CreateButton(location);
+                        }
+
+                    }
+                }
             }
 
             Debug.Log(dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);

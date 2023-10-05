@@ -3,18 +3,10 @@ using System.Threading.Tasks;
 using Realms;
 using Realms.Sync;
 using UnityEngine;
-using Realms.Logging;
-using Logger = Realms.Logging.Logger;
-using Realms.Sync.ErrorHandling;
-using Realms.Sync.Exceptions;
 using System.Linq;
 using System;
-using UnityEngine.SocialPlatforms.Impl;
 using System.Collections;
 using UnityEngine.UI;
-using static UnityEditor.FilePathAttribute;
-using PlayFab.Internal;
-using UnityEngine.Windows;
 
 /*
  * Tutorial used: https://www.youtube.com/watch?v=f-IQwVReQ-c
@@ -131,13 +123,34 @@ public class RealmController : MonoBehaviour
         }
 
         var queryResults = PerformRealmWriteRetrieve();
-        if (queryResults != null && queryResults.Count > 0)
+        var sortedResults = queryResults.OrderBy(item => item.Location) 
+            .ThenBy(item => item.Hour)       
+            .ThenBy(item => item.Min)        
+            .ToList();
+ 
+        if (sortedResults != null && sortedResults.Count > 0)
         {
             // Update UI or perform other actions with the queryResults here
-            value.text = queryResults[0].Location.ToString() + " " + queryResults[0].Hour.ToString() + " " + queryResults[0].Min.ToString();
+            value.text = sortedResults[0].Location.ToString() + " " + sortedResults[0].Hour.ToString() + " " + sortedResults[0].Min.ToString();
         }
         
 
+    }
+
+    public List<string> GetLocations()
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("Realm initialization is not complete, cannot removeAvailable.");
+            return null;
+        }
+        var queryResults = PerformRealmWriteRetrieve();
+        var locationList = queryResults
+            .OrderBy(item => item.Location)
+            .Select(item => item.Location)
+            .Distinct()
+            .ToList();
+        return locationList;
     }
 
     /*private IEnumerator PerformRealmWriteRemove2()
