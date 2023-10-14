@@ -22,7 +22,7 @@ public class RealmController : MonoBehaviour
     public Dropdown fromHr, fromMin, fromAm, toHr, toMin, toAm;
     public Text errorText;
 
-    public Text value, dateTextProf, dateTextStaff;
+    public Text value, dateTextProf, dateTextStaff, timeTextProf, timeTextStaff;
     private async void Start()
     {
         await InitAsync();
@@ -141,7 +141,7 @@ public class RealmController : MonoBehaviour
     {
         if (!isRealmInitialized)
         {
-            Debug.Log("Realm initialization is not complete, cannot removeAvailable.");
+            Debug.Log("Realm initialization is not complete, cannot GetLocations.");
             return null;
         }
         var queryResults = PerformRealmWriteRetrieve();
@@ -150,7 +150,26 @@ public class RealmController : MonoBehaviour
             .Select(item => item.Location)
             .Distinct()
             .ToList();
+
         return locationList;
+    }
+
+    public List<string> GetTimings(string location)
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("Realm initialization is not complete, cannot GetTimings.");
+            return null;
+        }
+        var queryResults = PerformRealmWriteRetrieve();
+        var timingList = queryResults
+            .Where(item => item.Location == location)
+            .OrderBy(item => item.Hour)
+            .ThenBy(item => item.Min)
+            .Select(item => item.Hour.ToString() + ":" + item.Min.ToString())
+            .ToList();
+        Debug.Log(timingList);
+        return timingList;
     }
 
     /*private IEnumerator PerformRealmWriteRemove2()
@@ -389,6 +408,16 @@ public class RealmController : MonoBehaviour
         else if (dateTextStaff.IsActive())
         {
             dateText = dateTextStaff.text;
+            Debug.Log("StaffText" + dateText);
+        }
+        else if (timeTextProf.IsActive())
+        {
+            dateText = timeTextProf.text;
+            Debug.Log("ProfText" + dateText);
+        }
+        else if (timeTextStaff.IsActive())
+        {
+            dateText = timeTextStaff.text;
             Debug.Log("StaffText" + dateText);
         }
         else return null;
