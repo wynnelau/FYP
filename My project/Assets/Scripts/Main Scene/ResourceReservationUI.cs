@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using static UnityEditor.FilePathAttribute;
 
 /*
  *Location: Main Scene, attached to "Controls"

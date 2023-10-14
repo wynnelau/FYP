@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class DynamicButtonCreator : MonoBehaviour
 {
     public GameObject dateDetailsStaff, dateDetailsProf;
+    public GameObject timeDetailsStaff, timeDetailsProf;
+    public Text dateDetailsDateStaff, dateDetailsDateProf, timeDetailsDateStaff, timeDetailsDateProf;
     public GameObject buttonPrefabStaff, buttonPrefabProf; // Assign your button prefab in the inspector
     public Transform buttonParentStaff, buttonParentProf; // Assign the parent transform for the buttons in the inspector
 
@@ -40,6 +43,21 @@ public class DynamicButtonCreator : MonoBehaviour
         buttonComponent.onClick.AddListener(() =>
         {
             // Handle button click here
+            if (dateDetailsProf.activeSelf == true)
+            {
+                dateDetailsProf.SetActive(false);
+                timeDetailsProf.SetActive(true);
+                timeDetailsDateProf.text = dateDetailsDateProf.text;
+                Debug.Log("prof");
+            }
+            else if (dateDetailsStaff.activeSelf == true)
+            {
+                dateDetailsStaff.SetActive(false);
+                timeDetailsStaff.SetActive(true);
+                timeDetailsDateStaff.text = dateDetailsDateStaff.text;
+                Debug.Log("staff");
+            }
+
             Debug.Log("Button Clicked: " + buttonText);
         });
 
