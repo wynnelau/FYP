@@ -76,7 +76,8 @@ public class DynamicButtonCreator : MonoBehaviour
                 var timingList = RealmController.GetTimings(buttonText);
                 if (timingList != null && timingList.Count > 0)
                 {
-                    foreach (var timing in timingList)
+                    var convertedList = ConvertToRange(timingList);
+                    foreach (var timing in convertedList)
                     {
                         CreateButton(timing);
                     }
@@ -89,6 +90,62 @@ public class DynamicButtonCreator : MonoBehaviour
 
         createdButtons.Add(newButton);
     }
+
+    // used to convert the timings to the period of time eg. "0:0" to "00:00 to 00:30"
+    private List<string> ConvertToRange(List<string> timingList)
+    {
+        List<string> convertedList = new List<string>();
+        string[] splitResult;
+        string converted, endTime;
+        foreach (var timing in timingList)
+        {
+            splitResult = timing.Split(":");
+
+            endTime = GetEndTiming(splitResult[0], splitResult[1]);
+
+            if (splitResult[0].Length == 1)
+            {
+                splitResult[0] = "0" + splitResult[0];
+            }
+            if (splitResult[1] == "0")
+            {
+                splitResult[1] = "0" + splitResult[1];
+            }
+            converted = splitResult[0] + ":" + splitResult[1] + " to " + endTime;
+            convertedList.Add(converted);
+        }
+        return convertedList;
+    }
+
+    private string GetEndTiming(string hr, string min)
+    {
+        int ihr, imin;
+        string endTime;
+        ihr = int.Parse(hr);
+        imin = int.Parse(min);
+        if (imin == 0)
+        {
+            imin = 30;
+        } 
+        else if (imin == 30)
+        {
+            imin = 0;
+            ihr++;
+        }
+        hr = ihr.ToString();
+        min = imin.ToString();
+        if (hr.Length == 1)
+        {
+            hr = "0" + hr;
+        }
+        if (min == "0")
+        {
+            min = "0" + min;
+        }
+        endTime = hr + ":" + min;
+        return endTime;
+    }
+
 
     public void DeleteAllButtons()
     {
