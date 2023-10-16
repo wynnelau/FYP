@@ -15,6 +15,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     public GameObject registerPageUI, loginPageUI, setUserProfilePageStudentUI, setUserProfilePageOthersUI;
     public TMP_Text registerEmail, registerPassword, registerError, loginEmail, loginPassword, loginError;
     public TMP_Dropdown identityDropdown;
+
     /*
      * Purpose: Call either Register() or Login() when "enter" key is pressed in "RegisterPage" UI or "LoginPage" UI accordingly
      *          Update is called once per frame
@@ -44,7 +45,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Output: If the identity of the user is not specified in "IdentityDropdown" dropdown, return a registerError message
      *         else attempt to register the user using registerEmail and registerPassword
      */
-    public void Register()
+    void Register()
     {
         // if identity not given, do not register
         if (identityDropdown.value == 0)
@@ -66,7 +67,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Input: Called by Register() when attempt to register the user is successful
      * Output: Calls Identity(), SaveIdentity() and then KnowMore()      
      */
-    public void RegisterSuccess(RegisterPlayFabUserResult result)
+    void RegisterSuccess(RegisterPlayFabUserResult result)
     {
         string userIdentity = Identity();
         // Send user's identity to db
@@ -80,7 +81,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Input: Called by Register() when attempt to register the user failed
      * Output: Return a registerError message    
      */
-    public void RegisterFail(PlayFabError error)
+    void RegisterFail(PlayFabError error)
     {
         registerError.text = error.GenerateErrorReport();
     }
@@ -90,7 +91,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Input: Called by RegisterSuccess()
      * Output: Returns a string according to "IdentityDropdown"     
      */
-    public string Identity()
+    string Identity()
     {
         if (identityDropdown.value == 1) return "Student";
         else if (identityDropdown.value == 2) return "Professor/TA";
@@ -103,7 +104,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Input: Called by RegisterSuccess() and identity string is passed in
      * Output: Attempt to save the user's identity using identity string     
      */
-    public void SaveIdentity(string identity)
+    void SaveIdentity(string identity)
     {
         var request = new UpdateUserDataRequest
         {
@@ -164,7 +165,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      *        Click the "LoginButton" button in the "LoginPage" UI
      * Output: Attempt to login using loginEmail and loginPassword
      */
-    public void Login()
+    void Login()
     {
         loginError.text = " ";
         var request = new LoginWithEmailAddressRequest { Email = loginEmail.text, Password = loginPassword.text };
@@ -176,7 +177,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Input: Called by Login() when attempt to login is successful
      * Output: Calls MainScene()     
      */
-    public void LoginSuccess(LoginResult result)
+    void LoginSuccess(LoginResult result)
     {
         MainScene();
     }
@@ -186,7 +187,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Input: Called by Login() when attempt to login failed
      * Output: Return a loginError message    
      */
-    public void LoginFail(PlayFabError error)
+    void LoginFail(PlayFabError error)
     {
         loginError.text = error.GenerateErrorReport();
     }
