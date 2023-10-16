@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene, attached to "Controls"
- *Purpose: Switch to the different cameras
+ * Location: MainSceneControls
+ * Purpose: Switch between cameras when 'C' key is pressed
  */
 
 public class CameraSwitch : MonoBehaviour
@@ -11,19 +11,23 @@ public class CameraSwitch : MonoBehaviour
     public Camera thirdPersonCamera;
     public GameObject buildingFirstPerson, middleWall;
     public PlayerControls player;
-    // Start is called before the first frame update
+
     /*
-     * Purpose: User uses third person camera when they go into the scene
+     * Purpose: Ensures that user is in third person when "MainScene" scene is loaded
+     *          Start is called before the first frame update
+     * Input: NA
+     * Output: Call SwitchToThirdPerson()
      */
     void Start()
     {
         SwitchToThirdPerson();
     }
 
-    // Update is called once per frame
     /*
-     * Purpose: Key 'C' to toggle between the two cameras
-     * Outcomes: 
+     * Purpose: Switch between cameras when the 'C' key is pressed
+     * Input: Press the 'C' key
+     * Output: If currently using first person camera, switch to third person camera
+     *         else if currently using third person camera, switch to first person camera
      */
     void Update()
     {
@@ -36,9 +40,12 @@ public class CameraSwitch : MonoBehaviour
             SwitchToThirdPerson();
         }
     }
+
     /*
-     * Purpose: enables the firstPersonCamera
-     * Outcomes: activates the other half of the room and deactivates the middle wall
+     * Purpose: Enables the firstPersonCamera with respective settings
+     * Input: Called by Update() when the 'C' key is pressed
+     * Output: Enable firstPersonCamera and set buildingFirstPerson as active
+     *         Disable thirdPersonCamera and set middleWall as inactive
      */
     void SwitchToFirstPerson()
     {
@@ -48,9 +55,10 @@ public class CameraSwitch : MonoBehaviour
         middleWall.SetActive(false);
     }
     /*
-     * Purpose: enables the thirdPersonCamera
-     * Outcomes: deactivates the other half of the room and activates the middle wall, 
-     *           translates user to be in the first half of the room and facing forward
+     * Purpose: Enables the thirdPersonCamera with respective settings
+     * Input: Called by Update() when the 'C' key is pressed
+     * Output: Enable thirdPersonCamera, set middleWall as active and move user accordingly
+     *         Disable firstPersonCamera and set buildingFirstPerson as inactive
      */
     void SwitchToThirdPerson()
     {
