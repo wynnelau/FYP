@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 /*
- *Location: "Table"  in "MainScene" scene
+ *Location: "Table" in "MainScene" scene
  *Purpose: Get the user's identity and open the corresponding mainMenu UI when the user comes into contact with "Table"
  */
 public class MainMenuTable : MonoBehaviour

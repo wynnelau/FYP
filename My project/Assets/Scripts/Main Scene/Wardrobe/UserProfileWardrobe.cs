@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*
- *Location: Main Scene, attached to "Wardrobe"
- *Purpose: Trigger the different profile pages according to their identity
+ * Location: "Wardrobe" in "MainScene" scene
+ * Purpose: Get the user's profile when the user comes into contact with "Wardrobe" and display the userProfile UI accordingly
  */
 public class UserProfileWardrobe : MonoBehaviour
 {
@@ -15,32 +15,22 @@ public class UserProfileWardrobe : MonoBehaviour
     public Text errorStudent, errorOthers;
     public PlayerControls player;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /*
-     * Purpose: Trigger the userProfileUI when user comes into contact with "Wardrobe"
-     * Outcomes: userProfileUI is activated
+     * Purpose: Call GetUserProfileData() to get the user's profile to open the corresponding userProfile UI when user comes into contact with "Wardrobe"
+     * Input: User comes into contact with "Wardrobe"
+     * Output: Call GetUserProfileData() 
      */
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("UserProfileWardrobe onTriggerEnter activateUserProfileUI");
+        Debug.Log("UserProfileWardrobe onTriggerEnter: activateUserProfileUI");
         GetUserProfileData();
         player.enabled = false;
     }
 
     /*
-     * Purpose: Read user identity data from database
-     * Outcomes: if successful, data read
+     * Purpose: Attempt to retrieve the user's profile from the PlayFab database when called by OnTriggerEnter()
+     * Input: Called by OnTriggerEnter() when user comes into contact with "Wardrobe"
+     * Output: Attempt to retrieve the user's profile from the PlayFab database
      */
     public void GetUserProfileData()
     {
@@ -52,9 +42,10 @@ public class UserProfileWardrobe : MonoBehaviour
     }
 
     /*
-     * Purpose: Display the User profile UI according to their identity
-     * Outcomes: if "student", display the student ver 
-     *           else, display others ver
+     * Purpose: Successful attempt to retrieve the user's profile and displays the corresponding userProfile UI
+     * Input: Called by GetUserProfileData() when attempt to retrieve the user's profile is successful
+     * Output: If user is Student, opens "userProfileStudent" UI 
+     *         else if user is Staff or Prof/TA, opens "userProfileOthers" UI
      */
     void GetUserProfileDataSuccess(GetUserDataResult result)
     {
@@ -81,6 +72,11 @@ public class UserProfileWardrobe : MonoBehaviour
         }
     }
 
+    /*
+     * Purpose: Failed attempt to retrieve the user's profile
+     * Input: Called by OnTriggerEnter() when attempt to retrieve the user's profile failed
+     * Output: Debug.Log("UserProfileWardrobe GetUserProfileDataFail " + error);
+     */
     void GetUserProfileDataFail(PlayFabError error)
     {
         Debug.Log("UserProfileWardrobe GetUserProfileDataFail " + error);
