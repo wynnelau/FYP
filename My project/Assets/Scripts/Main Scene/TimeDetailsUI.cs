@@ -19,6 +19,10 @@ public class TimeDetailsUI : MonoBehaviour
         
     }
 
+    /*
+     * Purpose: To close the TimeDetails UI, attached to "closeTimeDetails" button
+     * Outcomes: deactivate TimeDetails UI and all the dynamic buttons
+     */
     public void closeTimeDetails()
     {
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
@@ -54,5 +58,16 @@ public class TimeDetailsUI : MonoBehaviour
             }
         }
 
+    }
+
+    public void DisplayReservations()
+    {
+        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+        List<string> addReservationList = new List<string>();
+        addReservationList = buttonCreator.GetAddReservationList;
+        foreach (var reservation in addReservationList)
+        {
+            Debug.Log(reservation);
+        }
     }
 }

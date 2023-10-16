@@ -22,7 +22,7 @@ public class RealmController : MonoBehaviour
     public Dropdown fromHr, fromMin, fromAm, toHr, toMin, toAm;
     public Text errorText;
 
-    public Text value, dateTextProf, dateTextStaff, timeTextProf, timeTextStaff;
+    public Text dateTextProf, dateTextStaff, timeTextProf, timeTextStaff;
     private async void Start()
     {
         await InitAsync();
@@ -48,7 +48,7 @@ public class RealmController : MonoBehaviour
 
     /*
      * Purpose: Add available slots by taking in inputs
-     * Outcomes: Call PerformRealmWriteAdd if successful
+     * Outcomes: Call PerformRealmWriteAddAvailable if successful
      */
     public void AddAvailable()
     {
@@ -75,14 +75,34 @@ public class RealmController : MonoBehaviour
         Debug.Log("Adding available to Realm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
-        StartCoroutine(PerformRealmWriteAdd());
+        StartCoroutine(PerformRealmWriteAddAvailable());
 
         errorText.text = "Adding slots complete";
     }
 
     /*
+     * Purpose: Add available reservations by taking in inputs
+     * Outcomes: Call PerformRealmWriteAddReservation if successful
+     */
+    public void AddReservation()
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("Realm initialization is not complete, cannot addAvailable.");
+            return;
+        }
+
+        Debug.Log("Adding reservation to Realm");
+
+        StartCoroutine(PerformRealmWriteAddReservation());
+
+        errorText.text = "Adding slots complete";
+
+    }
+
+    /*
      * Purpose: Remove available slots by taking in inputs
-     * Outcomes: Call PerformRealmWriteRemove if successful
+     * Outcomes: Call PerformRealmWriteRemoveAvailable if successful
      */
     public void RemoveAvailable()
     {
@@ -109,12 +129,12 @@ public class RealmController : MonoBehaviour
         Debug.Log("Remove available from Realm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
-        StartCoroutine(PerformRealmWriteRemove());
+        StartCoroutine(PerformRealmWriteRemoveAvailable());
 
         errorText.text = "Removing slots complete";
     }
 
-    public void GetAvailable()
+    /*public void GetAvailable()
     {
         if (!isRealmInitialized)
         {
@@ -122,21 +142,38 @@ public class RealmController : MonoBehaviour
             return;
         }
 
-        var queryResults = PerformRealmWriteRetrieve();
+        var queryResults = PerformRealmWriteRetrieveAvailable();
         var sortedResults = queryResults.OrderBy(item => item.Location) 
             .ThenBy(item => item.Hour)       
             .ThenBy(item => item.Min)        
             .ToList();
- 
-        if (sortedResults != null && sortedResults.Count > 0)
-        {
-            // Update UI or perform other actions with the queryResults here
-            value.text = sortedResults[0].Location.ToString() + " " + sortedResults[0].Hour.ToString() + " " + sortedResults[0].Min.ToString();
-        }
-        
+    }*/
 
+    /*
+     * Purpose: Get the reservations according to the location
+     * Outcomes: Call PerformRealmWriteRetrieveReservation if successful
+     */
+    public List<string> GetReservations(string location)
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("Realm initialization is not complete, cannot removeAvailable.");
+            return null;
+        }
+        var queryResults = PerformRealmWriteRetrieveReservation();
+        var timingList = queryResults
+            .Where(item => item.Location == location)
+            .OrderBy(item => item.Hour)
+            .ThenBy(item => item.Min)
+            .Select(item => item.Hour.ToString() + ":" + item.Min.ToString())
+            .ToList();
+        return timingList;
     }
 
+    /*
+     * Purpose: Get the list of locations
+     * Outcomes: Call PerformRealmWriteRetrieveAvailable if successful, and returns ordered string list of locations
+     */
     public List<string> GetLocations()
     {
         if (!isRealmInitialized)
@@ -144,7 +181,7 @@ public class RealmController : MonoBehaviour
             Debug.Log("Realm initialization is not complete, cannot GetLocations.");
             return null;
         }
-        var queryResults = PerformRealmWriteRetrieve();
+        var queryResults = PerformRealmWriteRetrieveAvailable();
         var locationList = queryResults
             .OrderBy(item => item.Location)
             .Select(item => item.Location)
@@ -154,6 +191,10 @@ public class RealmController : MonoBehaviour
         return locationList;
     }
 
+    /*
+     * Purpose: Get the list of timings according to the location
+     * Outcomes: Call PerformRealmWriteRetrieveAvailable if successful, and returns ordered string list of timings
+     */
     public List<string> GetTimings(string location)
     {
         if (!isRealmInitialized)
@@ -161,7 +202,7 @@ public class RealmController : MonoBehaviour
             Debug.Log("Realm initialization is not complete, cannot GetTimings.");
             return null;
         }
-        var queryResults = PerformRealmWriteRetrieve();
+        var queryResults = PerformRealmWriteRetrieveAvailable();
         var timingList = queryResults
             .Where(item => item.Location == location)
             .OrderBy(item => item.Hour)
@@ -241,7 +282,7 @@ public class RealmController : MonoBehaviour
      * Purpose: Separate the slots and write them to db
      * Outcomes: add slots to db
      */
-    private IEnumerator PerformRealmWriteAdd()
+    private IEnumerator PerformRealmWriteAddAvailable()
     {
         string loc = location.text;
         int date = int.Parse(fromDate.text); 
@@ -315,14 +356,22 @@ public class RealmController : MonoBehaviour
         
         yield return null; // Yielding once to ensure the write operation is executed
 
-        Debug.Log("Realm write operation add completed.");
+        Debug.Log("Realm write operation addAvailable completed.");
     }
 
+    private IEnumerator PerformRealmWriteAddReservation()
+    {
+
+
+        yield return null; // Yielding once to ensure the write operation is executed
+
+        Debug.Log("Realm write operation addResrvation completed.");
+    }
     /*
      * Purpose: Separate the slots and write them to db
      * Outcomes: remove slots from db
      */
-    private IEnumerator PerformRealmWriteRemove()
+    private IEnumerator PerformRealmWriteRemoveAvailable()
     {
         string loc = location.text;
         int date = int.Parse(fromDate.text);
@@ -397,7 +446,11 @@ public class RealmController : MonoBehaviour
         Debug.Log("Realm write operation remove completed.");
     }
 
-    private List<Available> PerformRealmWriteRetrieve()
+    /*
+     * Purpose: Get the available list according to the date, called by GetLocations and GetTimings
+     * Outcomes: returns ordered available list according to the date
+     */
+    private List<Available> PerformRealmWriteRetrieveAvailable()
     {
         string dateText;
         if (dateTextProf.IsActive())
@@ -442,6 +495,43 @@ public class RealmController : MonoBehaviour
         }
 
         
+    }
+
+    /*
+     * Purpose: Get the reserved list according to the date, called by GetReservations
+     * Outcomes: returns ordered reserved list according to the date
+     */
+    private List<Reserved> PerformRealmWriteRetrieveReservation()
+    {
+        string dateText;
+        if (timeTextProf.IsActive())
+        {
+            dateText = timeTextProf.text;
+            Debug.Log("ProfText" + dateText);
+        }
+        else if (timeTextStaff.IsActive())
+        {
+            dateText = timeTextStaff.text;
+            Debug.Log("StaffText" + dateText);
+        }
+        else return null;
+        string[] parts = dateText.Split('/');
+        int date = int.Parse(parts[0]);
+        int month = int.Parse(parts[1]);
+        int year = int.Parse(parts[2]) - 2000;
+        try
+        {
+            List<Reserved> results = realm.All<Reserved>()
+                .Where(item => item.Date == date && item.Month == month && item.Year == year)
+                .ToList();
+            Debug.Log(results);
+            return results;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error querying Realm: " + ex.Message);
+            return null;
+        }
     }
 
     /*
