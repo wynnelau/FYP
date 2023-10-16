@@ -5,8 +5,8 @@ using UnityEngine;
 
 
 /*
- *Location: Main Scene, attached to "Table"
- *Purpose: Get the user's identity and open the corresponding menu
+ *Location: "Table"  in "MainScene" scene
+ *Purpose: Get the user's identity and open the corresponding mainMenu UI when the user comes into contact with "Table"
  */
 public class MainMenuTable : MonoBehaviour
 {
@@ -15,32 +15,22 @@ public class MainMenuTable : MonoBehaviour
     private string userIdentity;
     List<string> getUserIdentity = new List<string> { "Identity" };
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /*
-     * Purpose: Trigger the mainMenuUI when user comes into contact with "Table"
-     * Outcomes: mainMenuUI is activated
+     * Purpose: Call GetUserIdentityData() to get the user's identity to open the corresponding mainMenu UI when user comes into contact with "Table"
+     * Input: User comes into contact with "Table"
+     * Output: Call GetUserIdentityData() 
      */
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("MainMenuTable onTriggerEnter activateMainMenuUI");
+        Debug.Log("MainMenuTable onTriggerEnter: activateMainMenuUI");
         GetUserIdentityData();
         player.enabled = false;
     }
 
     /*
-     * Purpose: To retrieve the user's identity from db
-     * Outcomes: retrieves the user's identity
+     * Purpose: Attempt to retrieve the user's identity from the PlayFab database when called by OnTriggerEnter()
+     * Input: Called by OnTriggerEnter() when user comes into contact with "Table"
+     * Output: Attempt to retrieve the user's identity from the PlayFab database
      */
     public void GetUserIdentityData()
     {
@@ -51,6 +41,13 @@ public class MainMenuTable : MonoBehaviour
         }, GetUserIdentitySuccess, GetUserIdentityFail);
     }
 
+    /*
+     * Purpose: Successful attempt to retrieve the user's identity and changes to the corresponding mainMenu UI
+     * Input: Called by GetUserIdentityData() when attempt to retrieve the user's identity is successful
+     * Output: If user is Student, opens "mainMenuStudent" UI
+     *         else if user is Staff, opens "mainMenuStaff" UI
+     *         else if user is Prof/TA, opens "mainMenuProf" UI
+     */
     void GetUserIdentitySuccess(GetUserDataResult result)
     {
         userIdentity = result.Data["Identity"].Value;
@@ -72,6 +69,11 @@ public class MainMenuTable : MonoBehaviour
         }
     }
 
+    /*
+     * Purpose: Failed attempt to retrieve the user's identity
+     * Input: Called by OnTriggerEnter() when attempt to retrieve the user's identity failed
+     * Output: Debug.Log("MainMenuTable GetUserIdentityFail " + error);
+     */
     void GetUserIdentityFail(PlayFabError error)
     {
         Debug.Log("MainMenuTable GetUserIdentityFail " + error);
