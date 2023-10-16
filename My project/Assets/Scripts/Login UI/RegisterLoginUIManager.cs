@@ -13,24 +13,21 @@ public class RegisterLoginUIManager : MonoBehaviour
     public TMP_Dropdown identityDropdown;
     public TMP_Text registerError, loginError;
 
-    // Start is called before the first frame update
     /*
-     * Purpose: User sees login page when they open application
+     * Purpose: Ensures that user sees "LoginPage" UI when application opens
+     *          Start is called before the first frame update
+     * Input: NA
+     * Output: Opens "LoginPage" UI
      */
     void Start()
     {
         ChangeToLogin();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /*
-     * Purpose: Change the UI to the login UI, tied to the "loginHereButton"
-     * Outcomes: activates the loginUI and deactivates every other UI, clears the input for the loginUI
+     * Purpose: Change to "LoginPage" UI when the "LoginHereButton" button in "RegisterPage" UI is clicked
+     * Input: Click the "LoginHereButton" button in "RegisterPage" UI
+     * Output: Opens "LoginPage" UI, clears previous texts for loginEmail, loginPassword and loginError
      */
     public void ChangeToLogin()
     {
@@ -44,8 +41,9 @@ public class RegisterLoginUIManager : MonoBehaviour
     }
 
     /*
-     * Purpose: Change the UI to the register UI, tied to the "registerHereButton"
-     * Outcomes: activates the registerUI and deactivates every other UI, clears the input for the registerUI
+     * Purpose: Change to "RegisterPage" UI when the "RegisterHereButton" button in "LoginPage" UI is clicked
+     * Input: Click the "RegisterHereButton" button in "LoginPage" UI
+     * Output: Opens "RegisterPage" UI, clears previous texts for registerEmail, registerPassword, registerError and sets idenityDropdown to 0
      */
     public void ChangeToRegister()
     {
