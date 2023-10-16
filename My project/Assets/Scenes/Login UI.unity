@@ -1664,7 +1664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 567160212}
   m_Layer: 0
-  m_Name: SetUserProfileDataPageStudent
+  m_Name: SetUserProfilePageStudent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2846,10 +2846,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e57e159eb3a86441a6c1c9886fcec0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  registerPage: {fileID: 359097713}
-  loginPage: {fileID: 730233603}
-  setUserProfileDataPageStudent: {fileID: 567160211}
-  setUserProfileDataPageOthers: {fileID: 1801020647}
+  registerPageUI: {fileID: 359097713}
+  loginPageUI: {fileID: 730233603}
+  setUserProfilePageStudentUI: {fileID: 567160211}
+  setUserProfilePageOthersUI: {fileID: 1801020647}
   registerEmail: {fileID: 253093318}
   registerPassword: {fileID: 1314306292}
   registerError: {fileID: 8914256}
@@ -5882,7 +5882,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Professor/TA
       m_Image: {fileID: 0}
-    - m_Text: Staff
+    - m_Text: Lab Admin
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7615,7 +7615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1801020648}
   m_Layer: 0
-  m_Name: SetUserProfileDataPageOthers
+  m_Name: SetUserProfilePageOthers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,28 +6,29 @@ using TMPro;
 using UnityEngine.SceneManagement;
 
 /*
- * Location: Login UI, used by UIControls
+ * Location: UIControls
  * Purpose: Manage the register and login using PlayFab API calls
  * Tutorial used: https://www.youtube.com/watch?v=XPTPRaF2pd4
  */
 public class PlayFabLoginRegister : MonoBehaviour
 {
-    public GameObject registerPage, loginPage, setUserProfileDataPageStudent, setUserProfileDataPageOthers;
+    public GameObject registerPageUI, loginPageUI, setUserProfilePageStudentUI, setUserProfilePageOthersUI;
     public TMP_Text registerEmail, registerPassword, registerError, loginEmail, loginPassword, loginError;
     public TMP_Dropdown identityDropdown;
-    // Update is called once per frame
     /*
-     * Purpose: Whenever the "enter" key is pressed, it tries to send the data to the database
+     * Purpose: Update is called once per frame. Whenever the "enter" key is pressed, it will try to call either Register() or Login() accordingly
+     * Outcome: If in register page, pressing "enter" would result in calling the Register() function
+     *          If in login page, pressing "enter" woudld result in calling the Login() function
      */
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (registerPage.activeSelf)
+            if (registerPageUI.activeSelf)
             {
                 Register();
             }
-            if (loginPage.activeSelf)
+            if (loginPageUI.activeSelf)
             {
                 Login();
             }
@@ -38,7 +39,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     /*
      * Purpose: Tries to send register data to database, tied to the "registerButton"
      * Outcomes: if there are missing inputs or PlayFabError, unable to send register data 
-     *           else, sends all data to the database
+     *           else, sends email, password and identity to the database
      */
     public void Register()
     {
@@ -58,7 +59,7 @@ public class PlayFabLoginRegister : MonoBehaviour
 
     public void RegisterSuccess(RegisterPlayFabUserResult result)
     {
-        string userIdentity = identity();
+        string userIdentity = Identity();
         // Send user's identity to db
         SaveIdentity(userIdentity);
         // Go to the user profile set up page according to their identity;
@@ -74,7 +75,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Purpose: Gets the identity of the user through the dropdown 
      * Outcomes: returns string of user's identity
      */
-    public string identity()
+    public string Identity()
     {
         if (identityDropdown.value == 1) return "Student";
         else if (identityDropdown.value == 2) return "Professor/TA";
@@ -116,24 +117,24 @@ public class PlayFabLoginRegister : MonoBehaviour
      */
     void KnowMore(string identity)
     {
-        loginPage.SetActive(false);
-        registerPage.SetActive(false);
+        loginPageUI.SetActive(false);
+        registerPageUI.SetActive(false);
         // Set the different profile pages as active
         if (identity == "Student")
         {
-            setUserProfileDataPageStudent.SetActive(true);
+            setUserProfilePageStudentUI.SetActive(true);
         }
         else if (identity == "Professor/TA" || identity == "Staff")
         {
-            setUserProfileDataPageOthers.SetActive(true);
+            setUserProfilePageOthersUI.SetActive(true);
         }
 
     }
 
     /*
      * Purpose: Tries to send login data to database, tied to the "loginButton"
-     * Outcomes: if there is PlayFabError, unable to send login data 
-     *           else, sends all data to the database and load "Main Scene
+     * Outcomes: if there is PlayFabError, rmail or login is incorrect 
+     *           else, sends email and password to the database to verify and load "Main Scene"
      */
     public void Login()
     {
@@ -152,11 +153,10 @@ public class PlayFabLoginRegister : MonoBehaviour
         loginError.text = error.GenerateErrorReport();
     }
 
-    // Go to Main Scene after login
     void MainScene()
     {
-        loginPage.SetActive(false);
-        registerPage.SetActive(false);
+        loginPageUI.SetActive(false);
+        registerPageUI.SetActive(false);
         // Load the Main Scene
         SceneManager.LoadScene("Main Scene");
     }

@@ -32,8 +32,4 @@ public class ManageSlotsUI : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        
-    }
 }

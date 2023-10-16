@@ -84,7 +84,7 @@ public class RealmController : MonoBehaviour
      * Purpose: Add available reservations by taking in inputs
      * Outcomes: Call PerformRealmWriteAddReservation if successful
      */
-    public void AddReservation()
+    public void AddReservation(List<Reserved> addReservationList)
     {
         if (!isRealmInitialized)
         {
@@ -94,7 +94,7 @@ public class RealmController : MonoBehaviour
 
         Debug.Log("Adding reservation to Realm");
 
-        StartCoroutine(PerformRealmWriteAddReservation());
+        StartCoroutine(PerformRealmWriteAddReservation(addReservationList));
 
         errorText.text = "Adding slots complete";
 
@@ -359,7 +359,7 @@ public class RealmController : MonoBehaviour
         Debug.Log("Realm write operation addAvailable completed.");
     }
 
-    private IEnumerator PerformRealmWriteAddReservation()
+    private IEnumerator PerformRealmWriteAddReservation(List<Reserved> addReservationList)
     {
 
 
