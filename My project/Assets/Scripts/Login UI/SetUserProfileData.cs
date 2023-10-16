@@ -6,36 +6,32 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 /*
- *Location: Login UI, used by UIControls
- *Purpose: Get user data from user once they register for an account (Sudent and others) and write to database
+ * Location: UIControls
+ * Purpose: Get profile data from user once they register (Student and Others) and send to PlayFab database
  */
 public class SetUserProfileData : MonoBehaviour
 {
-    public GameObject setUserProfileDataPageStudent, setUserProfileDataPageOthers;
+    public GameObject setUserProfilePageStudentUI, setUserProfilePageOthersUI;
     public Text displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
     public Text displayNameOthers, schoolOthers, descriptionOthers;
     public Text errorStudent, errorOthers;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     /*
-     * Purpose: Whenever the "enter" key is pressed, it tries to send the data to the database
+     * Purpose: Call either SendStudentInfo() or SendOthersInfo() when "enter" key is pressed in "SetUserProfilePageStudent" UI or "SetUserProfilePageOthers" UI accordingly
+     *          Update is called once per frame
+     * Input: Press the "enter" key
+     * Output: If in "SetUserProfilePageStudent" UI, call SendStudentInfo() 
+     *          If in "SetUserProfilePageOthers" UI, call SendOthersInfo() 
      */
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            // for student
-            if (setUserProfileDataPageStudent.activeSelf)
+            if (setUserProfilePageStudentUI.activeSelf)
             {
                 SendStudentInfo();
             }
-            // for others
-            else if (setUserProfileDataPageOthers.activeSelf)
+            else if (setUserProfilePageOthersUI.activeSelf)
             {
                 SendOthersInfo();
             }
@@ -44,9 +40,11 @@ public class SetUserProfileData : MonoBehaviour
     }
 
     /*
-     * Purpose: Tries to send user data to database, tied to the "continueButtonStudent"
-     * Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
-     *           else, sends all data (including empty descriptions) to the database and load next scene
+     * Purpose: Attempt to send student info to the PlayFab database when "enter" key is pressed or when "ContinueButtonStudent" button in "SetUserProfilePageStudent" UI
+     * Input: Called by Update() when "enter" is pressed in "SetUserProfilePageStudent" UI
+     *        Click the "ContinueButtonStudent" button in "SetUserProfilePageStudent" UI
+     * Output: If there are missing inputs, return a errorStudent message
+     *         else attempt to send student info using displayNameStudent, schoolStudent, courseStudent, yearStudent and descriptionStudent  
      */
     public void SendStudentInfo()
     {
@@ -75,21 +73,33 @@ public class SetUserProfileData : MonoBehaviour
         }
     }
 
+    /*
+     * Purpose: Successful attempt to send student info and changes to the "MainScene" scene
+     * Input: Called by SendStudentInfo() when attempt to send student info is successful
+     * Output: Loads the "MainScene" scene      
+     */
     void SaveStudentInfoSuccess(UpdateUserDataResult result)
     {
         Debug.Log("SaveStudentInfoSuccess");
-        setUserProfileDataPageStudent.SetActive(false);
+        setUserProfilePageStudentUI.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }
 
+    /*
+     * Purpose: Failed attempt to send student info
+     * Input: Called by SendStudentInfo() when attempt to send student info failed
+     * Output: Return a errorStudent message
+     */
     void SaveStudentInfoFail(PlayFabError error)
     {
-        Debug.Log(error);
+        errorStudent.text = error.GenerateErrorReport();
     }
 
     /*
      * Purpose: Checks whether the user (student) has inputs for all except for description
-     * Outcomes: returns true if there is missing inputs
+     * Input: Called by SendStudentInfo()
+     * Output: If there are missing inputs, return true
+     *         else return false
      */
     bool CheckMissingInputsStudent()
     {
@@ -101,10 +111,12 @@ public class SetUserProfileData : MonoBehaviour
     }
 
     /*
-    * Purpose: Tries to send user data to database, tied to the "continueButtonOthers"
-    * Outcomes: if there are missing inputs or PlayFabError, unable to send user data 
-    *           else, sends all data (including empty descriptions) to the database and load next scene
-    */
+     * Purpose: Attempt to send others info to the PlayFab database when "enter" key is pressed or when "ContinueButtonOthers" button in "SetUserProfilePageOthers" UI
+     * Input: Called by Update() when "enter" is pressed in "SetUserProfilePageOthers" UI
+     *        Click the "ContinueButtonOthers" button in "SetUserProfilePageOthers" UI
+     * Output: If there are missing inputs, return a errorOthers message
+     *         else attempt to send others info using displayNameOthers, schoolOthers and descriptionOthers  
+     */
     public void SendOthersInfo()
     {
 
@@ -133,22 +145,34 @@ public class SetUserProfileData : MonoBehaviour
         
     }
 
+    /*
+     * Purpose: Successful attempt to send others info and changes to the "MainScene" scene
+     * Input: Called by SendOthersInfo() when attempt to send others info is successful
+     * Output: Loads the "MainScene" scene      
+     */
     void SaveOthersInfoSuccess(UpdateUserDataResult result)
     {
         Debug.Log("Saved others info success");
-        setUserProfileDataPageOthers.SetActive(false);
+        setUserProfilePageOthersUI.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }
 
+    /*
+     * Purpose: Failed attempt to send others info
+     * Input: Called by SendOthersInfo() when attempt to send others info failed
+     * Output: Return a errorOthers message
+     */
     void SaveOthersInfoFail(PlayFabError error)
     {
-        Debug.Log(error);
+        errorOthers.text = error.GenerateErrorReport();
     }
 
     /*
-    * Purpose: Checks whether the user (others) has inputs for all except for description
-    * Outcomes: returns true if there is missing inputs
-    */
+     * Purpose: Checks whether the user (others) has inputs for all except for description
+     * Input: Called by SendOthersInfo()
+     * Output: If there are missing inputs, return true
+     *         else return false
+     */
     bool CheckMissingInputsOthers()
     {
         if (displayNameOthers.text == "" || schoolOthers.text == "")

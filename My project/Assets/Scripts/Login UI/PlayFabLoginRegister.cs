@@ -20,8 +20,8 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Purpose: Call either Register() or Login() when "enter" key is pressed in "RegisterPage" UI or "LoginPage" UI accordingly
      *          Update is called once per frame
      * Input: Press the "enter" key
-     * Output: If in "RegisterPage" UI, call the Register() 
-     *          If in "LoginPage" UI, call the Login() 
+     * Output: If in "RegisterPage" UI, call Register() 
+     *          If in "LoginPage" UI, call Login() 
      */
     void Update()
     {
