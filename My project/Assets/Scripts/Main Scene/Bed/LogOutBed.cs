@@ -1,29 +1,19 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene, attached to "Bed"
- *Purpose: Trigger the logoutUI when user comes into contact with "Bed"
+ * Location: "Bed" in "MainScene" scene
+ * Purpose: Open the "logoutUI" UI when user comes into contact with "Bed"
  */
 
 public class LogOutBed : MonoBehaviour
 {
     public GameObject logoutUI;
     public PlayerControls player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /*
-     * Purpose: Trigger the logoutUI when user comes into contact with "Bed"
-     * Outcomes: logoutUI is activated
+     * Purpose: Open the "logoutUI" UI when user comes into contact with "Bed"
+     * Input: User comes into contact with "Bed"
+     * Output: Open the "logoutUI" UI
      */
     private void OnTriggerEnter(Collider other)
     {

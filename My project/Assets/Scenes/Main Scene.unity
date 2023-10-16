@@ -18187,7 +18187,7 @@ GameObject:
   - component: {fileID: 849384661}
   - component: {fileID: 849384662}
   m_Layer: 0
-  m_Name: StudentControls
+  m_Name: MainSceneControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
