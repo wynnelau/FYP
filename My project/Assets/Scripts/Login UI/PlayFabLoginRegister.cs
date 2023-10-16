@@ -45,7 +45,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Output: If the identity of the user is not specified in "IdentityDropdown" dropdown, return a registerError message
      *         else attempt to register the user using registerEmail and registerPassword
      */
-    void Register()
+    public void Register()
     {
         // if identity not given, do not register
         if (identityDropdown.value == 0)
@@ -165,7 +165,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      *        Click the "LoginButton" button in the "LoginPage" UI
      * Output: Attempt to login using loginEmail and loginPassword
      */
-    void Login()
+    public void Login()
     {
         loginError.text = " ";
         var request = new LoginWithEmailAddressRequest { Email = loginEmail.text, Password = loginPassword.text };
