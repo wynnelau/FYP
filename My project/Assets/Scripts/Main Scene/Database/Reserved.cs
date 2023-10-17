@@ -24,16 +24,16 @@ public partial class Reserved : IRealmObject
     [MapTo("year")]
     public int? Year { get; set; }
 
-    public Reserved()
+    public Reserved(string loc, int date, int month, int year, int hr, int min, string name)
     {
         Id = ObjectId.GenerateNewId();
         Partition = "FYP";
-        Date = 0;
-        Hour = 0;
-        Min = 0;
-        Month = 0;
-        Name = "Thomas";
-        Year = 0;
-        Location = "lab2";
+        Date = date;
+        Hour = hr;
+        Min = min;
+        Month = month;
+        Name = name;
+        Year = year;
+        Location = loc;
     }
 }

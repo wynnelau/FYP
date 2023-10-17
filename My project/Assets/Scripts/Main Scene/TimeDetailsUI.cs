@@ -54,17 +54,4 @@ public class TimeDetailsUI : MonoBehaviour
 
     }
 
-    public void AddReservation()
-    {
-        RealmController = FindObjectOfType<RealmController>();
-        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
-        List<string> addReservationList = new List<string>();
-        addReservationList = buttonCreator.GetAddReservationList;
-        foreach (var reservation in addReservationList)
-        {
-            Debug.Log(reservation);
-        }
-    }
-
-
 }
