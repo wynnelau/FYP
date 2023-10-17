@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene, attached to "Player"
- *Purpose: Control the player
+ * Location: "Player" in "MainScene" scene
+ * Purpose: Control the player movements
  */
 
 public class PlayerControls : MonoBehaviour
@@ -19,16 +19,10 @@ public class PlayerControls : MonoBehaviour
 
     private float firstPersonBoundary = -23f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     /*
      * Purpose: Allow user to move around, and if user is in firstPerson mode, allow to look left and right
-     * Outcomes: 
+     * Input: Click on keys 'W', 'A', 'S', 'D' to move around, and 'Q', 'E' to rotate camera
+     * Output: User can move "Player" around, and rotate the camera when in firstPerson by calling TurnLeft() or TurnRight()
      */
     void Update()
     {
@@ -54,8 +48,9 @@ public class PlayerControls : MonoBehaviour
     }
 
     /*
-     * Purpose: Allow user to look left
-     * Outcomes: User rotates left with camera
+     * Purpose: Allow user to look left by rotating camera
+     * Input: Called by update when 'Q' key is pressed
+     * Output: Rotate camera to left
      */
     void TurnLeft()
     {
@@ -65,8 +60,9 @@ public class PlayerControls : MonoBehaviour
     }
 
     /*
-     * Purpose: Allow user to look right
-     * Outcomes: User rotates right with camera
+     * Purpose: Allow user to look right by rotating camera
+     * Input: Called by update when 'E' key is pressed
+     * Output: Rotate camera to right
      */
     void TurnRight()
     {
@@ -74,9 +70,11 @@ public class PlayerControls : MonoBehaviour
         Quaternion rotationTargetRight = Quaternion.Euler(0, rightRotationInput, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotationTargetRight, rotationSpeed * Time.deltaTime);
     }
+    
     /*
-     * Purpose: Translate the user when they change to thirdPerson mode, called by CameraSwitch
-     * Outcomes: User translates in the z direction
+     * Purpose: Make sure "Player" is not out of bounds when we switch from firstPerson to thirdPerson
+     * Input: Called by CameraSwitch when SwitchToThirdPerson() is called
+     * Output: "Player" translates in the z direction
      */
     public void BottomLimit()
     {

@@ -1,27 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Location: MainSceneControls
+ * Purpose: Manage the TimeDetailsUI
+ */
 public class TimeDetailsUI : MonoBehaviour
 {
     public GameObject dateDetailsStaff, dateDetailsProf, timeDetailsStaff, timeDetailsProf;
     public DynamicButtonCreator buttonCreator;
     public RealmController RealmController;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /*
-     * Purpose: To close the TimeDetails UI, attached to "closeTimeDetails" button
-     * Outcomes: deactivate TimeDetails UI and all the dynamic buttons
+     * Purpose: Close the TimeDetails UIa when the "closeTimeDetails" button is clicked
+     * Input: Click on the "closeTimeDetails" button
+     * Output: Delete dynamic buttons in the timeDetails UI, go to the respective dateDetails UI and 
+     *         then create dynamic buttons in the dateDetails UI
      */
     public void closeTimeDetails()
     {

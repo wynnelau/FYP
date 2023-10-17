@@ -27,7 +27,9 @@ public class DynamicButtonCreator : MonoBehaviour
 
     /*
      * Purpose: Create a dynamic button with the given text and with a click event listener
-     * Input: Called by functions 
+     * Input: Called by ResourceReservationUI using openDetails() to create buttons in the respective dateDetails UIs
+     *        Called by TimeDetailsUI using closeTimeDetails() to create buttons in the respective dateDetails UIs after closing timeDetails UI
+     *        Click on the buttons in dateDetails UIs to create buttons in the respective timeDetails UI
      * Output: Create dynamic button according to the string passed into it and add a click event listener accordingly
      */
     public void CreateButton(string buttonText)
@@ -172,7 +174,8 @@ public class DynamicButtonCreator : MonoBehaviour
 
     /*
      * Purpose: Delete all the dynamic buttons created in a UI
-     * Input: Called by functions
+     * Input: Called by DateDetailsUI by closeDetails() to delete all buttons in the respective dateDetails UI
+     *        Called by TimeDetailsUI by closeTimeDetails() to delete all buttons in the respective timeDetails UI
      * Output: Destroy all the dynamic buttons in the UI and clear the list of buttons
      */
     public void DeleteAllButtons()

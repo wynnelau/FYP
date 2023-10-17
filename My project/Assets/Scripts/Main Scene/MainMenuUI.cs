@@ -1,29 +1,18 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 /*
- *Location: Main Scene, attached to "Controls"
- *Purpose: manage main menu UI
+ *Location: MainSceneControls
+ *Purpose: Manage the mainMenu UIs
  */
 public class MainMenuUI : MonoBehaviour
 {
     public GameObject mainMenuStudent, mainMenuStaff, mainMenuProf, resourceReservationStaff, resourceReservationProf;
     public PlayerControls player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /*
-     * Purpose: To close the main menu UI, attached to "closeMainMenuButton"
-     * Outcomes: deactivate main menu
+     * Purpose: Close the respective mainMenu UIs when the "closeMainMenuButton" button is clicked
+     * Input: Click on the "closeMainMenuButton" button
+     * Output: Close the respective mainMenu UIs and enable player controls
      */
     public void closeMainMenu()
     {
@@ -48,6 +37,11 @@ public class MainMenuUI : MonoBehaviour
     /*
      * Purpose: To open the resourceReservation UI, attached to "resourceReservation" in "mainMenuUI"
      * Outcomes: activates resourceReservation and deactivates mainmenu
+     */
+    /*
+     * Purpose: To open the respective resourceReservation UIs when the "resourceReservation" button is clicked in the respective mainMenu UIs 
+     * Input: Click on the "resourceReservation" button in a mainMenu UI (Prof/TA or Staff)
+     * Output: Open the respective resourceReservation UIs
      */
     public void openResourceReservation()
     {
