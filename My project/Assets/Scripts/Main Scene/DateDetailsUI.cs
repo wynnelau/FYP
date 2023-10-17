@@ -2,28 +2,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*
- *Location: Main Scene, attached to "Controls"
- *Purpose: manage date details UI
+ * Location: MainSceneControls
+ * Purpose: Manage the DateDetailsUI
  */
 public class DateDetailsUI : MonoBehaviour
 {
     public GameObject dateDetailsStaff, dateDetailsProf, resourceReservationProf, resourceReservationStaff;
     public DynamicButtonCreator buttonCreator;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /*
-     * Purpose: To close the date details UI, attached to "closeDateDetailsButton"
-     * Outcomes: deactivate date details
+     * Purpose: Close the datedetails UI when the "closeDateDetailsButton" button is clicked
+     * Input: Click on the "closeDateDetailsButton" button
+     * Output: If user is Prof, delete all dynamic buttons and go to "resourceReservationProf" UI
+     *         else if user is Staff,  delete all dynamic buttons and go to "resourceReservationStaff" UI
      */
     public void closeDetails()
     {

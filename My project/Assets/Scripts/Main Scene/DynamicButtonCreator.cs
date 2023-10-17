@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using UnityEditor;
 using System;
 
+/*
+ * Location: MainSceneControls
+ * Purpose: Used to create the dynamic buttons for dateDetails UI and timeDetails UI
+ */
 public class DynamicButtonCreator : MonoBehaviour
 {
     public GameObject dateDetailsStaff, dateDetailsProf;
@@ -22,7 +25,11 @@ public class DynamicButtonCreator : MonoBehaviour
     private List<string> addReservationList = new List<string>();
     private List<string> removeReservationList = new List<string>();
 
-    // This method creates a dynamic button with the given text and assigns a callback function to it.
+    /*
+     * Purpose: Create a dynamic button with the given text and with a click event listener
+     * Input: Called by functions 
+     * Output: Create dynamic button according to the string passed into it and add a click event listener accordingly
+     */
     public void CreateButton(string buttonText)
     {
         GameObject newButton = null;
@@ -48,8 +55,6 @@ public class DynamicButtonCreator : MonoBehaviour
         }
 
         Button buttonComponent = newButton.GetComponent<Button>();
-
-        // Set the button's text
         Text buttonTextComponent = newButton.GetComponentInChildren<Text>();
         if (buttonTextComponent != null)
         {
@@ -72,12 +77,14 @@ public class DynamicButtonCreator : MonoBehaviour
             }
         }*/
 
-        // Add a click event handler to the button
+
         buttonComponent.onClick.AddListener(() =>
         {
             /*
-             * Purpose: Create dynamic timing buttons according to the location button pressed
-             * Outcome: call GetTimings according to location and get a timing list to create the dynamic buttons
+             * Purpose: Add a click event listener to the button created in dateDetails UI
+             * Input: Click on the button in dateDetails UI
+             * Output: Go the respective timeDetails UI and call GetTiming() passing the location string to 
+             *         get a list of strings containing the buttons to be created in the timeDetails UI
              */
             if (dateDetailsProf.activeSelf == true)
             {
@@ -123,13 +130,15 @@ public class DynamicButtonCreator : MonoBehaviour
                     }
                 }
             }
+            
             /*
-             * Purpose: If available (white) timing pressed, turn it to selected (lightGreen) and add to addReservationList
-             * If selected (lightGreen) timing pressed, turn it to available (white) and remove it from addReservationList
-             * If reservedByMe (lightBlue) timing pressed, turn it to removeReservation (lightRed) and add it to removeReservationList
-             * If removeReservation (lightRed) timing pressed, turn it to reservedByMe (lightBlue) and remove it from removeReservationList
-             * grey (reservedByOthers) cannot be clicked
-             * Outcome: call GetTimings according to location and get a timing list to create the dynamic buttons
+             * Purpose: Add a click event listener to the button created in timeDetails UI
+             * Input: Click on the button in timeDetails UI
+             * Output: If available (white) pressed, turn it to selected (lightGreen) and add to addReservationList
+             *         else if selected (lightGreen) pressed, turn it to available (white) and remove it from addReservationList
+             *         else if reservedByMe (lightBlue) pressed, turn it to removeReservation (lightRed) and add it to removeReservationList
+             *         else if removeReservation (lightRed) pressed, turn it to reservedByMe (lightBlue) and remove it from removeReservationList
+             *         grey (reservedByOthers) cannot be clicked
              */
             else if (timeDetailsProf.activeSelf == true)
             {
@@ -161,7 +170,28 @@ public class DynamicButtonCreator : MonoBehaviour
         createdButtons.Add(newButton);
     }
 
-    // used to convert the timings to the period of time eg. "0:0" to "00:00 to 00:30"
+    /*
+     * Purpose: Delete all the dynamic buttons created in a UI
+     * Input: Called by functions
+     * Output: Destroy all the dynamic buttons in the UI and clear the list of buttons
+     */
+    public void DeleteAllButtons()
+    {
+        foreach (GameObject button in createdButtons)
+        {
+            // Destroy each button GameObject
+            Destroy(button);
+        }
+
+        // Clear the list of created buttons
+        createdButtons.Clear();
+    }
+
+    /*
+     * Purpose: Convert the timings in "hr:min" to a slot of time in "hr:min to hr:min" when button in dateDetails is clicked
+     * Input: Called by when button in dateDetails UI is clicked and a list of strings is passed in
+     * Output: Returns a list of converted strings used for creating buttons in timeDetails UI
+     */
     private List<string> ConvertToRange(List<string> timingList)
     {
         List<string> convertedList = new List<string>();
@@ -187,6 +217,11 @@ public class DynamicButtonCreator : MonoBehaviour
         return convertedList;
     }
 
+    /*
+     * Purpose: Convert a slot of time in "hr:min to hr:min" to the timings in "hr:min" 
+     * Input: 
+     * Output: Returns a list of converted strings used to send data to database
+     */
     private List<string> ConvertToTiming(List<string> timingList)
     {
         List<string> convertedList = new List<string>();
@@ -206,6 +241,11 @@ public class DynamicButtonCreator : MonoBehaviour
         return convertedList;
     }
 
+    /*
+     * Purpose: Get the end time of each slot of time according to the start time
+     * Input: Called by ConvertToRange() and start time is passed in
+     * Output: Returns a string of the end time calculated
+     */
     private string GetEndTiming(string hr, string min)
     {
         int ihr, imin;
@@ -235,6 +275,11 @@ public class DynamicButtonCreator : MonoBehaviour
         return endTime;
     }
 
+    /*
+     * Purpose: Getter function of the private GetAddReservationList
+     * Input: Called by functions
+     * Output: Returns the list of strings GetAddReservationList
+     */
     public List<string> GetAddReservationList
     {
         get
@@ -243,29 +288,4 @@ public class DynamicButtonCreator : MonoBehaviour
         }
     }
 
-    public void DeleteAllButtons()
-    {
-        foreach (GameObject button in createdButtons)
-        {
-            // Destroy each button GameObject
-            Destroy(button);
-        }
-
-        // Clear the list of created buttons
-        createdButtons.Clear();
-    }
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

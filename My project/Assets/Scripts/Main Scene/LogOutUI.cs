@@ -1,29 +1,19 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene, attached to "Controls"
- *Purpose: Logout when user clicks confirm in the logoutUI
+ * Location: MainSceneControls
+ * Purpose: Manage the LogOutUI
  */
 
 public class LogOutUI : MonoBehaviour
 {
     public GameObject logoutUI;
     public PlayerControls player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /*
-     * Purpose: Quit application when button pressed, used by "logoutConfirmButton"
-     * Outcomes: quit application
+     * Purpose: Quit application when the "logoutConfirmButton" button is clicked
+     * Input: Click on the "logoutCancelButton" button
+     * Output: Quit application
      */
     public void logoutConfirm()
     {
@@ -31,8 +21,9 @@ public class LogOutUI : MonoBehaviour
     }
 
     /*
-     * Purpose: Deactivate logoutUI when button pressed, used by "logoutCancelButton"
-     * Outcomes: deactivate logoutUI
+     * Purpose: Close the "logoutUI" UI when the "logoutCancelButton" button is clicked
+     * Input: Click on the "logoutCancelButton" button
+     * Output: Set the "logoutUI" UI to inactive and enable player controls
      */
     public void logoutCancel()
     {

@@ -14,13 +14,17 @@ public class RegisterLoginUIManager : MonoBehaviour
     public TMP_Text registerError, loginError;
 
     /*
-     * Purpose: Ensures that user sees "LoginPage" UI when application opens
+     * Purpose: Ensures that user sees "LoginPage" UI when application opens, and other UIs are inactive
      *          Start is called before the first frame update
      * Input: NA
-     * Output: Opens "LoginPage" UI
+     * Output: Set all UIs to inactive and call ChangeToLogin()
      */
     void Start()
     {
+        loginPageUI.SetActive(false);
+        registerPageUI.SetActive(false);
+        setUserProfilePageStudentUI.SetActive(false);
+        setUserProfileDataOthersUI.SetActive(false);
         ChangeToLogin();
     }
 
@@ -33,8 +37,6 @@ public class RegisterLoginUIManager : MonoBehaviour
     {
         loginPageUI.SetActive(true);
         registerPageUI.SetActive(false);
-        setUserProfilePageStudentUI.SetActive(false);
-        setUserProfileDataOthersUI.SetActive(false);
         loginEmail.text = "";
         loginPassword.text = "";
         loginError.text = " ";
@@ -49,8 +51,6 @@ public class RegisterLoginUIManager : MonoBehaviour
     {
         loginPageUI.SetActive(false);
         registerPageUI.SetActive(true);
-        setUserProfilePageStudentUI.SetActive(false);
-        setUserProfileDataOthersUI.SetActive(false);
         registerEmail.text = "";
         registerPassword.text = "";
         registerError.text = " ";
