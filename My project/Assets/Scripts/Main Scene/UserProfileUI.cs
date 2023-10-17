@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 /*
- *Location: Main Scene, attached to "Controls"
- *Purpose: read user profile data from database and display
+ * Location: MainSceneControls
+ * Purpose: Read user profile data from database and display in UserProfileUI
  */
 
 public class UserProfileUI : MonoBehaviour
@@ -18,21 +18,10 @@ public class UserProfileUI : MonoBehaviour
     public Text errorStudent, errorOthers;
     public PlayerControls player;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /*
-     * Purpose: To close the User profile UI, attached to "closeUserProfileButton"
-     * Outcomes: deactivate user profile
+     * Purpose:  To close the respective userProfile UI and enable "Player"
+     * Input: Click on the "closeUserProfileButton" in the userProfile UI
+     * Output: Set the respective userProfile UI as inactive
      */
     public void closeUserProfile()
     {
@@ -47,23 +36,25 @@ public class UserProfileUI : MonoBehaviour
         player.enabled = true;
     }
 
-    /*
-     * Purpose: To close the User profile UI, attached to "updateProfileButton"
-     * Outcomes: deactivate user profile
-     */
+   /*
+    * Purpose: Attempt to update the student's user profile in the "userProfileUIStudent" UI
+    * Input: Click on the "updateProfileButton" button in the "userProfileUIStudent" UI
+    * Output: if there are no missing inputs, attempt to update student's user profile
+    *         else return an errorStudent message
+    */
     public void UpdateStudentProfile()
     {
-        Debug.Log("Entered UpdateStudentProfile");
+        Debug.Log("UserProfileUI UpdateStudentProfile");
         if (userProfileStudent.activeSelf)
         {
             if (CheckMissingInputsStudent()) 
             {
-                Debug.Log("Missing inputs student");
+                Debug.Log("UserProfileUI UpdateStudentProfile MissingInputs");
                 errorStudent.text = "Error. Display name, School, Course and/or Year of study cannot be empty.";
             }
             else
             {
-                Debug.Log("UpdateStudentProfile");
+                Debug.Log("UserProfileUI UpdateStudentProfile AttemptToUpdate");
                 errorStudent.text = "";
                 var request = new UpdateUserDataRequest
                 {
@@ -82,22 +73,33 @@ public class UserProfileUI : MonoBehaviour
         }
     }
 
+   /*
+    * Purpose: Successful attempt to update the student's user profile 
+    * Input: Called by UpdateStudentProfile() when attempt to update is successful
+    * Output: returns an errorStudent message
+    */
     void UpdateStudentProfileSuccess(UpdateUserDataResult result)
     {
-        Debug.Log("SaveStudentInfoSuccess");
+        Debug.Log("UserProfileUI UpdateStudentProfileSuccess");
         errorStudent.text = "Saved successfully";
         
     }
 
+    /*
+     * Purpose: Failed attempt to update the student's user profile 
+     * Input: Called by UpdateStudentProfile() when attempt to update failed
+     * Output: returns an errorStudent message
+     */
     void UpdateStudentProfileFail(PlayFabError error)
     {
-        Debug.Log(error);
+        Debug.Log("UserProfileUI UpdateStudentProfileFail" + error);
         errorStudent.text = "Error. Try again";
     }
 
     /*
      * Purpose: Checks whether the user (student) has inputs for all except for description
-     * Outcomes: returns true if there is missing inputs
+     * Input: Called by UpdateStudentProfile() 
+     * Output: returns true if there is missing inputs
      */
     bool CheckMissingInputsStudent()
     {
@@ -108,23 +110,25 @@ public class UserProfileUI : MonoBehaviour
         return false;
     }
 
-    /*
-     * Purpose: To close the User profile UI, attached to "updateProfileButton"
-     * Outcomes: deactivate user profile
-     */
+   /*
+    * Purpose: Attempt to update other user profile in the "userProfileUIOthers" UI
+    * Input: Click on the "updateProfileButton" button in the "userProfileUIOthers" UI
+    * Output: if there are no missing inputs, attempt to update other user profile
+    *         else return an errorOthers message
+    */
     public void UpdateOthersProfile()
     {
-        Debug.Log("Entered UpdateOthersProfile");
+        Debug.Log("UserProfileUI UpdateOthersProfile");
         if (userProfileOthers.activeSelf)
         {
             if(CheckMissingInputsOthers())
             {
-                Debug.Log("Missing inputs others");
+                Debug.Log("UserProfileUI UpdateOthersProfile MissingInputs");
                 errorOthers.text = "Error. Display name and/or School cannot be empty.";
             }
             else
             {
-                Debug.Log("UpdateOthersProfile");
+                Debug.Log("UserProfileUI UpdateOthersProfile AttemptToUpdate");
                 errorOthers.text = "";
                 var request = new UpdateUserDataRequest
                 {
@@ -140,23 +144,34 @@ public class UserProfileUI : MonoBehaviour
         }
     }
 
+   /*
+    * Purpose: Successful attempt to update the other user profile 
+    * Input: Called by UpdateOthersProfile() when attempt to update is successful
+    * Output: returns an errorOthers message
+    */
     void UpdateOthersProfileSuccess(UpdateUserDataResult result)
     {
-        Debug.Log("SaveOthersInfoSuccess");
+        Debug.Log("UserProfileUI UpdateOthersProfileSuccess");
         errorOthers.text = "Saved successfully";
 
     }
 
+   /*
+    * Purpose: Failed attempt to update the other user profile 
+    * Input: Called by UpdateOthersProfile() when attempt to update failed
+    * Output: returns an errorOthers message
+    */
     void UpdateOthersProfileFail(PlayFabError error)
     {
-        Debug.Log(error);
+        Debug.Log("UserProfileUI UpdateOthersProfileFail" + error);
         errorOthers.text = "Error. Try again";
     }
 
     /*
-    * Purpose: Checks whether the user (others) has inputs for all except for description
-    * Outcomes: returns true if there is missing inputs
-    */
+     * Purpose: Checks whether the user (others) has inputs for all except for description
+     * Input: Called by UpdateOthersProfile() 
+     * Output: returns true if there is missing inputs
+     */
     bool CheckMissingInputsOthers()
     {
         if (displayNameOthers.text == "" || schoolOthers.text == "")

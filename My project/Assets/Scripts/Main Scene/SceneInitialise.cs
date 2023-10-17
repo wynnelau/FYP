@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- *Location: Main Scene, attached to "StudentControls"
- *Purpose: deactivate the UIs when user enters
+ * Location: MainSceneControls
+ * Purpose: Deactivate the UIs when user enters "MainScene" scene
  */
 
 public class SceneInitialise : MonoBehaviour
@@ -11,10 +11,12 @@ public class SceneInitialise : MonoBehaviour
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
     public GameObject timeDetailsProf, timeDetailsStaff;
     public GameObject manageSlotsUI;
-    // Start is called before the first frame update
+    
     /*
-     * Purpose: deactivates all the UIs when the user enters
-     * Outcomes: 
+     * Purpose: Deactivates all the UIs when the user enters "MainScene" scene
+     *          Start is called before the first frame update
+     * Input: NA
+     * Output: deactivates all the UIs
      */
     void Start()
     {
@@ -33,9 +35,4 @@ public class SceneInitialise : MonoBehaviour
         timeDetailsStaff.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
