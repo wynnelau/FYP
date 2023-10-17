@@ -4,9 +4,9 @@ using UnityEngine.UI;
 using System;
 
 /*
- *Location: Main Scene, attached to "Controls"
- *Purpose: Manage the ResourceReservation calendar
- *Tutorial used: https://www.youtube.com/watch?v=cMwCZhZnE4k
+ * Location: MainSceneControls
+ * Purpose: Manage the ResourceReservation calendar
+ * Tutorial used: https://www.youtube.com/watch?v=cMwCZhZnE4k
  */
 public class ResourceReservationUI : MonoBehaviour
 {
@@ -60,10 +60,11 @@ public class ResourceReservationUI : MonoBehaviour
     public Text MonthAndYear;
     public DateTime currMonthYear = DateTime.Now;
 
-    // Start is called before the first frame update
     /*
      * Purpose: Instantiate all Day gameObjects and addListener to all buttons in the calendar
-     * Outcomes: addListener will be used when user clicks on the buttons
+     *          Start is called before the first frame update
+     * Input: NA
+     * Output: addListener will be used when user clicks on the buttons in the calendar, calling openDetails
      */
     void Start()
     {
@@ -82,33 +83,35 @@ public class ResourceReservationUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To close the calendar UI, attached to "closeResourceReservation" button
-     * Outcomes: deactivate calendar UI
+     * Purpose: To close the ResourceReservationUI
+     * Input: Click on the "closeResourceReservation" button in the respective ResourceReservation UIs
+     * Output: Set the resourceReservationUI as inactive and set the respective mainMenuUI as active
      */
     public void closeResourceReservation()
     {
-        Debug.Log("Calendar closeResourceReservation");
+        Debug.Log("ResourceReservationUI closeResourceReservation");
         if (resourceReservationStaff.activeSelf == true)
         {
-            Debug.Log("Calendar closeResourceReservation Staff");
+            Debug.Log("ResourceReservationUI closeResourceReservation Staff");
             resourceReservationStaff.SetActive(false);
             mainMenuStaff.SetActive(true);
         }
         else if (resourceReservationProf.activeSelf == true)
         {
-            Debug.Log("Calendar closeResourceReservation Prof");
+            Debug.Log("ResourceReservationUI closeResourceReservation Prof");
             resourceReservationProf.SetActive(false);
             mainMenuProf.SetActive(true);
         }
     }
 
     /*
-     * Purpose: To open the respective details of the chosen date, 
-     * Outcomes: open details of chosen date
+     * Purpose: To open the dateDetails UI with buttons
+     * Input: Click on the date buttons in the resourceReservationUI 
+     * Output: Open the respective dateDetails UI
      */
     public void openDetails(GameObject dateSelected)
     {
-        Debug.Log("Calendar openDetails");
+        Debug.Log("ResourceReservationUI openDetails");
         if (dateSelected.GetComponentInChildren<Text>().text == "")
         {
             Debug.Log(dateSelected.GetComponentInChildren<Text>().text);
@@ -121,14 +124,14 @@ public class ResourceReservationUI : MonoBehaviour
 
             if (resourceReservationStaff.activeSelf == true)
             {
-                Debug.Log("Calendar openDetails Staff");
+                Debug.Log("ResourceReservationUI openDetails Staff");
                 resourceReservationStaff.SetActive(false);
                 dateDetailsStaff.SetActive(true);
                 dateDetailsDateStaff.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
             }
             else if (resourceReservationProf.activeSelf == true)
             {
-                Debug.Log("Calendar openDetails Prof");
+                Debug.Log("ResourceReservationUI openDetails Prof");
                 resourceReservationProf.SetActive(false);
                 dateDetailsProf.SetActive(true);
                 dateDetailsDateProf.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year; 
@@ -153,8 +156,9 @@ public class ResourceReservationUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To open the manageSlotsUI, attached to "addSlots" button, used by staff only
-     * Outcomes: activate manageSlotsUI
+     * Purpose: To open the "manageSlots" UI
+     * Input: Click on the "addSlots" buttons in the "resourceReservationStaff" UI 
+     * Output: Open the "manageSlots" UI
      */
     public void openReservationSlots()
     {
@@ -170,6 +174,11 @@ public class ResourceReservationUI : MonoBehaviour
     /*
      * Purpose: To update the calendar
      * Outcomes: updates calendar
+     */
+    /*
+     * Purpose: To update the calendar of resourceReservation UIs
+     * Input: Called by Start(), and when we toggle between the months using PrevMonth() and NextMonth() 
+     * Output: Updates the calendar dates in the calendar
      */
     void UpdateCalendar(int year, int month)
     {
@@ -261,7 +270,8 @@ public class ResourceReservationUI : MonoBehaviour
 
     /*
      * Purpose: To get the first day of the month. DayOfWeek: Sun == 0, Saturday == 6
-     * Outcomes: return the first day of the month
+     * Input: Called by UpdateCalendar() 
+     * Output: returns the first day of the month
      */
     int GetMonthStartDay(int dateYear, int dateMonth)
     {
@@ -271,7 +281,8 @@ public class ResourceReservationUI : MonoBehaviour
 
     /*
      * Purpose: To get the total number of days of the month
-     * Outcomes: return number of days in the month
+     * Input: Called by UpdateCalendar() 
+     * Output: returns the number of days of the month
      */
     int GetTotalNumberOfDays(int dateYear, int dateMonth)
     {
@@ -279,8 +290,9 @@ public class ResourceReservationUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To navigate between the different months, attached to "left" button in resourceReservation
-     * Outcomes: call UpdateCalendar with updated dates
+     * Purpose: To navigate between the different months when the "left" button is clicked in the resourceReservation UI
+     * Input: Click on the "left" button
+     * Output: Calls UpdateCalendar() with updated dates
      */
     public void PrevMonth()
     {
@@ -289,8 +301,9 @@ public class ResourceReservationUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To navigate between the different months, attached to "right" button in resourceReservation
-     * Outcomes: call UpdateCalendar with updated dates
+     * Purpose: To navigate between the different months when the "right" button is clicked in the resourceReservation UI
+     * Input: Click on the "right" button
+     * Output: Calls UpdateCalendar() with updated dates
      */
     public void NextMonth()
     {
