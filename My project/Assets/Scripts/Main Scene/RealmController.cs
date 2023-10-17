@@ -203,7 +203,7 @@ public class RealmController : MonoBehaviour
     {
         if (!isRealmInitialized)
         {
-            Debug.Log("Realm initialization is not complete, cannot GetLocations.");
+            Debug.Log("RealmController GetLocations RealmNotInitialized");
             return null;
         }
         var queryResults = PerformRealmWriteRetrieveAvailable();
@@ -225,7 +225,7 @@ public class RealmController : MonoBehaviour
     {
         if (!isRealmInitialized)
         {
-            Debug.Log("Realm initialization is not complete, cannot GetTimings.");
+            Debug.Log("RealmController GetReservations RealmNotInitialized");
             return null;
         }
         var queryResults = PerformRealmWriteRetrieveAvailable();
@@ -262,7 +262,7 @@ public class RealmController : MonoBehaviour
     {
         if (!isRealmInitialized)
         {
-            Debug.Log("Realm initialization is not complete, cannot removeAvailable.");
+            Debug.Log("RealmController GetReservations RealmNotInitialized");
             return null;
         }
         var queryResults = PerformRealmWriteRetrieveReservation();
@@ -306,14 +306,13 @@ public class RealmController : MonoBehaviour
                         if (results == null) 
                         {
                             realm.Add(new Available(loc, date, month, year, hr, min));
-                            Debug.Log("Added new");
                         }
                         
                     });
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError("Error writing to Realm: " + ex.Message);
+                    Debug.LogError("RealmController PerformRealmWriteAddAvailable ErrorWritingToRealm: " + ex.Message);
                 }
 
                 if (min == 0)
@@ -354,7 +353,7 @@ public class RealmController : MonoBehaviour
         
         yield return null; // Yielding once to ensure the write operation is executed
 
-        Debug.Log("Realm write operation addAvailable completed.");
+        Debug.Log("RealmController PerformRealmWriteAddAvailable Completed.");
     }
 
     private IEnumerator PerformRealmWriteAddReservation(List<Reserved> addReservationList)
@@ -402,7 +401,7 @@ public class RealmController : MonoBehaviour
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError("Error writing to Realm: " + ex.Message);
+                    Debug.LogError("RealmController PerformRealmWriteRemoveAvailable ErrorWritingToRealm: " + ex.Message);
                 }
 
                 if (min == 0)
@@ -443,7 +442,7 @@ public class RealmController : MonoBehaviour
 
         yield return null; // Yielding once to ensure the write operation is executed
 
-        Debug.Log("Realm write operation remove completed.");
+        Debug.Log("RealmController PerformRealmWriteRemoveAvailable Completed.");
     }
 
     /*
@@ -457,22 +456,22 @@ public class RealmController : MonoBehaviour
         if (dateTextProf.IsActive())
         {
             dateText = dateTextProf.text;
-            Debug.Log("ProfText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable ProfText" + dateText);
         }
         else if (dateTextStaff.IsActive())
         {
             dateText = dateTextStaff.text;
-            Debug.Log("StaffText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable StaffText" + dateText);
         }
         else if (timeTextProf.IsActive())
         {
             dateText = timeTextProf.text;
-            Debug.Log("ProfText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable ProfText" + dateText);
         }
         else if (timeTextStaff.IsActive())
         {
             dateText = timeTextStaff.text;
-            Debug.Log("StaffText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable StaffText" + dateText);
         }
         else return null;
         string[] parts = dateText.Split('/');
@@ -491,7 +490,7 @@ public class RealmController : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError("Error querying Realm: " + ex.Message);
+            Debug.LogError("RealmController PerformRealmWriteRetrieveAvailable ErrorQueryingRealm: " + ex.Message);
             return null;
         }
 
@@ -509,12 +508,12 @@ public class RealmController : MonoBehaviour
         if (timeTextProf.IsActive())
         {
             dateText = timeTextProf.text;
-            Debug.Log("ProfText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveReservation ProfText" + dateText);
         }
         else if (timeTextStaff.IsActive())
         {
             dateText = timeTextStaff.text;
-            Debug.Log("StaffText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveReservation StaffText" + dateText);
         }
         else return null;
         string[] parts = dateText.Split('/');
@@ -531,15 +530,11 @@ public class RealmController : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError("Error querying Realm: " + ex.Message);
+            Debug.LogError("RealmController PerformRealmWriteRetrieveReservation ErrorQueryingRealm: " + ex.Message);
             return null;
         }
     }
 
-    /*
-     * Purpose: Called by PerfromRealmWriteAdd/Remove, to calculate the hr in 24hr
-     * Outcomes: return hr in 24hr format
-     */
     /*
      * Purpose: Used to calculate the time from 12hr format to 24hr format
      * Input: Called by PerfromRealmWriteAdd/Remove(), passing in am, hr, min, and to

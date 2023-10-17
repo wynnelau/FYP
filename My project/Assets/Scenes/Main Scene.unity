@@ -12300,7 +12300,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384662}
         m_TargetAssemblyTypeName: TimeDetailsUI, Assembly-CSharp
-        m_MethodName: DisplayReservations
+        m_MethodName: AddReservation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
