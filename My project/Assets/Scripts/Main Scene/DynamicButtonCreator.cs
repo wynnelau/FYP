@@ -2,16 +2,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
+using PlayFab;
+using PlayFab.ClientModels;
+
 
 /*
  * Location: MainSceneControls
  * Purpose: Used to create the dynamic buttons for dateDetails UI and timeDetails UI
+ * Tutorial used: https://www.youtube.com/watch?v=8bMzz-nSIwg
  */
 public class DynamicButtonCreator : MonoBehaviour
 {
     public GameObject dateDetailsStaff, dateDetailsProf;
     public GameObject timeDetailsStaff, timeDetailsProf;
-    public Text dateDetailsDateStaff, dateDetailsDateProf, timeDetailsDateStaff, timeDetailsDateProf;
+    public Text dateDetailsDateStaff, dateDetailsDateProf, timeDetailsDateStaff, timeDetailsDateProf, timeDetailsLocationStaff, timeDetailsLocationProf;
     public GameObject buttonDatePrefabStaff, buttonDatePrefabProf, buttonTimePrefabStaff, buttonTimePrefabProf; // Assign your button prefab in the inspector
     public Transform buttonDateParentStaff, buttonDateParentProf, buttonTimeParentStaff, buttonTimeParentProf; // Assign the parent transform for the buttons in the inspector
     public RealmController RealmController;
@@ -22,8 +26,9 @@ public class DynamicButtonCreator : MonoBehaviour
 
     private List<GameObject> createdButtons = new List<GameObject>();
 
-    private List<string> addReservationList = new List<string>();
-    private List<string> removeReservationList = new List<string>();
+    private List<Reserved> addReservationList = new List<Reserved>();
+    private List<Reserved> removeReservationList = new List<Reserved>();
+    private string userEmail;
 
     /*
      * Purpose: Create a dynamic button with the given text and with a click event listener
@@ -63,21 +68,20 @@ public class DynamicButtonCreator : MonoBehaviour
             buttonTextComponent.text = buttonText;
         }
 
+        // Check whether button is available (white), reservedByMe (lightBlue) or grey (reservedByOthers)
         /*RealmController = FindObjectOfType<RealmController>();
-        if (RealmController != null)
+        
+        if (timeDetailsStaff.activeSelf)
         {
-            Debug.Log("DynamicButtonCreator RealmController not null");
-            var timingList = RealmController.GetReservations(buttonText);
-            if (timingList != null && timingList.Count > 0)
-            {
-                var convertedList = ConvertToRange(timingList);
-                foreach (var timing in convertedList)
-                {
-                    buttonComponent.GetComponent<Image>().color = lightBlueColor;
-                }
-
-            }
+            var reservation = RealmController.GetReservations(timeDetailsLocationStaff.text, hr, min);
+            
+        }
+        else if (timeDetailsProf.activeSelf)
+        {
+            var reservation = RealmController.GetReservations(timeDetailsLocationProf.text, hr, min);
         }*/
+
+
 
 
         buttonComponent.onClick.AddListener(() =>
@@ -95,6 +99,7 @@ public class DynamicButtonCreator : MonoBehaviour
                 dateDetailsProf.SetActive(false);
                 timeDetailsProf.SetActive(true);
                 timeDetailsDateProf.text = dateDetailsDateProf.text;
+                timeDetailsLocationProf.text = buttonText;
                 if (RealmController != null)
                 {
                     Debug.Log("DynamicButtonCreator RealmController not null");
@@ -109,6 +114,7 @@ public class DynamicButtonCreator : MonoBehaviour
 
                     }
                 }
+                GetUserEmail();
             }
             else if (dateDetailsStaff.activeSelf == true)
             {
@@ -117,6 +123,7 @@ public class DynamicButtonCreator : MonoBehaviour
                 dateDetailsStaff.SetActive(false);
                 timeDetailsStaff.SetActive(true);
                 timeDetailsDateStaff.text = dateDetailsDateStaff.text;
+                timeDetailsLocationStaff.text = buttonText;
                 if (RealmController != null)
                 {
                     Debug.Log("DynamicButtonCreator RealmController not null");
@@ -144,25 +151,26 @@ public class DynamicButtonCreator : MonoBehaviour
              */
             else if (timeDetailsProf.activeSelf == true)
             {
+                Reserved reservation = ConvertToReserved(timeDetailsLocationProf.text, timeDetailsDateProf.text, buttonTextComponent.text);
                 if (buttonComponent.GetComponent<Image>().color == Color.white)
                 {
                     buttonComponent.GetComponent<Image>().color = lightGreenColor;
-                    addReservationList.Add(buttonTextComponent.text);
+                    addReservationList.Add(reservation);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightGreenColor)
                 {
                     buttonComponent.GetComponent<Image>().color = Color.white;
-                    addReservationList.Remove(buttonTextComponent.text);
+                    addReservationList.Remove(reservation);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightBlueColor)
                 {
                     buttonComponent.GetComponent<Image>().color = lightRedColor;
-                    removeReservationList.Add(buttonTextComponent.text);
+                    removeReservationList.Add(reservation);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightRedColor)
                 {
                     buttonComponent.GetComponent<Image>().color = lightBlueColor;
-                    removeReservationList.Remove(buttonTextComponent.text);
+                    removeReservationList.Remove(reservation);
                 }
             }
             
@@ -188,6 +196,53 @@ public class DynamicButtonCreator : MonoBehaviour
 
         // Clear the list of created buttons
         createdButtons.Clear();
+    }
+
+    private Reserved ConvertToReserved(string location, string dateString, string timing)
+    {
+        string[] dateParts = dateString.Split('/');
+        int date = int.Parse(dateParts[0]);
+        int month = int.Parse(dateParts[1]);
+        int year = int.Parse(dateParts[2]) - 2000;
+        string[] timingParts = ConvertToTiming(timing);
+        int hr = int.Parse(timingParts[0]);
+        int min = int.Parse(timingParts[1]);
+        
+        Reserved reserved = new Reserved(location, date, month, year, hr, min, userEmail);
+        return reserved;
+    }
+
+    /*
+     * Purpose: Attempt to get the user's (Prof) email for reservation purposes
+     * Input: Called by the onClick listener when a location button is clicked in the "dateDetailsProf" UI
+     * Output: Call GetUserEmailSuccess() if successful, GetUserEmailFail() if unsuccessful
+     */
+    void GetUserEmail()
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        {
+            Keys = null
+        }, GetUserEmailSuccess, GetUserEmailFail);
+    }
+
+    /*
+     * Purpose: Successful attempt to get user's email and assign userEmail with the user's email
+     * Input: Called by the GetUserEmail() when attempt to get user's email is successful
+     * Output: Assign userEmail with the retrieved data
+     */
+    void GetUserEmailSuccess(GetUserDataResult result)
+    {
+        userEmail = result.Data["Email"].Value;
+    }
+
+    /*
+     * Purpose: Failed attempt to get user's email
+     * Input: Called by the GetUserEmail() when attempt to get user's email failed
+     * Output: Debug.Log("DynamicButtonCreator GetUserEmailFail " + error);
+     */
+    void GetUserEmailFail(PlayFabError error)
+    {
+        Debug.Log("DynamicButtonCreator GetUserEmailFail " + error);
     }
 
     /*
@@ -245,6 +300,24 @@ public class DynamicButtonCreator : MonoBehaviour
     }
 
     /*
+     * Purpose: Convert a slot of time in "hr:min to hr:min" to the timings in "hr:min" 
+     * Input: 
+     * Output: Returns a string array used to send data to database
+     */
+    private string[] ConvertToTiming(string timing)
+    {
+        string[] firstSplit, splitResult;
+  
+        firstSplit = timing.Split(new string[] { " to " }, StringSplitOptions.None);
+
+        splitResult = new string[2];
+        splitResult[0] = firstSplit[0].Split(':')[0];
+        splitResult[1] = firstSplit[0].Split(':')[1];
+
+        return splitResult;
+    }
+
+    /*
      * Purpose: Get the end time of each slot of time according to the start time
      * Input: Called by ConvertToRange() and start time is passed in
      * Output: Returns a string of the end time calculated
@@ -279,15 +352,28 @@ public class DynamicButtonCreator : MonoBehaviour
     }
 
     /*
-     * Purpose: Getter function of the private GetAddReservationList
-     * Input: Called by functions
-     * Output: Returns the list of strings GetAddReservationList
+     * Purpose: Getter function of the private addReservationList
+     * Input: Called by RealmController by AddReservation()
+     * Output: Returns the list of strings addReservationList
      */
-    public List<string> GetAddReservationList
+    public List<Reserved> GetAddReservationList
     {
         get
         {
             return addReservationList;
+        }
+    }
+
+    /*
+     * Purpose: Getter function of the private removeReservationList
+     * Input: Called by RealmController by RemoveReservation()
+     * Output: Returns the list of strings removeReservationList
+     */
+    public List<Reserved> GetRemoveReservationList
+    {
+        get
+        {
+            return removeReservationList;
         }
     }
 

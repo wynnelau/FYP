@@ -12298,9 +12298,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 849384659}
-        m_TargetAssemblyTypeName: RealmController, Assembly-CSharp
-        m_MethodName: AddReservation
+      - m_Target: {fileID: 849384662}
+        m_TargetAssemblyTypeName: TimeDetailsUI, Assembly-CSharp
+        m_MethodName: AddReservationSlots
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18183,9 +18183,9 @@ GameObject:
   - component: {fileID: 849384657}
   - component: {fileID: 849384656}
   - component: {fileID: 849384658}
+  - component: {fileID: 849384662}
   - component: {fileID: 849384659}
   - component: {fileID: 849384661}
-  - component: {fileID: 849384662}
   m_Layer: 0
   m_Name: MainSceneControls
   m_TagString: Untagged
@@ -18402,6 +18402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceReservationStaff: {fileID: 571577654}
   manageSlotsStaff: {fileID: 1293754482}
+  RealmController: {fileID: 0}
 --- !u!114 &849384659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18414,6 +18415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e1f919fe119e0489d5a5849e8a282b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonCreator: {fileID: 0}
   location: {fileID: 72552734}
   fromDate: {fileID: 1636835733}
   fromMonth: {fileID: 1538964360}
@@ -18428,12 +18430,10 @@ MonoBehaviour:
   toMin: {fileID: 1918409163}
   toAm: {fileID: 2028168680}
   errorManageText: {fileID: 1176398319}
-  errorTimeText: {fileID: 0}
   dateTextProf: {fileID: 1147474130}
   dateTextStaff: {fileID: 451059684}
   timeTextProf: {fileID: 1353084229}
   timeTextStaff: {fileID: 1143851750}
-  buttonCreator: {fileID: 0}
 --- !u!114 &849384661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39711,9 +39711,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 849384659}
-        m_TargetAssemblyTypeName: RealmController, Assembly-CSharp
-        m_MethodName: AddAvailable
+      - m_Target: {fileID: 849384658}
+        m_TargetAssemblyTypeName: ManageSlotsUI, Assembly-CSharp
+        m_MethodName: AddAvailableSlots
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

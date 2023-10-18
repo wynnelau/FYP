@@ -2,7 +2,7 @@ using UnityEngine;
 
 /*
  * Location: MainSceneControls
- * Purpose: Manage the DateDetailsUI
+ * Purpose: Manage the DateDetailsUI, which contains location buttons that are available
  */
 public class DateDetailsUI : MonoBehaviour
 {

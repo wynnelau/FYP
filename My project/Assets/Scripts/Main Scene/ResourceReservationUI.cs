@@ -5,7 +5,7 @@ using System;
 
 /*
  * Location: MainSceneControls
- * Purpose: Manage the ResourceReservation calendar
+ * Purpose: Manage the ResourceReservation calendar, which contains the dates
  * Tutorial used: https://www.youtube.com/watch?v=cMwCZhZnE4k
  */
 public class ResourceReservationUI : MonoBehaviour
@@ -72,14 +72,8 @@ public class ResourceReservationUI : MonoBehaviour
         for (int i = 0; i < 42; i++)
         {
             var dateSelected = days[i];
-            dateSelected.dayButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => { openDetails(dateSelected.dayButton); });
+            dateSelected.dayButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => { openDateDetails(dateSelected.dayButton); });
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /*
@@ -109,7 +103,7 @@ public class ResourceReservationUI : MonoBehaviour
      * Input: Click on the date buttons in the resourceReservationUI 
      * Output: Open the respective dateDetails UI
      */
-    public void openDetails(GameObject dateSelected)
+    public void openDateDetails(GameObject dateSelected)
     {
         Debug.Log("ResourceReservationUI openDetails");
         if (dateSelected.GetComponentInChildren<Text>().text == "")
@@ -171,10 +165,6 @@ public class ResourceReservationUI : MonoBehaviour
 
     }
 
-    /*
-     * Purpose: To update the calendar
-     * Outcomes: updates calendar
-     */
     /*
      * Purpose: To update the calendar of resourceReservation UIs
      * Input: Called by Start(), and when we toggle between the months using PrevMonth() and NextMonth() 

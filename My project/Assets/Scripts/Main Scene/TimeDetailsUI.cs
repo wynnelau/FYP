@@ -54,4 +54,28 @@ public class TimeDetailsUI : MonoBehaviour
 
     }
 
+    /*
+     * Purpose: Attempt to add reservation slots
+     * Input: Click on the "addReservationButton" button in "timeDetailsProf" UI
+     * Output: Call AddReservation()
+     */
+    public void AddReservationSlots()
+    {
+        RealmController = FindObjectOfType<RealmController>();
+        RealmController.AddReservation();
+    }
+
+    /*
+     * Purpose: Attempt to remove reservation slots
+     * Input: Click on the "removeRservationButton" button in "timeDetailsProf" UI
+     * Output: Call RemoveReservation()
+     */
+    public void RemoveReservationSlots()
+    {
+        RealmController = FindObjectOfType<RealmController>();
+        RealmController.RemoveReservation();
+    }
+
+
+
 }

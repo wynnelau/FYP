@@ -7,6 +7,7 @@ using System.Linq;
 using System;
 using System.Collections;
 using UnityEngine.UI;
+using PlayFab.Internal;
 
 /*
  * Location: MainSceneControls
@@ -18,11 +19,17 @@ public class RealmController : MonoBehaviour
     private Realm realm;
     private readonly string myRealmAppId = "application-0-nlkew";
     private bool isRealmInitialized = false;
+    public DynamicButtonCreator buttonCreator;
+
+    // Variables from "manageSlots" UI for managing the Available slots
     public InputField location, fromDate, fromMonth, fromYear, toDate, toMonth, toYear;
     public Dropdown fromHr, fromMin, fromAm, toHr, toMin, toAm;
-    public Text errorText;
+    public Text errorManageText;
 
+    // To get the date from dateDetails/ timeDetails
     public Text dateTextProf, dateTextStaff, timeTextProf, timeTextStaff;
+
+    
     private async void Start()
     {
         await InitAsync();
@@ -48,7 +55,7 @@ public class RealmController : MonoBehaviour
 
     /*
      * Purpose: Check whether we are able to add available slots, then attempt to write to database
-     * Input: Click on the "addSlotsButton" button in "manageSlots" UI
+     * Input: Called by ManageSlotsUI by AddAvailableSlots()
      * Output: return if there is an error
      *         else schedule a coroutine to execute Realm write operation on the main thread to add Available
      */
@@ -62,49 +69,55 @@ public class RealmController : MonoBehaviour
 
         if (location.text == "" || fromDate.text == "" || fromMonth.text == "" || fromYear.text == "" || toDate.text == "" || toMonth.text == "" || toYear.text == "")
         {
-            errorText.text = "Unable to add slots. Missing inputs.";
+            errorManageText.text = "Unable to add slots. Missing inputs.";
             return;
         }
 
         if (DatetimeError())
         {
-            errorText.text = "Unable to add slots. Please make sure fromdate/time is earlier than todate/time";
+            errorManageText.text = "Unable to add slots. Please make sure fromdate/time is earlier than todate/time";
             Debug.Log("RealmController AddAvailable DateTimeError");
             return;
         }
 
-        errorText.text = "Adding slots";
+        errorManageText.text = "Adding slots";
         Debug.Log("RealmController AddAvailable AddingAvailableToRealm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteAddAvailable());
 
-        errorText.text = "Adding slots complete";
+        errorManageText.text = "Adding slots complete";
     }
 
     /*
-     * Purpose: Add available reservations by taking in inputs
-     * Outcomes: Call PerformRealmWriteAddReservation if successful
+     * Purpose: Attempt to add reservation dates, no need to check as list is created by clicking available buttons
+     * Input: Called by TimeDetailsUI by AddReservationSlots()
+     * Output: return if there is an error
+     *         else schedule a coroutine to execute Realm write operation on the main thread to add Available
      */
-    /*public void AddReservation(List<Reserved> addReservationList)
+    public void AddReservation()
     {
         if (!isRealmInitialized)
         {
-            Debug.Log("Realm initialization is not complete, cannot addAvailable.");
+            Debug.Log("RealmController AddReservation RealmNotInitialised");
             return;
         }
 
-        Debug.Log("Adding reservation to Realm");
+        Debug.Log("RealmController AddReservation AddingReservationsToRealm");
+
+        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+        List<Reserved> addReservationList = new List<Reserved>();
+        addReservationList = buttonCreator.GetAddReservationList;
 
         StartCoroutine(PerformRealmWriteAddReservation(addReservationList));
 
-        errorText.text = "Adding slots complete";
+        /*errorTimeText.text = "Adding reservations complete";*/
 
-    }*/
+    }
 
     /*
      * Purpose: Check whether we are able to remove available slots, then attempt to write to database
-     * Input: Click on the "removeSlotsButton" button in "manageSlots" UI
+     * Input: Called by ManageSlotsUI by RemoveAvailableSlots()
      * Output: return if there is an error
      *         else schedule a coroutine to execute Realm write operation on the main thread to remove Available
      */
@@ -118,79 +131,50 @@ public class RealmController : MonoBehaviour
 
         if (location.text == "" || fromDate.text == "" || fromMonth.text == "" || fromYear.text == "" || toDate.text == "" || toMonth.text == "" || toYear.text == "")
         {
-            errorText.text = "Unable to add slots. Missing inputs.";
+            errorManageText.text = "Unable to add slots. Missing inputs.";
             return;
         }
 
         if (DatetimeError())
         {
-            errorText.text = "Unable to remove slots. Please make sure fromdate/time is earlier than todate/time";
+            errorManageText.text = "Unable to remove slots. Please make sure fromdate/time is earlier than todate/time";
             Debug.Log("RealmController RemoveAvailable DateTimeError");
             return;
         }
 
-        errorText.text = "Removing slots";
+        errorManageText.text = "Removing slots";
         Debug.Log("RealmController RemoveAvailable RemovingAvailableFromRealm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteRemoveAvailable());
 
-        errorText.text = "Removing slots complete";
+        errorManageText.text = "Removing slots complete";
     }
 
     /*
-     * Purpose: Check whether the date time input in "manageSlots" UI is correct
-     * Input: Called by AddAvailable() and RemoveAvailable()
-     * Output: return true if there is an error
-     *         else return false
+     * Purpose: Attempt to remove reservation dates, no need to check as list is created by clicking available buttons
+     * Input: Called by TimeDetailsUI by RemoveReservationSlots()
+     * Output: return if there is an error
+     *         else schedule a coroutine to execute Realm write operation on the main thread to add Available
      */
-    private bool DatetimeError()
+    public void RemoveReservation()
     {
-        DateTime from = new DateTime(2000 + int.Parse(fromYear.text), int.Parse(fromMonth.text), int.Parse(fromDate.text));
-        DateTime to = new DateTime(2000 + int.Parse(toYear.text), int.Parse(toMonth.text), int.Parse(toDate.text));
-        Debug.Log(from.ToString());
-        Debug.Log(to.ToString());
-        if (DateTime.Compare(from, to) > 0)
+        if (!isRealmInitialized)
         {
-            Debug.Log("RealmController DateTimeError FromDateIsLaterThanToDate");
-            return true;
+            Debug.Log("RealmController AddReservation RealmNotInitialised");
+            return;
         }
-        else if (DateTime.Compare(from, to) == 0)
-        {
-            Debug.Log("RealmController DateTimeError FromDateAndToDateIsSame");
-        }
-        else
-        {
-            Debug.Log("RealmController DateTimeError FromDateIsEarlierThanToDate");
-        }
-        int fhr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-        int fmin = fromMin.value == 0 ? 0 : 30;
-        int thr = GetHr(toAm.value, toHr.value, toMin.value, true);
-        int tmin = toMin.value == 0 ? 0 : 30;
-        if (fhr > thr)
-        {
-            Debug.Log("RealmController DateTimeError FromHrIsLater" + fhr + " " + thr);
-            return true;
-        }
-        else if (fhr == thr)
-        {
-            if (fmin == tmin)
-            {
-                Debug.Log("RealmController DateTimeError FromTimeAndToTimeIsSame" + fhr + " " + fmin + " " + thr + " " + tmin);
-                return true;
-            }
-            else if (fmin < tmin)
-            {
-                Debug.Log("RealmController DateTimeError FromHrIsEarlierButFromMinIsLater" + fhr + " " + fmin + " " + thr + " " + tmin);
-                return false;
-            }
-        }
-        else if (fhr < thr)
-        {
-            Debug.Log("RealmController DateTimeError FromHrIsEarlier" + fhr + " " + thr);
-            return false;
-        }
-        return true;
+
+        Debug.Log("RealmController AddReservation AddingReservationsToRealm");
+
+        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+        List<Reserved> removeReservationList = new List<Reserved>();
+        removeReservationList = buttonCreator.GetRemoveReservationList;
+
+        StartCoroutine(PerformRealmWriteRemoveReservation(removeReservationList));
+
+        /*errorTimeText.text = "Removing reservations complete";*/
+
     }
 
     /*
@@ -258,7 +242,7 @@ public class RealmController : MonoBehaviour
      * Output: return null if there is an error
      *         else return a list of strings that contains the reservations
      */
-    public List<string> GetReservations(string location)
+    /*public IEnumerable<Reserved> GetReservations(string location, int hr, int min)
     {
         if (!isRealmInitialized)
         {
@@ -266,14 +250,11 @@ public class RealmController : MonoBehaviour
             return null;
         }
         var queryResults = PerformRealmWriteRetrieveReservation();
-        var timingList = queryResults
-            .Where(item => item.Location == location)
-            .OrderBy(item => item.Hour)
-            .ThenBy(item => item.Min)
-            .Select(item => item.Hour.ToString() + ":" + item.Min.ToString())
-            .ToList();
-        return timingList;
-    }
+        var timing = queryResults
+            .Where(item => item.Location == location && item.Hour == hr && item.Min == min);
+        
+        return timing;
+    }*/
 
     /*
      * Purpose: Create the available slots to add from user input and write them to the database
@@ -356,13 +337,36 @@ public class RealmController : MonoBehaviour
         Debug.Log("RealmController PerformRealmWriteAddAvailable Completed.");
     }
 
+    /*
+     * Purpose: Add the reservation slots into the database
+     * Input: Called by AddReservation()
+     * Output: Add the reservation slots to the database
+     */
     private IEnumerator PerformRealmWriteAddReservation(List<Reserved> addReservationList)
     {
+        try
+        {
+            realm.Write(() =>
+            {
+                foreach (Reserved reservation in addReservationList)
+                {
+                    var results = realm.All<Reserved>().FirstOrDefault(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min);
+                    if (results == null)
+                    {
+                        realm.Add(reservation);
+                    }
+                }
 
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("RealmController PerformRealmWriteAddAvailable ErrorWritingToRealm: " + ex.Message);
+        }
 
         yield return null; // Yielding once to ensure the write operation is executed
 
-        Debug.Log("Realm write operation addResrvation completed.");
+        Debug.Log("Realm write operation addReservation completed.");
     }
     
     /*
@@ -443,6 +447,34 @@ public class RealmController : MonoBehaviour
         yield return null; // Yielding once to ensure the write operation is executed
 
         Debug.Log("RealmController PerformRealmWriteRemoveAvailable Completed.");
+    }
+
+    /*
+     * Purpose: Remove the reservation slots from the database
+     * Input: Called by RemoveReservation()
+     * Output: Remove the reservation slots from the database
+     */
+    private IEnumerator PerformRealmWriteRemoveReservation(List<Reserved> addReservationList)
+    {
+        try
+        {
+            realm.Write(() =>
+            {
+                foreach (Reserved reservation in addReservationList)
+                {
+                    realm.Remove(reservation);
+                }
+
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("RealmController PerformRealmWriteRemoveAvailable ErrorWritingToRealm: " + ex.Message);
+        }
+
+        yield return null; // Yielding once to ensure the write operation is executed
+
+        Debug.Log("Realm write operation removeReservation completed.");
     }
 
     /*
@@ -567,5 +599,58 @@ public class RealmController : MonoBehaviour
         return hr;
     }
 
-
+    /*
+     * Purpose: Check whether the date time input in "manageSlots" UI is correct
+     * Input: Called by AddAvailable() and RemoveAvailable()
+     * Output: return true if there is an error
+     *         else return false
+     */
+    private bool DatetimeError()
+    {
+        DateTime from = new DateTime(2000 + int.Parse(fromYear.text), int.Parse(fromMonth.text), int.Parse(fromDate.text));
+        DateTime to = new DateTime(2000 + int.Parse(toYear.text), int.Parse(toMonth.text), int.Parse(toDate.text));
+        Debug.Log(from.ToString());
+        Debug.Log(to.ToString());
+        if (DateTime.Compare(from, to) > 0)
+        {
+            Debug.Log("RealmController DateTimeError FromDateIsLaterThanToDate");
+            return true;
+        }
+        else if (DateTime.Compare(from, to) == 0)
+        {
+            Debug.Log("RealmController DateTimeError FromDateAndToDateIsSame");
+        }
+        else
+        {
+            Debug.Log("RealmController DateTimeError FromDateIsEarlierThanToDate");
+        }
+        int fhr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
+        int fmin = fromMin.value == 0 ? 0 : 30;
+        int thr = GetHr(toAm.value, toHr.value, toMin.value, true);
+        int tmin = toMin.value == 0 ? 0 : 30;
+        if (fhr > thr)
+        {
+            Debug.Log("RealmController DateTimeError FromHrIsLater" + fhr + " " + thr);
+            return true;
+        }
+        else if (fhr == thr)
+        {
+            if (fmin == tmin)
+            {
+                Debug.Log("RealmController DateTimeError FromTimeAndToTimeIsSame" + fhr + " " + fmin + " " + thr + " " + tmin);
+                return true;
+            }
+            else if (fmin < tmin)
+            {
+                Debug.Log("RealmController DateTimeError FromHrIsEarlierButFromMinIsLater" + fhr + " " + fmin + " " + thr + " " + tmin);
+                return false;
+            }
+        }
+        else if (fhr < thr)
+        {
+            Debug.Log("RealmController DateTimeError FromHrIsEarlier" + fhr + " " + thr);
+            return false;
+        }
+        return true;
+    }
 }
