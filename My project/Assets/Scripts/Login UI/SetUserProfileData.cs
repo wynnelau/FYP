@@ -48,15 +48,14 @@ public class SetUserProfileData : MonoBehaviour
      */
     public void SendStudentInfo()
     {
-        Debug.Log("Entered SendStudentsInfo");
         if (CheckMissingInputsStudent())
         {
-            Debug.Log("Missing inputs student");
+            Debug.Log("SetUserProfileData SendStudentsInfo MissingInputs");
             errorStudent.text = "Unable to continue. Missing input(s).";
         }
         else
         {
-            Debug.Log("Update data student");
+            Debug.Log("SetUserProfileData SendStudentsInfo AttemptToUpdateData");
             errorStudent.text = "";
             var request = new UpdateUserDataRequest
             {
@@ -80,7 +79,7 @@ public class SetUserProfileData : MonoBehaviour
      */
     void SaveStudentInfoSuccess(UpdateUserDataResult result)
     {
-        Debug.Log("SaveStudentInfoSuccess");
+        Debug.Log("SetUserProfileData SaveStudentInfoSuccess");
         setUserProfilePageStudentUI.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }

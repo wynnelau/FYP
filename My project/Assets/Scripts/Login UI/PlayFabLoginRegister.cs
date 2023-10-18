@@ -65,7 +65,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     /*
      * Purpose: Successful attempt to register the user, retrieves user's identity and saves it to the PlayFab database
      * Input: Called by Register() when attempt to register the user is successful
-     * Output: Calls Identity() and SaveIdentity()       
+     * Output: Calls GetIdentity() and SaveIdentity()       
      */
     void RegisterSuccess(RegisterPlayFabUserResult result)
     {
@@ -116,7 +116,7 @@ public class PlayFabLoginRegister : MonoBehaviour
 
     /*
      * Purpose: Successful attempt to send the identity of the user to the PlayFab database, and open the correct setUserProfilePage UI
-     * Input: Called by SaveIdentity when attempt to send identity is successful
+     * Input: Called by SaveIdentity() when attempt to send identity is successful
      * Output: Call KnowMore() to open the "SetUserProfilePageStudent" UI or "SetUserProfilePageOthers" UI accordingly
      */
     void SaveIdentitySuccess(UpdateUserDataResult result)
@@ -127,8 +127,8 @@ public class PlayFabLoginRegister : MonoBehaviour
 
     /*
      * Purpose: Failed attempt to send the identity of the user to the PlayFab database
-     * Input: Called by SaveIdentity when attempt to send identity failed
-     * Output: Debug.Log("PlayFabLoginRegister SaveIdentityFail");
+     * Input: Called by SaveIdentity() when attempt to send identity failed
+     * Output: Attempt to save the identity again by calling SaveIdentity()
      */
     void SaveIdentityFail(PlayFabError error)
     {
@@ -138,7 +138,7 @@ public class PlayFabLoginRegister : MonoBehaviour
 
     /*
      * Purpose: Open the "SetUserProfilePageStudent" UI or "SetUserProfilePageOthers" UI according to the identity of the user
-     * Input: Called by RegisterSuccess() and identity string is passed in
+     * Input: Called by RegisterSuccess() 
      * Output: If identity is Student, open "SetUserProfilePageStudent" UI  
      *         else if identity is Professor/TA or Staff, open "SetUserProfilePageOthers" UI
      */
@@ -146,7 +146,6 @@ public class PlayFabLoginRegister : MonoBehaviour
     {
         loginPageUI.SetActive(false);
         registerPageUI.SetActive(false);
-        // Set the different profile pages as active
         if (userIdentity == "Student")
         {
             setUserProfilePageStudentUI.SetActive(true);
@@ -180,7 +179,6 @@ public class PlayFabLoginRegister : MonoBehaviour
     {
         loginPageUI.SetActive(false);
         registerPageUI.SetActive(false);
-        // Load the Main Scene
         SceneManager.LoadScene("Main Scene");
     }
 
