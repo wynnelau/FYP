@@ -12298,8 +12298,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 849384662}
-        m_TargetAssemblyTypeName: TimeDetailsUI, Assembly-CSharp
+      - m_Target: {fileID: 849384659}
+        m_TargetAssemblyTypeName: RealmController, Assembly-CSharp
         m_MethodName: AddReservation
         m_Mode: 1
         m_Arguments:
@@ -18427,11 +18427,13 @@ MonoBehaviour:
   toHr: {fileID: 1604611875}
   toMin: {fileID: 1918409163}
   toAm: {fileID: 2028168680}
-  errorText: {fileID: 1176398319}
+  errorManageText: {fileID: 1176398319}
+  errorTimeText: {fileID: 0}
   dateTextProf: {fileID: 1147474130}
   dateTextStaff: {fileID: 451059684}
   timeTextProf: {fileID: 1353084229}
   timeTextStaff: {fileID: 1143851750}
+  buttonCreator: {fileID: 0}
 --- !u!114 &849384661
 MonoBehaviour:
   m_ObjectHideFlags: 0

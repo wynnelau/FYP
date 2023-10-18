@@ -15,6 +15,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     public GameObject registerPageUI, loginPageUI, setUserProfilePageStudentUI, setUserProfilePageOthersUI;
     public TMP_Text registerEmail, registerPassword, registerError, loginEmail, loginPassword, loginError;
     public TMP_Dropdown identityDropdown;
+    private string userIdentity;
 
     /*
      * Purpose: Call either Register() or Login() when "enter" key is pressed in "RegisterPage" UI or "LoginPage" UI accordingly
@@ -47,14 +48,14 @@ public class PlayFabLoginRegister : MonoBehaviour
      */
     public void Register()
     {
-        // if identity not given, do not register
         if (identityDropdown.value == 0)
         {
-            Debug.Log("Missing identity register");
-            registerError.text = "Unable to register. Missing input(s).";
+            Debug.Log("PlayFabLoginRegister Register IdentityNotGiven");
+            registerError.text = "Missing input(s). Unable to register.";
         }
         else
         {
+            Debug.Log("PlayFabLoginRegister Register AttemptToRegisterUser");
             registerError.text = " ";
             var registerRequest = new RegisterPlayFabUserRequest { Email = registerEmail.text, Password = registerPassword.text, RequireBothUsernameAndEmail = false };
             PlayFabClientAPI.RegisterPlayFabUser(registerRequest, RegisterSuccess, RegisterFail);
@@ -63,17 +64,14 @@ public class PlayFabLoginRegister : MonoBehaviour
 
     /*
      * Purpose: Successful attempt to register the user, retrieves user's identity and saves it to the PlayFab database
-     *          Then, open the "SetUserProfilePageStudent" UI or "SetUserProfilePageOthers" UI accordingly
      * Input: Called by Register() when attempt to register the user is successful
-     * Output: Calls Identity(), SaveIdentity() and then KnowMore()      
+     * Output: Calls Identity() and SaveIdentity()       
      */
     void RegisterSuccess(RegisterPlayFabUserResult result)
     {
-        string userIdentity = Identity();
-        // Send user's identity to db
-        SaveIdentity(userIdentity);
-        // Go to the user profile set up page according to their identity;
-        KnowMore(userIdentity);
+        Debug.Log("PlayFabLoginRegister RegisterSuccess");
+        GetIdentity();
+        SaveIdentity();
     }
 
     /*
@@ -89,28 +87,27 @@ public class PlayFabLoginRegister : MonoBehaviour
     /*
      * Purpose: Retrieve the user's identity using "IdentityDropdown" dropdown
      * Input: Called by RegisterSuccess()
-     * Output: Returns a string according to "IdentityDropdown"     
+     * Output: Set the value of userIdentity according to "IdentityDropdown"     
      */
-    string Identity()
+    void GetIdentity()
     {
-        if (identityDropdown.value == 1) return "Student";
-        else if (identityDropdown.value == 2) return "Professor/TA";
-        else if (identityDropdown.value == 3) return "Staff";
-        else return "";
+        if (identityDropdown.value == 1) userIdentity = "Student";
+        else if (identityDropdown.value == 2) userIdentity = "Professor/TA";
+        else if (identityDropdown.value == 3) userIdentity = "Staff";
     }
 
     /*
-     * Purpose: Attempt to send the identity of the user to the PlayFab database
-     * Input: Called by RegisterSuccess() and identity string is passed in
-     * Output: Attempt to save the user's identity using identity string     
+     * Purpose: Attempt to send the identity and email of the user to the PlayFab database
+     * Input: Called by RegisterSuccess()
+     * Output: Attempt to save the user's data using userIdentity and registerEmail
      */
-    void SaveIdentity(string identity)
+    void SaveIdentity()
     {
         var request = new UpdateUserDataRequest
         {
             Data = new Dictionary<string, string>
             {
-                {"Identity", identity},
+                {"Identity", userIdentity},
                 {"Email",  registerEmail.text}
             }
         };
@@ -118,13 +115,14 @@ public class PlayFabLoginRegister : MonoBehaviour
     }
 
     /*
-     * Purpose: Successful attempt to send the identity of the user to the PlayFab database
+     * Purpose: Successful attempt to send the identity of the user to the PlayFab database, and open the correct setUserProfilePage UI
      * Input: Called by SaveIdentity when attempt to send identity is successful
-     * Output: Debug.Log("PlayFabLoginRegister SaveIdentitySuccess");
+     * Output: Call KnowMore() to open the "SetUserProfilePageStudent" UI or "SetUserProfilePageOthers" UI accordingly
      */
     void SaveIdentitySuccess(UpdateUserDataResult result)
     {
         Debug.Log("PlayFabLoginRegister SaveIdentitySuccess");
+        KnowMore();
     }
 
     /*
@@ -135,6 +133,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     void SaveIdentityFail(PlayFabError error)
     {
         Debug.Log("PlayFabLoginRegister SaveIdentityFail");
+        SaveIdentity();
     }
 
     /*
@@ -143,16 +142,16 @@ public class PlayFabLoginRegister : MonoBehaviour
      * Output: If identity is Student, open "SetUserProfilePageStudent" UI  
      *         else if identity is Professor/TA or Staff, open "SetUserProfilePageOthers" UI
      */
-    void KnowMore(string identity)
+    void KnowMore()
     {
         loginPageUI.SetActive(false);
         registerPageUI.SetActive(false);
         // Set the different profile pages as active
-        if (identity == "Student")
+        if (userIdentity == "Student")
         {
             setUserProfilePageStudentUI.SetActive(true);
         }
-        else if (identity == "Professor/TA" || identity == "Staff")
+        else if (userIdentity == "Professor/TA" || userIdentity == "Staff")
         {
             setUserProfilePageOthersUI.SetActive(true);
         }
@@ -175,11 +174,14 @@ public class PlayFabLoginRegister : MonoBehaviour
     /*
      * Purpose: Successful attempt to login, opens "MainScene" scene
      * Input: Called by Login() when attempt to login is successful
-     * Output: Calls MainScene()     
+     * Output: Loads the "MainScene" scene  
      */
     void LoginSuccess(LoginResult result)
     {
-        MainScene();
+        loginPageUI.SetActive(false);
+        registerPageUI.SetActive(false);
+        // Load the Main Scene
+        SceneManager.LoadScene("Main Scene");
     }
 
     /*
@@ -192,18 +194,7 @@ public class PlayFabLoginRegister : MonoBehaviour
         loginError.text = error.GenerateErrorReport();
     }
 
-    /*
-     * Purpose: Switch from "LoginUI" scene to "MainScene" scene
-     * Input: Called by LoginSuccess() 
-     * Output: Loads the "MainScene" scene  
-     */
-    void MainScene()
-    {
-        loginPageUI.SetActive(false);
-        registerPageUI.SetActive(false);
-        // Load the Main Scene
-        SceneManager.LoadScene("Main Scene");
-    }
+    
 
 
 
