@@ -59,7 +59,7 @@ public class TimeDetailsUI : MonoBehaviour
     /*
      * Purpose: Attempt to add reservation slots
      * Input: Click on the "addReservationButton" button in "timeDetailsProf" UI
-     * Output: Call AddReservation()
+     * Output: Call AddReservation() and then clears the list
      */
     public void AddReservationSlots()
     {
@@ -72,7 +72,7 @@ public class TimeDetailsUI : MonoBehaviour
     /*
      * Purpose: Attempt to remove reservation slots
      * Input: Click on the "removeRservationButton" button in "timeDetailsProf" UI
-     * Output: Call RemoveReservation()
+     * Output: Call RemoveReservation() and then clears the list
      */
     public void RemoveReservationSlots()
     {

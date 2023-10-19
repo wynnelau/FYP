@@ -192,8 +192,8 @@ public class DynamicButtonCreator : MonoBehaviour
                 else if (buttonComponent.GetComponent<Image>().color == lightGreenColor)
                 {
                     buttonComponent.GetComponent<Image>().color = Color.white;
-                    var results = addReservationList.Where(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min).ToList();
-                    addReservationList.Remove(results[0]);
+                    var results = addReservationList.FirstOrDefault(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min);
+                    addReservationList.Remove(results);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightBlueColor)
                 {
@@ -204,8 +204,8 @@ public class DynamicButtonCreator : MonoBehaviour
                 {
                     buttonComponent.GetComponent<Image>().color = lightBlueColor;
                     removeReservationList.Remove(reservation);
-                    var results = removeReservationList.Where(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min).ToList();
-                    removeReservationList.Remove(results[0]);
+                    var results = removeReservationList.FirstOrDefault(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min);
+                    removeReservationList.Remove(results);
                 }
             }
             
