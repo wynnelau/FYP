@@ -28,7 +28,7 @@ public class DynamicButtonCreator : MonoBehaviour
 
     private List<Reserved> addReservationList = new List<Reserved>();
     private List<Reserved> removeReservationList = new List<Reserved>();
-    private string userEmail;
+    private string userEmail ;
 
     /*
      * Purpose: Create a dynamic button with the given text and with a click event listener
@@ -50,10 +50,15 @@ public class DynamicButtonCreator : MonoBehaviour
         }
         else if (timeDetailsStaff.activeSelf)
         {
+            ResourceReservationUI ResourceReservationUI = FindObjectOfType<ResourceReservationUI>();
+            userEmail = ResourceReservationUI.GetUserEmail;
             newButton = Instantiate(buttonTimePrefabStaff, buttonTimeParentStaff);
+
         }
         else if (timeDetailsProf.activeSelf)
         {
+            ResourceReservationUI ResourceReservationUI = FindObjectOfType<ResourceReservationUI>();
+            userEmail = ResourceReservationUI.GetUserEmail;
             newButton = Instantiate(buttonTimePrefabProf, buttonTimeParentProf);
         }
         else
@@ -121,7 +126,6 @@ public class DynamicButtonCreator : MonoBehaviour
             if (dateDetailsProf.activeSelf == true)
             {
                 Debug.Log("DynamicButtonCreator buttonOnClick Prof");
-                GetUserEmail();
                 RealmController = FindObjectOfType<RealmController>();
                 dateDetailsProf.SetActive(false);
                 timeDetailsProf.SetActive(true);
@@ -234,42 +238,9 @@ public class DynamicButtonCreator : MonoBehaviour
         string[] timingParts = ConvertToTiming(timing);
         int hr = int.Parse(timingParts[0]);
         int min = int.Parse(timingParts[1]);
-        
+
         Reserved reserved = new Reserved(location, date, month, year, hr, min, userEmail);
         return reserved;
-    }
-
-    /*
-     * Purpose: Attempt to get the user's (Prof) email for reservation purposes
-     * Input: Called by the onClick listener when a location button is clicked in the "dateDetailsProf" UI
-     * Output: Call GetUserEmailSuccess() if successful, GetUserEmailFail() if unsuccessful
-     */
-    void GetUserEmail()
-    {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
-        {
-            Keys = null
-        }, GetUserEmailSuccess, GetUserEmailFail);
-    }
-
-    /*
-     * Purpose: Successful attempt to get user's email and assign userEmail with the user's email
-     * Input: Called by the GetUserEmail() when attempt to get user's email is successful
-     * Output: Assign userEmail with the retrieved data
-     */
-    void GetUserEmailSuccess(GetUserDataResult result)
-    {
-        userEmail = result.Data["Email"].Value;
-    }
-
-    /*
-     * Purpose: Failed attempt to get user's email
-     * Input: Called by the GetUserEmail() when attempt to get user's email failed
-     * Output: Debug.Log("DynamicButtonCreator GetUserEmailFail " + error);
-     */
-    void GetUserEmailFail(PlayFabError error)
-    {
-        Debug.Log("DynamicButtonCreator GetUserEmailFail " + error);
     }
 
     /*

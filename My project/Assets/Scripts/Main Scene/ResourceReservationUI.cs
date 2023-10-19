@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using PlayFab.ClientModels;
+using PlayFab;
 
 /*
  * Location: MainSceneControls
@@ -60,6 +62,8 @@ public class ResourceReservationUI : MonoBehaviour
     public Text MonthAndYear;
     public DateTime currMonthYear = DateTime.Now;
 
+    private string userEmail;
+
     /*
      * Purpose: Instantiate all Day gameObjects and addListener to all buttons in the calendar
      *          Start is called before the first frame update
@@ -68,6 +72,7 @@ public class ResourceReservationUI : MonoBehaviour
      */
     void Start()
     {
+        RetrieveUserEmail();
         UpdateCalendar(DateTime.Now.Year, DateTime.Now.Month);
         for (int i = 0; i < 42; i++)
         {
@@ -143,10 +148,42 @@ public class ResourceReservationUI : MonoBehaviour
 
                 }
             }
-
             Debug.Log(dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
         }
 
+    }
+
+    /*
+     * Purpose: Attempt to get the user's (Prof) email for reservation purposes
+     * Input: Called by the onClick listener when a location button is clicked in the "dateDetailsProf" UI
+     * Output: Call RetrieveUserEmailSuccess() if successful, RetrieveUserEmailFail() if unsuccessful
+     */
+    void RetrieveUserEmail()
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        {
+            Keys = null
+        }, RetrieveUserEmailSuccess, RetrieveUserEmailFail);
+    }
+
+    /*
+     * Purpose: Successful attempt to get user's email and assign userEmail with the user's email
+     * Input: Called by the RetrieveUserEmail() when attempt to get user's email is successful
+     * Output: Assign userEmail with the retrieved data
+     */
+    void RetrieveUserEmailSuccess(GetUserDataResult result)
+    {
+        userEmail = result.Data["Email"].Value;
+    }
+
+    /*
+     * Purpose: Failed attempt to get user's email
+     * Input: Called by the RetrieveUserEmail() when attempt to get user's email failed
+     * Output: Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
+     */
+    void RetrieveUserEmailFail(PlayFabError error)
+    {
+        Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
     }
 
     /*
@@ -301,5 +338,17 @@ public class ResourceReservationUI : MonoBehaviour
         UpdateCalendar(currMonthYear.Year, currMonthYear.Month);
     }
 
+    /*
+     * Purpose: Getter function of the private userEmail
+     * Input: Called by DynamicButtonCreator by when creating timing buttons
+     * Output: Returns the user's email
+     */
+    public string GetUserEmail
+    {
+        get
+        {
+            return userEmail;
+        }
+    }
 
 }
