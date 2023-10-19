@@ -17,6 +17,7 @@ public class DynamicButtonCreator : MonoBehaviour
     public GameObject dateDetailsStaff, dateDetailsProf;
     public GameObject timeDetailsStaff, timeDetailsProf;
     public Text dateDetailsDateStaff, dateDetailsDateProf, timeDetailsDateStaff, timeDetailsDateProf, timeDetailsLocationStaff, timeDetailsLocationProf;
+    public Text timeDetailsStaffText;
     public GameObject buttonDatePrefabStaff, buttonDatePrefabProf, buttonTimePrefabStaff, buttonTimePrefabProf; // Assign your button prefab in the inspector
     public Transform buttonDateParentStaff, buttonDateParentProf, buttonTimeParentStaff, buttonTimeParentProf; // Assign the parent transform for the buttons in the inspector
     public RealmController RealmController;
@@ -80,7 +81,7 @@ public class DynamicButtonCreator : MonoBehaviour
             RealmController = FindObjectOfType<RealmController>();
             Reserved reservation = ConvertToReserved(timeDetailsLocationStaff.text, timeDetailsDateStaff.text, buttonTextComponent.text);
             var checkReservation = RealmController.GetReservations(reservation);
-            if (checkReservation.Count == 0)
+            if (checkReservation == null)
             {
                 buttonComponent.GetComponent<Image>().color = Color.white;
             }
@@ -95,20 +96,16 @@ public class DynamicButtonCreator : MonoBehaviour
             RealmController = FindObjectOfType<RealmController>();
             Reserved reservation = ConvertToReserved(timeDetailsLocationProf.text, timeDetailsDateProf.text, buttonTextComponent.text);
             var checkReservation = RealmController.GetReservations(reservation);
-            if (checkReservation.Count == 0)
+            if (checkReservation == null)
             {
                 buttonComponent.GetComponent<Image>().color = Color.white;
             }
-            else if (checkReservation[0].Name == userEmail)
+            else if (checkReservation.Name == userEmail)
             {
-                Debug.Log(checkReservation[0].Name + "1" + userEmail);
-                Debug.Log("1" + userEmail);
                 buttonComponent.GetComponent<Image>().color = lightBlueColor;
             }
             else
             {
-                Debug.Log(checkReservation[0].Name + "1" + userEmail);
-                Debug.Log("1" + userEmail);
                 buttonComponent.GetComponent<Image>().color = Color.grey;
             }
         }
@@ -207,6 +204,12 @@ public class DynamicButtonCreator : MonoBehaviour
                     var results = removeReservationList.FirstOrDefault(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min);
                     removeReservationList.Remove(results);
                 }
+            }
+            else if (timeDetailsStaff.activeSelf == true)
+            {
+                Reserved reservation = ConvertToReserved(timeDetailsLocationStaff.text, timeDetailsDateStaff.text, buttonTextComponent.text);
+                var checkReservation = RealmController.GetReservations(reservation);
+                timeDetailsStaffText.text = checkReservation.Name;
             }
             
             Debug.Log("Button Clicked: " + buttonText);

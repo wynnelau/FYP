@@ -242,7 +242,7 @@ public class RealmController : MonoBehaviour
      * Output: return null if there is an error
      *         else return Reserved
      */
-    public List<Reserved> GetReservations(Reserved reservation)
+    public Reserved GetReservations(Reserved reservation)
     {
         if (!isRealmInitialized)
         {
@@ -547,13 +547,15 @@ public class RealmController : MonoBehaviour
      * Input: 
      * Output: return the reserved slot according
      */
-    private List<Reserved> PerformRealmWriteRetrieveReservation(Reserved reservation)
+    private Reserved PerformRealmWriteRetrieveReservation(Reserved reservation)
     {
         try
         {
-            List<Reserved> results = realm.All<Reserved>()
+            /*List<Reserved> results = realm.All<Reserved>()
                 .Where(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min)
-                .ToList();
+                .ToList();*/
+            Reserved results = realm.All<Reserved>()
+                .FirstOrDefault(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min);
             return results;
         }
         catch (Exception ex)
