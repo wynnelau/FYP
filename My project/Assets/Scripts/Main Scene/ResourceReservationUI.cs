@@ -155,7 +155,7 @@ public class ResourceReservationUI : MonoBehaviour
 
     /*
      * Purpose: Attempt to get the user's (Prof) email for reservation purposes
-     * Input: Called by the onClick listener when a location button is clicked in the "dateDetailsProf" UI
+     * Input: Called by Start() in ResourceReservationUI
      * Output: Call RetrieveUserEmailSuccess() if successful, RetrieveUserEmailFail() if unsuccessful
      */
     void RetrieveUserEmail()

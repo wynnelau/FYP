@@ -187,21 +187,25 @@ public class DynamicButtonCreator : MonoBehaviour
                 {
                     buttonComponent.GetComponent<Image>().color = lightGreenColor;
                     addReservationList.Add(reservation);
+                    Debug.Log("addReservationList.Add: " + reservation);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightGreenColor)
                 {
                     buttonComponent.GetComponent<Image>().color = Color.white;
                     addReservationList.Remove(reservation);
+                    Debug.Log("addReservationList.Remove: " + reservation);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightBlueColor)
                 {
                     buttonComponent.GetComponent<Image>().color = lightRedColor;
                     removeReservationList.Add(reservation);
+                    Debug.Log("removeReservationList.Add: " + reservation);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightRedColor)
                 {
                     buttonComponent.GetComponent<Image>().color = lightBlueColor;
                     removeReservationList.Remove(reservation);
+                    Debug.Log("removeReservationList.Remove: " + reservation);
                 }
             }
             
@@ -363,6 +367,17 @@ public class DynamicButtonCreator : MonoBehaviour
     }
 
     /*
+     * Purpose: Clear addReservationList whenever we add reservations to database
+     * Input: Click the "addReservationSlots" button in TimeDetailsUI
+     * Output: Clears the addReservationList
+     */
+    public void ClearAddReservationList()
+    {
+        addReservationList.Clear();
+        Debug.Log("DynamicButtonCreator ClearAddReservationList ListCleared");
+    }
+
+    /*
      * Purpose: Getter function of the private removeReservationList
      * Input: Called by RealmController by RemoveReservation()
      * Output: Returns the list of strings removeReservationList
@@ -373,6 +388,17 @@ public class DynamicButtonCreator : MonoBehaviour
         {
             return removeReservationList;
         }
+    }
+
+    /*
+     * Purpose: Clear removeReservationList whenever we remove reservations from database
+     * Input: Click the "removeReservationSlots" button in TimeDetailsUI
+     * Output: Clears the removeReservationList
+     */
+    public void ClearRemoveReservationList()
+    {
+        removeReservationList.Clear();
+        Debug.Log("DynamicButtonCreator ClearRemoveReservationList ListCleared");
     }
 
 }

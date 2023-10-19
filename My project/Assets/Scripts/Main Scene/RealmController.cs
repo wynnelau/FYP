@@ -350,7 +350,6 @@ public class RealmController : MonoBehaviour
                     if (results == null)
                     {
                         realm.Add(reservation);
-                        Debug.LogError("Add reservation" + reservation);
                     }
                 }
 
@@ -388,7 +387,6 @@ public class RealmController : MonoBehaviour
 
             while (hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
             {
-                // This code block will run on the main/UI thread
                 try
                 {
                     realm.Write(() =>
@@ -451,18 +449,23 @@ public class RealmController : MonoBehaviour
      * Input: Called by RemoveReservation()
      * Output: Remove the reservation slots from the database
      */
-    private IEnumerator PerformRealmWriteRemoveReservation(List<Reserved> addReservationList)
+    private IEnumerator PerformRealmWriteRemoveReservation(List<Reserved> removeReservationList)
     {
         try
         {
-            realm.Write(() =>
+            foreach (Reserved reservation in removeReservationList)
             {
-                foreach (Reserved reservation in addReservationList)
+                realm.Write(() =>
                 {
-                    realm.Remove(reservation);
-                }
+                    var results = realm.All<Reserved>().Where(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min).ToList();
+                    foreach (var item in results)
+                    {
+                        realm.Remove(item);
+                    }
 
-            });
+                });
+            }
+            
         }
         catch (Exception ex)
         {

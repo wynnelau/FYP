@@ -21,6 +21,8 @@ public class TimeDetailsUI : MonoBehaviour
     {
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         buttonCreator.DeleteAllButtons();
+        buttonCreator.ClearAddReservationList();
+        buttonCreator.ClearRemoveReservationList();
 
         if (timeDetailsProf.activeSelf == true)
         {
@@ -62,7 +64,9 @@ public class TimeDetailsUI : MonoBehaviour
     public void AddReservationSlots()
     {
         RealmController = FindObjectOfType<RealmController>();
+        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         RealmController.AddReservation();
+        buttonCreator.ClearAddReservationList();
     }
 
     /*
@@ -73,7 +77,9 @@ public class TimeDetailsUI : MonoBehaviour
     public void RemoveReservationSlots()
     {
         RealmController = FindObjectOfType<RealmController>();
+        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         RealmController.RemoveReservation();
+        buttonCreator.ClearRemoveReservationList();
     }
 
 
