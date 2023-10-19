@@ -18483,6 +18483,8 @@ MonoBehaviour:
   timeDetailsProf: {fileID: 951007199}
   buttonCreator: {fileID: 0}
   RealmController: {fileID: 0}
+  timeDetailsDateProf: {fileID: 1353084229}
+  timeDetailsLocationProf: {fileID: 1057234005}
 --- !u!1 &851506367
 GameObject:
   m_ObjectHideFlags: 0

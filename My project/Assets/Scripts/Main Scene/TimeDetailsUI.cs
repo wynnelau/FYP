@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  * Location: MainSceneControls
@@ -10,6 +10,7 @@ public class TimeDetailsUI : MonoBehaviour
     public GameObject dateDetailsStaff, dateDetailsProf, timeDetailsStaff, timeDetailsProf;
     public DynamicButtonCreator buttonCreator;
     public RealmController RealmController;
+    public Text timeDetailsDateProf, timeDetailsLocationProf;
 
     /*
      * Purpose: Close the TimeDetails UIa when the "closeTimeDetails" button is clicked
@@ -67,6 +68,9 @@ public class TimeDetailsUI : MonoBehaviour
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         RealmController.AddReservation();
         buttonCreator.ClearAddReservationList();
+        buttonCreator.ClearRemoveReservationList();
+        buttonCreator.DeleteAllButtons();
+        RefreshTimeDetails();
     }
 
     /*
@@ -79,9 +83,35 @@ public class TimeDetailsUI : MonoBehaviour
         RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         RealmController.RemoveReservation();
+        buttonCreator.ClearAddReservationList();
         buttonCreator.ClearRemoveReservationList();
+        buttonCreator.DeleteAllButtons();
+        RefreshTimeDetails();
     }
 
+    /*
+     * Purpose: Refresh TimeDetails UI with the updated time button colors
+     * Input: Called by AddReservationSlots() and RemoveReservationSlots()
+     * Output: Call CreateButton() to create updated time buttons
+     */
+    private void RefreshTimeDetails()
+    {
+        RealmController = FindObjectOfType<RealmController>();
+        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+        if (RealmController != null)
+        {
+            Debug.Log("TimeDetailsUI RefreshTimeDetails not null");
+            var timingList = RealmController.GetTimings(timeDetailsLocationProf.text);
+            if (timingList != null && timingList.Count > 0)
+            {
+                var convertedList = buttonCreator.ConvertToRange(timingList);
+                foreach (var timing in convertedList)
+                {
+                    buttonCreator.CreateButton(timing);
+                }
 
+            }
+        }
+    }
 
 }

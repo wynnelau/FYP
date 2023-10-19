@@ -252,7 +252,7 @@ public class DynamicButtonCreator : MonoBehaviour
      * Input: Called by when button in dateDetails UI is clicked and a list of strings is passed in
      * Output: Returns a list of converted strings used for creating buttons in timeDetails UI
      */
-    private List<string> ConvertToRange(List<string> timingList)
+    public List<string> ConvertToRange(List<string> timingList)
     {
         List<string> convertedList = new List<string>();
         string[] splitResult;
