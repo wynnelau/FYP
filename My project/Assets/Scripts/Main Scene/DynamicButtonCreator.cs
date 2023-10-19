@@ -17,7 +17,7 @@ public class DynamicButtonCreator : MonoBehaviour
     public GameObject dateDetailsStaff, dateDetailsProf;
     public GameObject timeDetailsStaff, timeDetailsProf;
     public Text dateDetailsDateStaff, dateDetailsDateProf, timeDetailsDateStaff, timeDetailsDateProf, timeDetailsLocationStaff, timeDetailsLocationProf;
-    public Text timeDetailsStaffText;
+    public Text timeDetailsStaffUserText, timeDetailsStaffTimeText;
     public GameObject buttonDatePrefabStaff, buttonDatePrefabProf, buttonTimePrefabStaff, buttonTimePrefabProf; // Assign your button prefab in the inspector
     public Transform buttonDateParentStaff, buttonDateParentProf, buttonTimeParentStaff, buttonTimeParentProf; // Assign the parent transform for the buttons in the inspector
     public RealmController RealmController;
@@ -209,7 +209,16 @@ public class DynamicButtonCreator : MonoBehaviour
             {
                 Reserved reservation = ConvertToReserved(timeDetailsLocationStaff.text, timeDetailsDateStaff.text, buttonTextComponent.text);
                 var checkReservation = RealmController.GetReservations(reservation);
-                timeDetailsStaffText.text = checkReservation.Name;
+                
+                if (buttonComponent.GetComponent<Image>().color == Color.white)
+                {
+                    timeDetailsStaffUserText.text = "";
+                    timeDetailsStaffTimeText.text = "";
+                } else
+                {
+                    timeDetailsStaffUserText.text = checkReservation.Name;
+                    timeDetailsStaffTimeText.text = buttonText;
+                }
             }
             
             Debug.Log("Button Clicked: " + buttonText);

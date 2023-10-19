@@ -10,7 +10,7 @@ public class TimeDetailsUI : MonoBehaviour
     public GameObject dateDetailsStaff, dateDetailsProf, timeDetailsStaff, timeDetailsProf;
     public DynamicButtonCreator buttonCreator;
     public RealmController RealmController;
-    public Text timeDetailsDateProf, timeDetailsLocationProf;
+    public Text timeDetailsDateProf, timeDetailsLocationProf, timeDetailsTimeStaff, timeDetailsUserStaff;
 
     /*
      * Purpose: Close the TimeDetails UIa when the "closeTimeDetails" button is clicked
@@ -36,6 +36,8 @@ public class TimeDetailsUI : MonoBehaviour
         else if (timeDetailsStaff.activeSelf == true)
         {
             Debug.Log("TimeDetailsUI closeTimeDetails Staff");
+            timeDetailsTimeStaff.text = "";
+            timeDetailsUserStaff.text = "";
             timeDetailsStaff.SetActive(false);
             dateDetailsStaff.SetActive(true);
             RealmController = FindObjectOfType<RealmController>();
