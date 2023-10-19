@@ -7,6 +7,7 @@ using System.Linq;
 using System;
 using System.Collections;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 /*
  * Location: MainSceneControls
@@ -389,14 +390,26 @@ public class RealmController : MonoBehaviour
             {
                 try
                 {
-                    realm.Write(() =>
+
+                    var reservation = realm.All<Reserved>().FirstOrDefault(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min);
+                    
+                    if (reservation == null)
                     {
-                        var results = realm.All<Available>().Where(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min).ToList();
-                        foreach (var item in results)
+                        realm.Write(() =>
                         {
-                            realm.Remove(item);
-                        }
-                    });
+                            var results = realm.All<Available>().Where(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min).ToList();
+                            foreach (var item in results)
+                            {
+                                Debug.Log("Remove Available: " + item.Hour + ":" + item.Min);
+                                realm.Remove(item);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        Debug.Log("Reservation: " + reservation.Hour + ":" + reservation.Min);
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
