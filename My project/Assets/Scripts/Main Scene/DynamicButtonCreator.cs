@@ -69,17 +69,43 @@ public class DynamicButtonCreator : MonoBehaviour
         }
 
         // Check whether button is available (white), reservedByMe (lightBlue) or grey (reservedByOthers)
-        /*RealmController = FindObjectOfType<RealmController>();
-        
         if (timeDetailsStaff.activeSelf)
         {
-            var reservation = RealmController.GetReservations(timeDetailsLocationStaff.text, hr, min);
-            
+            RealmController = FindObjectOfType<RealmController>();
+            Reserved reservation = ConvertToReserved(timeDetailsLocationStaff.text, timeDetailsDateStaff.text, buttonTextComponent.text);
+            var checkReservation = RealmController.GetReservations(reservation);
+            if (checkReservation.Count == 0)
+            {
+                buttonComponent.GetComponent<Image>().color = Color.white;
+            }
+            else
+            {
+                buttonComponent.GetComponent<Image>().color = Color.grey;
+            }
         }
         else if (timeDetailsProf.activeSelf)
         {
-            var reservation = RealmController.GetReservations(timeDetailsLocationProf.text, hr, min);
-        }*/
+            
+            RealmController = FindObjectOfType<RealmController>();
+            Reserved reservation = ConvertToReserved(timeDetailsLocationProf.text, timeDetailsDateProf.text, buttonTextComponent.text);
+            var checkReservation = RealmController.GetReservations(reservation);
+            if (checkReservation.Count == 0)
+            {
+                buttonComponent.GetComponent<Image>().color = Color.white;
+            }
+            else if (checkReservation[0].Name == userEmail)
+            {
+                Debug.Log(checkReservation[0].Name + "1" + userEmail);
+                Debug.Log("1" + userEmail);
+                buttonComponent.GetComponent<Image>().color = lightBlueColor;
+            }
+            else
+            {
+                Debug.Log(checkReservation[0].Name + "1" + userEmail);
+                Debug.Log("1" + userEmail);
+                buttonComponent.GetComponent<Image>().color = Color.grey;
+            }
+        }
 
 
 
@@ -95,6 +121,7 @@ public class DynamicButtonCreator : MonoBehaviour
             if (dateDetailsProf.activeSelf == true)
             {
                 Debug.Log("DynamicButtonCreator buttonOnClick Prof");
+                GetUserEmail();
                 RealmController = FindObjectOfType<RealmController>();
                 dateDetailsProf.SetActive(false);
                 timeDetailsProf.SetActive(true);
@@ -114,7 +141,7 @@ public class DynamicButtonCreator : MonoBehaviour
 
                     }
                 }
-                GetUserEmail();
+                
             }
             else if (dateDetailsStaff.activeSelf == true)
             {
@@ -137,7 +164,7 @@ public class DynamicButtonCreator : MonoBehaviour
                         }
 
                     }
-                }
+                } 
             }
             
             /*

@@ -7,7 +7,6 @@ using System.Linq;
 using System;
 using System.Collections;
 using UnityEngine.UI;
-using PlayFab.Internal;
 
 /*
  * Location: MainSceneControls
@@ -237,24 +236,21 @@ public class RealmController : MonoBehaviour
 
 
     /*
-     * Purpose: Get the reservations according to the location string passed in
-     * Input: Click on the "removeSlotsButton" button in "manageSlots" UI
+     * Purpose: Get the reservations according to the reservation passed in
+     * Input: Called by RealmController when buttons in dateDetails UI are clicked
      * Output: return null if there is an error
-     *         else return a list of strings that contains the reservations
+     *         else return Reserved
      */
-    /*public IEnumerable<Reserved> GetReservations(string location, int hr, int min)
+    public List<Reserved> GetReservations(Reserved reservation)
     {
         if (!isRealmInitialized)
         {
             Debug.Log("RealmController GetReservations RealmNotInitialized");
             return null;
         }
-        var queryResults = PerformRealmWriteRetrieveReservation();
-        var timing = queryResults
-            .Where(item => item.Location == location && item.Hour == hr && item.Min == min);
-        
-        return timing;
-    }*/
+        var queryResults = PerformRealmWriteRetrieveReservation(reservation);
+        return queryResults;
+    }
 
     /*
      * Purpose: Create the available slots to add from user input and write them to the database
@@ -354,6 +350,7 @@ public class RealmController : MonoBehaviour
                     if (results == null)
                     {
                         realm.Add(reservation);
+                        Debug.LogError("Add reservation" + reservation);
                     }
                 }
 
@@ -488,22 +485,22 @@ public class RealmController : MonoBehaviour
         if (dateTextProf.IsActive())
         {
             dateText = dateTextProf.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable ProfText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable ProfDate" + dateText);
         }
         else if (dateTextStaff.IsActive())
         {
             dateText = dateTextStaff.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable StaffText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable StaffDate" + dateText);
         }
         else if (timeTextProf.IsActive())
         {
             dateText = timeTextProf.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable ProfText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable ProfTime" + dateText);
         }
         else if (timeTextStaff.IsActive())
         {
             dateText = timeTextStaff.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable StaffText" + dateText);
+            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable StaffTime" + dateText);
         }
         else return null;
         string[] parts = dateText.Split('/');
@@ -530,34 +527,17 @@ public class RealmController : MonoBehaviour
     }
 
     /*
-     * Purpose: Get the reserved list according to the date
+     * Purpose: Get the reserved slot according to Reserved passed
      * Input: 
-     * Output: return the list of reserved according the the dateText or timeText
+     * Output: return the reserved slot according
      */
-    private List<Reserved> PerformRealmWriteRetrieveReservation()
+    private List<Reserved> PerformRealmWriteRetrieveReservation(Reserved reservation)
     {
-        string dateText;
-        if (timeTextProf.IsActive())
-        {
-            dateText = timeTextProf.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveReservation ProfText" + dateText);
-        }
-        else if (timeTextStaff.IsActive())
-        {
-            dateText = timeTextStaff.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveReservation StaffText" + dateText);
-        }
-        else return null;
-        string[] parts = dateText.Split('/');
-        int date = int.Parse(parts[0]);
-        int month = int.Parse(parts[1]);
-        int year = int.Parse(parts[2]) - 2000;
         try
         {
             List<Reserved> results = realm.All<Reserved>()
-                .Where(item => item.Date == date && item.Month == month && item.Year == year)
+                .Where(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min)
                 .ToList();
-            Debug.Log(results);
             return results;
         }
         catch (Exception ex)
