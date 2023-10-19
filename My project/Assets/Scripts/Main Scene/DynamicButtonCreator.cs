@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using PlayFab;
 using PlayFab.ClientModels;
+using System.Linq;
 
 
 /*
@@ -187,25 +188,24 @@ public class DynamicButtonCreator : MonoBehaviour
                 {
                     buttonComponent.GetComponent<Image>().color = lightGreenColor;
                     addReservationList.Add(reservation);
-                    Debug.Log("addReservationList.Add: " + reservation);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightGreenColor)
                 {
                     buttonComponent.GetComponent<Image>().color = Color.white;
-                    addReservationList.Remove(reservation);
-                    Debug.Log("addReservationList.Remove: " + reservation);
+                    var results = addReservationList.Where(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min).ToList();
+                    addReservationList.Remove(results[0]);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightBlueColor)
                 {
                     buttonComponent.GetComponent<Image>().color = lightRedColor;
                     removeReservationList.Add(reservation);
-                    Debug.Log("removeReservationList.Add: " + reservation);
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightRedColor)
                 {
                     buttonComponent.GetComponent<Image>().color = lightBlueColor;
                     removeReservationList.Remove(reservation);
-                    Debug.Log("removeReservationList.Remove: " + reservation);
+                    var results = removeReservationList.Where(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min).ToList();
+                    removeReservationList.Remove(results[0]);
                 }
             }
             
