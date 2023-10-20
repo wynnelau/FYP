@@ -54,6 +54,7 @@ public class CameraSwitch : MonoBehaviour
         buildingFirstPerson.SetActive(true);
         middleWall.SetActive(false);
     }
+
     /*
      * Purpose: Enables the thirdPersonCamera with respective settings
      * Input: Called by Update() when the 'C' key is pressed

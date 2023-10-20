@@ -13,7 +13,7 @@ public class MainMenuTable : MonoBehaviour
     public GameObject mainMenuStudent, mainMenuStaff, mainMenuProf;
     public PlayerControls player;
     private string userIdentity;
-    List<string> getUserIdentity = new List<string> { "Identity" };
+    private List<string> getUserIdentity = new List<string> { "Identity" };
 
     /*
      * Purpose: Call GetUserIdentityData() to get the user's identity to open the corresponding mainMenu UI when user comes into contact with "Table"
@@ -24,7 +24,6 @@ public class MainMenuTable : MonoBehaviour
     {
         Debug.Log("MainMenuTable onTriggerEnter: activateMainMenuUI");
         GetUserIdentityData();
-        player.enabled = false;
     }
 
     /*
@@ -32,7 +31,7 @@ public class MainMenuTable : MonoBehaviour
      * Input: Called by OnTriggerEnter() when user comes into contact with "Table"
      * Output: Attempt to retrieve the user's identity from the PlayFab database
      */
-    public void GetUserIdentityData()
+    void GetUserIdentityData()
     {
         Debug.Log("MainMenuTable GetUserIdentityData");
         PlayFabClientAPI.GetUserData(new GetUserDataRequest()
@@ -67,6 +66,7 @@ public class MainMenuTable : MonoBehaviour
             Debug.Log("MainMenuTable GetUserIdentitySuccess Prof");
             mainMenuProf.SetActive(true);
         }
+        player.enabled = false;
     }
 
     /*

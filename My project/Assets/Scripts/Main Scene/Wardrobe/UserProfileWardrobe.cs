@@ -16,7 +16,8 @@ public class UserProfileWardrobe : MonoBehaviour
     public PlayerControls player;
 
     /*
-     * Purpose: Call GetUserProfileData() to get the user's profile to open the corresponding userProfile UI when user comes into contact with "Wardrobe"
+     * Purpose: Call GetUserProfileData() to get the user's profile to open the corresponding userProfile UI when user comes 
+     *          into contact with "Wardrobe"
      * Input: User comes into contact with "Wardrobe"
      * Output: Call GetUserProfileData() 
      */
@@ -24,7 +25,6 @@ public class UserProfileWardrobe : MonoBehaviour
     {
         Debug.Log("UserProfileWardrobe onTriggerEnter: activateUserProfileUI");
         GetUserProfileData();
-        player.enabled = false;
     }
 
     /*
@@ -32,7 +32,7 @@ public class UserProfileWardrobe : MonoBehaviour
      * Input: Called by OnTriggerEnter() when user comes into contact with "Wardrobe"
      * Output: Attempt to retrieve the user's profile from the PlayFab database
      */
-    public void GetUserProfileData()
+    void GetUserProfileData()
     {
         Debug.Log("UserProfileWardrobe GetUserProfileData");
         PlayFabClientAPI.GetUserData(new GetUserDataRequest()
@@ -70,6 +70,7 @@ public class UserProfileWardrobe : MonoBehaviour
             errorOthers.text = "";
             userProfileOthers.SetActive(true);
         }
+        player.enabled = false;
     }
 
     /*

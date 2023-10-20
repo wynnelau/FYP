@@ -13,14 +13,17 @@ public class TimeDetailsUI : MonoBehaviour
     public Text timeDetailsDateProf, timeDetailsLocationProf, timeDetailsTimeStaff, timeDetailsUserStaff;
 
     /*
-     * Purpose: Close the TimeDetails UIa when the "closeTimeDetails" button is clicked
+     * Purpose: Close the TimeDetails UIs when the "closeTimeDetails" button is clicked
      * Input: Click on the "closeTimeDetails" button
      * Output: Delete dynamic buttons in the timeDetails UI, go to the respective dateDetails UI and 
      *         then create dynamic buttons in the dateDetails UI
      */
     public void closeTimeDetails()
     {
+        RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+
+        // Clear dynamic buttons, addReservationList and removeReservationList
         buttonCreator.DeleteAllButtons();
         buttonCreator.ClearAddReservationList();
         buttonCreator.ClearRemoveReservationList();
@@ -30,8 +33,6 @@ public class TimeDetailsUI : MonoBehaviour
             Debug.Log("TimeDetailsUI closeTimeDetails Prof");
             timeDetailsProf.SetActive(false);
             dateDetailsProf.SetActive(true);
-            RealmController = FindObjectOfType<RealmController>();
-            buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         }
         else if (timeDetailsStaff.activeSelf == true)
         {
@@ -40,8 +41,6 @@ public class TimeDetailsUI : MonoBehaviour
             timeDetailsUserStaff.text = "";
             timeDetailsStaff.SetActive(false);
             dateDetailsStaff.SetActive(true);
-            RealmController = FindObjectOfType<RealmController>();
-            buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         }
 
         if (RealmController != null)
@@ -100,6 +99,7 @@ public class TimeDetailsUI : MonoBehaviour
     {
         RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+
         if (RealmController != null)
         {
             Debug.Log("TimeDetailsUI RefreshTimeDetails not null");
