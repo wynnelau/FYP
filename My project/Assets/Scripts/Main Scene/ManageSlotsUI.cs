@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  * Location: MainSceneControls
@@ -8,6 +9,7 @@ public class ManageSlotsUI : MonoBehaviour
 {
     public GameObject resourceReservationStaff, manageSlotsStaff;
     public RealmController RealmController;
+    public Text errorText;
 
     /*
      * Purpose: Close the "manageSlots" UI when the "closeManageSlotsButton" button is clicked
@@ -18,6 +20,7 @@ public class ManageSlotsUI : MonoBehaviour
     {
         if (manageSlotsStaff.activeSelf == true)
         {
+            errorText.text = "";
             manageSlotsStaff.SetActive(false);
             resourceReservationStaff.SetActive(true);
         }

@@ -66,6 +66,7 @@ public class ResourceReservationUI : MonoBehaviour
 
     /*
      * Purpose: Instantiate all Day gameObjects and addListener to all buttons in the calendar
+     *          Retrieve user's email for reservation of slots
      *          Start is called before the first frame update
      * Input: NA
      * Output: addListener will be used when user clicks on the buttons in the calendar, calling openDetails
@@ -83,7 +84,7 @@ public class ResourceReservationUI : MonoBehaviour
 
     /*
      * Purpose: To close the ResourceReservationUI
-     * Input: Click on the "closeResourceReservation" button in the respective ResourceReservation UIs
+     * Input: Click on the "closeResourceReservationButton" button in the respective ResourceReservation UIs
      * Output: Set the resourceReservationUI as inactive and set the respective mainMenuUI as active
      */
     public void closeResourceReservation()
@@ -105,19 +106,16 @@ public class ResourceReservationUI : MonoBehaviour
 
     /*
      * Purpose: To open the dateDetails UI with buttons
-     * Input: Click on the date buttons in the resourceReservationUI 
+     * Input: Click on the date buttons in the resourceReservationUI, used by the listeners 
      * Output: Open the respective dateDetails UI
      */
-    public void openDateDetails(GameObject dateSelected)
+    void openDateDetails(GameObject dateSelected)
     {
         Debug.Log("ResourceReservationUI openDetails");
-        if (dateSelected.GetComponentInChildren<Text>().text == "")
+        if (dateSelected.GetComponentInChildren<Text>().text != "")
         {
-            Debug.Log(dateSelected.GetComponentInChildren<Text>().text);
-            /*Debug.Log(dateSelected.GetComponent<UnityEngine.UI.Image>().color);*/
-        }
-        else
-        {
+            Debug.Log("ResourceReservationUI openDetails " + dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
+
             RealmController = FindObjectOfType<RealmController>();
             buttonCreator = FindObjectOfType<DynamicButtonCreator>();
 
@@ -148,47 +146,14 @@ public class ResourceReservationUI : MonoBehaviour
 
                 }
             }
-            Debug.Log(dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
+ 
         }
 
     }
 
     /*
-     * Purpose: Attempt to get the user's (Prof) email for reservation purposes
-     * Input: Called by Start() in ResourceReservationUI
-     * Output: Call RetrieveUserEmailSuccess() if successful, RetrieveUserEmailFail() if unsuccessful
-     */
-    void RetrieveUserEmail()
-    {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
-        {
-            Keys = null
-        }, RetrieveUserEmailSuccess, RetrieveUserEmailFail);
-    }
-
-    /*
-     * Purpose: Successful attempt to get user's email and assign userEmail with the user's email
-     * Input: Called by the RetrieveUserEmail() when attempt to get user's email is successful
-     * Output: Assign userEmail with the retrieved data
-     */
-    void RetrieveUserEmailSuccess(GetUserDataResult result)
-    {
-        userEmail = result.Data["Email"].Value;
-    }
-
-    /*
-     * Purpose: Failed attempt to get user's email
-     * Input: Called by the RetrieveUserEmail() when attempt to get user's email failed
-     * Output: Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
-     */
-    void RetrieveUserEmailFail(PlayFabError error)
-    {
-        Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
-    }
-
-    /*
      * Purpose: To open the "manageSlots" UI
-     * Input: Click on the "addSlots" buttons in the "resourceReservationStaff" UI 
+     * Input: Click on the "manageSlotsButton" button in the "resourceReservationStaff" UI 
      * Output: Open the "manageSlots" UI
      */
     public void openReservationSlots()
@@ -349,6 +314,39 @@ public class ResourceReservationUI : MonoBehaviour
         {
             return userEmail;
         }
+    }
+
+    /*
+     * Purpose: Attempt to get the user's (Prof) email for reservation purposes
+     * Input: Called by Start() in ResourceReservationUI
+     * Output: Call RetrieveUserEmailSuccess() if successful, RetrieveUserEmailFail() if unsuccessful
+     */
+    void RetrieveUserEmail()
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        {
+            Keys = null
+        }, RetrieveUserEmailSuccess, RetrieveUserEmailFail);
+    }
+
+    /*
+     * Purpose: Successful attempt to get user's email and assign userEmail with the user's email
+     * Input: Called by the RetrieveUserEmail() when attempt to get user's email is successful
+     * Output: Assign userEmail with the retrieved data
+     */
+    void RetrieveUserEmailSuccess(GetUserDataResult result)
+    {
+        userEmail = result.Data["Email"].Value;
+    }
+
+    /*
+     * Purpose: Failed attempt to get user's email
+     * Input: Called by the RetrieveUserEmail() when attempt to get user's email failed
+     * Output: Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
+     */
+    void RetrieveUserEmailFail(PlayFabError error)
+    {
+        Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
     }
 
 }

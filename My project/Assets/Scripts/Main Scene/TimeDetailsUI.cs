@@ -95,7 +95,7 @@ public class TimeDetailsUI : MonoBehaviour
      * Input: Called by AddReservationSlots() and RemoveReservationSlots()
      * Output: Call CreateButton() to create updated time buttons
      */
-    private void RefreshTimeDetails()
+    void RefreshTimeDetails()
     {
         RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();

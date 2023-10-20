@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- *Location: MainSceneControls
- *Purpose: Manage the mainMenu UIs
+ * Location: MainSceneControls
+ * Purpose: Manage the mainMenu UIs
  */
 public class MainMenuUI : MonoBehaviour
 {
@@ -34,10 +34,6 @@ public class MainMenuUI : MonoBehaviour
         player.enabled = true;
     }
 
-    /*
-     * Purpose: To open the resourceReservation UI, attached to "resourceReservation" in "mainMenuUI"
-     * Outcomes: activates resourceReservation and deactivates mainmenu
-     */
     /*
      * Purpose: To open the respective resourceReservation UIs when the "resourceReservation" button is clicked in the respective mainMenu UIs 
      * Input: Click on the "resourceReservation" button in a mainMenu UI (Prof/TA or Staff)

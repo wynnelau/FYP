@@ -52,10 +52,7 @@ public class DynamicButtonCreator : MonoBehaviour
         }
         else if (timeDetailsStaff.activeSelf)
         {
-            ResourceReservationUI ResourceReservationUI = FindObjectOfType<ResourceReservationUI>();
-            userEmail = ResourceReservationUI.GetUserEmail;
             newButton = Instantiate(buttonTimePrefabStaff, buttonTimeParentStaff);
-
         }
         else if (timeDetailsProf.activeSelf)
         {
@@ -200,7 +197,6 @@ public class DynamicButtonCreator : MonoBehaviour
                 else if (buttonComponent.GetComponent<Image>().color == lightRedColor)
                 {
                     buttonComponent.GetComponent<Image>().color = lightBlueColor;
-                    removeReservationList.Remove(reservation);
                     var results = removeReservationList.FirstOrDefault(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min);
                     removeReservationList.Remove(results);
                 }
@@ -214,7 +210,8 @@ public class DynamicButtonCreator : MonoBehaviour
                 {
                     timeDetailsStaffUserText.text = "";
                     timeDetailsStaffTimeText.text = "";
-                } else
+                } 
+                else
                 {
                     timeDetailsStaffUserText.text = checkReservation.Name;
                     timeDetailsStaffTimeText.text = buttonText;
@@ -245,6 +242,12 @@ public class DynamicButtonCreator : MonoBehaviour
         createdButtons.Clear();
     }
 
+    /*
+     * Purpose: Convert from strings to Reserved for reservation
+     * Input: Called by onClick listener of button for adding or removing from add/removeReservationList
+     *        Called by CreateButton() so that we know what color(type) the button is
+     * Output: Return Reserved
+     */
     private Reserved ConvertToReserved(string location, string dateString, string timing)
     {
         string[] dateParts = dateString.Split('/');
@@ -260,8 +263,27 @@ public class DynamicButtonCreator : MonoBehaviour
     }
 
     /*
+     * Purpose: Convert a slot of time in "hr:min to hr:min" to the timings in "hr:min" 
+     * Input: Called by ConverToReserved for use
+     * Output: Returns a string array used to send data to database
+     */
+    private string[] ConvertToTiming(string timing)
+    {
+        string[] firstSplit, splitResult;
+
+        firstSplit = timing.Split(new string[] { " to " }, StringSplitOptions.None);
+
+        splitResult = new string[2];
+        splitResult[0] = firstSplit[0].Split(':')[0];
+        splitResult[1] = firstSplit[0].Split(':')[1];
+
+        return splitResult;
+    }
+
+    /*
      * Purpose: Convert the timings in "hr:min" to a slot of time in "hr:min to hr:min" when button in dateDetails is clicked
      * Input: Called by when button in dateDetails UI is clicked and a list of strings is passed in
+     *        Called by TimeDetailsUI for refreshing TimeDetails
      * Output: Returns a list of converted strings used for creating buttons in timeDetails UI
      */
     public List<string> ConvertToRange(List<string> timingList)
@@ -287,48 +309,6 @@ public class DynamicButtonCreator : MonoBehaviour
             convertedList.Add(converted);
         }
         return convertedList;
-    }
-
-    /*
-     * Purpose: Convert a slot of time in "hr:min to hr:min" to the timings in "hr:min" 
-     * Input: 
-     * Output: Returns a list of converted strings used to send data to database
-     */
-    private List<string> ConvertToTiming(List<string> timingList)
-    {
-        List<string> convertedList = new List<string>();
-        string[] firstSplit, splitResult;
-        string converted;
-        foreach (var timing in timingList)
-        {
-            firstSplit = timing.Split(new string[] { " to " }, StringSplitOptions.None);
-            
-            splitResult = new string[2];
-            splitResult[0] = firstSplit[0].Split(':')[0];
-            splitResult[1] = firstSplit[0].Split(':')[1];
-
-            converted = splitResult[0] + ":" + splitResult[1];
-            convertedList.Add(converted);
-        }
-        return convertedList;
-    }
-
-    /*
-     * Purpose: Convert a slot of time in "hr:min to hr:min" to the timings in "hr:min" 
-     * Input: 
-     * Output: Returns a string array used to send data to database
-     */
-    private string[] ConvertToTiming(string timing)
-    {
-        string[] firstSplit, splitResult;
-  
-        firstSplit = timing.Split(new string[] { " to " }, StringSplitOptions.None);
-
-        splitResult = new string[2];
-        splitResult[0] = firstSplit[0].Split(':')[0];
-        splitResult[1] = firstSplit[0].Split(':')[1];
-
-        return splitResult;
     }
 
     /*
@@ -379,8 +359,8 @@ public class DynamicButtonCreator : MonoBehaviour
     }
 
     /*
-     * Purpose: Clear addReservationList whenever we add reservations to database
-     * Input: Click the "addReservationSlots" button in TimeDetailsUI
+     * Purpose: Clear addReservationList whenever we make changes to database or exit TimeDetailsUI
+     * Input: Called by functions in TimeDetailsUI
      * Output: Clears the addReservationList
      */
     public void ClearAddReservationList()
@@ -403,8 +383,8 @@ public class DynamicButtonCreator : MonoBehaviour
     }
 
     /*
-     * Purpose: Clear removeReservationList whenever we remove reservations from database
-     * Input: Click the "removeReservationSlots" button in TimeDetailsUI
+     * Purpose: Clear removeReservationList whenever we make changes to database or exit TimeDetailsUI
+     * Input: Called by functions in TimeDetailsUI
      * Output: Clears the removeReservationList
      */
     public void ClearRemoveReservationList()

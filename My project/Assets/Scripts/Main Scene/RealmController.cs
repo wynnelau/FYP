@@ -7,7 +7,6 @@ using System.Linq;
 using System;
 using System.Collections;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 /*
  * Location: MainSceneControls
@@ -80,7 +79,6 @@ public class RealmController : MonoBehaviour
             return;
         }
 
-        errorManageText.text = "Adding slots";
         Debug.Log("RealmController AddAvailable AddingAvailableToRealm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
@@ -109,10 +107,8 @@ public class RealmController : MonoBehaviour
         List<Reserved> addReservationList = new List<Reserved>();
         addReservationList = buttonCreator.GetAddReservationList;
 
+        // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteAddReservation(addReservationList));
-
-        /*errorTimeText.text = "Adding reservations complete";*/
-
     }
 
     /*
@@ -131,7 +127,7 @@ public class RealmController : MonoBehaviour
 
         if (location.text == "" || fromDate.text == "" || fromMonth.text == "" || fromYear.text == "" || toDate.text == "" || toMonth.text == "" || toYear.text == "")
         {
-            errorManageText.text = "Unable to add slots. Missing inputs.";
+            errorManageText.text = "Unable to remove slots. Missing inputs.";
             return;
         }
 
@@ -142,7 +138,6 @@ public class RealmController : MonoBehaviour
             return;
         }
 
-        errorManageText.text = "Removing slots";
         Debug.Log("RealmController RemoveAvailable RemovingAvailableFromRealm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
@@ -161,20 +156,18 @@ public class RealmController : MonoBehaviour
     {
         if (!isRealmInitialized)
         {
-            Debug.Log("RealmController AddReservation RealmNotInitialised");
+            Debug.Log("RealmController RemoveReservation RealmNotInitialised");
             return;
         }
 
-        Debug.Log("RealmController AddReservation AddingReservationsToRealm");
+        Debug.Log("RealmController RemoveReservation RemovingReservationsFromRealm");
 
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         List<Reserved> removeReservationList = new List<Reserved>();
         removeReservationList = buttonCreator.GetRemoveReservationList;
 
+        // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteRemoveReservation(removeReservationList));
-
-        /*errorTimeText.text = "Removing reservations complete";*/
-
     }
 
     /*
@@ -201,8 +194,8 @@ public class RealmController : MonoBehaviour
     }
 
     /*
-     * Purpose: Get the list of timings according to the date and location string
-     * Input: Called by RealmController when buttons in dateDetails UI are clicked
+     * Purpose: Get the list of timings according to the date and location string passed in
+     * Input: Called by RealmController when buttons in dateDetails UI are clicked, location string passed in
      * Output: Call PerformRealmWriteRetrieveAvailable and returns ordered string list of timings
      */
     public List<string> GetTimings(string location)
@@ -222,19 +215,6 @@ public class RealmController : MonoBehaviour
         Debug.Log(timingList);
         return timingList;
     }
-
-    /*private IEnumerator PerformRealmWriteRemove2()
-    {
-        realm.Write(() =>
-        {
-            realm.RemoveAll<Available>(); // Remove all objects of the specified type
-        });
-
-        yield return null; // Yielding once to ensure the write operation is executed
-
-        Debug.Log("Realm write operation remove completed.");
-    }*/
-
 
     /*
      * Purpose: Get the reservations according to the reservation passed in
@@ -358,12 +338,12 @@ public class RealmController : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError("RealmController PerformRealmWriteAddAvailable ErrorWritingToRealm: " + ex.Message);
+            Debug.LogError("RealmController PerformRealmWriteAddReservation ErrorWritingToRealm: " + ex.Message);
         }
 
         yield return null; // Yielding once to ensure the write operation is executed
 
-        Debug.Log("Realm write operation addReservation completed.");
+        Debug.Log("RealmController PerformRealmWriteAddReservation Completed.");
     }
     
     /*
@@ -407,7 +387,7 @@ public class RealmController : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Reservation: " + reservation.Hour + ":" + reservation.Min);
+                        Debug.Log("ReservationNotNull: " + reservation.Hour + ":" + reservation.Min);
                     }
                     
                 }
@@ -457,6 +437,18 @@ public class RealmController : MonoBehaviour
         Debug.Log("RealmController PerformRealmWriteRemoveAvailable Completed.");
     }
 
+    /*private IEnumerator PerformRealmWriteRemoveAll()
+{
+    realm.Write(() =>
+    {
+        realm.RemoveAll<Available>(); // Remove all objects of the specified type
+    });
+
+    yield return null; // Yielding once to ensure the write operation is executed
+
+    Debug.Log("Realm write operation remove completed.");
+}*/
+
     /*
      * Purpose: Remove the reservation slots from the database
      * Input: Called by RemoveReservation()
@@ -482,12 +474,12 @@ public class RealmController : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError("RealmController PerformRealmWriteRemoveAvailable ErrorWritingToRealm: " + ex.Message);
+            Debug.LogError("RealmController PerformRealmWriteRemoveReservation ErrorWritingToRealm: " + ex.Message);
         }
 
         yield return null; // Yielding once to ensure the write operation is executed
 
-        Debug.Log("Realm write operation removeReservation completed.");
+        Debug.Log("RealmController PerformRealmWriteRemoveReservation Completed.");
     }
 
     /*
@@ -544,16 +536,13 @@ public class RealmController : MonoBehaviour
 
     /*
      * Purpose: Get the reserved slot according to Reserved passed
-     * Input: 
+     * Input: Called by GetReservation()
      * Output: return the reserved slot according
      */
     private Reserved PerformRealmWriteRetrieveReservation(Reserved reservation)
     {
         try
         {
-            /*List<Reserved> results = realm.All<Reserved>()
-                .Where(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min)
-                .ToList();*/
             Reserved results = realm.All<Reserved>()
                 .FirstOrDefault(item => item.Location == reservation.Location && item.Date == reservation.Date && item.Month == reservation.Month && item.Year == reservation.Year && item.Hour == reservation.Hour && item.Min == reservation.Min);
             return results;

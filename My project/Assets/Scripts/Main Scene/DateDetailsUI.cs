@@ -13,7 +13,7 @@ public class DateDetailsUI : MonoBehaviour
      * Purpose: Close the datedetails UI when the "closeDateDetailsButton" button is clicked
      * Input: Click on the "closeDateDetailsButton" button
      * Output: If user is Prof, delete all dynamic buttons and go to "resourceReservationProf" UI
-     *         else if user is Staff,  delete all dynamic buttons and go to "resourceReservationStaff" UI
+     *         else if user is Staff, delete all dynamic buttons and go to "resourceReservationStaff" UI
      */
     public void closeDetails()
     {
