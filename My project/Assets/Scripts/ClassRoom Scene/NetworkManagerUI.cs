@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
 
+// Tutorial used: https://www.youtube.com/watch?v=3yuBOB3VrCk
 public class NetworkManagerUI : MonoBehaviour
 {
 
