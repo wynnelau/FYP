@@ -9,7 +9,7 @@ public class SceneInitialise : MonoBehaviour
 {
     public GameObject logoutUI, userProfileStudentUI, userProfileOthersUI, mainMenuStudentUI, mainMenuStaffUI, mainMenuProfUI;
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
-    public GameObject timeDetailsProf, timeDetailsStaff;
+    public GameObject timeDetailsProf, timeDetailsStaff, joinMeetingUI;
     public GameObject manageSlotsUI;
     
     /*
@@ -33,6 +33,7 @@ public class SceneInitialise : MonoBehaviour
         manageSlotsUI.SetActive(false);
         timeDetailsProf.SetActive(false);
         timeDetailsStaff.SetActive(false);
+        joinMeetingUI.SetActive(false);
     }
 
 }
