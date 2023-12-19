@@ -14,7 +14,7 @@ using UnityEngine.UI;
 public class Relay : MonoBehaviour
 {
     public Text displayJoinCode;
-    public string joinCodeString;
+    private string joinCodeString;
     private async void Start()
     {
         await UnityServices.InitializeAsync();
