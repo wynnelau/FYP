@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /*
  * Location: MainSceneControls
  * Purpose: Manage send and retrieve data from MongoDB
- * Tutorial used: https://www.youtube.com/watch?v=f-IQwVReQ-c
+ * Tutorial used: https://www.youtube.com/watch?v=f-IQwVReQ-c, https://www.youtube.com/watch?v=q4_997QEQww
  */
 public class RealmController : MonoBehaviour
 {
@@ -45,10 +45,12 @@ public class RealmController : MonoBehaviour
             var config = new PartitionSyncConfiguration("FYP", app.CurrentUser);
             realm = await Realm.GetInstanceAsync(config);
             isRealmInitialized = true;
+            Debug.Log("RealmController InitAsync Login success");
         }
         catch (Exception ex)
         {
             Debug.Log("RealmController InitAsync Login failed: " + ex.Message);
+            Debug.Log("RealmController InitAsync Login failed: " + ex.InnerException);
         }
     }
 
