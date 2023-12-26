@@ -8,7 +8,7 @@ using Realms.Sync;
 
 /*
  * Location: MainSceneControls
- * Purpose: Manage the ResourceReservation calendar, which contains the dates
+ * Purpose: Manage the MeetingSchedule calendar, which contains the dates
  * Tutorial used: https://www.youtube.com/watch?v=cMwCZhZnE4k
  */
 public class MeetingScheduleUI : MonoBehaviour
