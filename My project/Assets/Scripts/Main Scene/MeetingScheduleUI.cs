@@ -65,7 +65,6 @@ public class MeetingScheduleUI : MonoBehaviour
 
     private string userEmail;
     private string userIdentity;
-    private List<string> getUserIdentity = new List<string> { "Identity" };
 
     /*
      * Purpose: Instantiate all Day gameObjects and addListener to all buttons in the calendar
@@ -88,65 +87,29 @@ public class MeetingScheduleUI : MonoBehaviour
     /*
      * Purpose: To close the MeetingScheduleUI
      * Input: Click on the "closeMeetingScheduleButton" button in the MeetingScheduleUI
-     * Output: Call GetUserIdentityData to open the respective mainMenuUI
+     * Output: Close MeetingScheduleUI and open the respective mainMenuUI
      */
     public void closeMeetingSchedule()
     {
         Debug.Log("MeetingScheduleUI closeMeetingSchedule");
-        GetUserIdentityData();
-    }
-
-    /*
-    * Purpose: Attempt to retrieve the user's identity from the PlayFab database when called by closeMeetingSchedule()
-    * Input: Called by closeMeetingSchedule()
-    * Output: Attempt to retrieve the user's identity from the PlayFab database
-    */
-    void GetUserIdentityData()
-    {
-        Debug.Log("MeetingScheduleUI GetUserIdentityData");
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
-        {
-            Keys = getUserIdentity
-        }, GetUserIdentitySuccess, GetUserIdentityFail);
-    }
-
-    /*
-     * Purpose: Successful attempt to retrieve the user's identity and changes to the corresponding mainMenu UI
-     * Input: Called by GetUserIdentityData() when attempt to retrieve the user's identity is successful
-     * Output: If user is Student, opens "mainMenuStudent" UI
-     *         else if user is Staff, opens "mainMenuStaff" UI
-     *         else if user is Prof/TA, opens "mainMenuProf" UI
-     */
-    void GetUserIdentitySuccess(GetUserDataResult result)
-    {
-        userIdentity = result.Data["Identity"].Value;
-        Debug.Log("MeetingScheduleUI GetUserIdentitySuccess");
+        MainMenuTable MainMenuTable = FindObjectOfType<MainMenuTable>();
+        userIdentity = MainMenuTable.GetUserIdentity;
         if (userIdentity == "Student")
         {
-            Debug.Log("MeetingScheduleUI GetUserIdentitySuccess Student");
+            Debug.Log("MeetingScheduleUI closeMeetingSchedule Student");
             mainMenuStudent.SetActive(true);
         }
         else if (userIdentity == "Staff")
         {
-            Debug.Log("MeetingScheduleUI GetUserIdentitySuccess Staff");
+            Debug.Log("MeetingScheduleUI closeMeetingSchedule Staff");
             mainMenuStaff.SetActive(true);
         }
         else if (userIdentity == "Professor/TA")
         {
-            Debug.Log("MeetingScheduleUI GetUserIdentitySuccess Prof");
+            Debug.Log("MeetingScheduleUI closeMeetingSchedule Prof");
             mainMenuProf.SetActive(true);
         }
         MeetingSchedule.SetActive(false);
-    }
-
-    /*
-     * Purpose: Failed attempt to retrieve the user's identity
-     * Input: Called by OnTriggerEnter() when attempt to retrieve the user's identity failed
-     * Output: Debug.Log("MainMenuTable GetUserIdentityFail " + error);
-     */
-    void GetUserIdentityFail(PlayFabError error)
-    {
-        Debug.Log("MeetingScheduleUI GetUserIdentityFail " + error);
     }
 
     /*

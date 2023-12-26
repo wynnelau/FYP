@@ -2,6 +2,7 @@ using PlayFab.ClientModels;
 using PlayFab;
 using System.Collections.Generic;
 using UnityEngine;
+using Realms.Sync;
 
 
 /*
@@ -77,5 +78,18 @@ public class MainMenuTable : MonoBehaviour
     void GetUserIdentityFail(PlayFabError error)
     {
         Debug.Log("MainMenuTable GetUserIdentityFail " + error);
+    }
+
+    /*
+     * Purpose: Getter function of the private userIdentity
+     * Input: Called by MeetingScheduleUI when closing MeetingSchedule
+     * Output: Returns the user's identity
+     */
+    public string GetUserIdentity
+    {
+        get
+        {
+            return userIdentity;
+        }
     }
 }
