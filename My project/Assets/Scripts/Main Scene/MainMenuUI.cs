@@ -6,7 +6,7 @@ using UnityEngine;
  */
 public class MainMenuUI : MonoBehaviour
 {
-    public GameObject mainMenuStudent, mainMenuStaff, mainMenuProf, resourceReservationStaff, resourceReservationProf;
+    public GameObject mainMenuStudent, mainMenuStaff, mainMenuProf, resourceReservationStaff, resourceReservationProf, meetingSchedule;
     public PlayerControls player;
 
     /*
@@ -53,5 +53,28 @@ public class MainMenuUI : MonoBehaviour
             resourceReservationProf.SetActive(true);
             mainMenuProf.SetActive(false);
         }
+    }
+
+    /*
+     * Purpose: To open the meetingScheduleUI when the "meetingSchedule" button is clicked 
+     * Input: Click on the "meetingSchedule" button in a mainMenu UI
+     * Output: Open the meetingScheduleUI
+     */
+    public void openMeetingSchedule()
+    {
+        Debug.Log("MainMenuUI openMeetingSchedule");
+        if (mainMenuStaff.activeSelf == true)
+        {
+            mainMenuStaff.SetActive(false);
+        } 
+        else if (mainMenuProf.activeSelf == true)
+        {
+            mainMenuProf.SetActive(false);
+        }
+        else if (mainMenuStudent.activeSelf == true)
+        {
+            mainMenuStudent.SetActive(false);
+        }
+        meetingSchedule.SetActive(true);
     }
 }

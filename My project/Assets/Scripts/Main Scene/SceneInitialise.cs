@@ -10,7 +10,7 @@ public class SceneInitialise : MonoBehaviour
     public GameObject logoutUI, userProfileStudentUI, userProfileOthersUI, mainMenuStudentUI, mainMenuStaffUI, mainMenuProfUI;
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
     public GameObject timeDetailsProf, timeDetailsStaff, joinMeetingUI;
-    public GameObject manageSlotsUI;
+    public GameObject manageSlotsUI, meetingScheduleUI, meetingDetailsUI;
     
     /*
      * Purpose: Deactivates all the UIs when the user enters "MainScene" scene
@@ -34,6 +34,8 @@ public class SceneInitialise : MonoBehaviour
         timeDetailsProf.SetActive(false);
         timeDetailsStaff.SetActive(false);
         joinMeetingUI.SetActive(false);
+        meetingScheduleUI.SetActive(false);
+        meetingDetailsUI.SetActive(false);
     }
 
 }
