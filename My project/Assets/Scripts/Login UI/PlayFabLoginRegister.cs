@@ -6,7 +6,7 @@ using PlayFab.ClientModels;
 using TMPro;
 
 /*
- * Location: UIControls
+ * Location: Login UI/ UIControls
  * Purpose: Manage the register and login using PlayFab API calls
  * Tutorial used: https://www.youtube.com/watch?v=XPTPRaF2pd4
  */
@@ -81,6 +81,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      */
     void RegisterFail(PlayFabError error)
     {
+        Debug.Log("PlayFabLoginRegister RegisterFail");
         registerError.text = error.GenerateErrorReport();
     }
 
@@ -91,6 +92,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      */
     void GetIdentity()
     {
+        Debug.Log("PlayFabLoginRegister GetIdentity");
         if (identityDropdown.value == 1) userIdentity = "Student";
         else if (identityDropdown.value == 2) userIdentity = "Professor/TA";
         else if (identityDropdown.value == 3) userIdentity = "Staff";
@@ -103,6 +105,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      */
     void SaveIdentity()
     {
+        Debug.Log("PlayFabLoginRegister SaveIdentity " + userIdentity);
         var request = new UpdateUserDataRequest
         {
             Data = new Dictionary<string, string>
@@ -144,14 +147,17 @@ public class PlayFabLoginRegister : MonoBehaviour
      */
     void KnowMore()
     {
+        Debug.Log("PlayFabLoginRegister KnowMore");
         loginPageUI.SetActive(false);
         registerPageUI.SetActive(false);
         if (userIdentity == "Student")
         {
+            Debug.Log("PlayFabLoginRegister KnowMore Student");
             setUserProfilePageStudentUI.SetActive(true);
         }
         else if (userIdentity == "Professor/TA" || userIdentity == "Staff")
         {
+            Debug.Log("PlayFabLoginRegister KnowMore Others");
             setUserProfilePageOthersUI.SetActive(true);
         }
 
@@ -165,6 +171,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      */
     public void Login()
     {
+        Debug.Log("PlayFabLoginRegister Login");
         loginError.text = " ";
         var request = new LoginWithEmailAddressRequest { Email = loginEmail.text, Password = loginPassword.text };
         PlayFabClientAPI.LoginWithEmailAddress(request, LoginSuccess, LoginFail);
@@ -177,6 +184,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      */
     void LoginSuccess(LoginResult result)
     {
+        Debug.Log("PlayFabLoginRegister LoginSuccess");
         loginPageUI.SetActive(false);
         registerPageUI.SetActive(false);
         SceneManager.LoadScene("Main Scene");
@@ -189,6 +197,7 @@ public class PlayFabLoginRegister : MonoBehaviour
      */
     void LoginFail(PlayFabError error)
     {
+        Debug.Log("PlayFabLoginRegister LoginFail");
         loginError.text = error.GenerateErrorReport();
     }
 

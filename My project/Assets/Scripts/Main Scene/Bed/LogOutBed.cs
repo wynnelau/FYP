@@ -17,7 +17,7 @@ public class LogOutBed : MonoBehaviour
      */
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("LogOutBed onTriggerEnter: activateLogoutUI");
+        Debug.Log("LogOutBed onTriggerEnter");
         logoutUI.SetActive(true);
         player.enabled = false;
     }
