@@ -9884,7 +9884,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 383401100}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 849384666}
+        m_TargetAssemblyTypeName: MeetingDetailsUI, Assembly-CSharp
+        m_MethodName: closeMeetingDetails
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &383401100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23536,6 +23548,7 @@ GameObject:
   - component: {fileID: 849384663}
   - component: {fileID: 849384664}
   - component: {fileID: 849384665}
+  - component: {fileID: 849384666}
   m_Layer: 0
   m_Name: MainSceneControls
   m_TagString: Untagged
@@ -23901,6 +23914,20 @@ MonoBehaviour:
   - {fileID: 1571460299}
   - {fileID: 932099518}
   MonthAndYear: {fileID: 1897108099}
+--- !u!114 &849384666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849384648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ddecb0e4b4b5b044824442e7bf482e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meetingDetails: {fileID: 64932978}
+  meetingSchedule: {fileID: 1056267627}
 --- !u!1 &851506367
 GameObject:
   m_ObjectHideFlags: 0
