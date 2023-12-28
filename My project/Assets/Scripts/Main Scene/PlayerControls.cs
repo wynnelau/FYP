@@ -12,10 +12,7 @@ public class PlayerControls : MonoBehaviour
     private float verticalInput;
     private float translateSpeed = 10.0f;
 
-    private float leftRotationInput;
-    private float rightRotationInput;
-    private float rotationSpeed = 2.5f;
-    private float rotateRight = -90f;
+    private float rotationSpeed = 45f;
 
     private float firstPersonBoundary = -23f;
 
@@ -54,9 +51,9 @@ public class PlayerControls : MonoBehaviour
      */
     void TurnLeft()
     {
-        leftRotationInput = -rotateRight;
-        Quaternion rotationTargetLeft = Quaternion.Euler(0, leftRotationInput, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotationTargetLeft, rotationSpeed * Time.deltaTime);
+        Quaternion currentRotation = transform.rotation;
+        float newYRotation = currentRotation.eulerAngles.y - rotationSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(0, newYRotation , 0);
     }
 
     /*
@@ -66,9 +63,9 @@ public class PlayerControls : MonoBehaviour
      */
     void TurnRight()
     {
-        rightRotationInput = rotateRight;
-        Quaternion rotationTargetRight = Quaternion.Euler(0, rightRotationInput, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotationTargetRight, rotationSpeed * Time.deltaTime);
+        Quaternion currentRotation = transform.rotation;
+        float newYRotation = currentRotation.eulerAngles.y + rotationSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(0, newYRotation, 0);
     }
     
     /*
