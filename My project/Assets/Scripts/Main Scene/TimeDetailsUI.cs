@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Manage the TimeDetailsUI
  */
 public class TimeDetailsUI : MonoBehaviour
@@ -65,6 +65,7 @@ public class TimeDetailsUI : MonoBehaviour
      */
     public void AddReservationSlots()
     {
+        Debug.Log("TimeDetailsUI AddReservationSlots");
         RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         RealmController.AddReservation();
@@ -81,6 +82,7 @@ public class TimeDetailsUI : MonoBehaviour
      */
     public void RemoveReservationSlots()
     {
+        Debug.Log("TimeDetailsUI RemoveReservationSlots");
         RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         RealmController.RemoveReservation();
@@ -97,12 +99,13 @@ public class TimeDetailsUI : MonoBehaviour
      */
     void RefreshTimeDetails()
     {
+        Debug.Log("TimeDetailsUI RefreshTimeDetails");
         RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
 
         if (RealmController != null)
         {
-            Debug.Log("TimeDetailsUI RefreshTimeDetails not null");
+            Debug.Log("TimeDetailsUI RefreshTimeDetails notNull");
             var timingList = RealmController.GetTimings(timeDetailsLocationProf.text);
             if (timingList != null && timingList.Count > 0)
             {

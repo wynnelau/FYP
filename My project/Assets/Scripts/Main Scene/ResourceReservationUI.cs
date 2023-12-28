@@ -6,7 +6,7 @@ using PlayFab.ClientModels;
 using PlayFab;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Manage the ResourceReservation calendar, which contains the dates
  * Tutorial used: https://www.youtube.com/watch?v=cMwCZhZnE4k
  */

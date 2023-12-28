@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Deactivate the UIs when user enters "MainScene" scene
  */
 

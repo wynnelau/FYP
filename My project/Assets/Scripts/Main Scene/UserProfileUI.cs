@@ -3,10 +3,10 @@ using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
+using UnityEditor.PackageManager;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Read user profile data from database and display in UserProfileUI
  */
 
@@ -103,6 +103,7 @@ public class UserProfileUI : MonoBehaviour
      */
     bool CheckMissingInputsStudent()
     {
+        Debug.Log("UserProfileUI CheckMissingInputsStudent");
         if (displayNameStudent.text == "" || schoolStudent.text == "" || courseStudent.text == "" || yearStudent.text == "")
         {
             return true;
@@ -174,6 +175,7 @@ public class UserProfileUI : MonoBehaviour
      */
     bool CheckMissingInputsOthers()
     {
+        Debug.Log("UserProfileUI CheckMissingInputsOthers");
         if (displayNameOthers.text == "" || schoolOthers.text == "")
         {
             return true;
