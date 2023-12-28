@@ -22,9 +22,15 @@ public class NewMeetingUI : MonoBehaviour
         MeetingSchedule.SetActive(false);
     }
 
+    /*
+     * Purpose: Check whether the email/ user exists
+     * Input: Click on AddUser button
+     * Output: Check whether email/ user exists using email
+     */
     public void addParticipant()
     {
         Debug.Log("NewMeetingUI addParticipant " + participantEmail.text);
+        // Conversion required here as email in PlayFab database contains \xe2\x80\x8b at the end
         string email = StringToHex(participantEmail.text);
         string convertedEmail = HexToString(email + "e2808b");
         var request = new GetAccountInfoRequest { Email = convertedEmail };
@@ -41,6 +47,11 @@ public class NewMeetingUI : MonoBehaviour
         Debug.LogError(error.GenerateErrorReport()); 
     }
 
+    /*
+     * Purpose: Convert email string to hex string
+     * Input: Pass the email string in
+     * Output: return the hex string out
+     */
     string StringToHex(string email)
     {
         StringBuilder hex = new StringBuilder(email.Length * 2);
@@ -52,6 +63,11 @@ public class NewMeetingUI : MonoBehaviour
         return hex.ToString();
     }
 
+    /*
+     * Purpose: Convert hex string to email string
+     * Input: Pass the hex string in
+     * Output: return the email string out
+     */
     string HexToString(string hex)
     {
         byte[] bytes = new byte[hex.Length / 2];
