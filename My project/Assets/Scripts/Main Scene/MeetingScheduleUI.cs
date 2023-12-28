@@ -52,7 +52,7 @@ public class MeetingScheduleUI : MonoBehaviour
         }
     }
 
-    public GameObject mainMenuStaff, mainMenuProf, mainMenuStudent, MeetingSchedule, MeetingDetails, CreateMeeting;
+    public GameObject mainMenuStaff, mainMenuProf, mainMenuStudent, MeetingSchedule, MeetingDetails, NewMeeting;
     public Text MeetingDetailsDate;
     public PlayerControls player;
     public RealmController RealmController;
@@ -153,14 +153,14 @@ public class MeetingScheduleUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To open the "createMeeting" UI
+     * Purpose: To open the "NewMeeting" UI
      * Input: Click on the "createMeetingButton" button in the "MeetingSchedule" UI 
-     * Output: Open the "createMeeting" UI
+     * Output: Open the "NewMeeting" UI
      */
     public void openCreateMeeting()
     {
         MeetingSchedule.SetActive(false);
-        CreateMeeting.SetActive(true);
+        NewMeeting.SetActive(true);
     }
 
     /*

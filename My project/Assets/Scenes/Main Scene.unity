@@ -4022,7 +4022,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 119296917}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 849384665}
+        m_TargetAssemblyTypeName: MeetingScheduleUI, Assembly-CSharp
+        m_MethodName: openCreateMeeting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &119296917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25623,6 +25635,7 @@ MonoBehaviour:
   manageSlotsUI: {fileID: 1293754482}
   meetingScheduleUI: {fileID: 1056267627}
   meetingDetailsUI: {fileID: 64932978}
+  newMeetingUI: {fileID: 1069216480}
 --- !u!114 &849384652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25908,7 +25921,7 @@ MonoBehaviour:
   mainMenuStudent: {fileID: 1664122161}
   MeetingSchedule: {fileID: 1056267627}
   MeetingDetails: {fileID: 64932978}
-  CreateMeeting: {fileID: 0}
+  NewMeeting: {fileID: 1069216480}
   MeetingDetailsDate: {fileID: 1867156336}
   player: {fileID: 1871160649}
   RealmController: {fileID: 0}
@@ -31719,7 +31732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1056267628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32350,12 +32363,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1069216481}
   m_Layer: 5
-  m_Name: newMeetingUI
+  m_Name: newMeeting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1069216481
 RectTransform:
   m_ObjectHideFlags: 0
@@ -52991,7 +53004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1819792555}
   m_Layer: 5
-  m_Name: joinMeetingUI
+  m_Name: joinMeeting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
