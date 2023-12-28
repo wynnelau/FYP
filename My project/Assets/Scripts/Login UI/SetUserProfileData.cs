@@ -48,6 +48,7 @@ public class SetUserProfileData : MonoBehaviour
      */
     public void SendStudentInfo()
     {
+        Debug.Log("SetUserProfileData SendStudentsInfo");
         if (CheckMissingInputsStudent())
         {
             Debug.Log("SetUserProfileData SendStudentsInfo MissingInputs");
@@ -91,6 +92,7 @@ public class SetUserProfileData : MonoBehaviour
      */
     void SaveStudentInfoFail(PlayFabError error)
     {
+        Debug.Log("SetUserProfileData SaveStudentInfoFail");
         errorStudent.text = error.GenerateErrorReport();
     }
 
@@ -102,6 +104,7 @@ public class SetUserProfileData : MonoBehaviour
      */
     bool CheckMissingInputsStudent()
     {
+        Debug.Log("SetUserProfileData CheckMissingInputsStudent");
         if (displayNameStudent.text == "" || schoolStudent.text == "" || courseStudent.text == "" || yearStudent.text == "")
         {
             return true;
@@ -119,15 +122,15 @@ public class SetUserProfileData : MonoBehaviour
     public void SendOthersInfo()
     {
 
-        Debug.Log("Entered SendOthersInfo");
+        Debug.Log("SetUserProfileData SendOthersInfo");
         if (CheckMissingInputsOthers())
         {
-            Debug.Log("Missing inputs others");
+            Debug.Log("SetUserProfileData SendOthersInfo MissingInputs");
             errorOthers.text = "Unable to continue. Missing input(s).";
         }
         else
         {
-            Debug.Log("Update data others");
+            Debug.Log("SetUserProfileData SendOthersInfo AttemptToUpdateData");
             errorOthers.text = "";
             var request = new UpdateUserDataRequest
             {
@@ -151,7 +154,7 @@ public class SetUserProfileData : MonoBehaviour
      */
     void SaveOthersInfoSuccess(UpdateUserDataResult result)
     {
-        Debug.Log("Saved others info success");
+        Debug.Log("SetUserProfileData SaveOthersInfoSuccess");
         setUserProfilePageOthersUI.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }
@@ -163,6 +166,7 @@ public class SetUserProfileData : MonoBehaviour
      */
     void SaveOthersInfoFail(PlayFabError error)
     {
+        Debug.Log("SetUserProfileData SaveOthersInfoFail");
         errorOthers.text = error.GenerateErrorReport();
     }
 
@@ -174,6 +178,7 @@ public class SetUserProfileData : MonoBehaviour
      */
     bool CheckMissingInputsOthers()
     {
+        Debug.Log("SetUserProfileData CheckMissingInputsOthers");
         if (displayNameOthers.text == "" || schoolOthers.text == "")
         {
             return true;

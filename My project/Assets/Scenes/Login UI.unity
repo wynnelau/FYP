@@ -1180,7 +1180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: e.g. My research areas are ...
+  m_Text: '(optional) '
 --- !u!222 &319620228
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1330,7 +1330,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &359097714
 Transform:
   m_ObjectHideFlags: 0
@@ -6504,7 +6504,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: e.g. My interests are ...
+  m_Text: '(optional) '
 --- !u!222 &1533382785
 CanvasRenderer:
   m_ObjectHideFlags: 0
