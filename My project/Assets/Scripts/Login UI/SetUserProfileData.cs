@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 /*
- * Location: UIControls
+ * Location: Login UI/ UIControls
  * Purpose: Get profile data from user once they register (Student and Others) and send to PlayFab database
  */
 public class SetUserProfileData : MonoBehaviour

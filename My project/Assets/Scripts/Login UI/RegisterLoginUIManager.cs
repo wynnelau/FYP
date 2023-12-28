@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 
 /*
- * Location: UIControls
+ * Location: Login UI/ UIControls
  * Purpose: Manage the "RegisterPage" UI, "LoginPage" UI, "SetUserProfilePageStudent" UI and "SetUserProfilePageOthers" UI
  * Tutorial used: https://www.youtube.com/watch?v=XPTPRaF2pd4
  */
