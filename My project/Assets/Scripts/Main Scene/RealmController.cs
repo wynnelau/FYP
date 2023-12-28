@@ -28,6 +28,11 @@ public class RealmController : MonoBehaviour
     // To get the date from dateDetails/ timeDetails
     public Text dateTextProf, dateTextStaff, timeTextProf, timeTextStaff;
 
+    // Variables from "newMeeting" UI for managing Meeting slots
+    public InputField meetingDate, meetingMonth, meetingYear, meetingDuration, meetingDescription;
+    public Dropdown meetingHr, meetingMin, meetingAm;
+    public Text meetingErrorText;
+
     
     private async void Start()
     {

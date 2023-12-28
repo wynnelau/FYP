@@ -7,7 +7,7 @@ using PlayFab;
 using Realms.Sync;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Manage the MeetingSchedule calendar, which contains the dates
  * Tutorial used: https://www.youtube.com/watch?v=cMwCZhZnE4k
  */

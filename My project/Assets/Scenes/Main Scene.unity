@@ -6993,7 +6993,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 250614260}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 849384667}
+        m_TargetAssemblyTypeName: NewMeetingUI, Assembly-CSharp
+        m_MethodName: addParticipant
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &250614260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25568,6 +25580,7 @@ GameObject:
   - component: {fileID: 849384664}
   - component: {fileID: 849384665}
   - component: {fileID: 849384666}
+  - component: {fileID: 849384667}
   m_Layer: 0
   m_Name: MainSceneControls
   m_TagString: Untagged
@@ -25822,6 +25835,15 @@ MonoBehaviour:
   dateTextStaff: {fileID: 451059684}
   timeTextProf: {fileID: 1353084229}
   timeTextStaff: {fileID: 1143851750}
+  meetingDate: {fileID: 0}
+  meetingMonth: {fileID: 0}
+  meetingYear: {fileID: 0}
+  meetingDuration: {fileID: 0}
+  meetingDescription: {fileID: 0}
+  meetingHr: {fileID: 0}
+  meetingMin: {fileID: 0}
+  meetingAm: {fileID: 0}
+  meetingErrorText: {fileID: 0}
 --- !u!114 &849384661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25948,6 +25970,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meetingDetails: {fileID: 64932978}
   meetingSchedule: {fileID: 1056267627}
+--- !u!114 &849384667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849384648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ffd5aee44c79f49a83742ab7abd1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewMeeting: {fileID: 1069216480}
+  MeetingSchedule: {fileID: 1056267627}
+  participantEmail: {fileID: 1161371611}
 --- !u!1 &851506367
 GameObject:
   m_ObjectHideFlags: 0
@@ -31732,7 +31769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1056267628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32368,7 +32405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1069216481
 RectTransform:
   m_ObjectHideFlags: 0
@@ -61901,7 +61938,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1276420623}
   m_HandleRect: {fileID: 1276420622}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
