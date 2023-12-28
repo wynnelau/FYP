@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Manage manageSlots UI, which allows staff to create new available slots
  */
 public class ManageSlotsUI : MonoBehaviour
@@ -18,8 +18,10 @@ public class ManageSlotsUI : MonoBehaviour
      */
     public void closeManageSlots()
     {
+        Debug.Log("ManageSlotsUI closeManageSlots");
         if (manageSlotsStaff.activeSelf == true)
         {
+            Debug.Log("ManageSlotsUI closeManageSlots Staff");
             errorText.text = "";
             manageSlotsStaff.SetActive(false);
             resourceReservationStaff.SetActive(true);
@@ -33,6 +35,7 @@ public class ManageSlotsUI : MonoBehaviour
      */
     public void AddAvailableSlots()
     {
+        Debug.Log("ManageSlotsUI AddAvailableSlots");
         RealmController = FindObjectOfType<RealmController>();
         RealmController.AddAvailable();
     }
@@ -44,6 +47,7 @@ public class ManageSlotsUI : MonoBehaviour
      */
     public void RemoveAvailableSlots()
     {
+        Debug.Log("ManageSlotsUI RemoveAvailableSlots");
         RealmController = FindObjectOfType<RealmController>();
         RealmController.RemoveAvailable();
     }

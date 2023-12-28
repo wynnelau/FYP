@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
- * Location: "Bed" in "MainScene" scene
+ * Location: Main Scene/ Bed
  * Purpose: Open the "logoutUI" UI when user comes into contact with "Bed"
  */
 
@@ -13,7 +13,7 @@ public class LogOutBed : MonoBehaviour
     /*
      * Purpose: Open the "logoutUI" UI when user comes into contact with "Bed"
      * Input: User comes into contact with "Bed"
-     * Output: Open the "logoutUI" UI
+     * Output: Open the "logoutUI" UI and disable player movements
      */
     private void OnTriggerEnter(Collider other)
     {

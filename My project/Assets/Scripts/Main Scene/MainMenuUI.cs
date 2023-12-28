@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Manage the mainMenu UIs
  */
 public class MainMenuUI : MonoBehaviour
@@ -16,6 +16,7 @@ public class MainMenuUI : MonoBehaviour
      */
     public void closeMainMenu()
     {
+        Debug.Log("MainMenuUI closeMainMenu");
         if (mainMenuStudent.activeSelf == true)
         {
             Debug.Log("MainMenuUI closeMainMenu Student");
@@ -41,6 +42,7 @@ public class MainMenuUI : MonoBehaviour
      */
     public void openResourceReservation()
     {
+        Debug.Log("MainMenuUI openResourceReservation");
         if (mainMenuStaff.activeSelf == true)
         {
             Debug.Log("MainMenuUI openResourceReservation Staff");

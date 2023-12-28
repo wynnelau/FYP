@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Manage the DateDetailsUI, which contains location buttons that are available
  */
 public class DateDetailsUI : MonoBehaviour
@@ -17,6 +17,7 @@ public class DateDetailsUI : MonoBehaviour
      */
     public void closeDetails()
     {
+        Debug.Log("DateDetailsUI closeDetails");
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         buttonCreator.DeleteAllButtons();
 

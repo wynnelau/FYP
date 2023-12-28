@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Switch between cameras when 'C' key is pressed
  */
 
@@ -49,6 +49,7 @@ public class CameraSwitch : MonoBehaviour
      */
     void SwitchToFirstPerson()
     {
+        Debug.Log("CameraSwitch SwitchToFirstPerson");
         firstPersonCamera.enabled = true;
         thirdPersonCamera.enabled = false;
         buildingFirstPerson.SetActive(true);
@@ -63,6 +64,7 @@ public class CameraSwitch : MonoBehaviour
      */
     void SwitchToThirdPerson()
     {
+        Debug.Log("CameraSwitch SwitchToThirdPerson");
         firstPersonCamera.enabled = false;
         thirdPersonCamera.enabled = true;
         buildingFirstPerson.SetActive(false);

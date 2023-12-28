@@ -2,11 +2,10 @@ using PlayFab.ClientModels;
 using PlayFab;
 using System.Collections.Generic;
 using UnityEngine;
-using Realms.Sync;
 
 
 /*
- * Location: "Table" in "MainScene" scene
+ * Location: Main Scene/ Table
  * Purpose: Get the user's identity and open the corresponding mainMenu UI when the user comes into contact with "Table"
  */
 public class MainMenuTable : MonoBehaviour
@@ -23,7 +22,7 @@ public class MainMenuTable : MonoBehaviour
      */
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("MainMenuTable onTriggerEnter: activateMainMenuUI");
+        Debug.Log("MainMenuTable onTriggerEnter");
         GetUserIdentityData();
     }
 
@@ -47,11 +46,12 @@ public class MainMenuTable : MonoBehaviour
      * Output: If user is Student, opens "mainMenuStudent" UI
      *         else if user is Staff, opens "mainMenuStaff" UI
      *         else if user is Prof/TA, opens "mainMenuProf" UI
+     *         then disable player movements
      */
     void GetUserIdentitySuccess(GetUserDataResult result)
     {
-        userIdentity = result.Data["Identity"].Value;
         Debug.Log("MainMenuTable GetUserIdentitySuccess");
+        userIdentity = result.Data["Identity"].Value;
         if (userIdentity == "Student")
         {
             Debug.Log("MainMenuTable GetUserIdentitySuccess Student");

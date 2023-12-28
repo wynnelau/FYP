@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
- * Location: "Player" in "MainScene" scene
+ * Location: Main Scene/ Player
  * Purpose: Control the player movements
  */
 

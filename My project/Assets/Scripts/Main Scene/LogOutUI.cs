@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Manage the LogOutUI
  */
 
@@ -12,7 +12,7 @@ public class LogOutUI : MonoBehaviour
 
     /*
      * Purpose: Quit application when the "logoutConfirmButton" button is clicked
-     * Input: Click on the "logoutCancelButton" button
+     * Input: Click on the "logoutConfirmButton" button
      * Output: Quit application
      */
     public void logoutConfirm()

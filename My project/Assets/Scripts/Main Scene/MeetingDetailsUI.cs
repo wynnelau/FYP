@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Location: Main Scene/ MainSceneControls
+ * Purpose: Manage the MeetingDetails UI
+ */
 public class MeetingDetailsUI : MonoBehaviour
 {
     public GameObject meetingDetails, meetingSchedule;

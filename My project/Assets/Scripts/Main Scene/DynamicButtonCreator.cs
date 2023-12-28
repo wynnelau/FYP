@@ -2,13 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
-using PlayFab;
-using PlayFab.ClientModels;
 using System.Linq;
 
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Used to create the dynamic buttons for dateDetails UI and timeDetails UI
  * Tutorial used: https://www.youtube.com/watch?v=8bMzz-nSIwg
  */

@@ -9,7 +9,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 /*
- * Location: MainSceneControls
+ * Location: Main Scene/ MainSceneControls
  * Purpose: Manage send and retrieve data from MongoDB
  * Tutorial used: https://www.youtube.com/watch?v=f-IQwVReQ-c, https://www.youtube.com/watch?v=q4_997QEQww
  */
