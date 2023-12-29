@@ -75,7 +75,7 @@ public class RealmController : MonoBehaviour
 
         if (location.text == "" || fromDate.text == "" || fromMonth.text == "" || fromYear.text == "" || toDate.text == "" || toMonth.text == "" || toYear.text == "")
         {
-            errorManageText.text = "Unable to add slots. Missing inputs.";
+            errorManageText.text = "Unable to add slots. Missing input(s).";
             return;
         }
 
