@@ -9,9 +9,9 @@ using System.Collections.Generic;
 public class NewMeetingUI : MonoBehaviour
 {
     public GameObject NewMeeting, MeetingSchedule;
-    public InputField participantEmail, dDate, dMonth, dYear, duration, description;
+    public InputField participantEmail, dDate, dMonth, dYear, duration, description, tHr, tMin;
     public Text errorText, participantList;
-    public Dropdown tHr, tMin, tAM;
+    public Dropdown tAM;
 
     private List<string> emailList = new List<string>();
 
@@ -33,9 +33,9 @@ public class NewMeetingUI : MonoBehaviour
         dYear.text = "";
         duration.text = "";
         description.text = "";
+        tHr.text = "";
+        tMin.text = "";
 
-        tHr.value = 0;
-        tMin.value = 0;
         tAM.value = 0;
 
         emailList.Clear();
