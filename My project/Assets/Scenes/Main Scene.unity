@@ -25113,15 +25113,15 @@ MonoBehaviour:
   dateTextStaff: {fileID: 451059684}
   timeTextProf: {fileID: 1353084229}
   timeTextStaff: {fileID: 1143851750}
-  meetingDate: {fileID: 0}
-  meetingMonth: {fileID: 0}
-  meetingYear: {fileID: 0}
-  meetingDuration: {fileID: 0}
-  meetingDescription: {fileID: 0}
-  meetingHr: {fileID: 0}
-  meetingMin: {fileID: 0}
-  meetingAm: {fileID: 0}
-  meetingErrorText: {fileID: 0}
+  meetingDate: {fileID: 876648868}
+  meetingMonth: {fileID: 207173316}
+  meetingYear: {fileID: 727669746}
+  meetingDuration: {fileID: 1872454863}
+  meetingDescription: {fileID: 707484200}
+  meetingHr: {fileID: 22248617}
+  meetingMin: {fileID: 2090393375}
+  meetingAm: {fileID: 1151846763}
+  meetingErrorText: {fileID: 889439181}
 --- !u!114 &849384661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25273,6 +25273,7 @@ MonoBehaviour:
   errorText: {fileID: 889439181}
   participantList: {fileID: 1188093502}
   tAM: {fileID: 1151846763}
+  RealmController: {fileID: 0}
 --- !u!1 &851506367
 GameObject:
   m_ObjectHideFlags: 0
@@ -51656,7 +51657,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1830563201}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 849384667}
+        m_TargetAssemblyTypeName: NewMeetingUI, Assembly-CSharp
+        m_MethodName: CreateMeeting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1830563201
 MonoBehaviour:
   m_ObjectHideFlags: 0

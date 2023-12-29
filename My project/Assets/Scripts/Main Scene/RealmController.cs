@@ -29,8 +29,8 @@ public class RealmController : MonoBehaviour
     public Text dateTextProf, dateTextStaff, timeTextProf, timeTextStaff;
 
     // Variables from "newMeeting" UI for managing Meeting slots
-    public InputField meetingDate, meetingMonth, meetingYear, meetingDuration, meetingDescription;
-    public Dropdown meetingHr, meetingMin, meetingAm;
+    public InputField meetingDate, meetingMonth, meetingYear, meetingDuration, meetingDescription, meetingHr, meetingMin;
+    public Dropdown meetingAm;
     public Text meetingErrorText;
 
     
@@ -116,6 +116,27 @@ public class RealmController : MonoBehaviour
 
         // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteAddReservation(addReservationList));
+    }
+
+    public void AddMeeting(List<string> emailList)
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("RealmController AddMeeting RealmNotInitialised");
+            return;
+        }
+        if (meetingDate.text == "" || meetingMonth.text == "" || meetingYear.text == "" || meetingDuration.text == "" || meetingDescription.text == "" || meetingHr.text == "" || meetingMin.text == "")
+        {
+            meetingErrorText.text = "Unable to create meeting. Missing input(s).";
+            return;
+        }
+        if (MeetingError())
+        {
+            meetingErrorText.text = "Unable to create meeting. Please make sure date and start time is valid.";
+            Debug.Log("RealmController AddMeeting MeetingError");
+            return;
+        }
+        meetingErrorText.text = "Meeting created";
     }
 
     /*
@@ -657,4 +678,38 @@ public class RealmController : MonoBehaviour
         }
         return true;
     }
+
+    /*
+     * Purpose: Check whether the date time input in "newMeeting" UI is correct
+     * Input: Called by AddMeeting()
+     * Output: return true if there is an error
+     *         else return false
+     */
+    private bool MeetingError()
+    {
+        int hr, min;
+        try
+        {
+            DateTime date = new DateTime(2000 + int.Parse(meetingYear.text), int.Parse(meetingMonth.text), int.Parse(meetingDate.text));
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.ToString());
+            meetingErrorText.text = ex.ToString();
+            return true;
+        }
+        hr = int.Parse(meetingHr.text);
+        min = int.Parse(meetingMin.text);
+        if (hr <= 0 || hr >= 13)
+        {
+            return true;
+        }
+        if (min < 0 || min >= 60)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    
 }

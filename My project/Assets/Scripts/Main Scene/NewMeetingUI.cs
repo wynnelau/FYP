@@ -12,6 +12,7 @@ public class NewMeetingUI : MonoBehaviour
     public InputField participantEmail, dDate, dMonth, dYear, duration, description, tHr, tMin;
     public Text errorText, participantList;
     public Dropdown tAM;
+    public RealmController RealmController;
 
     private List<string> emailList = new List<string>();
 
@@ -42,6 +43,13 @@ public class NewMeetingUI : MonoBehaviour
 
         NewMeeting.SetActive(false);
         MeetingSchedule.SetActive(true);
+    }
+
+    public void CreateMeeting()
+    {
+        Debug.Log("NewMeetingUI CreateMeeting");
+        RealmController = FindObjectOfType<RealmController>();
+        RealmController.AddMeeting(emailList);
     }
 
     /*
