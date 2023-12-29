@@ -81,7 +81,7 @@ public class RealmController : MonoBehaviour
 
         if (DatetimeError())
         {
-            errorManageText.text = "Unable to add slots. Please make sure fromdate/time is earlier than todate/time";
+            errorManageText.text = "Unable to add slots. Please make sure fromdate/time is earlier than todate/time and that they are a valid date.";
             Debug.Log("RealmController AddAvailable DateTimeError");
             return;
         }
@@ -601,23 +601,33 @@ public class RealmController : MonoBehaviour
      */
     private bool DatetimeError()
     {
-        DateTime from = new DateTime(2000 + int.Parse(fromYear.text), int.Parse(fromMonth.text), int.Parse(fromDate.text));
-        DateTime to = new DateTime(2000 + int.Parse(toYear.text), int.Parse(toMonth.text), int.Parse(toDate.text));
-        Debug.Log(from.ToString());
-        Debug.Log(to.ToString());
-        if (DateTime.Compare(from, to) > 0)
+        try
         {
-            Debug.Log("RealmController DateTimeError FromDateIsLaterThanToDate");
+            DateTime from = new DateTime(2000 + int.Parse(fromYear.text), int.Parse(fromMonth.text), int.Parse(fromDate.text));
+            DateTime to = new DateTime(2000 + int.Parse(toYear.text), int.Parse(toMonth.text), int.Parse(toDate.text));
+            Debug.Log(from.ToString());
+            Debug.Log(to.ToString());
+            if (DateTime.Compare(from, to) > 0)
+            {
+                Debug.Log("RealmController DateTimeError FromDateIsLaterThanToDate");
+                return true;
+            }
+            else if (DateTime.Compare(from, to) == 0)
+            {
+                Debug.Log("RealmController DateTimeError FromDateAndToDateIsSame");
+            }
+            else
+            {
+                Debug.Log("RealmController DateTimeError FromDateIsEarlierThanToDate");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.ToString());
+            errorManageText.text = ex.ToString();
             return true;
         }
-        else if (DateTime.Compare(from, to) == 0)
-        {
-            Debug.Log("RealmController DateTimeError FromDateAndToDateIsSame");
-        }
-        else
-        {
-            Debug.Log("RealmController DateTimeError FromDateIsEarlierThanToDate");
-        }
+        
         int fhr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
         int fmin = fromMin.value == 0 ? 0 : 30;
         int thr = GetHr(toAm.value, toHr.value, toMin.value, true);
