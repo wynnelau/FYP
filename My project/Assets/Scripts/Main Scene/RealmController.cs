@@ -33,6 +33,9 @@ public class RealmController : MonoBehaviour
     public Dropdown meetingAm;
     public Text meetingErrorText;
 
+    // To get the date from MeetingDetailsUI
+    public Text dateTextMeeting;
+
     
     private async void Start()
     {
@@ -273,6 +276,23 @@ public class RealmController : MonoBehaviour
         return queryResults;
     }
 
+    public void GetMeetings()
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("RealmController GetMeetings RealmNotInitialized");
+            return;
+            //return null;
+        }
+        var queryResults = PerformRealmWriteRetrieveMeetings();
+        var meetingList = queryResults
+            .OrderBy(item => item.StartTimeHr)
+            .ThenBy(item => item.StartTimeMin)
+            .ToList();
+        Debug.Log(meetingList);
+        //return meetingList;
+    }
+
     /*
      * Purpose: Create the available slots to add from user input and write them to the database
      * Input: Called by AddAvailable()
@@ -393,7 +413,7 @@ public class RealmController : MonoBehaviour
      */
     private IEnumerator PerformRealmWriteAddMeeting(List<string> emailList)
     {
-        string date = meetingDate.text + "/" + meetingMonth.text + "/" + meetingYear.text;
+        string date = meetingDate.text + "/" + meetingMonth.text + "/20" + meetingYear.text;
         string description = meetingDescription.text;
         string duration = meetingDuration.text;
         string joinCode = "";
@@ -625,6 +645,36 @@ public class RealmController : MonoBehaviour
             Debug.LogError("RealmController PerformRealmWriteRetrieveReservation ErrorQueryingRealm: " + ex.Message);
             return null;
         }
+    }
+
+    private List<Meetings> PerformRealmWriteRetrieveMeetings()
+    {
+        string dateText = dateTextMeeting.text;
+        string[] parts = dateText.Split('/');
+        MeetingScheduleUI MeetingScheduleUI = FindObjectOfType<MeetingScheduleUI>();
+        string userEmail = MeetingScheduleUI.GetUserEmail;
+        Meetings_participant_emails userMeetingEmail = new Meetings_participant_emails(userEmail);
+
+        try
+        {
+            List<Meetings> results = realm.All<Meetings>()
+                .Where(item => item.Date == dateText)
+                .ToList()
+                .Where(item => item.ParticipantEmails.Any(participant => participant.ParticipantEmail == userEmail) || item.HostEmail == userEmail)
+                .ToList();
+
+            foreach (Meetings result in results)
+            {
+                Debug.Log(result);
+            }
+            return results;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("RealmController PerformRealmWriteRetrieveMeetings ErrorQueryingRealm: " + ex.Message);
+            return null;
+        }
+
     }
 
     /*

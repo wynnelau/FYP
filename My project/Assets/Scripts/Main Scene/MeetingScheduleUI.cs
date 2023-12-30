@@ -119,17 +119,17 @@ public class MeetingScheduleUI : MonoBehaviour
      */
     void openDateDetails(GameObject dateSelected)
     {
-        Debug.Log("closeMeetingSchedule openDetails");
+        Debug.Log("MeetingScheduleUI openDateDetails");
         if (dateSelected.GetComponentInChildren<Text>().text != "")
         {
-            Debug.Log("closeMeetingSchedule openDetails " + dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
+            Debug.Log("MeetingScheduleUI openDateDetails " + dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
 
             RealmController = FindObjectOfType<RealmController>();
             buttonCreator = FindObjectOfType<DynamicButtonCreator>();
 
             if (MeetingSchedule.activeSelf == true)
             {
-                Debug.Log("ResourceReservationUI openDetails Staff");
+                Debug.Log("MeetingScheduleUI openDateDetails MeetingScheduleActive");
                 MeetingSchedule.SetActive(false);
                 MeetingDetails.SetActive(true);
                 MeetingDetailsDate.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;

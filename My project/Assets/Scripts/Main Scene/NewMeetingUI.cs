@@ -60,10 +60,9 @@ public class NewMeetingUI : MonoBehaviour
     public void AddParticipant()
     {
         Debug.Log("NewMeetingUI AddParticipant " + participantEmail.text);
-        // Conversion required here as email in PlayFab database contains \xe2\x80\x8b at the end
+        
         string email = StringToHex(participantEmail.text);
-        string convertedEmail = HexToString(email + "e2808b");
-        var request = new GetAccountInfoRequest { Email = convertedEmail };
+        var request = new GetAccountInfoRequest { Email = email };
         PlayFabClientAPI.GetAccountInfo(request, AddParticipantSuccess, AddParticipantFail);
     }
 
@@ -81,7 +80,7 @@ public class NewMeetingUI : MonoBehaviour
         } 
         else
         {
-            emailList.Add(participantEmail.text);
+            emailList.Add(StringToHex(participantEmail.text));
             errorText.text = participantEmail.text + " successfully added";
             participantList.text += participantEmail.text + "; ";
             participantEmail.text = "";
@@ -102,35 +101,30 @@ public class NewMeetingUI : MonoBehaviour
     }
 
     /*
-     * Purpose: Convert email string to hex string
+     * Purpose: Convert as email in PlayFab database contains \xe2\x80\x8b at the end
      * Input: Pass the email string in
-     * Output: return the hex string out
+     * Output: return the converted string out
      */
-    string StringToHex(string email)
+    public string StringToHex(string email)
     {
         StringBuilder hex = new StringBuilder(email.Length * 2);
         foreach (char c in email)
         {
             hex.AppendFormat("{0:X2}", (int)c);
         }
+        string hexString = hex.ToString();
+        hexString += "e2808b";
 
-        return hex.ToString();
-    }
+        byte[] bytes = new byte[hexString.Length / 2];
 
-    /*
-     * Purpose: Convert hex string to email string
-     * Input: Pass the hex string in
-     * Output: return the email string out
-     */
-    string HexToString(string hex)
-    {
-        byte[] bytes = new byte[hex.Length / 2];
-
-        for (int i = 0; i < hex.Length; i += 2)
+        for (int i = 0; i < hexString.Length; i += 2)
         {
-            bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            bytes[i / 2] = Convert.ToByte(hexString.Substring(i, 2), 16);
         }
 
         return Encoding.UTF8.GetString(bytes);
     }
+
+   
+    
 }

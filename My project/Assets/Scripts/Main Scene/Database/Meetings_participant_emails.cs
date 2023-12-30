@@ -11,4 +11,5 @@ public partial class Meetings_participant_emails : IEmbeddedObject
     {
         ParticipantEmail = participantEmail;
     }
+
 }
