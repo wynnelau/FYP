@@ -118,6 +118,12 @@ public class RealmController : MonoBehaviour
         StartCoroutine(PerformRealmWriteAddReservation(addReservationList));
     }
 
+    /*
+     * Purpose: Attempt to add meeting schedule, called by NewMeetingUI
+     * Input: Called by NewMeetingUI by CreateMeeting()
+     * Output: return if there is an error
+     *         else schedule a coroutine to execute Realm write operation on the main thread to add Meetings
+     */
     public void AddMeeting(List<string> emailList)
     {
         if (!isRealmInitialized)
@@ -379,7 +385,12 @@ public class RealmController : MonoBehaviour
 
         Debug.Log("RealmController PerformRealmWriteAddReservation Completed.");
     }
-    
+
+    /*
+     * Purpose: Add the meeting scheduled into the database
+     * Input: Called by AddMeeting()
+     * Output: Add the meeting scheduled to the database
+     */
     private IEnumerator PerformRealmWriteAddMeeting(List<string> emailList)
     {
         string date = meetingDate.text + "/" + meetingMonth.text + "/" + meetingYear.text;
