@@ -657,11 +657,21 @@ public class RealmController : MonoBehaviour
 
         try
         {
-            List<Meetings> results = realm.All<Meetings>()
+            /*List<Meetings> results = realm.All<Meetings>()
                 .Where(item => item.Date == dateText)
                 .ToList()
                 .Where(item => item.ParticipantEmails.Any(participant => participant.ParticipantEmail == userEmail) || item.HostEmail == userEmail)
+                .ToList();*/
+
+            List<Meetings> hostResult = realm.All<Meetings>()
+                .Filter($"Date == '{dateText}'")
+                .Filter($"ANY ParticipantEmails.ParticipantEmail == '{userEmail}'")
                 .ToList();
+            List<Meetings> participantResult = realm.All<Meetings>()
+                .Filter($"Date == '{dateText}'")
+                .Filter($"HostEmail == '{userEmail}'")
+                .ToList();
+            List<Meetings> results = hostResult.Union(participantResult).ToList();
 
             foreach (Meetings result in results)
             {
