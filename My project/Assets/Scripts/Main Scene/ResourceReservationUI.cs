@@ -342,11 +342,11 @@ public class ResourceReservationUI : MonoBehaviour
     /*
      * Purpose: Failed attempt to get user's email
      * Input: Called by the RetrieveUserEmail() when attempt to get user's email failed
-     * Output: Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
+     * Output: Debug.Log("ResourceReservationUI RetrieveUserEmailFail " + error);
      */
     void RetrieveUserEmailFail(PlayFabError error)
     {
-        Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
+        Debug.Log("ResourceReservationUI RetrieveUserEmailFail " + error);
     }
 
 }

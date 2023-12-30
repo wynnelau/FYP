@@ -164,7 +164,7 @@ public class MeetingScheduleUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To update the calendar of resourceReservation UIs
+     * Purpose: To update the calendar of MeetingScheduleUI
      * Input: Called by Start(), and when we toggle between the months using PrevMonth() and NextMonth() 
      * Output: Updates the calendar dates in the calendar
      */
@@ -278,7 +278,7 @@ public class MeetingScheduleUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To navigate between the different months when the "left" button is clicked in the resourceReservation UI
+     * Purpose: To navigate between the different months when the "left" button is clicked in the MeetingScheduleUI
      * Input: Click on the "left" button
      * Output: Calls UpdateCalendar() with updated dates
      */
@@ -289,7 +289,7 @@ public class MeetingScheduleUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To navigate between the different months when the "right" button is clicked in the resourceReservation UI
+     * Purpose: To navigate between the different months when the "right" button is clicked in the MeetingScheduleUI
      * Input: Click on the "right" button
      * Output: Calls UpdateCalendar() with updated dates
      */
@@ -301,7 +301,7 @@ public class MeetingScheduleUI : MonoBehaviour
 
     /*
      * Purpose: Getter function of the private userEmail
-     * Input: Called by DynamicButtonCreator by when creating timing buttons
+     * Input: Called by RealmController to get Host Email
      * Output: Returns the user's email
      */
     public string GetUserEmail
@@ -313,8 +313,8 @@ public class MeetingScheduleUI : MonoBehaviour
     }
 
     /*
-     * Purpose: Attempt to get the user's (Prof) email for reservation purposes
-     * Input: Called by Start() in ResourceReservationUI
+     * Purpose: Attempt to get the user's email for reservation purposes
+     * Input: Called by Start() in MeetingScheduleUI
      * Output: Call RetrieveUserEmailSuccess() if successful, RetrieveUserEmailFail() if unsuccessful
      */
     void RetrieveUserEmail()
@@ -338,11 +338,11 @@ public class MeetingScheduleUI : MonoBehaviour
     /*
      * Purpose: Failed attempt to get user's email
      * Input: Called by the RetrieveUserEmail() when attempt to get user's email failed
-     * Output: Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
+     * Output: Debug.Log("MeetingScheduleUI RetrieveUserEmailFail " + error);
      */
     void RetrieveUserEmailFail(PlayFabError error)
     {
-        Debug.Log("DynamicButtonCreator RetrieveUserEmailFail " + error);
+        Debug.Log("MeetingScheduleUI RetrieveUserEmailFail " + error);
     }
 
 }

@@ -136,6 +136,12 @@ public class RealmController : MonoBehaviour
             Debug.Log("RealmController AddMeeting MeetingError");
             return;
         }
+
+        Debug.Log("RealmController AddMeeting AddingAvailableToRealm");
+
+        // Schedule a coroutine to execute Realm write operation on the main thread
+        StartCoroutine(PerformRealmWriteAddMeeting(emailList));
+
         meetingErrorText.text = "Meeting created";
     }
 
@@ -374,6 +380,34 @@ public class RealmController : MonoBehaviour
         Debug.Log("RealmController PerformRealmWriteAddReservation Completed.");
     }
     
+    private IEnumerator PerformRealmWriteAddMeeting(List<string> emailList)
+    {
+        string date = meetingDate.text + "/" + meetingMonth.text + "/" + meetingYear.text;
+        string description = meetingDescription.text;
+        string duration = meetingDuration.text;
+        string joinCode = "";
+        int timeHr = meetingAm.value == 0 ? int.Parse(meetingHr.text) : int.Parse(meetingHr.text) + 12;
+        int timeMin = int.Parse(meetingMin.text);
+        MeetingScheduleUI MeetingScheduleUI = FindObjectOfType<MeetingScheduleUI>();
+        string hostEmail = MeetingScheduleUI.GetUserEmail;
+
+        try
+        {
+            realm.Write(() =>
+            {
+                realm.Add(new Meetings(date, timeHr, timeMin, duration, description, hostEmail, emailList, joinCode));
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("RealmController PerformRealmWriteAddMeeting ErrorWritingToRealm: " + ex.Message);
+        }
+
+        yield return null; // Yielding once to ensure the write operation is executed
+
+        Debug.Log("RealmController PerformRealmWriteAddMeeting Completed.");
+    }
+
     /*
      * Purpose: Create the available slots to remove from user input and write them to the database
      * Input: Called by RemoveAvailable()

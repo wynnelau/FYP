@@ -24,4 +24,22 @@ public partial class Meetings : IRealmObject
     public int? StartTimeHr { get; set; }
     [MapTo("start_time_min")]
     public int? StartTimeMin { get; set; }
+
+    public Meetings(string date, int timeHr, int timeMin, string duration, string description, string hostEmail, List<string> emailList, string joinCode)
+    {
+        Id = ObjectId.GenerateNewId();
+        Partition = "FYP";
+        Date = date;
+        Description = description;
+        Duration = duration;
+        HostEmail = hostEmail;
+        JoinCode = joinCode;
+        StartTimeHr = timeHr;
+        StartTimeMin = timeMin;
+
+        foreach (var email in emailList)
+        {
+            ParticipantEmails.Add(new Meetings_participant_emails(email));
+        }
+    }
 }
