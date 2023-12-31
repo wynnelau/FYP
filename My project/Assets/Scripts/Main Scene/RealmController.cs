@@ -416,7 +416,7 @@ public class RealmController : MonoBehaviour
         string description = meetingDescription.text;
         string duration = meetingDuration.text;
         string joinCode = "";
-        int timeHr = meetingAm.value == 0 ? int.Parse(meetingHr.text) : int.Parse(meetingHr.text) + 12;
+        int timeHr = meetingAm.value == 1 ? (int.Parse(meetingHr.text) == 12 ? int.Parse(meetingHr.text) : int.Parse(meetingHr.text) + 12) : (int.Parse(meetingHr.text) == 12 ? int.Parse(meetingHr.text) - 12 : int.Parse(meetingHr.text));
         int timeMin = int.Parse(meetingMin.text);
         MeetingScheduleUI MeetingScheduleUI = FindObjectOfType<MeetingScheduleUI>();
         string hostEmail = MeetingScheduleUI.GetUserEmail;
@@ -807,7 +807,7 @@ public class RealmController : MonoBehaviour
         if (hr <= 0 || hr >= 13)
         {
             return true;
-        }
+        } 
         if (min < 0 || min >= 60)
         {
             return true;

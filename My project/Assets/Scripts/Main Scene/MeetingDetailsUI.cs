@@ -7,6 +7,8 @@ using UnityEngine;
 public class MeetingDetailsUI : MonoBehaviour
 {
     public GameObject meetingDetails, meetingSchedule;
+    public RealmController RealmController;
+    public DynamicButtonCreator buttonCreator;
 
     /*
      * Purpose: Close the MeetingDetails UIs when the "closeMeetingDetails" button is clicked
@@ -16,6 +18,10 @@ public class MeetingDetailsUI : MonoBehaviour
     public void closeMeetingDetails()
     {
         Debug.Log("MeetingDetailsUI closeMeetingDetails");
+        RealmController = FindObjectOfType<RealmController>();
+        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+        buttonCreator.DeleteAllButtons();
+
         meetingDetails.SetActive(false);
         meetingSchedule.SetActive(true);
     }

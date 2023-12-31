@@ -142,7 +142,7 @@ public class MeetingScheduleUI : MonoBehaviour
                 {
                     foreach (var meeting in meetingList)
                     {
-                        buttonCreator.CreateButton(meeting.Id.ToString());
+                        buttonCreator.CreateButton("Start time:     " + meeting.StartTimeHr.ToString() + ":" + meeting.StartTimeMin.ToString() + "\n"+ meeting.Id.ToString());
                     }
 
                 }
