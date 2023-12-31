@@ -16,7 +16,7 @@ public class ManageSlotsUI : MonoBehaviour
      * Input: Click on the "closeManageSlotsButton" button
      * Output: Close the "manageSlots" UI and open the "resourceReservationStaff" UI
      */
-    public void closeManageSlots()
+    public void CloseManageSlots()
     {
         Debug.Log("ManageSlotsUI closeManageSlots");
         if (manageSlotsStaff.activeSelf == true)

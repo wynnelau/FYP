@@ -15,7 +15,7 @@ public class DateDetailsUI : MonoBehaviour
      * Output: If user is Prof, delete all dynamic buttons and go to "resourceReservationProf" UI
      *         else if user is Staff, delete all dynamic buttons and go to "resourceReservationStaff" UI
      */
-    public void closeDetails()
+    public void CloseDetails()
     {
         Debug.Log("DateDetailsUI closeDetails");
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();

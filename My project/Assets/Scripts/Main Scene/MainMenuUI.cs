@@ -14,7 +14,7 @@ public class MainMenuUI : MonoBehaviour
      * Input: Click on the "closeMainMenuButton" button
      * Output: Close the respective mainMenu UIs and enable player controls
      */
-    public void closeMainMenu()
+    public void CloseMainMenu()
     {
         Debug.Log("MainMenuUI closeMainMenu");
         if (mainMenuStudent.activeSelf == true)
@@ -40,7 +40,7 @@ public class MainMenuUI : MonoBehaviour
      * Input: Click on the "resourceReservation" button in a mainMenu UI (Prof/TA or Staff)
      * Output: Open the respective resourceReservation UIs
      */
-    public void openResourceReservation()
+    public void OpenResourceReservation()
     {
         Debug.Log("MainMenuUI openResourceReservation");
         if (mainMenuStaff.activeSelf == true)
@@ -62,7 +62,7 @@ public class MainMenuUI : MonoBehaviour
      * Input: Click on the "meetingSchedule" button in a mainMenu UI
      * Output: Open the meetingScheduleUI
      */
-    public void openMeetingSchedule()
+    public void OpenMeetingSchedule()
     {
         Debug.Log("MainMenuUI openMeetingSchedule");
         if (mainMenuStaff.activeSelf == true)

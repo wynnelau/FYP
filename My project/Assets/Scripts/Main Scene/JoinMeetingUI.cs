@@ -20,7 +20,7 @@ public class JoinMeetingUI : MonoBehaviour
      * Input: Click on the "closeJoinMeetingButton" button
      * Output: Close the joinMeetingUI and enable player controls
      */
-    public void closeJoinMeeting()
+    public void CloseJoinMeeting()
     {
         Debug.Log("JoinMeetingUI closeJoinMeeting");
         joinMeetingUI.SetActive(false);

@@ -80,7 +80,7 @@ public class MeetingScheduleUI : MonoBehaviour
         for (int i = 0; i < 42; i++)
         {
             var dateSelected = days[i];
-            dateSelected.dayButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => { openDateDetails(dateSelected.dayButton); });
+            dateSelected.dayButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => { OpenDateDetails(dateSelected.dayButton); });
         }
     }
 
@@ -89,7 +89,7 @@ public class MeetingScheduleUI : MonoBehaviour
      * Input: Click on the "closeMeetingScheduleButton" button in the MeetingScheduleUI
      * Output: Close MeetingScheduleUI and open the respective mainMenuUI
      */
-    public void closeMeetingSchedule()
+    public void CloseMeetingSchedule()
     {
         Debug.Log("MeetingScheduleUI closeMeetingSchedule");
         MainMenuTable MainMenuTable = FindObjectOfType<MainMenuTable>();
@@ -117,7 +117,7 @@ public class MeetingScheduleUI : MonoBehaviour
      * Input: Click on the date buttons in the resourceReservationUI, used by the listeners 
      * Output: Open the respective dateDetails UI
      */
-    void openDateDetails(GameObject dateSelected)
+    void OpenDateDetails(GameObject dateSelected)
     {
         Debug.Log("MeetingScheduleUI openDateDetails");
         if (dateSelected.GetComponentInChildren<Text>().text != "")
@@ -157,7 +157,7 @@ public class MeetingScheduleUI : MonoBehaviour
      * Input: Click on the "createMeetingButton" button in the "MeetingSchedule" UI 
      * Output: Open the "NewMeeting" UI
      */
-    public void openCreateMeeting()
+    public void OpenCreateMeeting()
     {
         MeetingSchedule.SetActive(false);
         NewMeeting.SetActive(true);

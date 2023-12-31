@@ -670,7 +670,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384652}
         m_TargetAssemblyTypeName: LogOutUI, Assembly-CSharp
-        m_MethodName: logoutCancel
+        m_MethodName: LogoutCancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4097,7 +4097,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384665}
         m_TargetAssemblyTypeName: MeetingScheduleUI, Assembly-CSharp
-        m_MethodName: openCreateMeeting
+        m_MethodName: OpenCreateMeeting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5927,7 +5927,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384654}
         m_TargetAssemblyTypeName: MainMenuUI, Assembly-CSharp
-        m_MethodName: closeMainMenu
+        m_MethodName: CloseMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10789,7 +10789,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384666}
         m_TargetAssemblyTypeName: MeetingDetailsUI, Assembly-CSharp
-        m_MethodName: closeMeetingDetails
+        m_MethodName: CloseMeetingDetails
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11001,7 +11001,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384652}
         m_TargetAssemblyTypeName: LogOutUI, Assembly-CSharp
-        m_MethodName: logoutConfirm
+        m_MethodName: LogoutConfirm
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14276,7 +14276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6899855031971775018, guid: 687ca293660f028458c4ce4baa7074f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: openMeetingSchedule
+      value: OpenMeetingSchedule
       objectReference: {fileID: 0}
     - target: {fileID: 6899855031971775018, guid: 687ca293660f028458c4ce4baa7074f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -17392,7 +17392,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384654}
         m_TargetAssemblyTypeName: MainMenuUI, Assembly-CSharp
-        m_MethodName: closeMainMenu
+        m_MethodName: CloseMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18188,7 +18188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6899855031971775018, guid: 687ca293660f028458c4ce4baa7074f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: openMeetingSchedule
+      value: OpenMeetingSchedule
       objectReference: {fileID: 0}
     - target: {fileID: 6899855031971775018, guid: 687ca293660f028458c4ce4baa7074f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -20802,7 +20802,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384656}
         m_TargetAssemblyTypeName: DateDetailsUI, Assembly-CSharp
-        m_MethodName: closeDetails
+        m_MethodName: CloseDetails
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25375,6 +25375,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meetingDetails: {fileID: 64932978}
   meetingSchedule: {fileID: 1056267627}
+  RealmController: {fileID: 0}
+  buttonCreator: {fileID: 0}
 --- !u!114 &849384667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32913,7 +32915,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384654}
         m_TargetAssemblyTypeName: MainMenuUI, Assembly-CSharp
-        m_MethodName: closeMainMenu
+        m_MethodName: CloseMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -40917,7 +40919,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384656}
         m_TargetAssemblyTypeName: DateDetailsUI, Assembly-CSharp
-        m_MethodName: closeDetails
+        m_MethodName: CloseDetails
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -44031,7 +44033,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384658}
         m_TargetAssemblyTypeName: ManageSlotsUI, Assembly-CSharp
-        m_MethodName: closeManageSlots
+        m_MethodName: CloseManageSlots
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -47603,7 +47605,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384664}
         m_TargetAssemblyTypeName: JoinMeetingUI, Assembly-CSharp
-        m_MethodName: closeJoinMeeting
+        m_MethodName: CloseJoinMeeting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -48532,7 +48534,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384665}
         m_TargetAssemblyTypeName: MeetingScheduleUI, Assembly-CSharp
-        m_MethodName: closeMeetingSchedule
+        m_MethodName: CloseMeetingSchedule
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -55035,7 +55037,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384667}
         m_TargetAssemblyTypeName: NewMeetingUI, Assembly-CSharp
-        m_MethodName: closeNewMeeting
+        m_MethodName: CloseNewMeeting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -59769,7 +59771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 843032655636492971, guid: 2740626151725924388a46391a219201, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: openResourceReservation
+      value: OpenResourceReservation
       objectReference: {fileID: 0}
     - target: {fileID: 843032655636492971, guid: 2740626151725924388a46391a219201, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -63562,7 +63564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 843032655636492971, guid: 2740626151725924388a46391a219201, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: openResourceReservation
+      value: OpenResourceReservation
       objectReference: {fileID: 0}
     - target: {fileID: 843032655636492971, guid: 2740626151725924388a46391a219201, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -63874,7 +63876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6899855031971775018, guid: 687ca293660f028458c4ce4baa7074f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: openMeetingSchedule
+      value: OpenMeetingSchedule
       objectReference: {fileID: 0}
     - target: {fileID: 6899855031971775018, guid: 687ca293660f028458c4ce4baa7074f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

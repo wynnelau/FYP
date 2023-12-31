@@ -15,7 +15,7 @@ public class MeetingDetailsUI : MonoBehaviour
      * Input: Click on the "closeMeetingDetails" button
      * Output: Close the MeetingDetails UI and delete all dynamic buttons
      */
-    public void closeMeetingDetails()
+    public void CloseMeetingDetails()
     {
         Debug.Log("MeetingDetailsUI closeMeetingDetails");
         RealmController = FindObjectOfType<RealmController>();

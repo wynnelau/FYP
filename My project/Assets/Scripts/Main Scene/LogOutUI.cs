@@ -15,7 +15,7 @@ public class LogOutUI : MonoBehaviour
      * Input: Click on the "logoutConfirmButton" button
      * Output: Quit application
      */
-    public void logoutConfirm()
+    public void LogoutConfirm()
     {
         Application.Quit();
     }
@@ -25,7 +25,7 @@ public class LogOutUI : MonoBehaviour
      * Input: Click on the "logoutCancelButton" button
      * Output: Set the "logoutUI" UI to inactive and enable player controls
      */
-    public void logoutCancel()
+    public void LogoutCancel()
     {
         logoutUI.SetActive(false);
         player.enabled = true;

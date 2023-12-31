@@ -21,7 +21,7 @@ public class NewMeetingUI : MonoBehaviour
      * Input: Click on the "closeNewMeetingButton" button in the NewMeetingUI
      * Output: Close NewMeetingUI and open the MeetingScheduleUI
      */
-    public void closeNewMeeting()
+    public void CloseNewMeeting()
     {
         Debug.Log("NewMeetingUI closeNewMeeting");
 

@@ -80,7 +80,7 @@ public class DynamicButtonCreator : MonoBehaviour
             buttonTextComponent.text = buttonText;
         }
 
-        // Check whether button is available (white), reservedByMe (lightBlue) or grey (reservedByOthers)
+        // Check whether button is available (white), reservedByMe (lightBlue) or reservedByOthers (grey)
         if (timeDetailsStaff.activeSelf)
         {
             RealmController = FindObjectOfType<RealmController>();
@@ -113,6 +113,12 @@ public class DynamicButtonCreator : MonoBehaviour
             {
                 buttonComponent.GetComponent<Image>().color = Color.grey;
             }
+        }
+        // Check whether button is CreatedByMe (lightBlue) or CreatedByOthers (white)
+        else if (meetingDetails.activeSelf)
+        {
+            RealmController = FindObjectOfType<RealmController>();
+
         }
 
 
@@ -240,7 +246,8 @@ public class DynamicButtonCreator : MonoBehaviour
     /*
      * Purpose: Delete all the dynamic buttons created in a UI
      * Input: Called by DateDetailsUI by closeDetails() to delete all buttons in the respective dateDetails UI
-     *        Called by TimeDetailsUI by closeTimeDetails() to delete all buttons in the respective timeDetails UI
+     *        Called by TimeDetailsUI by closeTimeDetails(), AddReservationSlots(), and RemoveReservationSlots() to delete all buttons in the respective timeDetails UI 
+     *        Called by MeetingDetailsUI by closeMeetingDetails() to delete all buttons in the meetingDetails UI
      * Output: Destroy all the dynamic buttons in the UI and clear the list of buttons
      */
     public void DeleteAllButtons()
