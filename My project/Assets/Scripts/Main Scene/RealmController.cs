@@ -37,8 +37,56 @@ public class RealmController : MonoBehaviour
     // To get the date from MeetingDetailsUI
     public Text dateTextMeeting;
 
-    
-    private async void Start()
+
+
+    private static RealmController instance;
+
+    public Realm RealmInstance 
+    {
+        get
+        {
+            return realm;
+        }
+    }
+
+    private void Start()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeRealm();
+        }
+        else
+        {
+            // If an instance already exists, destroy this duplicate
+            Destroy(gameObject);
+        }
+    }
+
+    private async void InitializeRealm()
+    {
+        Debug.Log("RealmController InitAsync");
+        var app = App.Create(myRealmAppId);
+        var credential = Credentials.Anonymous();
+        try
+        {
+            await app.LogInAsync(credential);
+            var config = new PartitionSyncConfiguration("FYP", app.CurrentUser);
+            realm = await Realm.GetInstanceAsync(config);
+            isRealmInitialized = true;
+            Debug.Log("RealmController InitAsync Login success");
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("RealmController InitAsync Login failed: " + ex.Message);
+            Debug.Log("RealmController InitAsync Login failed: " + ex.InnerException);
+        }
+    }
+
+
+
+    /*private async void Start()
     {
         await InitAsync();
     }
@@ -61,7 +109,9 @@ public class RealmController : MonoBehaviour
             Debug.Log("RealmController InitAsync Login failed: " + ex.Message);
             Debug.Log("RealmController InitAsync Login failed: " + ex.InnerException);
         }
-    }
+    }*/
+
+
 
     /*
      * Purpose: Check whether we are able to add available slots, then attempt to write to database

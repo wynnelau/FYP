@@ -9,12 +9,14 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 // Tutorial used: https://www.youtube.com/watch?v=msPNJ2cxWfw
 public class Relay : MonoBehaviour
 {
     public Text displayJoinCode;
-    private string joinCodeString;
+    private string joinCodeParticipant, joinCodeHost;
+    public RealmControllerClassRoom RealmController;
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -23,9 +25,22 @@ public class Relay : MonoBehaviour
         {
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
         };
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        try
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
+        }
+
     }
 
+    /*
+     * Purpose: Used to start the meeting and then updates the join code
+     * Input: Click on the "RelayBtn"
+     * Output: Attempt to start meeting and then update the join code
+     */
     public async void CreateRelay()
     {
         try
@@ -34,14 +49,55 @@ public class Relay : MonoBehaviour
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             Debug.Log("JoinCode " + joinCode);
             displayJoinCode.text = joinCode;
+            joinCodeHost = joinCode;
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
+            UpdateJoinCode(joinCode);
         }
         catch (RelayServiceException e)
         {
             Debug.LogError(e);
         }
+    }
+
+    /*
+     * Purpose: Attempt to update the join code of the meeting to MongoDB by getting the meetingId
+     * Input: Called by CreateRelay()
+     * Output: Attempt to retrieve the meetingID
+     */
+    void UpdateJoinCode(string joinCode)
+    {
+        Debug.Log("Relay UpdateJoinCode");
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        {
+            Keys = null
+        }, UpdateJoinCodeSuccess, UpdateJoinCodeFail);
+    }
+
+    /*
+     * Purpose: Successful attempt to retrieve the meetingId, then tries to update join code of the meeting to MongoDB
+     * Input: Called by UpdateJoinCode() when attempt to retrieve the meetingId is successful
+     * Output: 
+     */
+    void UpdateJoinCodeSuccess(GetUserDataResult result)
+    {
+        Debug.Log("Relay UpdateJoinCodeSuccess " + joinCodeHost);
+        string meetingId = result.Data["MeetingID"].Value;
+        Debug.Log("Relay UpdateJoinCodeSuccess " + meetingId);
+        RealmController = FindObjectOfType<RealmControllerClassRoom>();
+        RealmController.UpdateMeetingDetails(meetingId, joinCodeHost);
+    }
+
+    /*
+    * Purpose: Failed attempt to retrieve meetiingID
+    * Input: Called by UpdateJoinCode()
+    * Output: Debug.Log("Relay UpdateJoinCodeFail " + error);
+    */
+    void UpdateJoinCodeFail(PlayFabError error)
+    {
+        Debug.Log("Relay UpdateJoinCodeFail " + error);
+
     }
 
     /*
@@ -64,14 +120,14 @@ public class Relay : MonoBehaviour
      */
     void GetJoinCodeSuccess(GetUserDataResult result)
     {
-        joinCodeString = result.Data["JoinCode"].Value;
-        Debug.Log("Relay GetJoinCodeSuccess " + joinCodeString);
-        JoinRelay(joinCodeString);
+        joinCodeParticipant = result.Data["JoinCode"].Value;
+        Debug.Log("Relay GetJoinCodeSuccess " + joinCodeParticipant);
+        JoinRelay(joinCodeParticipant);
     }
 
     /*
     * Purpose: Failed attempt to retrieve user's join code
-    * Input: Called by joinMeeting
+    * Input: Called by joinMeeting()
     * Output: Debug.Log("Relay GetJoinCodeFail " + error);
     */
     void GetJoinCodeFail(PlayFabError error)
@@ -79,6 +135,11 @@ public class Relay : MonoBehaviour
         Debug.Log("Relay GetJoinCodeFail " + error);
     }
 
+    /*
+     * Purpose: Attempt to join the meeting
+     * Input: Called by GetJoinCodeSuccess
+     * Output: Join the meeting
+     */
     public async void JoinRelay(string joinCode)
     {
         try

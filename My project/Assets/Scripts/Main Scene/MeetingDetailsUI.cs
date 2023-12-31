@@ -1,3 +1,6 @@
+using PlayFab.ClientModels;
+using PlayFab;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,16 +35,46 @@ public class MeetingDetailsUI : MonoBehaviour
     }
 
     /*
-     * Purpose: Change scene when the "startMeeting" button is clicked
+     * Purpose: Save the meetingID and change scene when the "startMeeting" button is clicked
      * Input: Click on the "startMeeting" button
-     * Output: Change the scene for the Meeting
+     * Output: Attempt to save the objectID of the meeting to PlayFab
      */
     public void StartMeeting()
     {
         if (meetingDetailsStart.GetComponent<Image>().color == Color.white)
         {
-            SceneManager.LoadScene("ClassRoom Scene");
+            string[] stringSplit = detailsText.text.Split('\n');
+            string meetingId = stringSplit[0];
+            Debug.Log("MeetingDetailsUI StartMeeting");
+            var request = new UpdateUserDataRequest
+            {
+                Data = new Dictionary<string, string>
+                    {
+                        {"MeetingID", meetingId}
+                    }
+            };
+            PlayFabClientAPI.UpdateUserData(request, StartMeetingSuccess, StartMeetingFail);
         }
+    }
+
+    /*
+     * Purpose: Load the ClassRoom Scene when attempt to save meetingId is successful
+     * Input: Attempt to save meetingId is successful
+     * Output: Load the ClassRoom Scene
+     */
+    void StartMeetingSuccess(UpdateUserDataResult result)
+    {
+        SceneManager.LoadScene("ClassRoom Scene");
+    }
+
+    /*
+    * Purpose: Log the error when attempt to save meetingId failed
+    * Input: Attempt to save meetingId failed
+    * Output: Log the error
+    */
+    void StartMeetingFail(PlayFabError error)
+    {
+        Debug.Log("MeetingDetailsUI StartMeetingFail" + error);
     }
 
     /*
