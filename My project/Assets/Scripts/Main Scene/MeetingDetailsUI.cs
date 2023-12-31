@@ -13,7 +13,7 @@ public class MeetingDetailsUI : MonoBehaviour
     /*
      * Purpose: Close the MeetingDetails UIs when the "closeMeetingDetails" button is clicked
      * Input: Click on the "closeMeetingDetails" button
-     * Output: Close the MeetingDetails UI
+     * Output: Close the MeetingDetails UI and delete all dynamic buttons
      */
     public void closeMeetingDetails()
     {

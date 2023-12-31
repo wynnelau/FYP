@@ -262,7 +262,8 @@ public class RealmController : MonoBehaviour
     /*
      * Purpose: Get the reservations according to the reservation passed in
      * Input: Called by RealmController when buttons in dateDetails UI are clicked
-     * Output: return null if there is an error
+     * Output: Call PerformRealmWriteRetrieveReservation
+     *         return null if there is an error
      *         else return Reserved
      */
     public Reserved GetReservations(Reserved reservation)
@@ -276,6 +277,13 @@ public class RealmController : MonoBehaviour
         return queryResults;
     }
 
+    /*
+     * Purpose: Get a list of meetings according to the date passed in
+     * Input: Called by RealmController when buttons in MeetingSchedule UI are clicked
+     * Output: Call PerformRealmWriteRetrieveMeetings
+     *         return null if there is an error
+     *         else return an ordered list of Meetings
+     */
     public List<Meetings> GetMeetings()
     {
         if (!isRealmInitialized)
@@ -646,6 +654,11 @@ public class RealmController : MonoBehaviour
         }
     }
 
+    /*
+     * Purpose: Get the Meetings slot according to the date
+     * Input: Called by GetMeetings()
+     * Output: return the list of Meetings according to the dateText
+     */
     private List<Meetings> PerformRealmWriteRetrieveMeetings()
     {
         string dateText = dateTextMeeting.text;

@@ -45,6 +45,11 @@ public class NewMeetingUI : MonoBehaviour
         MeetingSchedule.SetActive(true);
     }
 
+    /*
+     * Purpose: To attempt to create a new meeting by calling AddMeeting when "createMeeting" button clicked
+     * Input: Click on the "createMeeting" button
+     * Output: Call AddMeeting() and pass the emailList
+     */
     public void CreateMeeting()
     {
         Debug.Log("NewMeetingUI CreateMeeting");

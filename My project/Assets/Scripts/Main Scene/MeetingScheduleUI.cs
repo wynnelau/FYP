@@ -142,7 +142,7 @@ public class MeetingScheduleUI : MonoBehaviour
                 {
                     foreach (var meeting in meetingList)
                     {
-                        buttonCreator.CreateButton("Start time:     " + meeting.StartTimeHr.ToString() + ":" + meeting.StartTimeMin.ToString() + "\n"+ meeting.Id.ToString());
+                        buttonCreator.CreateButton(meeting.Id.ToString() + "\nStart time:     " + TimeConvert(meeting.StartTimeHr) + ":" + TimeConvert(meeting.StartTimeMin));
                     }
 
                 }
@@ -343,6 +343,26 @@ public class MeetingScheduleUI : MonoBehaviour
     void RetrieveUserEmailFail(PlayFabError error)
     {
         Debug.Log("MeetingScheduleUI RetrieveUserEmailFail " + error);
+    }
+
+    /*
+     * Purpose: To convert int to string for time display
+     * Input: Called when trying to create dynamic button for MeetingDetailsUI and int time is passed in
+     * Output: Returns a string for the time display
+     */
+    string TimeConvert(int? time)
+    {
+        string timeString;
+        if (time < 10)
+        {
+            timeString = "0" + time.ToString();
+        }
+        else
+        {
+            timeString = time.ToString();
+        }
+
+        return timeString;
     }
 
 }
