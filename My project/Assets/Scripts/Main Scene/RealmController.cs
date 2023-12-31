@@ -7,6 +7,7 @@ using System.Linq;
 using System;
 using System.Collections;
 using UnityEngine.UI;
+using MongoDB.Bson;
 
 /*
  * Location: Main Scene/ MainSceneControls
@@ -238,7 +239,8 @@ public class RealmController : MonoBehaviour
 
     /*
      * Purpose: Get the list of timings according to the date and location string passed in
-     * Input: Called by RealmController when buttons in dateDetails UI are clicked, location string passed in
+     * Input: Called by DynamicButtonCreator when buttons in dateDetails UI are clicked, location string passed in
+     *        Called by TimeDetailsUI using RefreshTimeDetails()
      * Output: Call PerformRealmWriteRetrieveAvailable and returns ordered string list of timings
      */
     public List<string> GetTimings(string location)
@@ -261,7 +263,7 @@ public class RealmController : MonoBehaviour
 
     /*
      * Purpose: Get the reservations according to the reservation passed in
-     * Input: Called by RealmController when buttons in dateDetails UI are clicked
+     * Input: Called by DynamicButtonCreator when buttons in dateDetails UI are clicked
      * Output: Call PerformRealmWriteRetrieveReservation
      *         return null if there is an error
      *         else return Reserved
@@ -279,7 +281,7 @@ public class RealmController : MonoBehaviour
 
     /*
      * Purpose: Get a list of meetings according to the date passed in
-     * Input: Called by RealmController when buttons in MeetingSchedule UI are clicked
+     * Input: Called when buttons in MeetingSchedule UI are clicked
      * Output: Call PerformRealmWriteRetrieveMeetings
      *         return null if there is an error
      *         else return an ordered list of Meetings
@@ -300,6 +302,23 @@ public class RealmController : MonoBehaviour
         return meetingList;
     }
 
+    /*
+     * Purpose: Get meeting details according to objectId passed in
+     * Input: Called by DynamicButtonCreator when buttons in MeetingSchedule UI are clicked
+     * Output: Call PerformRealmWriteRetrieveMeetingDetails
+     *         return null if there is an error
+     *         else return Meetings
+     */
+    public Meetings GetMeetingDetails(string objectID)
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("RealmController GetMeetingDetails RealmNotInitialized");
+            return null;
+        }
+        var queryResults = PerformRealmWriteRetrieveMeetingDetails(objectID);
+        return queryResults;
+    }
     /*
      * Purpose: Create the available slots to add from user input and write them to the database
      * Input: Called by AddAvailable()
@@ -697,6 +716,26 @@ public class RealmController : MonoBehaviour
             return null;
         }
 
+    }
+
+    /*
+     * Purpose: Get the Meeting details according to the objectId
+     * Input: Called by GetMeetingDetails()
+     * Output: return the Meeting details according to the objectId
+     */
+    private Meetings PerformRealmWriteRetrieveMeetingDetails(string objectID)
+    {
+        try
+        {
+            Meetings results = realm.All<Meetings>()
+                .FirstOrDefault(item => item.Id == ObjectId.Parse(objectID));
+            return results;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("RealmController PerformRealmWriteRetrieveMeetingDetails ErrorQueryingRealm: " + ex.Message);
+            return null;
+        }
     }
 
     /*

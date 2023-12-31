@@ -119,7 +119,17 @@ public class DynamicButtonCreator : MonoBehaviour
         else if (meetingDetails.activeSelf)
         {
             RealmController = FindObjectOfType<RealmController>();
-
+            string[] stringSplit = buttonText.Split('\n');
+            string objectID = stringSplit[0];
+            var meetingDetails = RealmController.GetMeetingDetails(objectID);
+            if (meetingDetails.HostEmail == userEmail)
+            {
+                buttonComponent.GetComponent<Image>().color = lightBlueColor;
+            }
+            else
+            {
+                buttonComponent.GetComponent<Image>().color = Color.white;
+            }
         }
 
 
@@ -242,6 +252,10 @@ public class DynamicButtonCreator : MonoBehaviour
              */
             else if (meetingDetails.activeSelf == true)
             {
+                string[] stringSplit = buttonText.Split('\n');
+                string objectID = stringSplit[0];
+                var meetingDetails = RealmController.GetMeetingDetails(objectID);
+
 
             }
             
