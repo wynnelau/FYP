@@ -135,19 +135,19 @@ public class MeetingScheduleUI : MonoBehaviour
                 MeetingDetailsDate.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
             }
 
-            /*if (RealmController != null)
+            if (RealmController != null)
             {
-                var locationList = RealmController.GetLocations();
-                if (locationList != null && locationList.Count > 0)
+                var meetingList = RealmController.GetMeetings();
+                if (meetingList != null && meetingList.Count > 0)
                 {
-                    foreach (var location in locationList)
+                    foreach (var meeting in meetingList)
                     {
-                        buttonCreator.CreateButton(location);
+                        buttonCreator.CreateButton(meeting.Id.ToString());
                     }
 
                 }
-            }*/
- 
+            }
+
         }
 
     }

@@ -14,10 +14,14 @@ public class DynamicButtonCreator : MonoBehaviour
 {
     public GameObject dateDetailsStaff, dateDetailsProf;
     public GameObject timeDetailsStaff, timeDetailsProf;
+    public GameObject meetingDetails;
     public Text dateDetailsDateStaff, dateDetailsDateProf, timeDetailsDateStaff, timeDetailsDateProf, timeDetailsLocationStaff, timeDetailsLocationProf;
     public Text timeDetailsStaffUserText, timeDetailsStaffTimeText;
+    public Text meetingDetailsDate;
     public GameObject buttonDatePrefabStaff, buttonDatePrefabProf, buttonTimePrefabStaff, buttonTimePrefabProf; // Assign your button prefab in the inspector
+    public GameObject buttonMeetingPrefab;
     public Transform buttonDateParentStaff, buttonDateParentProf, buttonTimeParentStaff, buttonTimeParentProf; // Assign the parent transform for the buttons in the inspector
+    public Transform buttonMeetingParent;
     public RealmController RealmController;
 
     private Color lightBlueColor = new Color(0.678f, 0.847f, 0.902f, 1.0f);
@@ -57,6 +61,12 @@ public class DynamicButtonCreator : MonoBehaviour
             ResourceReservationUI ResourceReservationUI = FindObjectOfType<ResourceReservationUI>();
             userEmail = ResourceReservationUI.GetUserEmail;
             newButton = Instantiate(buttonTimePrefabProf, buttonTimeParentProf);
+        }
+        else if (meetingDetails.activeSelf)
+        {
+            MeetingScheduleUI MeetingScheduleUI = FindObjectOfType<MeetingScheduleUI>();
+            userEmail = MeetingScheduleUI.GetUserEmail;
+            newButton = Instantiate(buttonMeetingPrefab, buttonMeetingParent);
         }
         else
         {
@@ -214,6 +224,11 @@ public class DynamicButtonCreator : MonoBehaviour
                     timeDetailsStaffUserText.text = checkReservation.Name;
                     timeDetailsStaffTimeText.text = buttonText;
                 }
+            }
+
+            else if (meetingDetails.activeSelf == true)
+            {
+
             }
             
             Debug.Log("Button Clicked: " + buttonText);

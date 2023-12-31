@@ -276,13 +276,12 @@ public class RealmController : MonoBehaviour
         return queryResults;
     }
 
-    public void GetMeetings()
+    public List<Meetings> GetMeetings()
     {
         if (!isRealmInitialized)
         {
             Debug.Log("RealmController GetMeetings RealmNotInitialized");
-            return;
-            //return null;
+            return null;
         }
         var queryResults = PerformRealmWriteRetrieveMeetings();
         var meetingList = queryResults
@@ -290,7 +289,7 @@ public class RealmController : MonoBehaviour
             .ThenBy(item => item.StartTimeMin)
             .ToList();
         Debug.Log(meetingList);
-        //return meetingList;
+        return meetingList;
     }
 
     /*

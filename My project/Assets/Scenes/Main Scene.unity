@@ -25261,6 +25261,7 @@ MonoBehaviour:
   dateDetailsProf: {fileID: 2139750677}
   timeDetailsStaff: {fileID: 1057973903}
   timeDetailsProf: {fileID: 951007199}
+  meetingDetails: {fileID: 64932978}
   dateDetailsDateStaff: {fileID: 451059684}
   dateDetailsDateProf: {fileID: 1147474130}
   timeDetailsDateStaff: {fileID: 1143851750}
@@ -25269,14 +25270,17 @@ MonoBehaviour:
   timeDetailsLocationProf: {fileID: 1057234005}
   timeDetailsStaffUserText: {fileID: 1046328135}
   timeDetailsStaffTimeText: {fileID: 617013838}
+  meetingDetailsDate: {fileID: 0}
   buttonDatePrefabStaff: {fileID: 6148156617100013424, guid: 905fa61f9cb0d7c4b947be79104452a9, type: 3}
   buttonDatePrefabProf: {fileID: 5234137562712685877, guid: 9a617a91c442a454e8e7d6c182bd4c30, type: 3}
   buttonTimePrefabStaff: {fileID: 6148156617100013424, guid: 561a1441faac732419304e05cbdadb0f, type: 3}
   buttonTimePrefabProf: {fileID: 5234137562712685877, guid: 394a0b30804286b46a53195976d4a233, type: 3}
+  buttonMeetingPrefab: {fileID: 6148156617100013424, guid: 942dbb2801c658a4aa97401cc9c9c568, type: 3}
   buttonDateParentStaff: {fileID: 1140544204}
   buttonDateParentProf: {fileID: 957756135}
   buttonTimeParentStaff: {fileID: 1025205476}
   buttonTimeParentProf: {fileID: 50696390}
+  buttonMeetingParent: {fileID: 1144156254}
   RealmController: {fileID: 0}
 --- !u!114 &849384662
 MonoBehaviour:
