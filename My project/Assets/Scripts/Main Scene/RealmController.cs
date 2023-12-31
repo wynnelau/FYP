@@ -319,6 +319,7 @@ public class RealmController : MonoBehaviour
         var queryResults = PerformRealmWriteRetrieveMeetingDetails(objectID);
         return queryResults;
     }
+
     /*
      * Purpose: Create the available slots to add from user input and write them to the database
      * Input: Called by AddAvailable()
