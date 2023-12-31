@@ -2901,6 +2901,7 @@ RectTransform:
   - {fileID: 1153789642}
   - {fileID: 466609705}
   - {fileID: 774040386}
+  - {fileID: 1555593232}
   m_Father: {fileID: 1805404826}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -24980,7 +24981,6 @@ GameObject:
   - component: {fileID: 849384651}
   - component: {fileID: 849384662}
   - component: {fileID: 849384653}
-  - component: {fileID: 849384663}
   m_Layer: 0
   m_Name: MainSceneControls
   m_TagString: Untagged
@@ -25107,6 +25107,8 @@ MonoBehaviour:
   resourceReservationProf: {fileID: 629175168}
   meetingSchedule: {fileID: 1056267627}
   player: {fileID: 1871160649}
+  meetingDetailsStart: {fileID: 1153789643}
+  meetingDetailsDelete: {fileID: 466609706}
 --- !u!114 &849384655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25270,7 +25272,7 @@ MonoBehaviour:
   timeDetailsLocationProf: {fileID: 1057234005}
   timeDetailsStaffUserText: {fileID: 1046328135}
   timeDetailsStaffTimeText: {fileID: 617013838}
-  meetingDetailsDate: {fileID: 0}
+  meetingDetailsText: {fileID: 1555593233}
   buttonDatePrefabStaff: {fileID: 6148156617100013424, guid: 905fa61f9cb0d7c4b947be79104452a9, type: 3}
   buttonDatePrefabProf: {fileID: 5234137562712685877, guid: 9a617a91c442a454e8e7d6c182bd4c30, type: 3}
   buttonTimePrefabStaff: {fileID: 6148156617100013424, guid: 561a1441faac732419304e05cbdadb0f, type: 3}
@@ -25281,6 +25283,8 @@ MonoBehaviour:
   buttonTimeParentStaff: {fileID: 1025205476}
   buttonTimeParentProf: {fileID: 50696390}
   buttonMeetingParent: {fileID: 1144156254}
+  meetingDetailsStart: {fileID: 1153789643}
+  meetingDetailsDelete: {fileID: 466609706}
   RealmController: {fileID: 0}
 --- !u!114 &849384662
 MonoBehaviour:
@@ -25304,18 +25308,6 @@ MonoBehaviour:
   timeDetailsLocationProf: {fileID: 1057234005}
   timeDetailsTimeStaff: {fileID: 617013838}
   timeDetailsUserStaff: {fileID: 1046328135}
---- !u!114 &849384663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849384648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e176232e790cdf145ab80f673bc8bbbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &849384664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25377,6 +25369,9 @@ MonoBehaviour:
   meetingSchedule: {fileID: 1056267627}
   RealmController: {fileID: 0}
   buttonCreator: {fileID: 0}
+  detailsText: {fileID: 1555593233}
+  meetingDetailsStart: {fileID: 1153789643}
+  meetingDetailsDelete: {fileID: 466609706}
 --- !u!114 &849384667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44280,6 +44275,85 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553036565}
+  m_CullTransparentMesh: 1
+--- !u!1 &1555593231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1555593232}
+  - component: {fileID: 1555593234}
+  - component: {fileID: 1555593233}
+  m_Layer: 5
+  m_Name: details
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1555593232
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555593231}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 64932979}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 109.99998, y: 13.0834}
+  m_SizeDelta: {x: 160, y: 243.8335}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1555593233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555593231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1.25
+  m_Text: 
+--- !u!222 &1555593234
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555593231}
   m_CullTransparentMesh: 1
 --- !u!1 &1557221866
 GameObject:

@@ -17,11 +17,12 @@ public class DynamicButtonCreator : MonoBehaviour
     public GameObject meetingDetails;
     public Text dateDetailsDateStaff, dateDetailsDateProf, timeDetailsDateStaff, timeDetailsDateProf, timeDetailsLocationStaff, timeDetailsLocationProf;
     public Text timeDetailsStaffUserText, timeDetailsStaffTimeText;
-    public Text meetingDetailsDate;
+    public Text meetingDetailsText;
     public GameObject buttonDatePrefabStaff, buttonDatePrefabProf, buttonTimePrefabStaff, buttonTimePrefabProf; // Assign your button prefab in the inspector
     public GameObject buttonMeetingPrefab;
     public Transform buttonDateParentStaff, buttonDateParentProf, buttonTimeParentStaff, buttonTimeParentProf; // Assign the parent transform for the buttons in the inspector
     public Transform buttonMeetingParent;
+    public Button meetingDetailsStart, meetingDetailsDelete;
     public RealmController RealmController;
 
     private Color lightBlueColor = new Color(0.678f, 0.847f, 0.902f, 1.0f);
@@ -255,6 +256,22 @@ public class DynamicButtonCreator : MonoBehaviour
                 string[] stringSplit = buttonText.Split('\n');
                 string objectID = stringSplit[0];
                 var meetingDetails = RealmController.GetMeetingDetails(objectID);
+                meetingDetailsText.text = meetingDetails.Id + "\n<b>Host Email: </b>" + meetingDetails.HostEmail + "\n<b>Duration: </b>" + meetingDetails.Duration + "\n<b>Description: </b>" + meetingDetails.Description + "\n<b>Join Code: </b>" + meetingDetails.JoinCode + "\n<b>Participants: </b>";
+                foreach (var email in meetingDetails.ParticipantEmails)
+                {
+                    meetingDetailsText.text += email.ParticipantEmail + "; ";
+                }
+
+                if (buttonComponent.GetComponent<Image>().color == Color.white)
+                {
+                    meetingDetailsStart.GetComponent<Image>().color = Color.grey;
+                    meetingDetailsDelete.GetComponent<Image>().color = Color.grey;
+                }
+                else if (buttonComponent.GetComponent<Image>().color == lightBlueColor)
+                {
+                    meetingDetailsStart.GetComponent<Image>().color = Color.white;
+                    meetingDetailsDelete.GetComponent<Image>().color = Color.white;
+                }
 
 
             }

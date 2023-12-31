@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  * Location: Main Scene/ MainSceneControls
@@ -8,6 +9,7 @@ public class MainMenuUI : MonoBehaviour
 {
     public GameObject mainMenuStudent, mainMenuStaff, mainMenuProf, resourceReservationStaff, resourceReservationProf, meetingSchedule;
     public PlayerControls player;
+    public Button meetingDetailsStart, meetingDetailsDelete;
 
     /*
      * Purpose: Close the respective mainMenu UIs when the "closeMainMenuButton" button is clicked
@@ -77,6 +79,8 @@ public class MainMenuUI : MonoBehaviour
         {
             mainMenuStudent.SetActive(false);
         }
+        meetingDetailsStart.GetComponent<Image>().color = Color.grey;
+        meetingDetailsDelete.GetComponent<Image>().color = Color.grey;
         meetingSchedule.SetActive(true);
     }
 }

@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /*
  * Location: Main Scene/ MainSceneControls
@@ -9,6 +11,8 @@ public class MeetingDetailsUI : MonoBehaviour
     public GameObject meetingDetails, meetingSchedule;
     public RealmController RealmController;
     public DynamicButtonCreator buttonCreator;
+    public Text detailsText;
+    public Button meetingDetailsStart, meetingDetailsDelete;
 
     /*
      * Purpose: Close the MeetingDetails UIs when the "closeMeetingDetails" button is clicked
@@ -22,7 +26,24 @@ public class MeetingDetailsUI : MonoBehaviour
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         buttonCreator.DeleteAllButtons();
 
+        detailsText.text = "";
         meetingDetails.SetActive(false);
         meetingSchedule.SetActive(true);
+    }
+
+    public void StartMeeting()
+    {
+        if (meetingDetailsStart.GetComponent<Image>().color == Color.white)
+        {
+            SceneManager.LoadScene("ClassRoom Scene");
+        }
+    }
+
+    public void DeleteMeeting()
+    {
+        if (meetingDetailsDelete.GetComponent<Image>().color == Color.white)
+        {
+            Debug.Log("Delete");
+        }
     }
 }
