@@ -46,6 +46,7 @@ public class UserProfileWardrobe : MonoBehaviour
      * Input: Called by GetUserProfileData() when attempt to retrieve the user's profile is successful
      * Output: If user is Student, opens "userProfileStudent" UI 
      *         else if user is Staff or Prof/TA, opens "userProfileOthers" UI
+     *         then disable player movement
      */
     void GetUserProfileDataSuccess(GetUserDataResult result)
     {

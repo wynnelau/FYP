@@ -6,6 +6,11 @@ using System.Text;
 using System;
 using System.Collections.Generic;
 
+/*
+ * Location: Main Scene/ MainSceneControls
+ * Purpose: Manage the NewMeetings UI
+ */
+
 public class NewMeetingUI : MonoBehaviour
 {
     public GameObject NewMeeting, MeetingSchedule;

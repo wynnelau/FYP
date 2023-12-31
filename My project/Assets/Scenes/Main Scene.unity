@@ -24964,23 +24964,23 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 849384649}
-  - component: {fileID: 849384651}
   - component: {fileID: 849384650}
+  - component: {fileID: 849384656}
+  - component: {fileID: 849384661}
+  - component: {fileID: 849384664}
   - component: {fileID: 849384652}
-  - component: {fileID: 849384653}
   - component: {fileID: 849384654}
+  - component: {fileID: 849384658}
+  - component: {fileID: 849384666}
+  - component: {fileID: 849384665}
+  - component: {fileID: 849384667}
+  - component: {fileID: 849384659}
   - component: {fileID: 849384655}
   - component: {fileID: 849384657}
-  - component: {fileID: 849384656}
-  - component: {fileID: 849384658}
+  - component: {fileID: 849384651}
   - component: {fileID: 849384662}
-  - component: {fileID: 849384659}
-  - component: {fileID: 849384661}
+  - component: {fileID: 849384653}
   - component: {fileID: 849384663}
-  - component: {fileID: 849384664}
-  - component: {fileID: 849384665}
-  - component: {fileID: 849384666}
-  - component: {fileID: 849384667}
   m_Layer: 0
   m_Name: MainSceneControls
   m_TagString: Untagged

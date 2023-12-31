@@ -37,8 +37,9 @@ public class DynamicButtonCreator : MonoBehaviour
     /*
      * Purpose: Create a dynamic button with the given text and with a click event listener
      * Input: Called by ResourceReservationUI using openDetails() to create buttons in the respective dateDetails UIs
-     *        Called by TimeDetailsUI using closeTimeDetails() to create buttons in the respective dateDetails UIs after closing timeDetails UI
      *        Click on the buttons in dateDetails UIs to create buttons in the respective timeDetails UI
+     *        Called by TimeDetailsUI using closeTimeDetails() to create buttons in the respective dateDetails UIs after closing timeDetails UI
+     *        Called by MeetingScheduleUI using openDateDetails to create buttons in the meetingDetails UI
      * Output: Create dynamic button according to the string passed into it and add a click event listener accordingly
      */
     public void CreateButton(string buttonText)
@@ -232,6 +233,13 @@ public class DynamicButtonCreator : MonoBehaviour
                 }
             }
 
+            /*
+             * Purpose: Add a click event listener to the button created in meetingDetails UI
+             * Input: Click on the button in meetingDetails UI
+             * Output: If CreatedByMe (lightBlue) pressed, enable the "startMeetingButton" and "deleteMeetingButton"
+             *              then call GetMeetingDetails() to retrieve details of the meeting
+             *         else if CreatedByOthers (white) pressed, call GetMeetingDetails() to retrieve details of the meeting
+             */
             else if (meetingDetails.activeSelf == true)
             {
 
