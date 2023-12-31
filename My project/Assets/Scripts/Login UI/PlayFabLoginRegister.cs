@@ -141,7 +141,7 @@ public class PlayFabLoginRegister : MonoBehaviour
 
     /*
      * Purpose: Open the "SetUserProfilePageStudent" UI or "SetUserProfilePageOthers" UI according to the identity of the user
-     * Input: Called by RegisterSuccess() 
+     * Input: Called by SaveIdentitySuccess() 
      * Output: If identity is Student, open "SetUserProfilePageStudent" UI  
      *         else if identity is Professor/TA or Staff, open "SetUserProfilePageOthers" UI
      */
