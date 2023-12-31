@@ -31,6 +31,11 @@ public class MeetingDetailsUI : MonoBehaviour
         meetingSchedule.SetActive(true);
     }
 
+    /*
+     * Purpose: Change scene when the "startMeeting" button is clicked
+     * Input: Click on the "startMeeting" button
+     * Output: Change the scene for the Meeting
+     */
     public void StartMeeting()
     {
         if (meetingDetailsStart.GetComponent<Image>().color == Color.white)
@@ -39,6 +44,11 @@ public class MeetingDetailsUI : MonoBehaviour
         }
     }
 
+    /*
+     * Purpose: Delete the schedule meeting when the "deleteMeeting" button is clicked
+     * Input: Click on the "deleteMeeting" button
+     * Output: Call DeleteMeeting()
+     */
     public void DeleteMeeting()
     {
         if (meetingDetailsDelete.GetComponent<Image>().color == Color.white)
