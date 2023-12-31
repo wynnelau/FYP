@@ -18,7 +18,7 @@ public class TimeDetailsUI : MonoBehaviour
      * Output: Delete dynamic buttons in the timeDetails UI, go to the respective dateDetails UI and 
      *         then create dynamic buttons in the dateDetails UI
      */
-    public void closeTimeDetails()
+    public void CloseTimeDetails()
     {
         RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();

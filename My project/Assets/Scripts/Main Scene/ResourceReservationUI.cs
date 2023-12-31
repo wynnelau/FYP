@@ -78,7 +78,7 @@ public class ResourceReservationUI : MonoBehaviour
         for (int i = 0; i < 42; i++)
         {
             var dateSelected = days[i];
-            dateSelected.dayButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => { openDateDetails(dateSelected.dayButton); });
+            dateSelected.dayButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => { OpenDateDetails(dateSelected.dayButton); });
         }
     }
 
@@ -87,7 +87,7 @@ public class ResourceReservationUI : MonoBehaviour
      * Input: Click on the "closeResourceReservationButton" button in the respective ResourceReservation UIs
      * Output: Set the resourceReservationUI as inactive and set the respective mainMenuUI as active
      */
-    public void closeResourceReservation()
+    public void CloseResourceReservation()
     {
         Debug.Log("ResourceReservationUI closeResourceReservation");
         if (resourceReservationStaff.activeSelf == true)
@@ -109,7 +109,7 @@ public class ResourceReservationUI : MonoBehaviour
      * Input: Click on the date buttons in the resourceReservationUI, used by the listeners 
      * Output: Open the respective dateDetails UI
      */
-    void openDateDetails(GameObject dateSelected)
+    void OpenDateDetails(GameObject dateSelected)
     {
         Debug.Log("ResourceReservationUI openDetails");
         if (dateSelected.GetComponentInChildren<Text>().text != "")
@@ -156,7 +156,7 @@ public class ResourceReservationUI : MonoBehaviour
      * Input: Click on the "manageSlotsButton" button in the "resourceReservationStaff" UI 
      * Output: Open the "manageSlots" UI
      */
-    public void openReservationSlots()
+    public void OpenReservationSlots()
     {
         if (resourceReservationStaff.activeSelf == true)
         {

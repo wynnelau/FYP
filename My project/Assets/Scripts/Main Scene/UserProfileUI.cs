@@ -23,7 +23,7 @@ public class UserProfileUI : MonoBehaviour
      * Input: Click on the "closeUserProfileButton" in the userProfile UI
      * Output: Set the respective userProfile UI as inactive
      */
-    public void closeUserProfile()
+    public void CloseUserProfile()
     {
         if (userProfileStudent.activeSelf == true) 
         {

@@ -9665,7 +9665,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384653}
         m_TargetAssemblyTypeName: UserProfileUI, Assembly-CSharp
-        m_MethodName: closeUserProfile
+        m_MethodName: CloseUserProfile
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16954,8 +16954,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 849384655}
-        m_TargetAssemblyTypeName: Calendar, Assembly-CSharp
-        m_MethodName: closeResourceReservation
+        m_TargetAssemblyTypeName: ResourceReservationUI, Assembly-CSharp
+        m_MethodName: CloseResourceReservation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17916,7 +17916,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384653}
         m_TargetAssemblyTypeName: UserProfileUI, Assembly-CSharp
-        m_MethodName: closeUserProfile
+        m_MethodName: CloseUserProfile
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24226,7 +24226,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384662}
         m_TargetAssemblyTypeName: TimeDetailsUI, Assembly-CSharp
-        m_MethodName: closeTimeDetails
+        m_MethodName: CloseTimeDetails
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -42022,7 +42022,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 849384662}
         m_TargetAssemblyTypeName: TimeDetailsUI, Assembly-CSharp
-        m_MethodName: closeTimeDetails
+        m_MethodName: CloseTimeDetails
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -54417,8 +54417,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 849384657}
-        m_TargetAssemblyTypeName: Calendar, Assembly-CSharp
-        m_MethodName: closeResourceReservation
+        m_TargetAssemblyTypeName: ResourceReservationUI, Assembly-CSharp
+        m_MethodName: CloseResourceReservation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -57119,8 +57119,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 849384657}
-        m_TargetAssemblyTypeName: Calendar, Assembly-CSharp
-        m_MethodName: openReservationSlots
+        m_TargetAssemblyTypeName: ResourceReservationUI, Assembly-CSharp
+        m_MethodName: OpenReservationSlots
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
