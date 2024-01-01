@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 /*
  * Location: Main Scene/ MainSceneControls
@@ -7,6 +9,7 @@ using UnityEngine;
 
 public class SceneInitialise : MonoBehaviour
 {
+    public GameObject table;
     public GameObject logoutUI, userProfileStudentUI, userProfileOthersUI, mainMenuStudentUI, mainMenuStaffUI, mainMenuProfUI;
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
     public GameObject timeDetailsProf, timeDetailsStaff, joinMeetingUI;
@@ -20,6 +23,7 @@ public class SceneInitialise : MonoBehaviour
      */
     void Start()
     {
+        
         logoutUI.SetActive(false);
         userProfileStudentUI.SetActive(false);
         userProfileOthersUI.SetActive(false);
@@ -37,6 +41,26 @@ public class SceneInitialise : MonoBehaviour
         meetingScheduleUI.SetActive(false);
         meetingDetailsUI.SetActive(false);
         newMeetingUI.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Main Scene")
+        {
+            if (table != null)
+            {
+                table.SetActive(true);
+            }
+        }
     }
 
 }

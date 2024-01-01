@@ -25044,6 +25044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839dec66bdca2634f8c124e763de898a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  table: {fileID: 505932504}
   logoutUI: {fileID: 590285967}
   userProfileStudentUI: {fileID: 779377154}
   userProfileOthersUI: {fileID: 1854740283}
@@ -25377,6 +25378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ddecb0e4b4b5b044824442e7bf482e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Table: {fileID: 505932504}
   meetingDetails: {fileID: 64932978}
   meetingSchedule: {fileID: 1056267627}
   RealmController: {fileID: 0}
@@ -51336,8 +51338,9 @@ GameObject:
   - component: {fileID: 1805404825}
   - component: {fileID: 1805404824}
   - component: {fileID: 1805404823}
+  - component: {fileID: 1805404827}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MainSceneCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51442,6 +51445,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1805404827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805404822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e659980913da75c41ab183b7807423b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1809426730
 GameObject:
   m_ObjectHideFlags: 0

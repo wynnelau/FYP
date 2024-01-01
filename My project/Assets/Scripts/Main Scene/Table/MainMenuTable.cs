@@ -10,10 +10,26 @@ using UnityEngine;
  */
 public class MainMenuTable : MonoBehaviour
 {
+    private static MainMenuTable instance;
     public GameObject mainMenuStudent, mainMenuStaff, mainMenuProf;
     public PlayerControls player;
     private string userIdentity;
     private List<string> getUserIdentity = new List<string> { "Identity" };
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("Awake Canvas created: " + gameObject.name);
+        }
+        else
+        {
+            Destroy(gameObject);
+            Debug.Log("Awake Canvas destroyed: " + gameObject.name);
+        }
+    }
 
     /*
      * Purpose: Call GetUserIdentityData() to get the user's identity to open the corresponding mainMenu UI when user comes into contact with "Table"

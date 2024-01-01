@@ -11,6 +11,7 @@ using UnityEngine.UI;
  */
 public class MeetingDetailsUI : MonoBehaviour
 {
+    public GameObject Table;
     public GameObject meetingDetails, meetingSchedule;
     public RealmController RealmController;
     public DynamicButtonCreator buttonCreator;
@@ -64,6 +65,8 @@ public class MeetingDetailsUI : MonoBehaviour
      */
     void StartMeetingSuccess(UpdateUserDataResult result)
     {
+        Table.SetActive(false);
+        meetingDetails.SetActive(false);
         SceneManager.LoadScene("ClassRoom Scene");
     }
 
