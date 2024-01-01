@@ -37,10 +37,13 @@ public class RealmController : MonoBehaviour
     // To get the date from MeetingDetailsUI
     public Text dateTextMeeting;
 
-
-
     private static RealmController instance;
 
+    /*
+     * Purpose: Getter function of realm
+     * Input: Called by RealmControllerClassRoom by Start()
+     * Output: return realm
+     */
     public Realm RealmInstance 
     {
         get
@@ -49,6 +52,11 @@ public class RealmController : MonoBehaviour
         }
     }
 
+    /*
+     * Purpose: Initialise an instance of RealmController and make sure it persists across scene changes
+     * Input: NA
+     * Output: Call InitializeRealm()
+     */
     private void Start()
     {
         if (instance == null)
@@ -64,9 +72,14 @@ public class RealmController : MonoBehaviour
         }
     }
 
+    /*
+     * Purpose: To initialise the realm
+     * Input: Called by Start()
+     * Output: Initialise realm using anonymous login
+     */
     private async void InitializeRealm()
     {
-        Debug.Log("RealmController InitAsync");
+        Debug.Log("RealmController InitializeRealm");
         var app = App.Create(myRealmAppId);
         var credential = Credentials.Anonymous();
         try
@@ -75,42 +88,14 @@ public class RealmController : MonoBehaviour
             var config = new PartitionSyncConfiguration("FYP", app.CurrentUser);
             realm = await Realm.GetInstanceAsync(config);
             isRealmInitialized = true;
-            Debug.Log("RealmController InitAsync Login success");
+            Debug.Log("RealmController InitializeRealm Login success");
         }
         catch (Exception ex)
         {
-            Debug.Log("RealmController InitAsync Login failed: " + ex.Message);
-            Debug.Log("RealmController InitAsync Login failed: " + ex.InnerException);
+            Debug.Log("RealmController InitializeRealm Login failed: " + ex.Message);
+            Debug.Log("RealmController InitializeRealm Login failed: " + ex.InnerException);
         }
     }
-
-
-
-    /*private async void Start()
-    {
-        await InitAsync();
-    }
-
-    private async Task InitAsync()
-    {
-        Debug.Log("RealmController InitAsync");
-        var app = App.Create(myRealmAppId);
-        var credential = Credentials.Anonymous();
-        try
-        {
-            await app.LogInAsync(credential); 
-            var config = new PartitionSyncConfiguration("FYP", app.CurrentUser);
-            realm = await Realm.GetInstanceAsync(config);
-            isRealmInitialized = true;
-            Debug.Log("RealmController InitAsync Login success");
-        }
-        catch (Exception ex)
-        {
-            Debug.Log("RealmController InitAsync Login failed: " + ex.Message);
-            Debug.Log("RealmController InitAsync Login failed: " + ex.InnerException);
-        }
-    }*/
-
 
 
     /*

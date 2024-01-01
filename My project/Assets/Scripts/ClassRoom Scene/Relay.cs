@@ -47,7 +47,6 @@ public class Relay : MonoBehaviour
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(40);
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            Debug.Log("JoinCode " + joinCode);
             displayJoinCode.text = joinCode;
             joinCodeHost = joinCode;
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
@@ -58,6 +57,15 @@ public class Relay : MonoBehaviour
         catch (RelayServiceException e)
         {
             Debug.LogError(e);
+        }
+    }
+
+    public void StopRelay()
+    {
+        
+        if (NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.Shutdown();
         }
     }
 

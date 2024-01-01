@@ -11,16 +11,20 @@ using MongoDB.Bson;
 using System.Text;
 
 /*
- * Location: Main Scene/ MainSceneControls
+ * Location: ClassRoom Scene/ ClassRoomSceneControls
  * Purpose: Manage send and retrieve data from MongoDB
  * Tutorial used: https://www.youtube.com/watch?v=f-IQwVReQ-c, https://www.youtube.com/watch?v=q4_997QEQww
  */
 public class RealmControllerClassRoom : MonoBehaviour
 {
     private Realm realm;
-    private readonly string myRealmAppId = "application-0-nlkew";
     private bool isRealmInitialized = false;
 
+    /*
+     * Purpose: Get the realm instance from the previous scene
+     * Input: NA
+     * Output: Get the realm instance
+     */
     private void Start()
     {
         RealmController RealmController = FindObjectOfType<RealmController>();
@@ -34,36 +38,16 @@ public class RealmControllerClassRoom : MonoBehaviour
             else
             {
                 isRealmInitialized = true;
+                Debug.Log("RealmControllerClassRoom Start RealmInitialised");
             }
             
         }
         else
         {
-            Debug.LogWarning("RealmControllerClassRoom not found or not initialized in the new scene.");
+            Debug.LogWarning("RealmControllerClassRoom Start RealmControllerIsNull");
         }
     }
-    /*void Start()
-    {
-        try
-        {
-            realm = Realm.GetInstance();
-            isRealmInitialized = true;
-        }
-        catch (Exception e)
-        {
-            Debug.Log("RealmControllerClassRoom Start" + e);
-        }
-
-        if(realm == null)
-        {
-            Debug.Log("RealmControllerClassRoom Start RealmIsNull");
-        }
-        else
-        {
-            Debug.Log("RealmControllerClassRoom Start RealmInstance: " + realm);
-        }
-        
-    }*/
+    
 
     /*
      * Purpose: Update meeting details according to objectId passed in
@@ -78,7 +62,7 @@ public class RealmControllerClassRoom : MonoBehaviour
             Debug.Log("RealmControllerClassRoom UpdateMeetingDetails RealmNotInitialized");
             return;
         }
-        /*string meetingId = StringToHex(objectID);*/
+
         StartCoroutine(PerformRealmWriteUpdateMeetingDetails(objectID, joinCode));
 
     }
@@ -95,18 +79,7 @@ public class RealmControllerClassRoom : MonoBehaviour
             realm.Write(() =>
             {
                 Meetings result = realm.Find<Meetings>(ObjectId.Parse(objectID));
-                if (result != null)
-                {
-                    // Update the JoinCode property
-                    result.JoinCode = joinCode;
-                    Debug.Log("Code updated");
-                }
-                else
-                {
-                    // Handle the case where the object with the specified ID is not found
-                    Debug.LogError($"Meetings object with ID {objectID} not found.");
-                }
-
+                result.JoinCode = joinCode;
             });
             
         }
@@ -119,27 +92,4 @@ public class RealmControllerClassRoom : MonoBehaviour
 
         Debug.Log("RealmControllerClassRoom PerformRealmWriteUpdateMeetingDetails Completed.");
     }
-
-    
-
-    public string StringToHex(string email)
-    {
-        StringBuilder hex = new StringBuilder(email.Length * 2);
-        foreach (char c in email)
-        {
-            hex.AppendFormat("{0:X2}", (int)c);
-        }
-        string hexString = hex.ToString();
-        hexString += "e2808b";
-
-        byte[] bytes = new byte[hexString.Length / 2];
-
-        for (int i = 0; i < hexString.Length; i += 2)
-        {
-            bytes[i / 2] = Convert.ToByte(hexString.Substring(i, 2), 16);
-        }
-
-        return Encoding.UTF8.GetString(bytes);
-    }
-
 }
