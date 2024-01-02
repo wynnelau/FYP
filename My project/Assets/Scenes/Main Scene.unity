@@ -25361,6 +25361,8 @@ MonoBehaviour:
   MeetingDetails: {fileID: 64932978}
   NewMeeting: {fileID: 1069216480}
   MeetingDetailsDate: {fileID: 1867156336}
+  meetingDetailsStart: {fileID: 1153789643}
+  meetingDetailsDelete: {fileID: 466609706}
   player: {fileID: 1871160649}
   RealmController: {fileID: 0}
   buttonCreator: {fileID: 0}
@@ -25388,6 +25390,7 @@ MonoBehaviour:
   meetingSchedule: {fileID: 1056267627}
   buttonCreator: {fileID: 0}
   RealmController: {fileID: 0}
+  meetingScheduleUI: {fileID: 0}
   detailsText: {fileID: 1555593233}
   meetingDetailsStart: {fileID: 1153789643}
   meetingDetailsDelete: {fileID: 466609706}

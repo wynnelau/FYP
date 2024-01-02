@@ -54,6 +54,7 @@ public class MeetingScheduleUI : MonoBehaviour
 
     public GameObject mainMenuStaff, mainMenuProf, mainMenuStudent, MeetingSchedule, MeetingDetails, NewMeeting;
     public Text MeetingDetailsDate;
+    public Button meetingDetailsStart, meetingDetailsDelete;
     public PlayerControls player;
     public RealmController RealmController;
     public DynamicButtonCreator buttonCreator;
@@ -132,6 +133,8 @@ public class MeetingScheduleUI : MonoBehaviour
                 Debug.Log("MeetingScheduleUI openDateDetails MeetingScheduleActive");
                 MeetingSchedule.SetActive(false);
                 MeetingDetails.SetActive(true);
+                meetingDetailsStart.GetComponent<Image>().color = Color.grey;
+                meetingDetailsDelete.GetComponent<Image>().color = Color.grey;
                 MeetingDetailsDate.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
             }
 

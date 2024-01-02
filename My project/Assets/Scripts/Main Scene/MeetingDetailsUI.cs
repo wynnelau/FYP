@@ -107,6 +107,8 @@ public class MeetingDetailsUI : MonoBehaviour
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         meetingScheduleUI = FindObjectOfType<MeetingScheduleUI>();
         buttonCreator.DeleteAllButtons();
+        meetingDetailsStart.GetComponent<Image>().color = Color.grey;
+        meetingDetailsDelete.GetComponent<Image>().color = Color.grey;
         detailsText.text = "";
 
         if (RealmController != null)
