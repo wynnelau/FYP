@@ -15,7 +15,6 @@ public class SceneInitialise : MonoBehaviour
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
     public GameObject timeDetailsProf, timeDetailsStaff, joinMeetingUI;
     public GameObject manageSlotsUI, meetingScheduleUI, meetingDetailsUI, newMeetingUI;
-    public DynamicButtonCreator buttonCreator;
     public Text meetingDetailsText;
 
     /*
@@ -105,8 +104,8 @@ public class SceneInitialise : MonoBehaviour
             if (player != null)
             {
                 PlayerControls playerControls = FindObjectOfType<PlayerControls>();
-                player.transform.position = new Vector3(-10, 7, -20);
                 playerControls.enabled = true;
+                player.transform.position = new Vector3(-10, 7, -20);
                 player.SetActive(false);
             }
             if (bed != null)
@@ -128,7 +127,7 @@ public class SceneInitialise : MonoBehaviour
             if (meetingDetailsUI != null)
             {
                 meetingDetailsText.text = "";
-                buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+                DynamicButtonCreator buttonCreator = FindObjectOfType<DynamicButtonCreator>();
                 buttonCreator.DeleteAllButtons();
                 
                 meetingDetailsUI.SetActive(false);
