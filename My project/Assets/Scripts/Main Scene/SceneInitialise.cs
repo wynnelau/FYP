@@ -15,7 +15,7 @@ public class SceneInitialise : MonoBehaviour
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
     public GameObject timeDetailsProf, timeDetailsStaff, joinMeetingUI;
     public GameObject manageSlotsUI, meetingScheduleUI, meetingDetailsUI, newMeetingUI;
-    public Text meetingDetailsText;
+    public Text meetingDetailsText, joinMeetingInput;
 
     /*
      * Purpose: Deactivates all the UIs when the user enters "MainScene" scene
@@ -130,6 +130,11 @@ public class SceneInitialise : MonoBehaviour
                 DynamicButtonCreator buttonCreator = FindObjectOfType<DynamicButtonCreator>();
                 buttonCreator.DeleteAllButtons();
                 meetingDetailsUI.SetActive(false);
+            }
+            if (joinMeetingUI != null)
+            {
+                joinMeetingInput.text = "";
+                joinMeetingUI.SetActive(false);
             }
             if (mainSceneCanvas != null)
             {

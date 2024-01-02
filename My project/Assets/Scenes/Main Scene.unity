@@ -25068,6 +25068,7 @@ MonoBehaviour:
   meetingDetailsUI: {fileID: 64932978}
   newMeetingUI: {fileID: 1069216480}
   meetingDetailsText: {fileID: 1555593233}
+  joinMeetingInput: {fileID: 506110605}
 --- !u!114 &849384652
 MonoBehaviour:
   m_ObjectHideFlags: 0
