@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class LogOutUI : MonoBehaviour
 {
-    public GameObject logoutUI;
+    public GameObject logOut;
     public PlayerControls player;
 
     /*
@@ -21,13 +21,13 @@ public class LogOutUI : MonoBehaviour
     }
 
     /*
-     * Purpose: Close the "logoutUI" UI when the "logoutCancelButton" button is clicked
+     * Purpose: Close the "logOut" UI when the "logoutCancelButton" button is clicked
      * Input: Click on the "logoutCancelButton" button
-     * Output: Set the "logoutUI" UI to inactive and enable player controls
+     * Output: Set the "logOut" UI to inactive and enable player controls
      */
     public void LogoutCancel()
     {
-        logoutUI.SetActive(false);
+        logOut.SetActive(false);
         player.enabled = true;
     }
 }

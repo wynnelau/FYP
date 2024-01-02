@@ -18,9 +18,9 @@ public class DynamicButtonCreator : MonoBehaviour
     public Text dateDetailsDateStaff, dateDetailsDateProf, timeDetailsDateStaff, timeDetailsDateProf, timeDetailsLocationStaff, timeDetailsLocationProf;
     public Text timeDetailsStaffUserText, timeDetailsStaffTimeText;
     public Text meetingDetailsText;
-    public GameObject buttonDatePrefabStaff, buttonDatePrefabProf, buttonTimePrefabStaff, buttonTimePrefabProf; // Assign your button prefab in the inspector
+    public GameObject buttonDatePrefabStaff, buttonDatePrefabProf, buttonTimePrefabStaff, buttonTimePrefabProf;
     public GameObject buttonMeetingPrefab;
-    public Transform buttonDateParentStaff, buttonDateParentProf, buttonTimeParentStaff, buttonTimeParentProf; // Assign the parent transform for the buttons in the inspector
+    public Transform buttonDateParentStaff, buttonDateParentProf, buttonTimeParentStaff, buttonTimeParentProf;
     public Transform buttonMeetingParent;
     public Button meetingDetailsStart, meetingDetailsDelete;
     public RealmController RealmController;
@@ -33,7 +33,7 @@ public class DynamicButtonCreator : MonoBehaviour
 
     private List<Reserved> addReservationList = new List<Reserved>();
     private List<Reserved> removeReservationList = new List<Reserved>();
-    private string userEmail ;
+    private string userEmail;
 
     /*
      * Purpose: Create a dynamic button with the given text and with a click event listener
@@ -82,7 +82,7 @@ public class DynamicButtonCreator : MonoBehaviour
             buttonTextComponent.text = buttonText;
         }
 
-        // Check whether button is available (white), reservedByMe (lightBlue) or reservedByOthers (grey)
+        // Check whether button is available (white), reservedByMe (lightBlue) or reservedByOthers (grey) in timeDetails UI
         if (timeDetailsStaff.activeSelf)
         {
             RealmController = FindObjectOfType<RealmController>();
@@ -116,7 +116,7 @@ public class DynamicButtonCreator : MonoBehaviour
                 buttonComponent.GetComponent<Image>().color = Color.grey;
             }
         }
-        // Check whether button is CreatedByMe (lightBlue) or CreatedByOthers (white)
+        // Check whether button is CreatedByMe (lightBlue) or CreatedByOthers (white) in meetingDetails UI
         else if (meetingDetails.activeSelf)
         {
             RealmController = FindObjectOfType<RealmController>();
@@ -163,10 +163,8 @@ public class DynamicButtonCreator : MonoBehaviour
                         {
                             CreateButton(timing);
                         }
-
                     }
                 }
-                
             }
             else if (dateDetailsStaff.activeSelf == true)
             {
@@ -287,17 +285,15 @@ public class DynamicButtonCreator : MonoBehaviour
      * Input: Called by DateDetailsUI by closeDetails() to delete all buttons in the respective dateDetails UI
      *        Called by TimeDetailsUI by closeTimeDetails(), AddReservationSlots(), and RemoveReservationSlots() to delete all buttons in the respective timeDetails UI 
      *        Called by MeetingDetailsUI by closeMeetingDetails() to delete all buttons in the meetingDetails UI
+     *        Called by SceneInitialise by OnSceneLoaded() to delete all buttons in the meetingDetails UI
      * Output: Destroy all the dynamic buttons in the UI and clear the list of buttons
      */
     public void DeleteAllButtons()
     {
         foreach (GameObject button in createdButtons)
         {
-            // Destroy each button GameObject
             Destroy(button);
         }
-
-        // Clear the list of created buttons
         createdButtons.Clear();
     }
 
@@ -307,7 +303,7 @@ public class DynamicButtonCreator : MonoBehaviour
      *        Called by CreateButton() so that we know what color(type) the button is
      * Output: Return Reserved
      */
-    private Reserved ConvertToReserved(string location, string dateString, string timing)
+    Reserved ConvertToReserved(string location, string dateString, string timing)
     {
         string[] dateParts = dateString.Split('/');
         int date = int.Parse(dateParts[0]);
@@ -323,10 +319,10 @@ public class DynamicButtonCreator : MonoBehaviour
 
     /*
      * Purpose: Convert a slot of time in "hr:min to hr:min" to the timings in "hr:min" 
-     * Input: Called by ConverToReserved for use
+     * Input: Called by ConvertToReserved() for use
      * Output: Returns a string array used to send data to database
      */
-    private string[] ConvertToTiming(string timing)
+    string[] ConvertToTiming(string timing)
     {
         string[] firstSplit, splitResult;
 
@@ -375,7 +371,7 @@ public class DynamicButtonCreator : MonoBehaviour
      * Input: Called by ConvertToRange() and start time is passed in
      * Output: Returns a string of the end time calculated
      */
-    private string GetEndTiming(string hr, string min)
+    string GetEndTiming(string hr, string min)
     {
         int ihr, imin;
         string endTime;

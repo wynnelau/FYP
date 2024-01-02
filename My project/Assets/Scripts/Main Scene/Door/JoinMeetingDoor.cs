@@ -2,13 +2,13 @@ using UnityEngine;
 
 /*
  * Location: Main Scene/ Door
- * Purpose: Open the "joinMeetingUI" UI when user comes into contact with "Door"
- *          "joinMeetingUI" UI is used to join a meeting using a join code
+ * Purpose: Open the "joinMeeting" UI when user comes into contact with "Door"
+ *          "joinMeeting" UI is used to join a meeting using a join code
  */
 public class JoinMeetingDoor : MonoBehaviour
 {
     private static JoinMeetingDoor instance;
-    public GameObject joinMeetingUI;
+    public GameObject joinMeeting;
     public PlayerControls player;
 
     /*
@@ -33,14 +33,14 @@ public class JoinMeetingDoor : MonoBehaviour
     }
 
     /*
-     * Purpose: Open the JoinMeetingUI when user comes into contact with "Door"
+     * Purpose: Open the "joinMeeting" UI when user comes into contact with "Door"
      * Input: User comes into contact with "Door"
-     * Output: Open the JoinMeetingUI and disable player movements
+     * Output: Open the "joinMeeting" UI and disable player movements
      */
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("JoinMeetingDoor OnTriggerEnter");
-        joinMeetingUI.SetActive(true);
+        joinMeeting.SetActive(true);
         player.enabled = false;
     }
 

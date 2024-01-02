@@ -14,6 +14,7 @@ public class MeetingDetailsUI : MonoBehaviour
     public GameObject meetingDetails, meetingSchedule;
     public DynamicButtonCreator buttonCreator;
     public RealmController RealmController;
+    public MeetingScheduleUI meetingScheduleUI;
     public Text detailsText;
     public Button meetingDetailsStart, meetingDetailsDelete;
 
@@ -104,6 +105,7 @@ public class MeetingDetailsUI : MonoBehaviour
         Debug.Log("MeetingDetailsUI RefreshMeetingDetails");
         RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+        meetingScheduleUI = FindObjectOfType<MeetingScheduleUI>();
         buttonCreator.DeleteAllButtons();
         detailsText.text = "";
 
@@ -115,31 +117,13 @@ public class MeetingDetailsUI : MonoBehaviour
             {
                 foreach (var meeting in meetingList)
                 {
-                    buttonCreator.CreateButton(meeting.Id.ToString() + "\nStart time:     " + TimeConvert(meeting.StartTimeHr) + ":" + TimeConvert(meeting.StartTimeMin));
+                    buttonCreator.CreateButton(meeting.Id.ToString() + "\nStart time:     " + meetingScheduleUI.TimeConvert(meeting.StartTimeHr) + ":" + meetingScheduleUI.TimeConvert(meeting.StartTimeMin));
                 }
 
             }
         }
 
     }
-
-    /*
-     * Purpose: To convert int to string for time display
-     * Input: Called when trying to create dynamic button for MeetingDetailsUI and int time is passed in
-     * Output: Returns a string for the time display
-     */
-    string TimeConvert(int? time)
-    {
-        string timeString;
-        if (time < 10)
-        {
-            timeString = "0" + time.ToString();
-        }
-        else
-        {
-            timeString = time.ToString();
-        }
-
-        return timeString;
-    }
 }
+
+    

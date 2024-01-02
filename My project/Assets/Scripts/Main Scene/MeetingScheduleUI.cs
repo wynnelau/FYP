@@ -350,7 +350,7 @@ public class MeetingScheduleUI : MonoBehaviour
      * Input: Called when trying to create dynamic button for MeetingDetailsUI and int time is passed in
      * Output: Returns a string for the time display
      */
-    string TimeConvert(int? time)
+    public string TimeConvert(int? time)
     {
         string timeString;
         if (time < 10)

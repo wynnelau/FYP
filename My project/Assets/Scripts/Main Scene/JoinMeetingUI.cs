@@ -7,23 +7,23 @@ using PlayFab.ClientModels;
 
 /*
  * Location: Main Scene/ MainSceneControls
- * Purpose: Manage the JoinMeetingUI
+ * Purpose: Manage the JoinMeeting UI
  */
 public class JoinMeetingUI : MonoBehaviour
 {
-    public GameObject joinMeetingUI;
+    public GameObject joinMeeting;
     public PlayerControls player;
     public InputField joinCodeInput;
 
     /*
-     * Purpose: Close the joinMeetingUI when the "closeJoinMeetingButton" button is clicked
+     * Purpose: Close the joinMeeting UI when the "closeJoinMeetingButton" button is clicked
      * Input: Click on the "closeJoinMeetingButton" button
-     * Output: Close the joinMeetingUI and enable player controls
+     * Output: Close the joinMeeting UI and enable player controls
      */
     public void CloseJoinMeeting()
     {
         Debug.Log("JoinMeetingUI closeJoinMeeting");
-        joinMeetingUI.SetActive(false);
+        joinMeeting.SetActive(false);
         player.enabled = true;
     }
 

@@ -17,19 +17,19 @@ public class DateDetailsUI : MonoBehaviour
      */
     public void CloseDetails()
     {
-        Debug.Log("DateDetailsUI closeDetails");
+        Debug.Log("DateDetailsUI CloseDetails");
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         buttonCreator.DeleteAllButtons();
 
         if (dateDetailsProf.activeSelf == true)
         {
-            Debug.Log("DateDetailsUI closeDetails Prof");
+            Debug.Log("DateDetailsUI CloseDetails Prof");
             dateDetailsProf.SetActive(false);
             resourceReservationProf.SetActive(true);
         }
         else if (dateDetailsStaff.activeSelf == true)
         {
-            Debug.Log("DateDetailsUI closeDetails Staff");
+            Debug.Log("DateDetailsUI CloseDetails Staff");
             dateDetailsStaff.SetActive(false);
             resourceReservationStaff.SetActive(true);
         }
