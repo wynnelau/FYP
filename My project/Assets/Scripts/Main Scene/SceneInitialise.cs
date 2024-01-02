@@ -104,6 +104,9 @@ public class SceneInitialise : MonoBehaviour
         {
             if (player != null)
             {
+                PlayerControls playerControls = FindObjectOfType<PlayerControls>();
+                player.transform.position = new Vector3(-10, 7, -20);
+                playerControls.enabled = true;
                 player.SetActive(false);
             }
             if (bed != null)
