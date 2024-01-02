@@ -147,8 +147,6 @@ public class Relay : MonoBehaviour
             Destroy(NetworkManager.Singleton.gameObject);
             SceneManager.LoadScene("Main Scene");
         }
-        
-
     }
 
     /*
@@ -176,7 +174,7 @@ public class Relay : MonoBehaviour
         Debug.Log("Relay RemoveJoinCodeSuccess " + meetingId);
         RealmControllerClassRoom = FindObjectOfType<RealmControllerClassRoom>();
         RealmControllerClassRoom.UpdateMeetingDetails(meetingId, "Meeting ended");
-        RemoveMeetingID();
+        SceneManager.LoadScene("Main Scene");
     }
 
     /*
@@ -189,43 +187,6 @@ public class Relay : MonoBehaviour
         Debug.Log("Relay RemoveJoinCodeFail " + error);
     }
 
-    /*
-     * Purpose: Attempt to remove meetingID from PlayFab
-     * Input: Called by StopRelay()
-     * Output: Attempt to remove meetingID from PlayFab
-     */
-    void RemoveMeetingID()
-    {
-        Debug.Log("Relay RemoveMeetingID");
-        var request = new UpdateUserDataRequest
-        {
-            Data = new Dictionary<string, string>
-                    {
-                        {"MeetingID", ""}
-                    }
-        };
-        PlayFabClientAPI.UpdateUserData(request, RemoveMeetingIDSuccess, RemoveMeetingIDFail);
-    }
-
-    /*
-     * Purpose: Successful attempt to remove the meetingId and then load the Main Scene
-     * Input: Called by RemoveMeetingID() when attempt to remove meetingID from PlayFab is successful
-     * Output: MeetingID removed from PlayFab and Main Scene is loaded
-     */
-    void RemoveMeetingIDSuccess(UpdateUserDataResult result)
-    {
-        Debug.Log("Relay RemoveMeetingIDSuccess");
-        SceneManager.LoadScene("Main Scene");
-    }
-
-    /*
-    * Purpose: Failed attempt to remove meetingID
-    * Input: Called by RemoveMeetingID()
-    * Output: Debug.Log("Relay RemoveMeetingIDFail " + error);
-    */
-    void RemoveMeetingIDFail(PlayFabError error)
-    {
-        Debug.Log("Relay RemoveMeetingIDFail " + error);
-    }
+    
 
 }
