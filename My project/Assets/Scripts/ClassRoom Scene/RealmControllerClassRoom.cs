@@ -50,7 +50,7 @@ public class RealmControllerClassRoom : MonoBehaviour
     
 
     /*
-     * Purpose: Update meeting details according to objectId passed in
+     * Purpose: Update meeting details according to objectId and joinCode passed in
      * Input: Called by Relay using UpdateJoinCodeSuccess()
      * Output: Call PerformRealmWriteUpdateMeetingDetails
      *         return if there is an error
@@ -68,7 +68,7 @@ public class RealmControllerClassRoom : MonoBehaviour
     }
 
     /*
-     * Purpose: Update the Meeting details according to the objectId
+     * Purpose: Update the Meeting details according to the objectId and joinCode
      * Input: Called by UpdateMeetingDetails()
      * Output: Update Meeting details
      */

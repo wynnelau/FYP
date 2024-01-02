@@ -10,13 +10,14 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 // Tutorial used: https://www.youtube.com/watch?v=msPNJ2cxWfw
 public class Relay : MonoBehaviour
 {
     public Text displayJoinCode;
-    private string joinCodeParticipant, joinCodeHost;
-    public RealmControllerClassRoom RealmController;
+    public RealmControllerClassRoom RealmControllerClassRoom;
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -37,123 +38,85 @@ public class Relay : MonoBehaviour
     }
 
     /*
+     * Purpose: Attempt to retrieve the user's meeting status from the PlayFab database when "Start" button is clicked
+     * Input: Click on "Start" button
+     * Output: Attempt to retrieve the user's meeting status from the PlayFab database
+     */
+    public void EnterMeetingRoom()
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        {
+            Keys = null
+        }, EnterMeetingRoomSuccess, EnterMeetingRoomFail);
+    }
+
+    /*
+     * Purpose: Successful attempt to retrieve the user's meeting status
+     * Input: Called by EnterMeetingRoom() when attempt to retrieve the user's meeting status is successful
+     * Output: Call CreateRelay() when MeetingStatus is Host
+     *         Call JoinRelay() to join a meeting when MeetingStatus is Participant
+     */
+    void EnterMeetingRoomSuccess(GetUserDataResult result)
+    {
+        if (result.Data["MeetingStatus"].Value == "Host")
+        {
+            Debug.Log("Relay EnterMeetingRoomSuccess Host");
+            string meetingId = result.Data["MeetingID"].Value;
+            CreateRelay(meetingId);
+        }
+        else if (result.Data["MeetingStatus"].Value == "Participant")
+        {
+            Debug.Log("Relay EnterMeetingRoomSuccess Participant");
+            string joinCodeParticipant = result.Data["JoinCode"].Value;
+            JoinRelay(joinCodeParticipant);
+        }
+    }
+
+    /*
+    * Purpose: Failed attempt to retrieve user's meeting status
+    * Input: Called by EnterMeetingRoom()
+    * Output: Debug.Log("Relay EnterMeetingRoomFail " + error);
+    */
+    void EnterMeetingRoomFail(PlayFabError error)
+    {
+        Debug.Log("Relay EnterMeetingRoomFail " + error);
+    }
+
+    /*
      * Purpose: Used to start the meeting and then updates the join code
-     * Input: Click on the "RelayBtn"
+     * Input: Called by EnterMeetingRoomSuccess
      * Output: Attempt to start meeting and then update the join code
      */
-    public async void CreateRelay()
+    async void CreateRelay(string meetingId)
     {
         try
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(40);
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            displayJoinCode.text = joinCode;
-            joinCodeHost = joinCode;
+            displayJoinCode.text = "Join code: " + joinCode;
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
-            UpdateJoinCode(joinCode);
+            RealmControllerClassRoom = FindObjectOfType<RealmControllerClassRoom>();
+            RealmControllerClassRoom.UpdateMeetingDetails(meetingId, joinCode);
         }
         catch (RelayServiceException e)
         {
-            Debug.LogError(e);
+            Debug.Log("CreateRelay error: " + e);
+            Destroy(NetworkManager.Singleton.gameObject);
+            SceneManager.LoadScene("Main Scene");
         }
-    }
-
-    public void StopRelay()
-    {
-        
-        if (NetworkManager.Singleton.IsHost)
-        {
-            NetworkManager.Singleton.Shutdown();
-        }
-        Destroy(NetworkManager.Singleton.gameObject);
-    }
-
-    /*
-     * Purpose: Attempt to update the join code of the meeting to MongoDB by getting the meetingId
-     * Input: Called by CreateRelay()
-     * Output: Attempt to retrieve the meetingID
-     */
-    void UpdateJoinCode(string joinCode)
-    {
-        Debug.Log("Relay UpdateJoinCode");
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
-        {
-            Keys = null
-        }, UpdateJoinCodeSuccess, UpdateJoinCodeFail);
-    }
-
-    /*
-     * Purpose: Successful attempt to retrieve the meetingId, then tries to update join code of the meeting to MongoDB
-     * Input: Called by UpdateJoinCode() when attempt to retrieve the meetingId is successful
-     * Output: 
-     */
-    void UpdateJoinCodeSuccess(GetUserDataResult result)
-    {
-        Debug.Log("Relay UpdateJoinCodeSuccess " + joinCodeHost);
-        string meetingId = result.Data["MeetingID"].Value;
-        Debug.Log("Relay UpdateJoinCodeSuccess " + meetingId);
-        RealmController = FindObjectOfType<RealmControllerClassRoom>();
-        RealmController.UpdateMeetingDetails(meetingId, joinCodeHost);
-    }
-
-    /*
-    * Purpose: Failed attempt to retrieve meetiingID
-    * Input: Called by UpdateJoinCode()
-    * Output: Debug.Log("Relay UpdateJoinCodeFail " + error);
-    */
-    void UpdateJoinCodeFail(PlayFabError error)
-    {
-        Debug.Log("Relay UpdateJoinCodeFail " + error);
-
-    }
-
-    /*
-     * Purpose: Attempt to retrieve the user's join code from the PlayFab database when "EnterRoomBtn" is clicked
-     * Input: Click on "EnterRoomBtn"
-     * Output: Attempt to retrieve the user's join code from the PlayFab database
-     */
-    public void JoinMeeting()
-    {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
-        {
-            Keys = null
-        }, GetJoinCodeSuccess, GetJoinCodeFail);
-    }
-
-    /*
-     * Purpose: Successful attempt to retrieve the user's join code to join a meeting
-     * Input: Called by joinMeeting() when attempt to retrieve the user's join code is successful
-     * Output: Call JoinRelay to join a meeting
-     */
-    void GetJoinCodeSuccess(GetUserDataResult result)
-    {
-        joinCodeParticipant = result.Data["JoinCode"].Value;
-        Debug.Log("Relay GetJoinCodeSuccess " + joinCodeParticipant);
-        JoinRelay(joinCodeParticipant);
-    }
-
-    /*
-    * Purpose: Failed attempt to retrieve user's join code
-    * Input: Called by joinMeeting()
-    * Output: Debug.Log("Relay GetJoinCodeFail " + error);
-    */
-    void GetJoinCodeFail(PlayFabError error)
-    {
-        Debug.Log("Relay GetJoinCodeFail " + error);
     }
 
     /*
      * Purpose: Attempt to join the meeting
-     * Input: Called by GetJoinCodeSuccess
-     * Output: Join the meeting
+     * Input: Called by EnterMeetingRoomSuccess and joinCode is passed in
+     * Output: Join the meeting successfully
      */
-    public async void JoinRelay(string joinCode)
+    async void JoinRelay(string joinCode)
     {
         try
         {
-            Debug.Log("Joining Relay with " +  joinCode);
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
             RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
@@ -162,6 +125,107 @@ public class Relay : MonoBehaviour
         catch (RelayServiceException e)
         {
             Debug.LogError(e);
-        } 
+            displayJoinCode.text = "Error. Please try again.";
+        }
     }
+
+    /*
+    * Purpose: To stop the meeting
+    * Input: Called by ReturnToMain() in ReturnToMainScene
+    * Output: Shutdown the server and destroy the NetworkManager
+    */
+    public void StopRelay()
+    {
+        if (NetworkManager.Singleton.IsHost)
+        {
+            NetworkManager.Singleton.Shutdown();
+            Destroy(NetworkManager.Singleton.gameObject);
+            RemoveJoinCode();
+        }
+        else
+        {
+            Destroy(NetworkManager.Singleton.gameObject);
+            SceneManager.LoadScene("Main Scene");
+        }
+        
+
+    }
+
+    /*
+     * Purpose: Attempt to update the join code of the meeting to MongoDB by getting the meetingId
+     * Input: Called by StopRelay()
+     * Output: Attempt to retrieve the meetingID
+     */
+    void RemoveJoinCode()
+    {
+        Debug.Log("Relay RemoveJoinCode");
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        {
+            Keys = null
+        }, RemoveJoinCodeSuccess, RemoveJoinCodeFail);
+    }
+
+    /*
+     * Purpose: Successful attempt to retrieve the meetingId, then tries to update join code of the meeting to MongoDB
+     * Input: Called by RemoveJoinCode() when attempt to retrieve the meetingId is successful
+     * Output: Update "Meeting ended" to the join code of the meeting to MongoDB
+     */
+    void RemoveJoinCodeSuccess(GetUserDataResult result)
+    {
+        string meetingId = result.Data["MeetingID"].Value;
+        Debug.Log("Relay RemoveJoinCodeSuccess " + meetingId);
+        RealmControllerClassRoom = FindObjectOfType<RealmControllerClassRoom>();
+        RealmControllerClassRoom.UpdateMeetingDetails(meetingId, "Meeting ended");
+        RemoveMeetingID();
+    }
+
+    /*
+    * Purpose: Failed attempt to retrieve the meetingId
+    * Input: Called by RemoveJoinCode()
+    * Output: Debug.Log("Relay RemoveJoinCodeFail " + error);
+    */
+    void RemoveJoinCodeFail(PlayFabError error)
+    {
+        Debug.Log("Relay RemoveJoinCodeFail " + error);
+    }
+
+    /*
+     * Purpose: Attempt to remove meetingID from PlayFab
+     * Input: Called by StopRelay()
+     * Output: Attempt to remove meetingID from PlayFab
+     */
+    void RemoveMeetingID()
+    {
+        Debug.Log("Relay RemoveMeetingID");
+        var request = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+                    {
+                        {"MeetingID", ""}
+                    }
+        };
+        PlayFabClientAPI.UpdateUserData(request, RemoveMeetingIDSuccess, RemoveMeetingIDFail);
+    }
+
+    /*
+     * Purpose: Successful attempt to remove the meetingId and then load the Main Scene
+     * Input: Called by RemoveMeetingID() when attempt to remove meetingID from PlayFab is successful
+     * Output: MeetingID removed from PlayFab and Main Scene is loaded
+     */
+    void RemoveMeetingIDSuccess(UpdateUserDataResult result)
+    {
+        Debug.Log("Relay RemoveMeetingIDSuccess");
+        SceneManager.LoadScene("Main Scene");
+    }
+
+    /*
+    * Purpose: Failed attempt to remove meetingID
+    * Input: Called by RemoveMeetingID()
+    * Output: Debug.Log("Relay RemoveMeetingIDFail " + error);
+    */
+    void RemoveMeetingIDFail(PlayFabError error)
+    {
+        Debug.Log("Relay RemoveMeetingIDFail " + error);
+    }
+
 }

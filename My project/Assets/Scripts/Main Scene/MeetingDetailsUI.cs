@@ -50,7 +50,8 @@ public class MeetingDetailsUI : MonoBehaviour
             {
                 Data = new Dictionary<string, string>
                     {
-                        {"MeetingID", meetingId}
+                        {"MeetingID", meetingId},
+                        {"MeetingStatus", "Host"}
                     }
             };
             PlayFabClientAPI.UpdateUserData(request, StartMeetingSuccess, StartMeetingFail);

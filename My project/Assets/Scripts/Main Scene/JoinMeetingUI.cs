@@ -41,7 +41,8 @@ public class JoinMeetingUI : MonoBehaviour
         {
             Data = new Dictionary<string, string>
                     {
-                        {"JoinCode", joinCodeInput.text}
+                        {"JoinCode", joinCodeInput.text},
+                        {"MeetingStatus", "Participant" }
                     }
         };
         PlayFabClientAPI.UpdateUserData(request, UpdateJoinCodeSuccess, UpdateJoinCodeFail);
