@@ -15,7 +15,7 @@ public class SceneInitialise : MonoBehaviour
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
     public GameObject timeDetailsProf, timeDetailsStaff, joinMeetingUI;
     public GameObject manageSlotsUI, meetingScheduleUI, meetingDetailsUI, newMeetingUI;
-    public Text meetingDetailsText, joinMeetingInput;
+    public Text meetingDetailsText;
 
     /*
      * Purpose: Deactivates all the UIs when the user enters "MainScene" scene
@@ -25,7 +25,6 @@ public class SceneInitialise : MonoBehaviour
      */
     void Start()
     {
-        
         logoutUI.SetActive(false);
         userProfileStudentUI.SetActive(false);
         userProfileOthersUI.SetActive(false);
@@ -133,7 +132,6 @@ public class SceneInitialise : MonoBehaviour
             }
             if (joinMeetingUI != null)
             {
-                joinMeetingInput.text = "";
                 joinMeetingUI.SetActive(false);
             }
             if (mainSceneCanvas != null)

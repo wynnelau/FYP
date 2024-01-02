@@ -23,6 +23,7 @@ public class JoinMeetingUI : MonoBehaviour
     public void CloseJoinMeeting()
     {
         Debug.Log("JoinMeetingUI closeJoinMeeting");
+        joinCodeInput.text = "";
         joinMeeting.SetActive(false);
         player.enabled = true;
     }
@@ -54,6 +55,7 @@ public class JoinMeetingUI : MonoBehaviour
     void UpdateJoinCodeSuccess(UpdateUserDataResult result)
     {
         Debug.Log("JoinMeetingUI UpdateJoinCodeSuccess");
+        joinCodeInput.text = "";
         SceneManager.LoadScene("ClassRoom Scene");
     }
 

@@ -67,6 +67,7 @@ public class Relay : MonoBehaviour
         {
             NetworkManager.Singleton.Shutdown();
         }
+        Destroy(NetworkManager.Singleton.gameObject);
     }
 
     /*
