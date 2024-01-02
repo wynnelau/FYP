@@ -16,6 +16,7 @@ using MongoDB.Bson;
  */
 public class RealmController : MonoBehaviour
 {
+    private static RealmController instance;
     private Realm realm;
     private readonly string myRealmAppId = "application-0-nlkew";
     private bool isRealmInitialized = false;
@@ -36,21 +37,6 @@ public class RealmController : MonoBehaviour
 
     // To get the date from MeetingDetailsUI
     public Text dateTextMeeting;
-
-    private static RealmController instance;
-
-    /*
-     * Purpose: Getter function of realm
-     * Input: Called by RealmControllerClassRoom by Start()
-     * Output: return realm
-     */
-    public Realm RealmInstance 
-    {
-        get
-        {
-            return realm;
-        }
-    }
 
     /*
      * Purpose: Initialise an instance of RealmController and make sure it persists across scene changes
@@ -97,6 +83,18 @@ public class RealmController : MonoBehaviour
         }
     }
 
+    /*
+     * Purpose: Getter function of realm
+     * Input: Called by RealmControllerClassRoom by Start()
+     * Output: return realm
+     */
+    public Realm RealmInstance
+    {
+        get
+        {
+            return realm;
+        }
+    }
 
     /*
      * Purpose: Check whether we are able to add available slots, then attempt to write to database
@@ -229,7 +227,7 @@ public class RealmController : MonoBehaviour
      * Purpose: Attempt to remove reservation dates, no need to check as list is created by clicking available buttons
      * Input: Called by TimeDetailsUI by RemoveReservationSlots()
      * Output: return if there is an error
-     *         else schedule a coroutine to execute Realm write operation on the main thread to add Available
+     *         else schedule a coroutine to execute Realm write operation on the main thread to remove Reservation
      */
     public void RemoveReservation()
     {
@@ -247,6 +245,25 @@ public class RealmController : MonoBehaviour
 
         // Schedule a coroutine to execute Realm write operation on the main thread
         StartCoroutine(PerformRealmWriteRemoveReservation(removeReservationList));
+    }
+
+    /*
+     * Purpose: Attempt to remove meeting schedule, called by MeetingDetailsUI
+     * Input: Called by MeetingDetailsUI by DeleteMeeting()
+     * Output: return if there is an error
+     *         else schedule a coroutine to execute Realm write operation on the main thread to remove Meetings
+     */
+    public void RemoveMeeting(string meetingId)
+    {
+        if (!isRealmInitialized)
+        {
+            Debug.Log("RealmController RemoveMeeting RealmNotInitialised");
+            return;
+        }
+
+        Debug.Log("RealmController RemoveMeeting RemovingMeetingFromRealm");
+
+        StartCoroutine(PerformRealmWriteRemoveMeeting(meetingId));
     }
 
     /*
@@ -635,6 +652,31 @@ public class RealmController : MonoBehaviour
         yield return null; // Yielding once to ensure the write operation is executed
 
         Debug.Log("RealmController PerformRealmWriteRemoveReservation Completed.");
+    }
+
+    /*
+     * Purpose: Remove the meeting scheduled from the database
+     * Input: Called by RemoveMeeting()
+     * Output: Remove the meeting slots from the database
+     */
+    private IEnumerator PerformRealmWriteRemoveMeeting(string meetingId)
+    {
+        try
+        {
+            realm.Write(() =>
+            {
+                var results = realm.All<Meetings>().FirstOrDefault(item => item.Id == ObjectId.Parse(meetingId));
+                realm.Remove(results);
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("RealmController PerformRealmWriteRemoveMeeting ErrorQueryingRealm: " + ex.Message);
+        }
+
+        yield return null; // Yielding once to ensure the write operation is executed
+
+        Debug.Log("RealmController PerformRealmWriteRemoveMeeting Completed.");
     }
 
     /*

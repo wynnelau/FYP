@@ -129,7 +129,6 @@ public class SceneInitialise : MonoBehaviour
                 meetingDetailsText.text = "";
                 DynamicButtonCreator buttonCreator = FindObjectOfType<DynamicButtonCreator>();
                 buttonCreator.DeleteAllButtons();
-                
                 meetingDetailsUI.SetActive(false);
             }
             if (mainSceneCanvas != null)

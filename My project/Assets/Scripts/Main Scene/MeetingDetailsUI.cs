@@ -13,6 +13,7 @@ public class MeetingDetailsUI : MonoBehaviour
 {
     public GameObject meetingDetails, meetingSchedule;
     public DynamicButtonCreator buttonCreator;
+    public RealmController RealmController;
     public Text detailsText;
     public Button meetingDetailsStart, meetingDetailsDelete;
 
@@ -78,13 +79,67 @@ public class MeetingDetailsUI : MonoBehaviour
     /*
      * Purpose: Delete the schedule meeting when the "deleteMeeting" button is clicked
      * Input: Click on the "deleteMeeting" button
-     * Output: Call DeleteMeeting()
+     * Output: Call RemoveMeeting()
      */
     public void DeleteMeeting()
     {
         if (meetingDetailsDelete.GetComponent<Image>().color == Color.white)
         {
-            Debug.Log("Delete");
+            string[] stringSplit = detailsText.text.Split('\n');
+            string meetingId = stringSplit[0];
+            Debug.Log("MeetingDetailsUI DeleteMeeting");
+            RealmController = FindObjectOfType<RealmController>();
+            RealmController.RemoveMeeting(meetingId);
+            RefreshMeetingDetails();
         }
+    }
+
+    /*
+     * Purpose: Refresh MeetingDetails UI with the updated meetings
+     * Input: Called by DeleteMeeting() 
+     * Output: Call CreateButton() to create updated time buttons
+     */
+    void RefreshMeetingDetails()
+    {
+        Debug.Log("MeetingDetailsUI RefreshMeetingDetails");
+        RealmController = FindObjectOfType<RealmController>();
+        buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+        buttonCreator.DeleteAllButtons();
+        detailsText.text = "";
+
+        if (RealmController != null)
+        {
+            Debug.Log("MeetingDetailsUI RefreshMeetingDetails notNull");
+            var meetingList = RealmController.GetMeetings();
+            if (meetingList != null && meetingList.Count > 0)
+            {
+                foreach (var meeting in meetingList)
+                {
+                    buttonCreator.CreateButton(meeting.Id.ToString() + "\nStart time:     " + TimeConvert(meeting.StartTimeHr) + ":" + TimeConvert(meeting.StartTimeMin));
+                }
+
+            }
+        }
+
+    }
+
+    /*
+     * Purpose: To convert int to string for time display
+     * Input: Called when trying to create dynamic button for MeetingDetailsUI and int time is passed in
+     * Output: Returns a string for the time display
+     */
+    string TimeConvert(int? time)
+    {
+        string timeString;
+        if (time < 10)
+        {
+            timeString = "0" + time.ToString();
+        }
+        else
+        {
+            timeString = time.ToString();
+        }
+
+        return timeString;
     }
 }
