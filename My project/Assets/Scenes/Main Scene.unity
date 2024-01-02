@@ -17987,7 +17987,7 @@ GameObject:
   m_Component:
   - component: {fileID: 590285968}
   m_Layer: 5
-  m_Name: logoutUI
+  m_Name: logOutUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25067,7 +25067,6 @@ MonoBehaviour:
   meetingScheduleUI: {fileID: 1056267627}
   meetingDetailsUI: {fileID: 64932978}
   newMeetingUI: {fileID: 1069216480}
-  buttonCreator: {fileID: 0}
   meetingDetailsText: {fileID: 1555593233}
 --- !u!114 &849384652
 MonoBehaviour:
@@ -25388,6 +25387,7 @@ MonoBehaviour:
   meetingDetails: {fileID: 64932978}
   meetingSchedule: {fileID: 1056267627}
   buttonCreator: {fileID: 0}
+  RealmController: {fileID: 0}
   detailsText: {fileID: 1555593233}
   meetingDetailsStart: {fileID: 1153789643}
   meetingDetailsDelete: {fileID: 466609706}
@@ -51063,7 +51063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b404c3f9ec92c0047ad09306afff1235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logoutUI: {fileID: 590285967}
+  logOutUI: {fileID: 590285967}
   player: {fileID: 1871160649}
 --- !u!65 &1798409028
 BoxCollider:
@@ -51756,7 +51756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1819792555}
   m_Layer: 5
-  m_Name: joinMeeting
+  m_Name: joinMeetingUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

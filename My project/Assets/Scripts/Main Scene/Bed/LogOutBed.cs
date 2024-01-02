@@ -2,19 +2,20 @@ using UnityEngine;
 
 /*
  * Location: Main Scene/ Bed
- * Purpose: Open the "logoutUI" UI when user comes into contact with "Bed"
+ * Purpose: Open the "logOutUI" UI when user comes into contact with "Bed"
+ *          "logOutUI" UI is used to quit the application
  */
 
 public class LogOutBed : MonoBehaviour
 {
     private static LogOutBed instance;
-    public GameObject logoutUI;
+    public GameObject logOutUI;
     public PlayerControls player;
 
     /*
      * Purpose: Make sure the gameObject is persistent across scenes
      * Input: NA
-     * Output: If instance is null, create gameObject and DontDestroyOnLoad
+     * Output: If instance is null, let instance = this and DontDestroyOnLoad
      *         else destroy the gameObject
      */
     void Awake()
@@ -33,14 +34,14 @@ public class LogOutBed : MonoBehaviour
     }
 
     /*
-     * Purpose: Open the "logoutUI" UI when user comes into contact with "Bed"
+     * Purpose: Open the "logOutUI" UI when user comes into contact with "Bed"
      * Input: User comes into contact with "Bed"
-     * Output: Open the "logoutUI" UI and disable player movements
+     * Output: Open the "logOutUI" UI and disable player movements
      */
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("LogOutBed onTriggerEnter");
-        logoutUI.SetActive(true);
+        logOutUI.SetActive(true);
         player.enabled = false;
     }
 }

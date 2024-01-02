@@ -3,6 +3,7 @@ using UnityEngine;
 /*
  * Location: Main Scene/ Door
  * Purpose: Open the "joinMeetingUI" UI when user comes into contact with "Door"
+ *          "joinMeetingUI" UI is used to join a meeting using a join code
  */
 public class JoinMeetingDoor : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class JoinMeetingDoor : MonoBehaviour
     /*
      * Purpose: Make sure the gameObject is persistent across scenes
      * Input: NA
-     * Output: If instance is null, create gameObject and DontDestroyOnLoad
+     * Output: If instance is null, let instance = this and DontDestroyOnLoad
      *         else destroy the gameObject
      */
     void Awake()

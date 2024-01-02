@@ -19,7 +19,7 @@ public class UserProfileWardrobe : MonoBehaviour
     /*
      * Purpose: Make sure the gameObject is persistent across scenes
      * Input: NA
-     * Output: If instance is null, create gameObject and DontDestroyOnLoad
+     * Output: If instance is null, let instance = this and DontDestroyOnLoad
      *         else destroy the gameObject
      */
     void Awake()

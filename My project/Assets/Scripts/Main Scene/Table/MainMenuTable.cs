@@ -14,12 +14,11 @@ public class MainMenuTable : MonoBehaviour
     public GameObject mainMenuStudent, mainMenuStaff, mainMenuProf;
     public PlayerControls player;
     private string userIdentity;
-    private List<string> getUserIdentity = new List<string> { "Identity" };
 
     /*
      * Purpose: Make sure the gameObject is persistent across scenes
      * Input: NA
-     * Output: If instance is null, create gameObject and DontDestroyOnLoad
+     * Output: If instance is null, let instance = this and DontDestroyOnLoad
      *         else destroy the gameObject
      */
     void Awake()
@@ -58,8 +57,8 @@ public class MainMenuTable : MonoBehaviour
         Debug.Log("MainMenuTable GetUserIdentityData");
         PlayFabClientAPI.GetUserData(new GetUserDataRequest()
         {
-            Keys = getUserIdentity
-        }, GetUserIdentitySuccess, GetUserIdentityFail);
+            Keys = null
+        }, GetUserIdentitySuccess, GetUserIdentityFail); ;
     }
 
     /*

@@ -9,6 +9,7 @@ public class PlayerControls : MonoBehaviour
 {
     private static PlayerControls instance;
     public Camera firstPersonCamera;
+
     private float horizontalInput;
     private float verticalInput;
     private float translateSpeed = 10.0f;
@@ -20,7 +21,7 @@ public class PlayerControls : MonoBehaviour
     /*
      * Purpose: Make sure the gameObject is persistent across scenes
      * Input: NA
-     * Output: If instance is null, create gameObject and DontDestroyOnLoad
+     * Output: If instance is null, let instance = this and DontDestroyOnLoad
      *         else destroy the gameObject
      */
     void Awake()
