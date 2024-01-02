@@ -6,8 +6,31 @@ using UnityEngine;
  */
 public class JoinMeetingDoor : MonoBehaviour
 {
+    private static JoinMeetingDoor instance;
     public GameObject joinMeetingUI;
     public PlayerControls player;
+
+    /*
+     * Purpose: Make sure the gameObject is persistent across scenes
+     * Input: NA
+     * Output: If instance is null, create gameObject and DontDestroyOnLoad
+     *         else destroy the gameObject
+     */
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("JoinMeetingDoor Awake InstanceIsNull");
+        }
+        else
+        {
+            Destroy(gameObject);
+            Debug.Log("JoinMeetingDoor Awake DestroyGameObject");
+        }
+    }
+
     /*
      * Purpose: Open the JoinMeetingUI when user comes into contact with "Door"
      * Input: User comes into contact with "Door"

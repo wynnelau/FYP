@@ -12,12 +12,12 @@ public class DDOL : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("Awake Canvas created: " + gameObject.name);
+            Debug.Log("DDOL Awake InstanceIsNull " + gameObject.name);
         }
         else
         {
             Destroy(gameObject);
-            Debug.Log("Awake Canvas destroyed: " + gameObject.name);
+            Debug.Log("DDOL Awake DestroyGameObject " + gameObject.name);
         }
     }
 

@@ -11,9 +11,7 @@ using UnityEngine.UI;
  */
 public class MeetingDetailsUI : MonoBehaviour
 {
-    public GameObject Table;
     public GameObject meetingDetails, meetingSchedule;
-    public RealmController RealmController;
     public DynamicButtonCreator buttonCreator;
     public Text detailsText;
     public Button meetingDetailsStart, meetingDetailsDelete;
@@ -26,7 +24,6 @@ public class MeetingDetailsUI : MonoBehaviour
     public void CloseMeetingDetails()
     {
         Debug.Log("MeetingDetailsUI closeMeetingDetails");
-        RealmController = FindObjectOfType<RealmController>();
         buttonCreator = FindObjectOfType<DynamicButtonCreator>();
         buttonCreator.DeleteAllButtons();
 
@@ -65,8 +62,6 @@ public class MeetingDetailsUI : MonoBehaviour
      */
     void StartMeetingSuccess(UpdateUserDataResult result)
     {
-        Table.SetActive(false);
-        meetingDetails.SetActive(false);
         SceneManager.LoadScene("ClassRoom Scene");
     }
 

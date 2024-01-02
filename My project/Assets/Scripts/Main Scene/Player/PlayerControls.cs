@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    private static PlayerControls instance;
     public Camera firstPersonCamera;
     private float horizontalInput;
     private float verticalInput;
@@ -15,6 +16,28 @@ public class PlayerControls : MonoBehaviour
     private float rotationSpeed = 45f;
 
     private float firstPersonBoundary = -23f;
+
+    /*
+     * Purpose: Make sure the gameObject is persistent across scenes
+     * Input: NA
+     * Output: If instance is null, create gameObject and DontDestroyOnLoad
+     *         else destroy the gameObject
+     */
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("PlayerControls Awake InstanceIsNull");
+        }
+        else
+        {
+            Destroy(gameObject);
+            Debug.Log("PlayerControls Awake DestroyGameObject");
+        }
+
+    }
 
     /*
      * Purpose: Allow user to move around, and if user is in firstPerson mode, allow to look left and right

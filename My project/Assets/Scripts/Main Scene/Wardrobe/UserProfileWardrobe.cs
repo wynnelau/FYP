@@ -9,11 +9,33 @@ using UnityEngine.UI;
  */
 public class UserProfileWardrobe : MonoBehaviour
 {
+    private static UserProfileWardrobe instance;
     public GameObject userProfileStudent, userProfileOthers;
     public InputField displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
     public InputField displayNameOthers, schoolOthers, descriptionOthers;
     public Text errorStudent, errorOthers;
     public PlayerControls player;
+
+    /*
+     * Purpose: Make sure the gameObject is persistent across scenes
+     * Input: NA
+     * Output: If instance is null, create gameObject and DontDestroyOnLoad
+     *         else destroy the gameObject
+     */
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("UserProfileWardrobe Awake InstanceIsNull");
+        }
+        else
+        {
+            Destroy(gameObject);
+            Debug.Log("UserProfileWardrobe Awake DestroyGameObject");
+        }
+    }
 
     /*
      * Purpose: Call GetUserProfileData() to get the user's profile to open the corresponding userProfile UI when user comes 

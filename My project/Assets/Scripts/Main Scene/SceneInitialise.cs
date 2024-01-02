@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 /*
@@ -9,12 +10,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneInitialise : MonoBehaviour
 {
-    public GameObject table;
+    public GameObject bed, wardrobe, table, door, player, mainSceneCanvas;
     public GameObject logoutUI, userProfileStudentUI, userProfileOthersUI, mainMenuStudentUI, mainMenuStaffUI, mainMenuProfUI;
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
     public GameObject timeDetailsProf, timeDetailsStaff, joinMeetingUI;
     public GameObject manageSlotsUI, meetingScheduleUI, meetingDetailsUI, newMeetingUI;
-    
+    public DynamicButtonCreator buttonCreator;
+    public Text meetingDetailsText;
+
     /*
      * Purpose: Deactivates all the UIs when the user enters "MainScene" scene
      *          Start is called before the first frame update
@@ -43,23 +46,95 @@ public class SceneInitialise : MonoBehaviour
         newMeetingUI.SetActive(false);
     }
 
+    /*
+     * Purpose: If a scene is loaded, add it to SceneManager.sceneLoaded
+     * Input: A scene is loaded
+     * Output: add it to SceneManager.sceneLoaded and call OnSceneLoaded()
+     */
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
+    /*
+     * Purpose: If a scene is unloaded, remove it from SceneManager.sceneLoaded
+     * Input: A scene is unloaded
+     * Output: remove it from SceneManager.sceneLoaded and call OnSceneLoaded()
+     */
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    /*
+     * Purpose: Set the respective gameObjects as active or inactive according to the scene loaded
+     * Input: Scene loaded is passed in
+     * Output: Set the respective gameObjects as active or inactive according to the scene loaded
+     */
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Main Scene")
         {
+            if (mainSceneCanvas != null)
+            {
+                mainSceneCanvas.SetActive(true);
+            }
+            if (player != null)
+            {
+                player.SetActive(true);
+            }
+            if (bed != null)
+            {
+                bed.SetActive(true);
+            }
+            if (wardrobe != null)
+            {
+                wardrobe.SetActive(true);
+            }
             if (table != null)
             {
                 table.SetActive(true);
             }
+            if (door != null)
+            {
+                door.SetActive(true);
+            }
+        }
+        else if (scene.name != "Main Scene")
+        {
+            if (player != null)
+            {
+                player.SetActive(false);
+            }
+            if (bed != null)
+            {
+                bed.SetActive(false);
+            }
+            if (wardrobe != null)
+            {
+                wardrobe.SetActive(false);
+            }
+            if (table != null)
+            {
+                table.SetActive(false);
+            }
+            if (door != null)
+            {
+                door.SetActive(false);
+            }
+            if (meetingDetailsUI != null)
+            {
+                meetingDetailsText.text = "";
+                buttonCreator = FindObjectOfType<DynamicButtonCreator>();
+                buttonCreator.DeleteAllButtons();
+                
+                meetingDetailsUI.SetActive(false);
+            }
+            if (mainSceneCanvas != null)
+            {
+                mainSceneCanvas.SetActive(false);
+            }
+            
         }
     }
 

@@ -25044,7 +25044,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839dec66bdca2634f8c124e763de898a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bed: {fileID: 1798409022}
+  wardrobe: {fileID: 440308185}
   table: {fileID: 505932504}
+  door: {fileID: 1341115595}
+  player: {fileID: 1871160644}
+  mainSceneCanvas: {fileID: 1805404822}
   logoutUI: {fileID: 590285967}
   userProfileStudentUI: {fileID: 779377154}
   userProfileOthersUI: {fileID: 1854740283}
@@ -25062,6 +25067,8 @@ MonoBehaviour:
   meetingScheduleUI: {fileID: 1056267627}
   meetingDetailsUI: {fileID: 64932978}
   newMeetingUI: {fileID: 1069216480}
+  buttonCreator: {fileID: 0}
+  meetingDetailsText: {fileID: 1555593233}
 --- !u!114 &849384652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25378,10 +25385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ddecb0e4b4b5b044824442e7bf482e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Table: {fileID: 505932504}
   meetingDetails: {fileID: 64932978}
   meetingSchedule: {fileID: 1056267627}
-  RealmController: {fileID: 0}
   buttonCreator: {fileID: 0}
   detailsText: {fileID: 1555593233}
   meetingDetailsStart: {fileID: 1153789643}
@@ -53648,7 +53653,7 @@ Transform:
   m_GameObject: {fileID: 1871160644}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -10.7, y: 7, z: -20}
+  m_LocalPosition: {x: -10, y: 7, z: -20}
   m_LocalScale: {x: 5, y: 6, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -64008,14 +64013,14 @@ SceneRoots:
   - {fileID: 849384649}
   - {fileID: 791499108}
   - {fileID: 654089453}
-  - {fileID: 1871160648}
-  - {fileID: 1805404826}
   - {fileID: 1798409026}
   - {fileID: 440308189}
+  - {fileID: 505932509}
+  - {fileID: 1341115600}
+  - {fileID: 1871160648}
+  - {fileID: 1805404826}
   - {fileID: 1274701649}
   - {fileID: 150010400}
   - {fileID: 537464558}
-  - {fileID: 505932509}
-  - {fileID: 1341115600}
   - {fileID: 1074671338}
   - {fileID: 1876377963}
