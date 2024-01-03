@@ -4756,13 +4756,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 150010400}
+  - component: {fileID: 150010401}
   m_Layer: 0
   m_Name: BuildingFirstPerson
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &150010400
 Transform:
   m_ObjectHideFlags: 0
@@ -4780,6 +4781,18 @@ Transform:
   - {fileID: 1892756626}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 540, z: 0}
+--- !u!114 &150010401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150010399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc240eaeca5fbfa4ca8bc7e32a3e6d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &153500710
 GameObject:
   m_ObjectHideFlags: 0
@@ -16115,6 +16128,7 @@ GameObject:
   - component: {fileID: 537464557}
   - component: {fileID: 537464556}
   - component: {fileID: 537464555}
+  - component: {fileID: 537464559}
   m_Layer: 0
   m_Name: Middlewall
   m_TagString: Untagged
@@ -16208,6 +16222,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &537464559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537464554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d65bea66a510074da48ec6bd4f4265e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &539342320
 GameObject:
   m_ObjectHideFlags: 0
@@ -23568,6 +23594,7 @@ GameObject:
   - component: {fileID: 791499108}
   - component: {fileID: 791499107}
   - component: {fileID: 791499106}
+  - component: {fileID: 791499109}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -23649,6 +23676,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 31, y: 0, z: 0}
+--- !u!114 &791499109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791499105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e7b54910b651644a4e6c1d1cc01933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &793508800
 GameObject:
   m_ObjectHideFlags: 0
@@ -25044,6 +25083,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839dec66bdca2634f8c124e763de898a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 791499107}
+  buildingFirstPerson: {fileID: 0}
+  middlewall: {fileID: 0}
   bed: {fileID: 1798409022}
   wardrobe: {fileID: 440308185}
   table: {fileID: 505932504}
@@ -25068,7 +25110,6 @@ MonoBehaviour:
   meetingDetailsUI: {fileID: 64932978}
   newMeetingUI: {fileID: 1069216480}
   meetingDetailsText: {fileID: 1555593233}
-  joinMeetingInput: {fileID: 506110605}
 --- !u!114 &849384652
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ using UnityEngine.UI;
 
 public class SceneInitialise : MonoBehaviour
 {
+    public Camera mainCamera;
+    public GameObject buildingFirstPerson, middlewall;
     public GameObject bed, wardrobe, table, door, player, mainSceneCanvas;
     public GameObject logoutUI, userProfileStudentUI, userProfileOthersUI, mainMenuStudentUI, mainMenuStaffUI, mainMenuProfUI;
     public GameObject resourceReservationProfUI, resourceReservationStaffUI, dateDetailsProfUI, dateDetailsStaffUI;
@@ -73,30 +75,15 @@ public class SceneInitialise : MonoBehaviour
     {
         if (scene.name == "Main Scene")
         {
-            if (mainSceneCanvas != null)
-            {
-                mainSceneCanvas.SetActive(true);
-            }
-            if (player != null)
-            {
-                player.SetActive(true);
-            }
-            if (bed != null)
-            {
-                bed.SetActive(true);
-            }
-            if (wardrobe != null)
-            {
-                wardrobe.SetActive(true);
-            }
-            if (table != null)
-            {
-                table.SetActive(true);
-            }
-            if (door != null)
-            {
-                door.SetActive(true);
-            }
+            if (mainSceneCanvas != null) mainSceneCanvas.SetActive(true);
+            if (player != null) player.SetActive(true);
+            if (bed != null) bed.SetActive(true);
+            if (wardrobe != null) wardrobe.SetActive(true);
+            if (table != null) table.SetActive(true);
+            if (door != null) door.SetActive(true);
+            if (mainCamera != null) mainCamera.enabled = true;
+            if (buildingFirstPerson != null) buildingFirstPerson.SetActive(false);
+            if (middlewall != null) middlewall.SetActive(true);
         }
         else if (scene.name != "Main Scene")
         {
@@ -107,22 +94,10 @@ public class SceneInitialise : MonoBehaviour
                 player.transform.position = new Vector3(-10, 7, -20);
                 player.SetActive(false);
             }
-            if (bed != null)
-            {
-                bed.SetActive(false);
-            }
-            if (wardrobe != null)
-            {
-                wardrobe.SetActive(false);
-            }
-            if (table != null)
-            {
-                table.SetActive(false);
-            }
-            if (door != null)
-            {
-                door.SetActive(false);
-            }
+            if (bed != null) bed.SetActive(false);
+            if (wardrobe != null) wardrobe.SetActive(false);
+            if (table != null) table.SetActive(false);
+            if (door != null) door.SetActive(false);
             if (meetingDetailsUI != null)
             {
                 meetingDetailsText.text = "";
@@ -130,14 +105,11 @@ public class SceneInitialise : MonoBehaviour
                 buttonCreator.DeleteAllButtons();
                 meetingDetailsUI.SetActive(false);
             }
-            if (joinMeetingUI != null)
-            {
-                joinMeetingUI.SetActive(false);
-            }
-            if (mainSceneCanvas != null)
-            {
-                mainSceneCanvas.SetActive(false);
-            }
+            if (joinMeetingUI != null) joinMeetingUI.SetActive(false);
+            if (mainSceneCanvas != null) mainSceneCanvas.SetActive(false);
+            if (mainCamera != null) mainCamera.enabled = false;
+            if (buildingFirstPerson != null) buildingFirstPerson.SetActive(false);
+            if (middlewall != null) middlewall.SetActive(false);
             
         }
     }
