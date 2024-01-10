@@ -65,6 +65,8 @@ public class MeetingDetailsUI : MonoBehaviour
      */
     void StartMeetingSuccess(UpdateUserDataResult result)
     {
+        CameraSwitch cameraSwitch = FindObjectOfType<CameraSwitch>();
+        cameraSwitch.SwitchToThirdPerson();
         SceneManager.LoadScene("ClassRoom Scene");
     }
 

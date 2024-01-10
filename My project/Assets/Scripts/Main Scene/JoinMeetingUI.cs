@@ -57,6 +57,8 @@ public class JoinMeetingUI : MonoBehaviour
     {
         Debug.Log("JoinMeetingUI UpdateJoinCodeSuccess");
         joinCodeInput.text = "";
+        CameraSwitch cameraSwitch = FindObjectOfType<CameraSwitch>();
+        cameraSwitch.SwitchToThirdPerson();
         SceneManager.LoadScene("ClassRoom Scene");
     }
 

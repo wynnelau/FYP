@@ -62,7 +62,7 @@ public class CameraSwitch : MonoBehaviour
      * Output: Enable thirdPersonCamera, set middleWall as active and move user accordingly
      *         Disable firstPersonCamera and set buildingFirstPerson as inactive
      */
-    void SwitchToThirdPerson()
+    public void SwitchToThirdPerson()
     {
         Debug.Log("CameraSwitch SwitchToThirdPerson");
         firstPersonCamera.enabled = false;
