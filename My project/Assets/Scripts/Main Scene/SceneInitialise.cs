@@ -76,7 +76,12 @@ public class SceneInitialise : MonoBehaviour
         if (scene.name == "Main Scene")
         {
             if (mainSceneCanvas != null) mainSceneCanvas.SetActive(true);
-            if (player != null) player.SetActive(true);
+            if (player != null)
+            {
+                PlayerControls playerControls = FindObjectOfType<PlayerControls>();
+                playerControls.enabled = true;
+                player.SetActive(true);
+            }
             if (bed != null) bed.SetActive(true);
             if (wardrobe != null) wardrobe.SetActive(true);
             if (table != null) table.SetActive(true);
@@ -90,7 +95,7 @@ public class SceneInitialise : MonoBehaviour
             if (player != null)
             {
                 PlayerControls playerControls = FindObjectOfType<PlayerControls>();
-                playerControls.enabled = true;
+                playerControls.enabled = false;
                 player.transform.position = new Vector3(-10, 7, -20);
                 player.SetActive(false);
             }

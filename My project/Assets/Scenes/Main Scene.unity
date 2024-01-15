@@ -25084,8 +25084,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 791499107}
-  buildingFirstPerson: {fileID: 0}
-  middlewall: {fileID: 0}
+  buildingFirstPerson: {fileID: 150010399}
+  middlewall: {fileID: 537464554}
   bed: {fileID: 1798409022}
   wardrobe: {fileID: 440308185}
   table: {fileID: 505932504}
@@ -25382,6 +25382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joinMeeting: {fileID: 1819792554}
+  middleWall: {fileID: 537464554}
   player: {fileID: 1871160649}
   joinCodeInput: {fileID: 920782329}
 --- !u!114 &849384665
@@ -25430,6 +25431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meetingDetails: {fileID: 64932978}
   meetingSchedule: {fileID: 1056267627}
+  middleWall: {fileID: 537464554}
   buttonCreator: {fileID: 0}
   RealmController: {fileID: 0}
   meetingScheduleUI: {fileID: 0}

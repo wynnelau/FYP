@@ -23,6 +23,7 @@ public class Relay : MonoBehaviour
     public Text displayJoinCode;
     public GameObject joinCodeError;
     public RealmControllerClassRoom RealmControllerClassRoom;
+    public CameraManager cameraManager;
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -98,12 +99,14 @@ public class Relay : MonoBehaviour
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(40);
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            displayJoinCode.text = "Join code: " + joinCode;
+            displayJoinCode.text = "Join code: \n" + joinCode;
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
             RealmControllerClassRoom = FindObjectOfType<RealmControllerClassRoom>();
             RealmControllerClassRoom.UpdateMeetingDetails(meetingId, joinCode);
+            cameraManager = FindObjectOfType<CameraManager>();
+            cameraManager.SwitchToFirstPerson();
         }
         catch (RelayServiceException e)
         {
@@ -126,6 +129,8 @@ public class Relay : MonoBehaviour
             RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartClient();
+            cameraManager = FindObjectOfType<CameraManager>();
+            cameraManager.SwitchToFirstPerson();
         }
         catch (RelayServiceException e)
         {
