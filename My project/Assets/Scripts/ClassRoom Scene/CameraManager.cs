@@ -17,12 +17,12 @@ public class CameraManager : NetworkBehaviour
      */
     public void SwitchToFirstPerson()
     {
+        Debug.Log("CameraManager enter");
         if (!IsOwner) return;
-
-        if (firstPersonCamera.transform.IsChildOf(transform))
-        {
-            firstPersonCamera.enabled = true;
-        }
+        Debug.Log("CameraManager cameraEnabled");
+        firstPersonCamera.enabled = true;
+            
+        
     }
     
 }
