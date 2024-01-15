@@ -36,6 +36,10 @@ public class JoinMeetingUI : MonoBehaviour
      */
     public void JoinMeeting()
     {
+        if (joinCodeInput.text == "")
+        {
+            return;
+        }
         Debug.Log("JoinMeetingUI JoinMeeting");
         var request = new UpdateUserDataRequest
         {

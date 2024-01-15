@@ -10,13 +10,18 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-// Tutorial used: https://www.youtube.com/watch?v=msPNJ2cxWfw
+/*
+ * Location: ClassRoom Scene/ NetworkManager
+ * Purpose: Manage the start meeting and join meeting
+ * Tutorial used: https://www.youtube.com/watch?v=msPNJ2cxWfw
+ */
+
 public class Relay : MonoBehaviour
 {
     public Text displayJoinCode;
+    public GameObject joinCodeError;
     public RealmControllerClassRoom RealmControllerClassRoom;
     private async void Start()
     {
@@ -125,7 +130,7 @@ public class Relay : MonoBehaviour
         catch (RelayServiceException e)
         {
             Debug.LogError(e);
-            displayJoinCode.text = "Error. Please try again.";
+            joinCodeError.SetActive(true);
         }
     }
 
