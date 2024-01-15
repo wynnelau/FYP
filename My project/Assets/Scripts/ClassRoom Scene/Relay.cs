@@ -24,6 +24,7 @@ public class Relay : MonoBehaviour
     public GameObject joinCodeError;
     public RealmControllerClassRoom RealmControllerClassRoom;
     public CameraManager cameraManager;
+    private string email;
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -68,12 +69,14 @@ public class Relay : MonoBehaviour
         {
             Debug.Log("Relay EnterMeetingRoomSuccess Host");
             string meetingId = result.Data["MeetingID"].Value;
+            email = result.Data["Email"].Value;
             CreateRelay(meetingId);
         }
         else if (result.Data["MeetingStatus"].Value == "Participant")
         {
             Debug.Log("Relay EnterMeetingRoomSuccess Participant");
             string joinCodeParticipant = result.Data["JoinCode"].Value;
+            email = result.Data["Email"].Value;
             JoinRelay(joinCodeParticipant);
         }
     }
@@ -103,8 +106,10 @@ public class Relay : MonoBehaviour
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
+
             RealmControllerClassRoom = FindObjectOfType<RealmControllerClassRoom>();
             RealmControllerClassRoom.UpdateMeetingDetails(meetingId, joinCode);
+            RealmControllerClassRoom.UpdateMeetingAttendeesHost(meetingId, email);
             cameraManager = FindObjectOfType<CameraManager>();
             cameraManager.SwitchToFirstPerson();
         }
@@ -129,6 +134,11 @@ public class Relay : MonoBehaviour
             RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartClient();
+
+            RealmControllerClassRoom = FindObjectOfType<RealmControllerClassRoom>();
+            string meetingId = RealmControllerClassRoom.GetMeetingDetails(joinCode);
+            RealmControllerClassRoom.UpdateMeetingAttendeesParticipant(meetingId, email);
+            //Issue here
             cameraManager = FindObjectOfType<CameraManager>();
             cameraManager.SwitchToFirstPerson();
         }

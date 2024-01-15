@@ -267,8 +267,17 @@ public class DynamicButtonCreator : MonoBehaviour
                 }
                 else if (buttonComponent.GetComponent<Image>().color == lightBlueColor)
                 {
-                    meetingDetailsStart.GetComponent<Image>().color = Color.white;
-                    meetingDetailsDelete.GetComponent<Image>().color = Color.white;
+                    if (meetingDetails.JoinCode == "Meeting ended")
+                    {
+                        meetingDetailsStart.GetComponent<Image>().color = Color.grey;
+                        meetingDetailsDelete.GetComponent<Image>().color = Color.grey;
+                    }
+                    else
+                    {
+                        meetingDetailsStart.GetComponent<Image>().color = Color.white;
+                        meetingDetailsDelete.GetComponent<Image>().color = Color.white;
+                    }
+                    
                 }
 
 
