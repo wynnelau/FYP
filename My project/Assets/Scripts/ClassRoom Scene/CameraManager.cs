@@ -1,11 +1,12 @@
 using UnityEngine;
+using Unity.Netcode;
 
 /*
  * Location: ClassRoom Scene/ Player prefab
  * Purpose: Switch to first person camera
  */
 
-public class CameraManager : MonoBehaviour
+public class CameraManager : NetworkBehaviour
 {
     public Camera firstPersonCamera;
 
@@ -16,8 +17,12 @@ public class CameraManager : MonoBehaviour
      */
     public void SwitchToFirstPerson()
     {
-        Debug.Log("CameraManager SwitchToFirstPerson");
-        firstPersonCamera.enabled = true;
+        if (!IsOwner) return;
+
+        if (firstPersonCamera.transform.IsChildOf(transform))
+        {
+            firstPersonCamera.enabled = true;
+        }
     }
     
 }
