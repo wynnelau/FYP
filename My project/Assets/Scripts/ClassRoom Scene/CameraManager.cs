@@ -12,10 +12,10 @@ public class CameraManager : NetworkBehaviour
 
     /*
      * Purpose: Enables the firstPersonCamera 
-     * Input: Called by JoinRelay and CreateRelay
+     * Input: NA
      * Output: Enable firstPersonCamera
      */
-    public void SwitchToFirstPerson()
+    void Start()
     {
         Debug.Log("CameraManager enter");
         if (!IsOwner) return;

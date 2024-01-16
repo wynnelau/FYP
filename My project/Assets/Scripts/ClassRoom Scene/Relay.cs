@@ -23,7 +23,6 @@ public class Relay : MonoBehaviour
     public Text displayJoinCode;
     public GameObject joinCodeError;
     public RealmControllerClassRoom RealmControllerClassRoom;
-    public CameraManager cameraManager;
     private string email;
     private async void Start()
     {
@@ -110,8 +109,6 @@ public class Relay : MonoBehaviour
             RealmControllerClassRoom = FindObjectOfType<RealmControllerClassRoom>();
             RealmControllerClassRoom.UpdateMeetingDetails(meetingId, joinCode);
             RealmControllerClassRoom.UpdateMeetingAttendeesHost(meetingId, email);
-            cameraManager = FindObjectOfType<CameraManager>();
-            cameraManager.SwitchToFirstPerson();
         }
         catch (RelayServiceException e)
         {
@@ -138,9 +135,6 @@ public class Relay : MonoBehaviour
             RealmControllerClassRoom = FindObjectOfType<RealmControllerClassRoom>();
             string meetingId = RealmControllerClassRoom.GetMeetingDetails(joinCode);
             RealmControllerClassRoom.UpdateMeetingAttendeesParticipant(meetingId, email);
-            //Issue here
-            cameraManager = FindObjectOfType<CameraManager>();
-            cameraManager.SwitchToFirstPerson();
         }
         catch (RelayServiceException e)
         {
