@@ -184,7 +184,8 @@ public class RealmControllerClassRoom : MonoBehaviour
         {
             realm.Write(() =>
             {
-                MeetingAttendees result = realm.Find<MeetingAttendees>(ObjectId.Parse(meetingId));
+                MeetingAttendees result = realm.All<MeetingAttendees>()
+                .LastOrDefault(item => item.MeetingId == meetingId);
                 result.AddMeetingAttendees(participantEmail);
             });
 

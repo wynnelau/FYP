@@ -9,6 +9,7 @@ using Unity.Netcode;
 public class CameraManager : NetworkBehaviour
 {
     public Camera firstPersonCamera;
+    public AudioListener audioListener;
 
     /*
      * Purpose: Enables the firstPersonCamera 
@@ -21,8 +22,9 @@ public class CameraManager : NetworkBehaviour
         if (!IsOwner) return;
         Debug.Log("CameraManager cameraEnabled");
         firstPersonCamera.enabled = true;
-            
-        
+        audioListener.enabled = true;
+
+
     }
     
 }

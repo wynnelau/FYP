@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPersonCamera: {fileID: 2297905000627854277}
+  audioListener: {fileID: 8119625027354861448}
 --- !u!1 &2645729707794968163
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +309,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2645729707794968163}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &5073877962191278678
 GameObject:
   m_ObjectHideFlags: 0
