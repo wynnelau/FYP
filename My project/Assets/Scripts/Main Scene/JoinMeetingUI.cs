@@ -45,7 +45,7 @@ public class JoinMeetingUI : MonoBehaviour
         {
             Data = new Dictionary<string, string>
                     {
-                        {"JoinCode", joinCodeInput.text},
+                        {"JoinCode", joinCodeInput.text.ToUpper()},
                         {"MeetingStatus", "Participant" }
                     }
         };

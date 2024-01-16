@@ -185,7 +185,7 @@ public class RealmControllerClassRoom : MonoBehaviour
             realm.Write(() =>
             {
                 MeetingAttendees result = realm.All<MeetingAttendees>()
-                .LastOrDefault(item => item.MeetingId == meetingId);
+                    .LastOrDefault(item => item.MeetingId == meetingId);
                 result.AddMeetingAttendees(participantEmail);
             });
 
@@ -210,7 +210,7 @@ public class RealmControllerClassRoom : MonoBehaviour
         try
         {
             Meetings result = realm.All<Meetings>()
-                .LastOrDefault();
+                .LastOrDefault(item => item.JoinCode == joinCode);
             return result;
         }
         catch (Exception ex)
