@@ -2694,9 +2694,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 849384659}
-        m_TargetAssemblyTypeName: RealmController, Assembly-CSharp
-        m_MethodName: RemoveAvailable
+      - m_Target: {fileID: 849384658}
+        m_TargetAssemblyTypeName: ManageSlotsUI, Assembly-CSharp
+        m_MethodName: RemoveAvailableSlots
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2880,7 +2880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &64932979
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24440,9 +24440,9 @@ RectTransform:
   m_Father: {fileID: 774040386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &817276465
 MonoBehaviour:
@@ -25266,6 +25266,19 @@ MonoBehaviour:
   resourceReservationStaff: {fileID: 571577654}
   manageSlotsStaff: {fileID: 1293754482}
   RealmController: {fileID: 0}
+  location: {fileID: 72552734}
+  fromDate: {fileID: 1636835733}
+  fromMonth: {fileID: 1538964360}
+  fromYear: {fileID: 1275084776}
+  toDate: {fileID: 1407156051}
+  toMonth: {fileID: 1042241664}
+  toYear: {fileID: 100152808}
+  fromHr: {fileID: 1353748639}
+  fromMin: {fileID: 448969011}
+  fromAm: {fileID: 1836506126}
+  toHr: {fileID: 1604611875}
+  toMin: {fileID: 1918409163}
+  toAm: {fileID: 2028168680}
   errorText: {fileID: 1176398319}
 --- !u!114 &849384659
 MonoBehaviour:
@@ -25280,20 +25293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonCreator: {fileID: 0}
-  location: {fileID: 72552734}
-  fromDate: {fileID: 1636835733}
-  fromMonth: {fileID: 1538964360}
-  fromYear: {fileID: 1275084776}
-  toDate: {fileID: 1407156051}
-  toMonth: {fileID: 1042241664}
-  toYear: {fileID: 100152808}
-  fromHr: {fileID: 1353748639}
-  fromMin: {fileID: 448969011}
-  fromAm: {fileID: 1836506126}
-  toHr: {fileID: 1604611875}
-  toMin: {fileID: 1918409163}
-  toAm: {fileID: 2028168680}
-  errorManageText: {fileID: 1176398319}
+  manageSlotsErrorText: {fileID: 1176398319}
   dateTextProf: {fileID: 1147474130}
   dateTextStaff: {fileID: 451059684}
   timeTextProf: {fileID: 1353084229}
@@ -25382,7 +25382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joinMeeting: {fileID: 1819792554}
-  middleWall: {fileID: 537464554}
   player: {fileID: 1871160649}
   joinCodeInput: {fileID: 920782329}
 --- !u!114 &849384665
@@ -25431,7 +25430,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meetingDetails: {fileID: 64932978}
   meetingSchedule: {fileID: 1056267627}
-  middleWall: {fileID: 537464554}
   buttonCreator: {fileID: 0}
   RealmController: {fileID: 0}
   meetingScheduleUI: {fileID: 0}
@@ -33725,7 +33723,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.000021450258, y: -0.0000076293945}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -202.6584, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1144156255
 MonoBehaviour:
@@ -35291,7 +35289,7 @@ RectTransform:
   m_Father: {fileID: 113449258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -38514,7 +38512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1293754483
 RectTransform:
   m_ObjectHideFlags: 0

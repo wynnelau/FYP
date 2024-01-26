@@ -22,10 +22,8 @@ public class RealmController : MonoBehaviour
     private bool isRealmInitialized = false;
     public DynamicButtonCreator buttonCreator;
 
-    // Variables from "manageSlots" UI for managing the Available slots
-    public InputField location, fromDate, fromMonth, fromYear, toDate, toMonth, toYear;
-    public Dropdown fromHr, fromMin, fromAm, toHr, toMin, toAm;
-    public Text errorManageText;
+    // ErrorText from "manageSlots" UI
+    public Text manageSlotsErrorText;
 
     // To get the date from dateDetails/ timeDetails
     public Text dateTextProf, dateTextStaff, timeTextProf, timeTextStaff;
@@ -102,7 +100,7 @@ public class RealmController : MonoBehaviour
      * Output: return if there is an error
      *         else schedule a coroutine to execute Realm write operation on the main thread to add Available
      */
-    public void AddAvailable()
+    public void AddAvailable(string location, string fromDate, string fromMonth, string fromYear, string toDate, string toMonth, string toYear, int fromHr, int fromMin, int fromAm, int toHr, int toMin, int toAm)
     {
         if (!isRealmInitialized)
         {
@@ -110,15 +108,15 @@ public class RealmController : MonoBehaviour
             return;
         }
 
-        if (location.text == "" || fromDate.text == "" || fromMonth.text == "" || fromYear.text == "" || toDate.text == "" || toMonth.text == "" || toYear.text == "")
+        if (location == "" || fromDate == "" || fromMonth == "" || fromYear == "" || toDate == "" || toMonth == "" || toYear == "")
         {
-            errorManageText.text = "Unable to add slots. Missing input(s).";
+            manageSlotsErrorText.text = "Unable to add slots. Missing input(s).";
             return;
         }
 
-        if (DatetimeError())
+        if (DatetimeError(fromDate, fromMonth, fromYear, toDate, toMonth, toYear, fromHr, fromMin, fromAm, toHr, toMin, toAm))
         {
-            errorManageText.text = "Unable to add slots. Please make sure fromdate/time is earlier than todate/time and that they are a valid date.";
+            manageSlotsErrorText.text = "Unable to add slots. Please make sure fromdate/time is earlier than todate/time and that they are a valid date.";
             Debug.Log("RealmController AddAvailable DateTimeError");
             return;
         }
@@ -126,9 +124,9 @@ public class RealmController : MonoBehaviour
         Debug.Log("RealmController AddAvailable AddingAvailableToRealm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
-        StartCoroutine(PerformRealmWriteAddAvailable());
+        StartCoroutine(PerformRealmWriteAddAvailable(location, fromDate,fromMonth, fromYear, toDate, toMonth, toYear, fromHr, fromMin, fromAm, toHr, toMin, toAm));
 
-        errorManageText.text = "Adding slots complete";
+        manageSlotsErrorText.text = "Adding slots complete";
     }
 
     /*
@@ -194,7 +192,7 @@ public class RealmController : MonoBehaviour
      * Output: return if there is an error
      *         else schedule a coroutine to execute Realm write operation on the main thread to remove Available
      */
-    public void RemoveAvailable()
+    public void RemoveAvailable(string location, string fromDate, string fromMonth, string fromYear, string toDate, string toMonth, string toYear, int fromHr, int fromMin, int fromAm, int toHr, int toMin, int toAm)
     {
         if (!isRealmInitialized)
         {
@@ -202,15 +200,15 @@ public class RealmController : MonoBehaviour
             return;
         }
 
-        if (location.text == "" || fromDate.text == "" || fromMonth.text == "" || fromYear.text == "" || toDate.text == "" || toMonth.text == "" || toYear.text == "")
+        if (location == "" || fromDate == "" || fromMonth == "" || fromYear == "" || toDate == "" || toMonth == "" || toYear == "")
         {
-            errorManageText.text = "Unable to remove slots. Missing inputs.";
+            manageSlotsErrorText.text = "Unable to remove slots. Missing inputs.";
             return;
         }
 
-        if (DatetimeError())
+        if (DatetimeError(fromDate, fromMonth, fromYear, toDate, toMonth, toYear, fromHr, fromMin, fromAm, toHr, toMin, toAm))
         {
-            errorManageText.text = "Unable to remove slots. Please make sure fromdate/time is earlier than todate/time";
+            manageSlotsErrorText.text = "Unable to remove slots. Please make sure fromdate/time is earlier than todate/time";
             Debug.Log("RealmController RemoveAvailable DateTimeError");
             return;
         }
@@ -218,9 +216,9 @@ public class RealmController : MonoBehaviour
         Debug.Log("RealmController RemoveAvailable RemovingAvailableFromRealm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
-        StartCoroutine(PerformRealmWriteRemoveAvailable());
+        StartCoroutine(PerformRealmWriteRemoveAvailable(location, fromDate, fromMonth, fromYear, toDate, toMonth, toYear, fromHr, fromMin, fromAm, toHr, toMin, toAm));
 
-        errorManageText.text = "Removing slots complete";
+        manageSlotsErrorText.text = "Removing slots complete";
     }
 
     /*
@@ -377,32 +375,31 @@ public class RealmController : MonoBehaviour
      * Input: Called by AddAvailable()
      * Output: Add the available slots to the database
      */
-    private IEnumerator PerformRealmWriteAddAvailable()
+    private IEnumerator PerformRealmWriteAddAvailable(string location, string fromDate, string fromMonth, string fromYear, string toDate, string toMonth, string toYear, int fromHr, int fromMin, int fromAm, int toHr, int toMin, int toAm)
     {
-        string loc = location.text;
-        int date = int.Parse(fromDate.text); 
-        int month = int.Parse(fromMonth.text);
-        int year = int.Parse(fromYear.text);
-        int hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-        int min = fromMin.value == 0 ? 0 : 30;
+        int date = int.Parse(fromDate); 
+        int month = int.Parse(fromMonth);
+        int year = int.Parse(fromYear);
+        int hr = GetHr(fromAm, fromHr, fromMin, false);
+        int min = fromMin == 0 ? 0 : 30;
         int noOfDays = DateTime.DaysInMonth(2000+year, month);
         
-        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
+        while (date != int.Parse(toDate) || month != int.Parse(toMonth) || year != int.Parse(toYear) || hr != GetHr(toAm, toHr, toMin, true) || min != (toMin == 0 ? 0 : 30))
         {
-            hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-            min = fromMin.value == 0 ? 0 : 30;
+            hr = GetHr(fromAm, fromHr, fromMin, false);
+            min = fromMin == 0 ? 0 : 30;
 
-            while (hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30) )
+            while (hr != GetHr(toAm, toHr, toMin, true) || min != (toMin == 0 ? 0 : 30) )
             {
                 // This code block will run on the main/UI thread
                 try
                 {
                     realm.Write(() =>
                     {
-                        var results = realm.All<Available>().FirstOrDefault(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min);
+                        var results = realm.All<Available>().FirstOrDefault(item => item.Location == location && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min);
                         if (results == null) 
                         {
-                            realm.Add(new Available(loc, date, month, year, hr, min));
+                            realm.Add(new Available(location, date, month, year, hr, min));
                         }
                         
                     });
@@ -423,7 +420,7 @@ public class RealmController : MonoBehaviour
                 }
             }
             
-            if (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text))
+            if (date != int.Parse(toDate) || month != int.Parse(toMonth) || year != int.Parse(toYear))
             {
                 if (date < noOfDays)
                 {
@@ -442,8 +439,8 @@ public class RealmController : MonoBehaviour
                     year++;
                     noOfDays = DateTime.DaysInMonth(2000 + year, month);
                 }
-                hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-                min = fromMin.value == 0 ? 0 : 30;
+                hr = GetHr(fromAm, fromHr, fromMin, false);
+                min = fromMin == 0 ? 0 : 30;
             }
 
         }
@@ -523,33 +520,32 @@ public class RealmController : MonoBehaviour
      * Input: Called by RemoveAvailable()
      * Output: Remove the available slots to the database
      */
-    private IEnumerator PerformRealmWriteRemoveAvailable()
+    private IEnumerator PerformRealmWriteRemoveAvailable(string location, string fromDate, string fromMonth, string fromYear, string toDate, string toMonth, string toYear, int fromHr, int fromMin, int fromAm, int toHr, int toMin, int toAm)
     {
-        string loc = location.text;
-        int date = int.Parse(fromDate.text);
-        int month = int.Parse(fromMonth.text);
-        int year = int.Parse(fromYear.text);
-        int hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-        int min = fromMin.value == 0 ? 0 : 30;
+        int date = int.Parse(fromDate);
+        int month = int.Parse(fromMonth);
+        int year = int.Parse(fromYear);
+        int hr = GetHr(fromAm, fromHr, fromMin, false);
+        int min = fromMin == 0 ? 0 : 30;
         int noOfDays = DateTime.DaysInMonth(2000 + year, month);
 
-        while (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text) || hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
+        while (date != int.Parse(toDate) || month != int.Parse(toMonth) || year != int.Parse(toYear) || hr != GetHr(toAm, toHr, toMin, true) || min != (toMin == 0 ? 0 : 30))
         {
-            hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-            min = fromMin.value == 0 ? 0 : 30;
+            hr = GetHr(fromAm, fromHr, fromMin, false);
+            min = fromMin == 0 ? 0 : 30;
 
-            while (hr != GetHr(toAm.value, toHr.value, toMin.value, true) || min != (toMin.value == 0 ? 0 : 30))
+            while (hr != GetHr(toAm, toHr, toMin, true) || min != (toMin == 0 ? 0 : 30))
             {
                 try
                 {
 
-                    var reservation = realm.All<Reserved>().FirstOrDefault(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min);
+                    var reservation = realm.All<Reserved>().FirstOrDefault(item => item.Location == location && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min);
                     
                     if (reservation == null)
                     {
                         realm.Write(() =>
                         {
-                            var results = realm.All<Available>().Where(item => item.Location == loc && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min).ToList();
+                            var results = realm.All<Available>().Where(item => item.Location == location && item.Date == date && item.Month == month && item.Year == year && item.Hour == hr && item.Min == min).ToList();
                             foreach (var item in results)
                             {
                                 Debug.Log("Remove Available: " + item.Hour + ":" + item.Min);
@@ -579,7 +575,7 @@ public class RealmController : MonoBehaviour
                 }
             }
 
-            if (date != int.Parse(toDate.text) || month != int.Parse(toMonth.text) || year != int.Parse(toYear.text))
+            if (date != int.Parse(toDate) || month != int.Parse(toMonth) || year != int.Parse(toYear))
             {
                 if (date < noOfDays)
                 {
@@ -598,8 +594,8 @@ public class RealmController : MonoBehaviour
                     year++;
                     noOfDays = DateTime.DaysInMonth(2000 + year, month);
                 }
-                hr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-                min = fromMin.value == 0 ? 0 : 30;
+                hr = GetHr(fromAm, fromHr, fromMin, false);
+                min = fromMin == 0 ? 0 : 30;
             }
 
         }
@@ -854,12 +850,12 @@ public class RealmController : MonoBehaviour
      * Output: return true if there is an error
      *         else return false
      */
-    private bool DatetimeError()
+    private bool DatetimeError(string fromDate, string fromMonth, string fromYear, string toDate, string toMonth, string toYear, int fromHr, int fromMin, int fromAm, int toHr, int toMin, int toAm)
     {
         try
         {
-            DateTime from = new DateTime(2000 + int.Parse(fromYear.text), int.Parse(fromMonth.text), int.Parse(fromDate.text));
-            DateTime to = new DateTime(2000 + int.Parse(toYear.text), int.Parse(toMonth.text), int.Parse(toDate.text));
+            DateTime from = new DateTime(2000 + int.Parse(fromYear), int.Parse(fromMonth), int.Parse(fromDate));
+            DateTime to = new DateTime(2000 + int.Parse(toYear), int.Parse(toMonth), int.Parse(toDate));
             Debug.Log(from.ToString());
             Debug.Log(to.ToString());
             if (DateTime.Compare(from, to) > 0)
@@ -879,14 +875,13 @@ public class RealmController : MonoBehaviour
         catch (Exception ex)
         {
             Debug.Log(ex.ToString());
-            errorManageText.text = ex.ToString();
             return true;
         }
         
-        int fhr = GetHr(fromAm.value, fromHr.value, fromMin.value, false);
-        int fmin = fromMin.value == 0 ? 0 : 30;
-        int thr = GetHr(toAm.value, toHr.value, toMin.value, true);
-        int tmin = toMin.value == 0 ? 0 : 30;
+        int fhr = GetHr(fromAm, fromHr, fromMin, false);
+        int fmin = fromMin == 0 ? 0 : 30;
+        int thr = GetHr(toAm, toHr, toMin, true);
+        int tmin = toMin == 0 ? 0 : 30;
         if (fhr > thr)
         {
             Debug.Log("RealmController DateTimeError FromHrIsLater" + fhr + " " + thr);

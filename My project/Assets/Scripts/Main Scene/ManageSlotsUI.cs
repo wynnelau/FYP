@@ -9,6 +9,8 @@ public class ManageSlotsUI : MonoBehaviour
 {
     public GameObject resourceReservationStaff, manageSlotsStaff;
     public RealmController RealmController;
+    public InputField location, fromDate, fromMonth, fromYear, toDate, toMonth, toYear;
+    public Dropdown fromHr, fromMin, fromAm, toHr, toMin, toAm;
     public Text errorText;
 
     /*
@@ -37,7 +39,7 @@ public class ManageSlotsUI : MonoBehaviour
     {
         Debug.Log("ManageSlotsUI AddAvailableSlots");
         RealmController = FindObjectOfType<RealmController>();
-        RealmController.AddAvailable();
+        RealmController.AddAvailable(location.text, fromDate.text, fromMonth.text, fromYear.text, toDate.text, toMonth.text, toYear.text, fromHr.value, fromMin.value, fromAm.value, toHr.value, toMin.value, toAm.value);
     }
 
     /*
@@ -49,7 +51,7 @@ public class ManageSlotsUI : MonoBehaviour
     {
         Debug.Log("ManageSlotsUI RemoveAvailableSlots");
         RealmController = FindObjectOfType<RealmController>();
-        RealmController.RemoveAvailable();
+        RealmController.RemoveAvailable(location.text, fromDate.text, fromMonth.text, fromYear.text, toDate.text, toMonth.text, toYear.text, fromHr.value, fromMin.value, fromAm.value, toHr.value, toMin.value, toAm.value);
     }
 
 }
