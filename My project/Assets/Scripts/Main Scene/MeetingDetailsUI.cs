@@ -15,7 +15,7 @@ public class MeetingDetailsUI : MonoBehaviour
     public DynamicButtonCreator buttonCreator;
     public RealmController RealmController;
     public MeetingScheduleUI meetingScheduleUI;
-    public Text detailsText;
+    public Text detailsText, dateText;
     public Button meetingDetailsStart, meetingDetailsDelete;
 
     /*
@@ -117,7 +117,7 @@ public class MeetingDetailsUI : MonoBehaviour
         if (RealmController != null)
         {
             Debug.Log("MeetingDetailsUI RefreshMeetingDetails notNull");
-            var meetingList = RealmController.GetMeetings();
+            var meetingList = RealmController.GetMeetings(dateText.text);
             if (meetingList != null && meetingList.Count > 0)
             {
                 foreach (var meeting in meetingList)

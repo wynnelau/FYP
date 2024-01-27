@@ -25,16 +25,8 @@ public class RealmController : MonoBehaviour
     // ErrorText from "manageSlots" UI
     public Text manageSlotsErrorText;
 
-    // To get the date from dateDetails/ timeDetails
-    public Text dateTextProf, dateTextStaff, timeTextProf, timeTextStaff;
-
-    // Variables from "newMeeting" UI for managing Meeting slots
-    public InputField meetingDate, meetingMonth, meetingYear, meetingDuration, meetingDescription, meetingHr, meetingMin;
-    public Dropdown meetingAm;
-    public Text meetingErrorText;
-
-    // To get the date from MeetingDetailsUI
-    public Text dateTextMeeting;
+    // ErrorText from "newMeeting" UI
+    public Text newMeetingErrorText;
 
     /*
      * Purpose: Initialise an instance of RealmController and make sure it persists across scene changes
@@ -159,21 +151,21 @@ public class RealmController : MonoBehaviour
      * Output: return if there is an error
      *         else schedule a coroutine to execute Realm write operation on the main thread to add Meetings
      */
-    public void AddMeeting(List<string> emailList)
+    public void AddMeeting(List<string> emailList, string meetingDate, string meetingMonth, string meetingYear, string meetingDuration, string meetingDescription, string meetingHr, string meetingMin, int meetingAm)
     {
         if (!isRealmInitialized)
         {
             Debug.Log("RealmController AddMeeting RealmNotInitialised");
             return;
         }
-        if (meetingDate.text == "" || meetingMonth.text == "" || meetingYear.text == "" || meetingDuration.text == "" || meetingDescription.text == "" || meetingHr.text == "" || meetingMin.text == "")
+        if (meetingDate== "" || meetingMonth == "" || meetingYear == "" || meetingDuration == "" || meetingDescription == "" || meetingHr == "" || meetingMin == "")
         {
-            meetingErrorText.text = "Unable to create meeting. Missing input(s).";
+            newMeetingErrorText.text = "Unable to create meeting. Missing input(s).";
             return;
         }
-        if (MeetingError())
+        if (MeetingError(meetingDate, meetingMonth, meetingYear, meetingHr, meetingMin))
         {
-            meetingErrorText.text = "Unable to create meeting. Please make sure date and start time is valid.";
+            newMeetingErrorText.text = "Unable to create meeting. Please make sure date and start time is valid.";
             Debug.Log("RealmController AddMeeting MeetingError");
             return;
         }
@@ -181,9 +173,9 @@ public class RealmController : MonoBehaviour
         Debug.Log("RealmController AddMeeting AddingAvailableToRealm");
 
         // Schedule a coroutine to execute Realm write operation on the main thread
-        StartCoroutine(PerformRealmWriteAddMeeting(emailList));
+        StartCoroutine(PerformRealmWriteAddMeeting(emailList, meetingDate, meetingMonth, meetingYear, meetingDuration, meetingDescription, meetingHr, meetingMin, meetingAm));
 
-        meetingErrorText.text = "Meeting created";
+        newMeetingErrorText.text = "Meeting created";
     }
 
     /*
@@ -270,14 +262,14 @@ public class RealmController : MonoBehaviour
      *        Called by TimeDetailsUI using closeTimeDetails() when "closeTimeDetails" button is clicked
      * Output: Call PerformRealmWriteRetrieveAvailable and returns ordered string list of locations
      */
-    public List<string> GetLocations()
+    public List<string> GetLocations(string date)
     {
         if (!isRealmInitialized)
         {
             Debug.Log("RealmController GetLocations RealmNotInitialized");
             return null;
         }
-        var queryResults = PerformRealmWriteRetrieveAvailable();
+        var queryResults = PerformRealmWriteRetrieveAvailable(date);
         var locationList = queryResults
             .OrderBy(item => item.Location)
             .Select(item => item.Location)
@@ -293,14 +285,14 @@ public class RealmController : MonoBehaviour
      *        Called by TimeDetailsUI using RefreshTimeDetails()
      * Output: Call PerformRealmWriteRetrieveAvailable and returns ordered string list of timings
      */
-    public List<string> GetTimings(string location)
+    public List<string> GetTimings(string location, string date)
     {
         if (!isRealmInitialized)
         {
             Debug.Log("RealmController GetReservations RealmNotInitialized");
             return null;
         }
-        var queryResults = PerformRealmWriteRetrieveAvailable();
+        var queryResults = PerformRealmWriteRetrieveAvailable(date);
         var timingList = queryResults
             .Where(item => item.Location == location)
             .OrderBy(item => item.Hour)
@@ -336,14 +328,14 @@ public class RealmController : MonoBehaviour
      *         return null if there is an error
      *         else return an ordered list of Meetings
      */
-    public List<Meetings> GetMeetings()
+    public List<Meetings> GetMeetings(string date)
     {
         if (!isRealmInitialized)
         {
             Debug.Log("RealmController GetMeetings RealmNotInitialized");
             return null;
         }
-        var queryResults = PerformRealmWriteRetrieveMeetings();
+        var queryResults = PerformRealmWriteRetrieveMeetings(date);
         var meetingList = queryResults
             .OrderBy(item => item.StartTimeHr)
             .ThenBy(item => item.StartTimeMin)
@@ -487,14 +479,12 @@ public class RealmController : MonoBehaviour
      * Input: Called by AddMeeting()
      * Output: Add the meeting scheduled to the database
      */
-    private IEnumerator PerformRealmWriteAddMeeting(List<string> emailList)
+    private IEnumerator PerformRealmWriteAddMeeting(List<string> emailList, string meetingDate, string meetingMonth, string meetingYear, string meetingDuration, string meetingDescription, string meetingHr, string meetingMin, int meetingAm)
     {
-        string date = meetingDate.text + "/" + meetingMonth.text + "/20" + meetingYear.text;
-        string description = meetingDescription.text;
-        string duration = meetingDuration.text;
+        string date = meetingDate + "/" + meetingMonth + "/20" + meetingYear;
         string joinCode = "";
-        int timeHr = meetingAm.value == 1 ? (int.Parse(meetingHr.text) == 12 ? int.Parse(meetingHr.text) : int.Parse(meetingHr.text) + 12) : (int.Parse(meetingHr.text) == 12 ? int.Parse(meetingHr.text) - 12 : int.Parse(meetingHr.text));
-        int timeMin = int.Parse(meetingMin.text);
+        int timeHr = meetingAm == 1 ? (int.Parse(meetingHr) == 12 ? int.Parse(meetingHr) : int.Parse(meetingHr) + 12) : (int.Parse(meetingHr) == 12 ? int.Parse(meetingHr) - 12 : int.Parse(meetingHr));
+        int timeMin = int.Parse(meetingMin);
         MeetingScheduleUI MeetingScheduleUI = FindObjectOfType<MeetingScheduleUI>();
         string hostEmail = MeetingScheduleUI.GetUserEmail;
 
@@ -502,7 +492,7 @@ public class RealmController : MonoBehaviour
         {
             realm.Write(() =>
             {
-                realm.Add(new Meetings(date, timeHr, timeMin, duration, description, hostEmail, emailList, joinCode));
+                realm.Add(new Meetings(date, timeHr, timeMin, meetingDuration, meetingDescription, hostEmail, emailList, joinCode));
             });
         }
         catch (Exception ex)
@@ -680,30 +670,8 @@ public class RealmController : MonoBehaviour
      * Input: Called by GetLocations() and GetTimings()
      * Output: return the list of Available according the the dateText or timeText
      */
-    private List<Available> PerformRealmWriteRetrieveAvailable()
+    private List<Available> PerformRealmWriteRetrieveAvailable(string dateText)
     {
-        string dateText;
-        if (dateTextProf.IsActive())
-        {
-            dateText = dateTextProf.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable ProfDate" + dateText);
-        }
-        else if (dateTextStaff.IsActive())
-        {
-            dateText = dateTextStaff.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable StaffDate" + dateText);
-        }
-        else if (timeTextProf.IsActive())
-        {
-            dateText = timeTextProf.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable ProfTime" + dateText);
-        }
-        else if (timeTextStaff.IsActive())
-        {
-            dateText = timeTextStaff.text;
-            Debug.Log("RealmController PerformRealmWriteRetrieveAvailable StaffTime" + dateText);
-        }
-        else return null;
         string[] parts = dateText.Split('/');
         int date = int.Parse(parts[0]);
         int month = int.Parse(parts[1]);
@@ -722,9 +690,7 @@ public class RealmController : MonoBehaviour
         {
             Debug.LogError("RealmController PerformRealmWriteRetrieveAvailable ErrorQueryingRealm: " + ex.Message);
             return null;
-        }
-
-        
+        }  
     }
 
     /*
@@ -752,9 +718,8 @@ public class RealmController : MonoBehaviour
      * Input: Called by GetMeetings()
      * Output: return the list of Meetings according to the dateText
      */
-    private List<Meetings> PerformRealmWriteRetrieveMeetings()
+    private List<Meetings> PerformRealmWriteRetrieveMeetings(string dateText)
     {
-        string dateText = dateTextMeeting.text;
         string[] parts = dateText.Split('/');
         MeetingScheduleUI MeetingScheduleUI = FindObjectOfType<MeetingScheduleUI>();
         string userEmail = MeetingScheduleUI.GetUserEmail;
@@ -914,21 +879,19 @@ public class RealmController : MonoBehaviour
      * Output: return true if there is an error
      *         else return false
      */
-    private bool MeetingError()
+    private bool MeetingError(string meetingDate, string meetingMonth, string meetingYear, string meetingHr, string meetingMin)
     {
-        int hr, min;
+        int hr = int.Parse(meetingHr);
+        int min = int.Parse(meetingMin);
         try
         {
-            DateTime date = new DateTime(2000 + int.Parse(meetingYear.text), int.Parse(meetingMonth.text), int.Parse(meetingDate.text));
+            DateTime date = new DateTime(2000 + int.Parse(meetingYear), int.Parse(meetingMonth), int.Parse(meetingDate));
         }
         catch (Exception ex)
         {
             Debug.Log(ex.ToString());
-            meetingErrorText.text = ex.ToString();
             return true;
         }
-        hr = int.Parse(meetingHr.text);
-        min = int.Parse(meetingMin.text);
         if (hr <= 0 || hr >= 13)
         {
             return true;

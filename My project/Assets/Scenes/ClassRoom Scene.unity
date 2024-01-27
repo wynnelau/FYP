@@ -865,7 +865,7 @@ GameObject:
   - component: {fileID: 749690789}
   - component: {fileID: 749690788}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: ClassRoomSceneCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1363,7 +1363,6 @@ MonoBehaviour:
   displayJoinCode: {fileID: 660158549}
   joinCodeError: {fileID: 1860546695}
   RealmControllerClassRoom: {fileID: 0}
-  cameraManager: {fileID: 0}
 --- !u!1 &1079596200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2271,9 +2270,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 516312563}
-  - {fileID: 943452590}
   - {fileID: 383886744}
   - {fileID: 884277652}
-  - {fileID: 1079596201}
-  - {fileID: 749690791}
   - {fileID: 845510773}
+  - {fileID: 749690791}
+  - {fileID: 943452590}
+  - {fileID: 1079596201}

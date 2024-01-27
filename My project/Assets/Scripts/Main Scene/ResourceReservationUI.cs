@@ -114,7 +114,8 @@ public class ResourceReservationUI : MonoBehaviour
         Debug.Log("ResourceReservationUI openDetails");
         if (dateSelected.GetComponentInChildren<Text>().text != "")
         {
-            Debug.Log("ResourceReservationUI openDetails " + dateSelected.GetComponentInChildren<Text>().text + currMonthYear.Month + currMonthYear.Year);
+            string date = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
+            Debug.Log("ResourceReservationUI openDetails " + date);
 
             RealmController = FindObjectOfType<RealmController>();
             buttonCreator = FindObjectOfType<DynamicButtonCreator>();
@@ -124,19 +125,19 @@ public class ResourceReservationUI : MonoBehaviour
                 Debug.Log("ResourceReservationUI openDetails Staff");
                 resourceReservationStaff.SetActive(false);
                 dateDetailsStaff.SetActive(true);
-                dateDetailsDateStaff.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year;
+                dateDetailsDateStaff.text = date;
             }
             else if (resourceReservationProf.activeSelf == true)
             {
                 Debug.Log("ResourceReservationUI openDetails Prof");
                 resourceReservationProf.SetActive(false);
                 dateDetailsProf.SetActive(true);
-                dateDetailsDateProf.text = dateSelected.GetComponentInChildren<Text>().text + "/" + currMonthYear.Month + "/" + currMonthYear.Year; 
+                dateDetailsDateProf.text = date; 
             }
 
             if (RealmController != null)
             {
-                var locationList = RealmController.GetLocations();
+                var locationList = RealmController.GetLocations(date);
                 if (locationList != null && locationList.Count > 0)
                 {
                     foreach (var location in locationList)

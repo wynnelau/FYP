@@ -155,7 +155,7 @@ public class DynamicButtonCreator : MonoBehaviour
                 if (RealmController != null)
                 {
                     Debug.Log("DynamicButtonCreator RealmController not null");
-                    var timingList = RealmController.GetTimings(buttonText);
+                    var timingList = RealmController.GetTimings(buttonText, timeDetailsDateProf.text);
                     if (timingList != null && timingList.Count > 0)
                     {
                         var convertedList = ConvertToRange(timingList);
@@ -177,7 +177,7 @@ public class DynamicButtonCreator : MonoBehaviour
                 if (RealmController != null)
                 {
                     Debug.Log("DynamicButtonCreator RealmController not null");
-                    var timingList = RealmController.GetTimings(buttonText);
+                    var timingList = RealmController.GetTimings(buttonText, timeDetailsDateStaff.text);
                     if (timingList != null && timingList.Count > 0)
                     {
                         var convertedList = ConvertToRange(timingList);

@@ -10,7 +10,7 @@ public class TimeDetailsUI : MonoBehaviour
     public GameObject dateDetailsStaff, dateDetailsProf, timeDetailsStaff, timeDetailsProf;
     public DynamicButtonCreator buttonCreator;
     public RealmController RealmController;
-    public Text timeDetailsDateProf, timeDetailsLocationProf, timeDetailsTimeStaff, timeDetailsUserStaff;
+    public Text timeDetailsDateProf, timeDetailsLocationProf, timeDetailsDateStaff, timeDetailsTimeStaff, timeDetailsUserStaff;
 
     /*
      * Purpose: Close the TimeDetails UIs when the "closeTimeDetails" button is clicked
@@ -28,11 +28,14 @@ public class TimeDetailsUI : MonoBehaviour
         buttonCreator.ClearAddReservationList();
         buttonCreator.ClearRemoveReservationList();
 
+        string date = "";
+
         if (timeDetailsProf.activeSelf == true)
         {
             Debug.Log("TimeDetailsUI closeTimeDetails Prof");
             timeDetailsProf.SetActive(false);
             dateDetailsProf.SetActive(true);
+            date = timeDetailsDateProf.text;
         }
         else if (timeDetailsStaff.activeSelf == true)
         {
@@ -41,11 +44,12 @@ public class TimeDetailsUI : MonoBehaviour
             timeDetailsUserStaff.text = "";
             timeDetailsStaff.SetActive(false);
             dateDetailsStaff.SetActive(true);
+            date = timeDetailsDateStaff.text;
         }
 
         if (RealmController != null)
         {
-            var locationList = RealmController.GetLocations();
+            var locationList = RealmController.GetLocations(date);
             if (locationList != null && locationList.Count > 0)
             {
                 foreach (var location in locationList)
@@ -106,7 +110,7 @@ public class TimeDetailsUI : MonoBehaviour
         if (RealmController != null)
         {
             Debug.Log("TimeDetailsUI RefreshTimeDetails notNull");
-            var timingList = RealmController.GetTimings(timeDetailsLocationProf.text);
+            var timingList = RealmController.GetTimings(timeDetailsLocationProf.text, timeDetailsDateProf.text);
             if (timingList != null && timingList.Count > 0)
             {
                 var convertedList = buttonCreator.ConvertToRange(timingList);

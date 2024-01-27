@@ -140,7 +140,7 @@ public class MeetingScheduleUI : MonoBehaviour
 
             if (RealmController != null)
             {
-                var meetingList = RealmController.GetMeetings();
+                var meetingList = RealmController.GetMeetings(MeetingDetailsDate.text);
                 if (meetingList != null && meetingList.Count > 0)
                 {
                     foreach (var meeting in meetingList)

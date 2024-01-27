@@ -59,7 +59,7 @@ public class NewMeetingUI : MonoBehaviour
     {
         Debug.Log("NewMeetingUI CreateMeeting");
         RealmController = FindObjectOfType<RealmController>();
-        RealmController.AddMeeting(emailList);
+        RealmController.AddMeeting(emailList, dDate.text, dMonth.text, dYear.text, duration.text, description.text, tHr.text, tMin.text, tAM.value);
     }
 
     /*
