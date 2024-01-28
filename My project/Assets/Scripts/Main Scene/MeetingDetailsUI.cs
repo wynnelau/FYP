@@ -61,7 +61,7 @@ public class MeetingDetailsUI : MonoBehaviour
     /*
      * Purpose: Load the ClassRoom Scene when attempt to save meetingId is successful
      * Input: Attempt to save meetingId is successful
-     * Output: Load the ClassRoom Scene
+     * Output: Reset the camera and load the ClassRoom Scene
      */
     void StartMeetingSuccess(UpdateUserDataResult result)
     {
@@ -83,7 +83,7 @@ public class MeetingDetailsUI : MonoBehaviour
     /*
      * Purpose: Delete the schedule meeting when the "deleteMeeting" button is clicked
      * Input: Click on the "deleteMeeting" button
-     * Output: Call RemoveMeeting()
+     * Output: Call RemoveMeeting() and then RefreshMeetingDetails()
      */
     public void DeleteMeeting()
     {

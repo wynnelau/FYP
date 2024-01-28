@@ -55,7 +55,7 @@ public class JoinMeetingUI : MonoBehaviour
     /*
      * Purpose: Load the ClassRoom Scene when attempt to save join code is successful
      * Input: Attempt to save join code is successful
-     * Output: Load the ClassRoom Scene
+     * Output: Reset the camera and load the ClassRoom Scene
      */
     void UpdateJoinCodeSuccess(UpdateUserDataResult result)
     {

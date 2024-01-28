@@ -69,10 +69,10 @@ public class MeetingScheduleUI : MonoBehaviour
 
     /*
      * Purpose: Instantiate all Day gameObjects and addListener to all buttons in the calendar
-     *          Retrieve user's email for reservation of slots
+     *          Retrieve user's email for meeting schedule
      *          Start is called before the first frame update
      * Input: NA
-     * Output: addListener will be used when user clicks on the buttons in the calendar, calling openDetails
+     * Output: addListener will be used when user clicks on the buttons in the calendar, calling openDateDetails
      */
     void Start()
     {
@@ -114,9 +114,9 @@ public class MeetingScheduleUI : MonoBehaviour
     }
 
     /*
-     * Purpose: To open the dateDetails UI with buttons
-     * Input: Click on the date buttons in the resourceReservationUI, used by the listeners 
-     * Output: Open the respective dateDetails UI
+     * Purpose: To open the meetingDetails UI with buttons
+     * Input: Click on the date buttons in the MeetingScheduleUI, used by the listeners 
+     * Output: Open the respective meetingDetails UI
      */
     void OpenDateDetails(GameObject dateSelected)
     {
