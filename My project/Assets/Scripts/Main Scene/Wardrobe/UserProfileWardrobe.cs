@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*
- * Location: "Wardrobe" in "MainScene" scene
+ * Location: Main Scene/ Wardrobe
  * Purpose: Get the user's profile when the user comes into contact with "Wardrobe" and display the userProfile UI accordingly
  */
 public class UserProfileWardrobe : MonoBehaviour

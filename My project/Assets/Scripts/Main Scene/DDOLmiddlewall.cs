@@ -18,12 +18,12 @@ public class DDOLmiddlewall : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("DDOLmainCamera Awake InstanceIsNull");
+            Debug.Log("DDOLmiddlewall Awake InstanceIsNull");
         }
         else
         {
             Destroy(gameObject);
-            Debug.Log("DDOLmainCamera Awake DestroyGameObject");
+            Debug.Log("DDOLmiddlewall Awake DestroyGameObject");
         }
     }
 }

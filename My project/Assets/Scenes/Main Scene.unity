@@ -25168,8 +25168,6 @@ MonoBehaviour:
   resourceReservationProf: {fileID: 629175168}
   meetingSchedule: {fileID: 1056267627}
   player: {fileID: 1871160649}
-  meetingDetailsStart: {fileID: 1153789643}
-  meetingDetailsDelete: {fileID: 466609706}
 --- !u!114 &849384655
 MonoBehaviour:
   m_ObjectHideFlags: 0

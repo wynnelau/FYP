@@ -18,12 +18,12 @@ public class DDOLbuildingFirstPerson : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("DDOLmainCamera Awake InstanceIsNull");
+            Debug.Log("DDOLbuildingFirstPerson Awake InstanceIsNull");
         }
         else
         {
             Destroy(gameObject);
-            Debug.Log("DDOLmainCamera Awake DestroyGameObject");
+            Debug.Log("DDOLbuildingFirstPerson Awake DestroyGameObject");
         }
     }
 }
