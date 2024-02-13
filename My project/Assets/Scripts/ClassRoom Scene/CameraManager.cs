@@ -3,7 +3,7 @@ using Unity.Netcode;
 
 /*
  * Location: ClassRoom Scene/ Player prefab
- * Purpose: Switch to first person camera
+ * Purpose: Switch to first person camera and audio
  */
 
 public class CameraManager : NetworkBehaviour
@@ -11,10 +11,11 @@ public class CameraManager : NetworkBehaviour
     public Camera firstPersonCamera;
     public AudioListener audioListener;
 
+
     /*
-     * Purpose: Enables the firstPersonCamera 
+     * Purpose: Enables the firstPersonCamera and audio
      * Input: NA
-     * Output: Enable firstPersonCamera
+     * Output: Enable firstPersonCamera and audio
      */
     void Start()
     {
