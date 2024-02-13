@@ -1,6 +1,11 @@
 using UnityEngine;
 using Unity.Netcode;
 
+/*
+ * Location: ClassRoom Scene/ Player prefab
+ * Purpose: Enable player movement for prefab created by them
+ */
+
 public class PlayerNetwork : NetworkBehaviour
 {
     public Camera firstPersonCamera;

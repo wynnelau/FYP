@@ -24,8 +24,6 @@ public class CameraManager : NetworkBehaviour
         Debug.Log("CameraManager cameraEnabled");
         firstPersonCamera.enabled = true;
         audioListener.enabled = true;
-
-
     }
     
 }

@@ -44,6 +44,11 @@ public class Relay : MonoBehaviour
 
     }
 
+    public void EnableVivoxAudio()
+    {
+        Debug.Log("Clicked Vivox");
+    }
+
     /*
      * Purpose: Attempt to retrieve the user's meeting status from the PlayFab database when "Start" button is clicked
      * Input: Click on "Start" button
