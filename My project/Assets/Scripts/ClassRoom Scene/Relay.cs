@@ -11,7 +11,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
-using Unity.Services.Vivox;
 
 /*
  * Location: ClassRoom Scene/ NetworkManager
@@ -34,7 +33,6 @@ public class Relay : MonoBehaviour
         {
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
         };
-
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -153,7 +151,7 @@ public class Relay : MonoBehaviour
         }
         catch (RelayServiceException e)
         {
-            Debug.Log(e);
+            Debug.LogError(e);
             joinCodeError.SetActive(true);
         }
     }
