@@ -11,6 +11,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
+using Unity.Services.Vivox;
+
 
 /*
  * Location: ClassRoom Scene/ NetworkManager
@@ -36,6 +38,14 @@ public class Relay : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
+        }
+        try
+        {
+            await VivoxService.Instance.InitializeAsync();
         }
         catch (Exception ex)
         {
@@ -119,6 +129,9 @@ public class Relay : MonoBehaviour
 
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
+
+            //LoginToVivoxAsync(email);
+            JoinChannel();
         }
         catch (RelayServiceException e)
         {
@@ -148,11 +161,41 @@ public class Relay : MonoBehaviour
 
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
+
+            //LoginToVivoxAsync(email);
+            JoinChannel();
         }
         catch (RelayServiceException e)
         {
             Debug.LogError(e);
             joinCodeError.SetActive(true);
+        }
+    }
+
+    async void LoginToVivoxAsync(string displayName)
+    {
+        try
+        {
+            LoginOptions options = new LoginOptions();
+            options.DisplayName = displayName;
+            await VivoxService.Instance.LoginAsync(options);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+        }
+
+    }
+
+    async void JoinChannel()
+    {
+        try
+        {
+            await VivoxService.Instance.JoinGroupChannelAsync("ChannelName", ChatCapability.TextAndAudio);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
         }
     }
 
