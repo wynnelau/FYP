@@ -202,54 +202,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227752853}
   m_CullTransparentMesh: 1
---- !u!1 &276139164
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 276139166}
-  - component: {fileID: 276139165}
-  m_Layer: 0
-  m_Name: VivoxManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &276139165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 276139164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8301869d155b37542a62386954933085, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _key: igxIBV4aLJ0MlJqvgdd11GEV7pht5JvM
-  _issuer: 18967-my_pr-80426-udash
-  _domain: mtu1xp.vivox.com
-  _server: https://unity.vivox.com/appconfig/18967-my_pr-80426-udash
---- !u!4 &276139166
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 276139164}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 426.5, y: 240, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &284121453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,4 +2491,3 @@ SceneRoots:
   - {fileID: 884277652}
   - {fileID: 749690791}
   - {fileID: 1079596201}
-  - {fileID: 276139166}
