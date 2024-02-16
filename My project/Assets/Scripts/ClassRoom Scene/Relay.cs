@@ -197,7 +197,7 @@ public class Relay : MonoBehaviour
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
 
-            JoinChannel(meetingId);
+            //JoinChannel(meetingId);
         }
         catch (RelayServiceException e)
         {
