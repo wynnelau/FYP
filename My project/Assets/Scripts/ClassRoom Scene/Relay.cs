@@ -26,46 +26,51 @@ public class Relay : MonoBehaviour
     public GameObject joinCodeError;
     public RealmControllerClassRoom RealmControllerClassRoom;
     public Button startMeetingButton, endMeetingButton;
+
+    public string _key, _issuer, _domain, _server;
+
     private string email;
     private async void Start()
     {
-        try
-        {
-            await UnityServices.InitializeAsync();
-        }
-        catch (Exception ex)
-        {
-            Debug.Log(ex.Message);
-        }
+
+        await UnityServices.InitializeAsync();
 
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("Relay Start AuthenticationService SignInAnonAsync " + AuthenticationService.Instance.PlayerId);
+
         }
-        catch (Exception ex)
+        catch (AuthenticationException ex)
         {
-            Debug.Log(ex.Message);
+            Debug.LogException(ex);
+        }
+        catch (RequestFailedException ex)
+        {
+            Debug.LogException(ex);
         }
 
         try
         {
             await VivoxService.Instance.InitializeAsync();
+            Debug.Log("Relay Start VivoxService InitializeAsync");
         }
         catch (Exception ex)
         {
-            Debug.Log(ex.Message);
-        }
-
-        try
-        {
-            await VivoxService.Instance.LoginAsync();
-        }
-        catch (Exception ex)
-        {
-            Debug.Log(ex.Message);
+            Debug.LogException(ex);
         }
 
         /*try
+        {
+            await VivoxService.Instance.LoginAsync();
+            Debug.Log("Relay Start VivoxService LoginAsync");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+
+        try
         {
             await VivoxService.Instance.JoinEchoChannelAsync("ChannelName", ChatCapability.AudioOnly);
         }
@@ -73,18 +78,6 @@ public class Relay : MonoBehaviour
         {
             Debug.Log(ex.Message);
         }*/
-
-        try
-        {
-            await VivoxService.Instance.JoinGroupChannelAsync(VivoxVoiceManager.LobbyChannelName, ChatCapability.TextAndAudio);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError(ex.Message);
-        }
-
-
-
     }
 
     /*
@@ -122,8 +115,23 @@ public class Relay : MonoBehaviour
             email = result.Data["Email"].Value;
             JoinRelay(joinCodeParticipant);
         }
+        //LoginToVivoxAsync(email);
     }
+    async void LoginToVivoxAsync(string displayName)
+    {
+        try
+        {
+            LoginOptions options = new LoginOptions();
+            options.DisplayName = displayName;
+            await VivoxService.Instance.LoginAsync(options);
+            Debug.Log("Relay LoginToVivoxAsync");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+        }
 
+    }
 
     /*
     * Purpose: Failed attempt to retrieve user's meeting status
@@ -158,8 +166,7 @@ public class Relay : MonoBehaviour
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
 
-            //LoginToVivoxAsync(email);
-            //JoinChannel();
+            JoinChannel(meetingId);
         }
         catch (RelayServiceException e)
         {
@@ -190,8 +197,7 @@ public class Relay : MonoBehaviour
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
 
-            //LoginToVivoxAsync(email);
-            //JoinChannel();
+            JoinChannel(meetingId);
         }
         catch (RelayServiceException e)
         {
@@ -200,30 +206,15 @@ public class Relay : MonoBehaviour
         }
     }
 
-    async void LoginToVivoxAsync(string displayName)
+    async void JoinChannel(string channelName)
     {
         try
         {
-            LoginOptions options = new LoginOptions();
-            options.DisplayName = displayName;
-            await VivoxService.Instance.LoginAsync(options);
+            await VivoxService.Instance.JoinGroupChannelAsync(channelName, ChatCapability.TextAndAudio);
         }
         catch (Exception ex)
         {
-            Debug.LogError(ex.Message);
-        }
-
-    }
-
-    async void JoinChannel()
-    {
-        try
-        {
-            await VivoxService.Instance.JoinGroupChannelAsync(VivoxVoiceManager.LobbyChannelName, ChatCapability.TextAndAudio);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError(ex.Message);
+            Debug.LogException(ex);
         }
     }
 
