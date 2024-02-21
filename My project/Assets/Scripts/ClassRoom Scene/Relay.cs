@@ -25,11 +25,10 @@ public class Relay : MonoBehaviour
     public Text displayJoinCode;
     public GameObject joinCodeError;
     public RealmControllerClassRoom RealmControllerClassRoom;
-    public Button startMeetingButton, endMeetingButton;
-
-    public string _key, _issuer, _domain, _server;
+    public Button startMeetingButton, endMeetingButton, enableAudio;
 
     private string email;
+    private string channelName;
     private async void Start()
     {
 
@@ -115,22 +114,6 @@ public class Relay : MonoBehaviour
             email = result.Data["Email"].Value;
             JoinRelay(joinCodeParticipant);
         }
-        //LoginToVivoxAsync(email);
-    }
-    async void LoginToVivoxAsync(string displayName)
-    {
-        try
-        {
-            LoginOptions options = new LoginOptions();
-            options.DisplayName = displayName;
-            await VivoxService.Instance.LoginAsync(options);
-            Debug.Log("Relay LoginToVivoxAsync");
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError(ex.Message);
-        }
-
     }
 
     /*
@@ -165,8 +148,10 @@ public class Relay : MonoBehaviour
 
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
+            enableAudio.gameObject.SetActive(true);
 
-            JoinChannel(meetingId);
+            channelName = meetingId;
+            JoinChannel();
         }
         catch (RelayServiceException e)
         {
@@ -196,8 +181,10 @@ public class Relay : MonoBehaviour
 
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
+            enableAudio.gameObject.SetActive(true);
 
-            JoinChannel(meetingId);
+            channelName = meetingId;
+            JoinChannel();
         }
         catch (RelayServiceException e)
         {
@@ -206,11 +193,12 @@ public class Relay : MonoBehaviour
         }
     }
 
-    async void JoinChannel(string channelName)
+    async void JoinChannel()
     {
         try
         {
             await VivoxService.Instance.JoinGroupChannelAsync(channelName, ChatCapability.TextAndAudio);
+            VivoxService.Instance.MuteInputDevice();
         }
         catch (Exception ex)
         {
@@ -225,6 +213,8 @@ public class Relay : MonoBehaviour
     */
     public void StopRelay()
     {
+        VivoxService.Instance.MuteInputDevice();
+        VivoxService.Instance.LeaveChannelAsync(channelName);
         if (NetworkManager.Singleton.IsHost)
         {
             NetworkManager.Singleton.Shutdown();
