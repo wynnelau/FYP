@@ -84,7 +84,7 @@ public class NewMeetingUI : MonoBehaviour
     void AddParticipantSuccess(GetAccountInfoResult result)
     {
         Debug.Log("NewMeetingUI AddParticipantSuccess");
-        if (emailList.Contains(participantEmail.text))
+        if (emailList.Contains(StringToHex(participantEmail.text)))
         {
             errorText.text = participantEmail.text + " already added";
         } 
