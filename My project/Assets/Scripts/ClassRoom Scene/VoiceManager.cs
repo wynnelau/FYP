@@ -11,11 +11,13 @@ public class VoiceManager : MonoBehaviour
     {
         VivoxService.Instance.UnmuteInputDevice();
         disableAudio.gameObject.SetActive(true);
+        enableAudio.gameObject.SetActive(false);
     }
 
     public void DisableAudio()
     {
         VivoxService.Instance.MuteInputDevice();
         enableAudio.gameObject.SetActive(true);
+        disableAudio.gameObject.SetActive(false);
     }
 }

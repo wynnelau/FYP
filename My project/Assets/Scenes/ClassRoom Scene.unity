@@ -2082,9 +2082,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 943452591}
-        m_TargetAssemblyTypeName: Relay, Assembly-CSharp
-        m_MethodName: EnterMeetingRoom
+      - m_Target: {fileID: 516312566}
+        m_TargetAssemblyTypeName: VoiceManager, Assembly-CSharp
+        m_MethodName: DisableAudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2584,9 +2584,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 943452591}
-        m_TargetAssemblyTypeName: Relay, Assembly-CSharp
-        m_MethodName: EnterMeetingRoom
+      - m_Target: {fileID: 516312566}
+        m_TargetAssemblyTypeName: VoiceManager, Assembly-CSharp
+        m_MethodName: EnableAudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
