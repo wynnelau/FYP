@@ -12,12 +12,14 @@ public class SampleClassManager : MonoBehaviour
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            Instantiate(classSamplePrefab);
+            GameObject classSample = Instantiate(classSamplePrefab);
+            classSample.GetComponent<NetworkObject>().Spawn();
         }
+
         
         enableSampleClass.gameObject.SetActive(false);
         disableSampleClass.gameObject.SetActive(true);
-        SampleClassNetwork.Instance?.ToggleSampleClassServerRpc(true);
+        //SampleClassNetwork.Instance?.ToggleSampleClassServerRpc(true);
     }
 
     public void DisableSampleClass()
@@ -28,7 +30,7 @@ public class SampleClassManager : MonoBehaviour
         }
         enableSampleClass.gameObject.SetActive(true);
         disableSampleClass.gameObject.SetActive(false);
-        SampleClassNetwork.Instance?.ToggleSampleClassServerRpc(false);
+        //SampleClassNetwork.Instance?.ToggleSampleClassServerRpc(false);
     }
 
 }
