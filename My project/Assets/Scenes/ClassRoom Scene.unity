@@ -978,7 +978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ec1ee5b88a34942ae9810640ca9c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleClass: {fileID: 0}
+  sampleClass: {fileID: 2500200083307919863, guid: b70bd82928221d348b65140157d25ead, type: 3}
   enableSampleClass: {fileID: 269245629}
   disableSampleClass: {fileID: 327397011}
 --- !u!1 &567493417
@@ -1980,7 +1980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayJoinCode: {fileID: 660158549}
   joinCodeError: {fileID: 1860546695}
-  sampleClass: {fileID: 0}
+  sampleClass: {fileID: 2500200083307919863, guid: b70bd82928221d348b65140157d25ead, type: 3}
   RealmControllerClassRoom: {fileID: 0}
   startMeetingButton: {fileID: 1140235534}
   endMeetingButton: {fileID: 284121455}
