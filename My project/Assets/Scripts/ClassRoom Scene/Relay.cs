@@ -58,25 +58,6 @@ public class Relay : MonoBehaviour
         {
             Debug.LogException(ex);
         }
-
-        /*try
-        {
-            await VivoxService.Instance.LoginAsync();
-            Debug.Log("Relay Start VivoxService LoginAsync");
-        }
-        catch (Exception ex)
-        {
-            Debug.LogException(ex);
-        }
-
-        try
-        {
-            await VivoxService.Instance.JoinEchoChannelAsync("ChannelName", ChatCapability.AudioOnly);
-        }
-        catch (Exception ex)
-        {
-            Debug.Log(ex.Message);
-        }*/
     }
 
     /*
