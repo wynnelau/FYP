@@ -23,7 +23,7 @@ using Unity.Services.Vivox;
 public class Relay : MonoBehaviour
 {
     public Text displayJoinCode;
-    public GameObject joinCodeError, sampleClass;
+    public GameObject joinCodeError;
     public RealmControllerClassRoom RealmControllerClassRoom;
     public Button startMeetingButton, endMeetingButton, enableAudio, enableQuizBtn, enableSampleClassBtn;
 
@@ -201,7 +201,6 @@ public class Relay : MonoBehaviour
         VivoxService.Instance.LeaveChannelAsync(channelName);
         if (NetworkManager.Singleton.IsHost)
         {
-            sampleClass.SetActive(false);
             NetworkManager.Singleton.Shutdown();
             Destroy(NetworkManager.Singleton.gameObject);
             RemoveJoinCode();
