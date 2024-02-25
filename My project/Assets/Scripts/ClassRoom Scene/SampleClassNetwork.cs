@@ -5,35 +5,16 @@ using UnityEngine;
 
 public class SampleClassNetwork : NetworkBehaviour
 {
-    public static SampleClassNetwork Instance { get; private set; }
 
-    private void Awake()
+    [ClientRpc]
+    public void ToggleSampleClassClientRpc(bool isActive)
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        gameObject.SetActive(isActive);
     }
 
     [ServerRpc]
     public void ToggleSampleClassServerRpc(bool isActive)
     {
-        gameObject.SetActive(isActive);
-
-        // Call a client RPC to enable/disable the sampleClass GameObject on all clients
         ToggleSampleClassClientRpc(isActive);
-    }
-
-    [ClientRpc]
-    private void ToggleSampleClassClientRpc(bool isActive)
-    {
-        if (!IsServer) // Only execute on clients
-        {
-            gameObject.SetActive(isActive);
-        }
     }
 }

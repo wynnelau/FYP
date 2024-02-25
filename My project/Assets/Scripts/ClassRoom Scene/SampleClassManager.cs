@@ -10,7 +10,11 @@ public class SampleClassManager : MonoBehaviour
     
     public void EnableSampleClass()
     {
-        NetworkManager.Instantiate(classSamplePrefab);
+        if (NetworkManager.Singleton.IsHost)
+        {
+            Instantiate(classSamplePrefab);
+        }
+        
         enableSampleClass.gameObject.SetActive(false);
         disableSampleClass.gameObject.SetActive(true);
         SampleClassNetwork.Instance.ToggleSampleClassServerRpc(true);
@@ -18,7 +22,10 @@ public class SampleClassManager : MonoBehaviour
 
     public void DisableSampleClass()
     {
-        NetworkManager.Destroy(classSamplePrefab);
+        if (NetworkManager.Singleton.IsHost)
+        {
+            Destroy(classSamplePrefab);
+        }
         enableSampleClass.gameObject.SetActive(true);
         disableSampleClass.gameObject.SetActive(false);
         SampleClassNetwork.Instance.ToggleSampleClassServerRpc(false);
