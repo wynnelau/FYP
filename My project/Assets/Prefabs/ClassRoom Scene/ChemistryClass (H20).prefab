@@ -434,6 +434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8338561861793921269}
   - component: {fileID: 1355452533535917350}
+  - component: {fileID: -5646179823748069045}
   m_Layer: 0
   m_Name: ChemistryClass (H20)
   m_TagString: Untagged
@@ -481,6 +482,18 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &-5646179823748069045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7404803438849146372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2d6c5de931ae34c81611125920c01d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8833442751786864265
 GameObject:
   m_ObjectHideFlags: 0
