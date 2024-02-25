@@ -1010,6 +1010,7 @@ GameObject:
   - component: {fileID: 516312564}
   - component: {fileID: 516312565}
   - component: {fileID: 516312566}
+  - component: {fileID: 516312567}
   m_Layer: 0
   m_Name: ClassRoomSceneControls
   m_TagString: Untagged
@@ -1070,6 +1071,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableAudio: {fileID: 2049327579}
   disableAudio: {fileID: 1621744120}
+--- !u!114 &516312567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516312562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ec1ee5b88a34942ae9810640ca9c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classSample: {fileID: 1559753783}
+  enableSampleClass: {fileID: 269245629}
+  disableSampleClass: {fileID: 327397011}
 --- !u!1 &567493417
 GameObject:
   m_ObjectHideFlags: 0
@@ -3159,11 +3175,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1559753783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50ec1ee5b88a34942ae9810640ca9c66, type: 3}
+  m_Script: {fileID: 11500000, guid: ba2d6c5de931ae34c81611125920c01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableSampleClass: {fileID: 269245629}
-  disableSampleClass: {fileID: 327397011}
 --- !u!1 &1621744118
 GameObject:
   m_ObjectHideFlags: 0
