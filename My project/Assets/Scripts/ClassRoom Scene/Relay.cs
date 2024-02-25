@@ -42,11 +42,11 @@ public class Relay : MonoBehaviour
         }
         catch (AuthenticationException ex)
         {
-            Debug.LogException(ex);
+            Debug.Log(ex);
         }
         catch (RequestFailedException ex)
         {
-            Debug.LogException(ex);
+            Debug.Log(ex);
         }
 
         try
@@ -56,7 +56,7 @@ public class Relay : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogException(ex);
+            Debug.Log(ex);
         }
     }
 
