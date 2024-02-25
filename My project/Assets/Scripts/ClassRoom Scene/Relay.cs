@@ -23,9 +23,9 @@ using Unity.Services.Vivox;
 public class Relay : MonoBehaviour
 {
     public Text displayJoinCode;
-    public GameObject joinCodeError;
+    public GameObject joinCodeError, sampleClass;
     public RealmControllerClassRoom RealmControllerClassRoom;
-    public Button startMeetingButton, endMeetingButton, enableAudio;
+    public Button startMeetingButton, endMeetingButton, enableAudio, enableQuizBtn, enableSampleClassBtn;
 
     private string email;
     private string channelName;
@@ -149,6 +149,8 @@ public class Relay : MonoBehaviour
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
             enableAudio.gameObject.SetActive(true);
+            enableQuizBtn.gameObject.SetActive(true);
+            enableSampleClassBtn.gameObject.SetActive(true);
 
             channelName = meetingId;
             JoinChannel();
@@ -182,6 +184,7 @@ public class Relay : MonoBehaviour
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
             enableAudio.gameObject.SetActive(true);
+            enableQuizBtn.gameObject.SetActive(true);
 
             channelName = meetingId;
             JoinChannel();
@@ -217,6 +220,7 @@ public class Relay : MonoBehaviour
         VivoxService.Instance.LeaveChannelAsync(channelName);
         if (NetworkManager.Singleton.IsHost)
         {
+            sampleClass.SetActive(false);
             NetworkManager.Singleton.Shutdown();
             Destroy(NetworkManager.Singleton.gameObject);
             RemoveJoinCode();

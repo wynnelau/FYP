@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
  * Purpose: Manage the joinCodeErrorUI
  */
 
-public class joinCodeErrorUI : MonoBehaviour
+public class JoinCodeErrorUI : MonoBehaviour
 {
     private GameObject joinCodeError;
 
