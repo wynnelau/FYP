@@ -22,41 +22,11 @@ public class SampleQuizManager : MonoBehaviour
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            if (syncButtonCanvas != null)
-            {
-                Debug.Log("Canvas reference is not null.");
-
-                joinQuizBtn = Instantiate(joinQuizBtnPrefab);
-                if (joinQuizBtn != null)
-                {
-                    Debug.Log("Button instantiated");
-
-                    
-
-                    joinQuizBtn.GetComponent<Button>().onClick.AddListener(() => { sampleQuizUI.SetActive(true); });
-                    
-                    
-                }
-                else
-                {
-                    Debug.LogError("Failed to instantiate button.");
-                }
-            }
-            else
-            {
-                Debug.LogError("Canvas reference is null!");
-                return;
-            }
+            joinQuizBtn = Instantiate(joinQuizBtnPrefab);
+            
             joinQuizBtn.GetComponent<NetworkObject>().Spawn();
             joinQuizBtn.transform.SetParent(syncButtonCanvas.transform, false);
-            if (joinQuizBtn.transform.parent == syncButtonCanvas.transform)
-            {
-                Debug.Log("Button parent is syncButtonCanvas");
-            }
-            else
-            {
-                Debug.LogWarning("Button parent is not syncButtonCanvas");
-            }
+            joinQuizBtn.GetComponent<Button>().onClick.AddListener(() => { sampleQuizUI.SetActive(true); });
 
         }
         enableSampleQuiz.gameObject.SetActive(false);
