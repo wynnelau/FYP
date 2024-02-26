@@ -31,14 +31,14 @@ public class SampleQuizManager : MonoBehaviour
 
         }
 
-        EnableButtonServerRpc();
+        EnableButtonClientRpc();
 
         enableSampleQuiz.gameObject.SetActive(false);
         disableSampleQuiz.gameObject.SetActive(true);
     }
 
-    [ServerRpc]
-    private void EnableButtonServerRpc()
+    [ClientRpc]
+    private void EnableButtonClientRpc()
     {
         joinQuizBtn = GameObject.FindGameObjectWithTag("JoinQuizButton");
         joinQuizBtn.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("Add listener"); sampleQuizUI.SetActive(true); });
