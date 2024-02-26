@@ -2869,10 +2869,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e05717568d14bb49bd6a750860b5753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  registerPageUI: {fileID: 359097713}
-  loginPageUI: {fileID: 730233603}
-  setUserProfilePageStudentUI: {fileID: 567160211}
-  setUserProfileDataOthersUI: {fileID: 1801020647}
+  registerUI: {fileID: 359097713}
+  loginUI: {fileID: 730233603}
+  setUserProfileStudentUI: {fileID: 567160211}
+  setUserProfileOthersUI: {fileID: 1801020647}
   registerEmail: {fileID: 681563008}
   registerPassword: {fileID: 1707538831}
   loginEmail: {fileID: 1785242610}
