@@ -8,13 +8,12 @@ public class ChangeOwnership : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<NetworkObject>().ChangeOwnership(NetworkManager.Singleton.LocalClientId);
-
+        AddListenerToJoinQuizServerRpc();
     }
 
-    // Update is called once per frame
-    void Update()
+    [ServerRpc]
+    private void AddListenerToJoinQuizServerRpc()
     {
-        
+        gameObject.GetComponent<NetworkObject>().ChangeOwnership(NetworkManager.Singleton.LocalClientId);
     }
 }
