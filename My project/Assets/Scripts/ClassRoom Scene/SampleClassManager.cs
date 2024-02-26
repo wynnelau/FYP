@@ -5,7 +5,8 @@ using Unity.Netcode;
 // https://www.youtube.com/watch?v=HWPKlpeZUjM
 public class SampleClassManager : MonoBehaviour
 {
-    public GameObject classSamplePrefab, classSample;
+    public GameObject classSamplePrefab;
+    private GameObject classSample;
     public Button enableSampleClass, disableSampleClass;
     
     public void EnableSampleClass()

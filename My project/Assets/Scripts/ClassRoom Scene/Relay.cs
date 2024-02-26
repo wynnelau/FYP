@@ -25,7 +25,7 @@ public class Relay : MonoBehaviour
     public Text displayJoinCode;
     public GameObject joinCodeError;
     public RealmControllerClassRoom RealmControllerClassRoom;
-    public Button startMeetingButton, endMeetingButton, enableAudio, enableQuizBtn, enableSampleClassBtn;
+    public Button startMeetingButton, endMeetingButton, enableAudio, enableQuizBtn, enableClassesBtn;
 
     private string email;
     private string channelName;
@@ -131,7 +131,7 @@ public class Relay : MonoBehaviour
             endMeetingButton.gameObject.SetActive(true);
             enableAudio.gameObject.SetActive(true);
             enableQuizBtn.gameObject.SetActive(true);
-            enableSampleClassBtn.gameObject.SetActive(true);
+            enableClassesBtn.gameObject.SetActive(true);
 
             channelName = meetingId;
             JoinChannel();
