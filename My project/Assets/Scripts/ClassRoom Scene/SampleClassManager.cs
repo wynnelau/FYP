@@ -2,7 +2,12 @@ using UnityEngine.UI;
 using UnityEngine;
 using Unity.Netcode;
 
-// https://www.youtube.com/watch?v=HWPKlpeZUjM
+/*
+ * Location: ClassRoom Scene/ ClassRoomSceneControls
+ * Purpose: Manage the instantiation and destruction of the classSample in both host and client side
+ * Tutorial used: https://www.youtube.com/watch?v=HWPKlpeZUjM
+ */
+
 public class SampleClassManager : MonoBehaviour
 {
     public GameObject classSamplePrefab;

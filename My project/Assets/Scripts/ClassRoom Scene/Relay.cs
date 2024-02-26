@@ -165,7 +165,6 @@ public class Relay : MonoBehaviour
             startMeetingButton.gameObject.SetActive(false);
             endMeetingButton.gameObject.SetActive(true);
             enableAudio.gameObject.SetActive(true);
-            enableQuizBtn.gameObject.SetActive(true);
 
             channelName = meetingId;
             JoinChannel();
