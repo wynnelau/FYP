@@ -5179,6 +5179,7 @@ MonoBehaviour:
   sampleQuizUI: {fileID: 1424263151}
   enableSampleQuiz: {fileID: 900560305}
   disableSampleQuiz: {fileID: 131013008}
+  joinQuizBtn: {fileID: 88825300}
 --- !u!1 &1960406414
 GameObject:
   m_ObjectHideFlags: 0

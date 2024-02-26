@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class SampleQuizManager : NetworkBehaviour
 {
     public GameObject sampleQuizUI;
-    public Button enableSampleQuiz, disableSampleQuiz;
+    public Button enableSampleQuiz, disableSampleQuiz, joinQuizBtn;
 
     public void EnableSampleQuiz()
     {
@@ -29,8 +29,7 @@ public class SampleQuizManager : NetworkBehaviour
     [ClientRpc]
     void ActivateJoinQuizBtnClientRpc()
     {
-        GameObject joinQuizBtn = GameObject.FindGameObjectWithTag("JoinQuizButton");
-        joinQuizBtn.SetActive(true);
+        joinQuizBtn.gameObject.SetActive(true);
     }
 
     public void DisableSampleQuiz()
@@ -46,7 +45,6 @@ public class SampleQuizManager : NetworkBehaviour
     [ClientRpc]
     void DeactivateJoinQuizBtnClientRpc()
     {
-        GameObject joinQuizBtn = GameObject.FindGameObjectWithTag("JoinQuizButton");
-        joinQuizBtn.SetActive(false);
+        joinQuizBtn.gameObject.SetActive(false);
     }
 }
