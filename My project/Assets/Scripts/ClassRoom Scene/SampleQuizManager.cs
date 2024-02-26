@@ -10,47 +10,43 @@ using UnityEngine.UI;
  * Tutorial used: https://www.youtube.com/watch?v=HWPKlpeZUjM
  */
 
-public class SampleQuizManager : MonoBehaviour
+public class SampleQuizManager : NetworkBehaviour
 {
     public GameObject sampleQuizUI;
-    public Canvas syncButtonCanvas;
-    public GameObject joinQuizBtnPrefab;
     public Button enableSampleQuiz, disableSampleQuiz;
-    private GameObject joinQuizBtn;
 
     public void EnableSampleQuiz()
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            joinQuizBtn = Instantiate(joinQuizBtnPrefab);
-            
-            joinQuizBtn.GetComponent<NetworkObject>().Spawn();
-            joinQuizBtn.transform.SetParent(syncButtonCanvas.transform, false);
-
-            joinQuizBtn.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("Add listener"); sampleQuizUI.SetActive(true); });
-
+            ActivateJoinQuizBtnClientRpc();
         }
-
-        EnableButtonClientRpc();
 
         enableSampleQuiz.gameObject.SetActive(false);
         disableSampleQuiz.gameObject.SetActive(true);
     }
 
     [ClientRpc]
-    private void EnableButtonClientRpc()
+    void ActivateJoinQuizBtnClientRpc()
     {
-        joinQuizBtn = GameObject.FindGameObjectWithTag("JoinQuizButton");
-        joinQuizBtn.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("Add listener"); sampleQuizUI.SetActive(true); });
+        GameObject joinQuizBtn = GameObject.FindGameObjectWithTag("JoinQuizButton");
+        joinQuizBtn.SetActive(true);
     }
 
     public void DisableSampleQuiz()
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            Destroy(joinQuizBtn);
+            DeactivateJoinQuizBtnClientRpc();
         }
         enableSampleQuiz.gameObject.SetActive(true);
         disableSampleQuiz.gameObject.SetActive(false);
+    }
+
+    [ClientRpc]
+    void DeactivateJoinQuizBtnClientRpc()
+    {
+        GameObject joinQuizBtn = GameObject.FindGameObjectWithTag("JoinQuizButton");
+        joinQuizBtn.SetActive(false);
     }
 }
