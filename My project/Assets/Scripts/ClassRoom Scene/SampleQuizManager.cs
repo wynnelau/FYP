@@ -25,13 +25,23 @@ public class SampleQuizManager : MonoBehaviour
             joinQuizBtn = Instantiate(joinQuizBtnPrefab);
             
             joinQuizBtn.GetComponent<NetworkObject>().Spawn();
-            joinQuizBtn.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("Add listener"); sampleQuizUI.SetActive(true); });
             joinQuizBtn.transform.SetParent(syncButtonCanvas.transform, false);
-            joinQuizBtn.GetComponent<NetworkObject>().Spawn();
+
+            joinQuizBtn.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("Add listener"); sampleQuizUI.SetActive(true); });
 
         }
+
+        EnableButtonServerRpc();
+
         enableSampleQuiz.gameObject.SetActive(false);
         disableSampleQuiz.gameObject.SetActive(true);
+    }
+
+    [ServerRpc]
+    private void EnableButtonServerRpc()
+    {
+        joinQuizBtn = GameObject.FindGameObjectWithTag("JoinQuizButton");
+        joinQuizBtn.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("Add listener"); sampleQuizUI.SetActive(true); });
     }
 
     public void DisableSampleQuiz()
