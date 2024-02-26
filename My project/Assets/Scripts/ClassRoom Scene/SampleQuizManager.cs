@@ -24,7 +24,7 @@ public class SampleQuizManager : MonoBehaviour
         {
             joinQuizBtn = Instantiate(joinQuizBtnPrefab);
             
-            joinQuizBtn.GetComponent<NetworkObject>().Spawn();
+            joinQuizBtn.GetComponent<NetworkObject>().SpawnWithOwnership(NetworkManager.Singleton.LocalClientId);
             joinQuizBtn.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("Add listener"); sampleQuizUI.SetActive(true); });
             joinQuizBtn.transform.SetParent(syncButtonCanvas.transform, false);
             
