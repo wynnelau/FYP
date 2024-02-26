@@ -2846,10 +2846,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e57e159eb3a86441a6c1c9886fcec0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  registerPageUI: {fileID: 359097713}
-  loginPageUI: {fileID: 730233603}
-  setUserProfilePageStudentUI: {fileID: 567160211}
-  setUserProfilePageOthersUI: {fileID: 1801020647}
+  registerUI: {fileID: 359097713}
+  loginUI: {fileID: 730233603}
+  setUserProfileStudentUI: {fileID: 567160211}
+  setUserProfileOthersUI: {fileID: 1801020647}
   registerEmail: {fileID: 253093318}
   registerPassword: {fileID: 1314306292}
   registerError: {fileID: 8914256}
@@ -2892,8 +2892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b494487898290924a973c613d86cd4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setUserProfilePageStudentUI: {fileID: 567160211}
-  setUserProfilePageOthersUI: {fileID: 1801020647}
+  setUserProfileStudentUI: {fileID: 567160211}
+  setUserProfileOthersUI: {fileID: 1801020647}
   displayNameStudent: {fileID: 205836146}
   schoolStudent: {fileID: 2002083724}
   courseStudent: {fileID: 507798852}

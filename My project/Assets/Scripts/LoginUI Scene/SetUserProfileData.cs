@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 /*
- * Location: Login UI/ UIControls
+ * Location: LoginUI Scene/ LoginUIControls
  * Purpose: Get profile data from user once they register (Student and Others) and send to PlayFab database
  */
 public class SetUserProfileData : MonoBehaviour
 {
-    public GameObject setUserProfilePageStudentUI, setUserProfilePageOthersUI;
+    public GameObject setUserProfileStudentUI, setUserProfileOthersUI;
     public Text displayNameStudent, schoolStudent, courseStudent, yearStudent, descriptionStudent;
     public Text displayNameOthers, schoolOthers, descriptionOthers;
     public Text errorStudent, errorOthers;
@@ -27,11 +27,11 @@ public class SetUserProfileData : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (setUserProfilePageStudentUI.activeSelf)
+            if (setUserProfileStudentUI.activeSelf)
             {
                 SendStudentInfo();
             }
-            else if (setUserProfilePageOthersUI.activeSelf)
+            else if (setUserProfileOthersUI.activeSelf)
             {
                 SendOthersInfo();
             }
@@ -81,7 +81,7 @@ public class SetUserProfileData : MonoBehaviour
     void SaveStudentInfoSuccess(UpdateUserDataResult result)
     {
         Debug.Log("SetUserProfileData SaveStudentInfoSuccess");
-        setUserProfilePageStudentUI.SetActive(false);
+        setUserProfileStudentUI.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }
 
@@ -155,7 +155,7 @@ public class SetUserProfileData : MonoBehaviour
     void SaveOthersInfoSuccess(UpdateUserDataResult result)
     {
         Debug.Log("SetUserProfileData SaveOthersInfoSuccess");
-        setUserProfilePageOthersUI.SetActive(false);
+        setUserProfileOthersUI.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }
 

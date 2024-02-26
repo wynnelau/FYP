@@ -29,7 +29,7 @@ public class RegisterLoginUIManager : MonoBehaviour
 
     /*
      * On Click: LoginUI Scene/ LoginUISceneCanvas/ Register/ LogInHereButton
-     * Purpose: Change to "Login" UI when the "LogInHereButton" button in "Register" UI is clicked
+     * Purpose: Change to "Login" UI
      * Input: Click the "LogInHereButton" button in "Register" UI
      * Output: Opens "Login" UI, clears previous texts for loginEmail, loginPassword and loginError
      */
@@ -44,7 +44,7 @@ public class RegisterLoginUIManager : MonoBehaviour
 
     /*
      * On Click: LoginUI Scene/ LoginUISceneCanvas/ Login/ RegisterHereButton
-     * Purpose: Change to "Register" UI when the "RegisterHereButton" button in "Login" UI is clicked
+     * Purpose: Change to "Register" UI
      * Input: Click the "RegisterHereButton" button in "Login" UI
      * Output: Opens "Register" UI, clears previous texts for registerEmail, registerPassword, registerError and sets idenityDropdown to 0
      */

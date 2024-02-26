@@ -6,33 +6,33 @@ using PlayFab.ClientModels;
 using TMPro;
 
 /*
- * Location: Login UI/ UIControls
- * Purpose: Manage the register and login using PlayFab API calls
+ * Location: LoginUI Scene/ LoginUIControls
+ * Purpose: Manage registration and login using PlayFab API calls
  * Tutorial used: https://www.youtube.com/watch?v=XPTPRaF2pd4
  */
 public class PlayFabLoginRegister : MonoBehaviour
 {
-    public GameObject registerPageUI, loginPageUI, setUserProfilePageStudentUI, setUserProfilePageOthersUI;
+    public GameObject registerUI, loginUI, setUserProfileStudentUI, setUserProfileOthersUI;
     public TMP_Text registerEmail, registerPassword, registerError, loginEmail, loginPassword, loginError;
     public TMP_Dropdown identityDropdown;
     private string userIdentity;
 
     /*
-     * Purpose: Call either Register() or Login() when "enter" key is pressed in "RegisterPage" UI or "LoginPage" UI accordingly
+     * Purpose: Call either Register() or Login() accordingly when "enter" key is pressed 
      *          Update is called once per frame
      * Input: Press the "enter" key
-     * Output: If in "RegisterPage" UI, call Register() 
-     *          If in "LoginPage" UI, call Login() 
+     * Output: If in "Register" UI, call Register() 
+     *          If in "Login" UI, call Login() 
      */
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (registerPageUI.activeSelf)
+            if (registerUI.activeSelf)
             {
                 Register();
             }
-            if (loginPageUI.activeSelf)
+            if (loginUI.activeSelf)
             {
                 Login();
             }
@@ -40,9 +40,10 @@ public class PlayFabLoginRegister : MonoBehaviour
     }
 
     /*
-     * Purpose: Attempt to register the user when "enter" key is pressed or when "RegisterButton" button is clicked in "RegisterPage" UI
-     * Input: Called by Update() when "enter" is pressed in the "RegisterPage" UI
-     *        Click the "RegisterButton" button in the "RegisterPage" UI
+     * On Click: LoginUI Scene/ LoginUISceneCanvas/ Register/ RegisterButton
+     * Purpose: Attempt to register the user
+     * Input: Called by Update() when "enter" is pressed in the "Register" UI
+     *        Click the "RegisterButton" button in the "Register" UI
      * Output: If the identity of the user is not specified in "IdentityDropdown" dropdown, return a registerError message
      *         else attempt to register the user using registerEmail and registerPassword
      */
@@ -148,24 +149,25 @@ public class PlayFabLoginRegister : MonoBehaviour
     void KnowMore()
     {
         Debug.Log("PlayFabLoginRegister KnowMore");
-        registerPageUI.SetActive(false);
+        registerUI.SetActive(false);
         if (userIdentity == "Student")
         {
             Debug.Log("PlayFabLoginRegister KnowMore Student");
-            setUserProfilePageStudentUI.SetActive(true);
+            setUserProfileStudentUI.SetActive(true);
         }
         else if (userIdentity == "Professor/TA" || userIdentity == "Staff")
         {
             Debug.Log("PlayFabLoginRegister KnowMore Others");
-            setUserProfilePageOthersUI.SetActive(true);
+            setUserProfileOthersUI.SetActive(true);
         }
 
     }
 
     /*
-     * Purpose: Attempt to login when "enter" key is pressed or when "LoginButton" button is clicked in "LoginPage" UI
-     * Input: Called by Update() when "enter" is pressed in the "LoginPage" UI
-     *        Click the "LoginButton" button in the "LoginPage" UI
+     * On Click: LoginUI Scene/ LoginUISceneCanvas/ Login/ LoginButton
+     * Purpose: Attempt to login 
+     * Input: Called by Update() when "enter" is pressed in the "Login" UI
+     *        Click the "LoginButton" button in the "Login" UI
      * Output: Attempt to login using loginEmail and loginPassword
      */
     public void Login()
@@ -184,7 +186,7 @@ public class PlayFabLoginRegister : MonoBehaviour
     void LoginSuccess(LoginResult result)
     {
         Debug.Log("PlayFabLoginRegister LoginSuccess");
-        loginPageUI.SetActive(false);
+        loginUI.SetActive(false);
         SceneManager.LoadScene("Main Scene");
     }
 
