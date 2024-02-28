@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * Location: Main Scene/ MainCamera
+ * Purpose: Make sure MainCamera is persistent across scenes
+ */
 
 public class DDOLmainCamera : MonoBehaviour
 {

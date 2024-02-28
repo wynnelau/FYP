@@ -138,7 +138,7 @@ public class Relay : MonoBehaviour
         }
         catch (RelayServiceException e)
         {
-            Debug.Log("CreateRelay error: " + e);
+            Debug.Log("Relay CreateRelay error:" + e);
             Destroy(NetworkManager.Singleton.gameObject);
             SceneManager.LoadScene("Main Scene");
         }
@@ -171,11 +171,16 @@ public class Relay : MonoBehaviour
         }
         catch (RelayServiceException e)
         {
-            Debug.LogError(e);
+            Debug.Log("Relay JoinRelay error: " + e);
             joinCodeError.SetActive(true);
         }
     }
 
+    /*
+     * Purpose: Attempt to join the meeting
+     * Input: Called by EnterMeetingRoomSuccess and joinCode is passed in
+     * Output: Join the meeting successfully
+     */
     async void JoinChannel()
     {
         try

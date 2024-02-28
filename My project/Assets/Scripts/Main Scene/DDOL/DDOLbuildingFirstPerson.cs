@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * Location: Main Scene/ BuildingFirstPerson
+ * Purpose: Make sure BuildingFirstPerson is persistent across scenes
+ */
 
 public class DDOLbuildingFirstPerson : MonoBehaviour
 {

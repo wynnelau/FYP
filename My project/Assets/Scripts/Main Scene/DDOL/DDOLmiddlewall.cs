@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/*
+ * Location: Main Scene/ MiddleWall
+ * Purpose: Make sure MiddleWall is persistent across scenes
+ */
 
 public class DDOLmiddlewall : MonoBehaviour
 {
