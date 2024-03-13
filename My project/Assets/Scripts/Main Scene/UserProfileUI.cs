@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 /*
  * Location: Main Scene/ MainSceneControls
- * Purpose: Read user profile data from database and display in UserProfileUI
+ * Purpose: Manage the UserProfileUI
  */
 
 public class UserProfileUI : MonoBehaviour
@@ -18,7 +18,7 @@ public class UserProfileUI : MonoBehaviour
     public PlayerControls player;
 
     /*
-     * Purpose:  To close the respective userProfile UI and enable "Player"
+     * Purpose: To close the respective userProfile UI and enable "Player"
      * Input: Click on the "closeUserProfileButton" in the userProfile UI
      * Output: Set the respective userProfile UI as inactive
      */

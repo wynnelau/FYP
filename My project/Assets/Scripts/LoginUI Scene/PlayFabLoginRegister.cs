@@ -40,7 +40,6 @@ public class PlayFabLoginRegister : MonoBehaviour
     }
 
     /*
-     * On Click: LoginUI Scene/ LoginUISceneCanvas/ Register/ RegisterButton
      * Purpose: Attempt to register the user
      * Input: Called by Update() when "enter" is pressed in the "Register" UI
      *        Click the "RegisterButton" button in the "Register" UI
@@ -164,7 +163,6 @@ public class PlayFabLoginRegister : MonoBehaviour
     }
 
     /*
-     * On Click: LoginUI Scene/ LoginUISceneCanvas/ Login/ LoginButton
      * Purpose: Attempt to login 
      * Input: Called by Update() when "enter" is pressed in the "Login" UI
      *        Click the "LoginButton" button in the "Login" UI

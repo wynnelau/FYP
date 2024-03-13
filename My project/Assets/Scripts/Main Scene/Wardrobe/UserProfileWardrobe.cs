@@ -6,7 +6,9 @@ using UnityEngine.UI;
 /*
  * Location: Main Scene/ Wardrobe
  * Purpose: Get the user's profile when the user comes into contact with "Wardrobe" and display the userProfile UI accordingly
+ *          userProfile UI is used to manage the user's profile
  */
+
 public class UserProfileWardrobe : MonoBehaviour
 {
     private static UserProfileWardrobe instance;
@@ -45,7 +47,7 @@ public class UserProfileWardrobe : MonoBehaviour
      */
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("UserProfileWardrobe onTriggerEnter: activateUserProfileUI");
+        Debug.Log("UserProfileWardrobe onTriggerEnter");
         GetUserProfileData();
     }
 

@@ -2,8 +2,8 @@ using UnityEngine;
 
 /*
  * Location: Main Scene/ Bed
- * Purpose: Open the "logOut" UI when user comes into contact with "Bed"
- *          "logOut" UI is used to quit the application
+ * Purpose: Open the logOut UI when user comes into contact with "Bed"
+ *          logOut UI is used to quit the application
  */
 
 public class LogOutBed : MonoBehaviour

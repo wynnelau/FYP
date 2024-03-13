@@ -1,13 +1,12 @@
 using PlayFab.ClientModels;
 using PlayFab;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 /*
  * Location: Main Scene/ Table
  * Purpose: Get the user's identity and open the corresponding mainMenu UI when the user comes into contact with "Table"
  */
+
 public class MainMenuTable : MonoBehaviour
 {
     private static MainMenuTable instance;
