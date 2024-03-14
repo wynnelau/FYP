@@ -29,16 +29,21 @@ public class Relay : MonoBehaviour
 
     private string email;
     private string channelName;
+
+    /*
+     * Purpose: Ensures access to multiplayer functions when user enters "ClassRoom" Scene
+     *          Start is called before the first frame update
+     * Input: NA
+     * Output: Initialise Unity Gaming Services, followed by an anonymous sign-in to the session and an initialization of Vivox
+     */
     private async void Start()
     {
-
         await UnityServices.InitializeAsync();
 
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log("Relay Start AuthenticationService SignInAnonAsync " + AuthenticationService.Instance.PlayerId);
-
         }
         catch (AuthenticationException ex)
         {
