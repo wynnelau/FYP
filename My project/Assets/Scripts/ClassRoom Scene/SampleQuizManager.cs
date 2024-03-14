@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +13,11 @@ public class SampleQuizManager : NetworkBehaviour
     public GameObject sampleQuizUI;
     public Button enableSampleQuiz, disableSampleQuiz, joinQuizBtn;
 
+    /*
+     * Purpose: Set the JoinQuizButton active on all clients, including host
+     * Input: Click on "Enable Sample" button in EnableQuiz UI
+     * Output: Set the JoinQuizButton active
+     */
     public void EnableSampleQuiz()
     {
         if (NetworkManager.Singleton.IsHost)
@@ -32,6 +35,11 @@ public class SampleQuizManager : NetworkBehaviour
         joinQuizBtn.gameObject.SetActive(true);
     }
 
+    /*
+     * Purpose: Set the JoinQuizButton inactive on all clients, including host
+     * Input: Click on "Disable Sample" button in EnableQuiz UI
+     * Output: Set the JoinQuizButton inactive
+     */
     public void DisableSampleQuiz()
     {
         if (NetworkManager.Singleton.IsHost)
