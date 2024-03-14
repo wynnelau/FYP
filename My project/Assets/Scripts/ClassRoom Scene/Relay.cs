@@ -67,7 +67,7 @@ public class Relay : MonoBehaviour
 
     /*
      * Purpose: Attempt to retrieve the user's meeting status from the PlayFab database when "Start" button is clicked
-     * Input: Click on "Start" button
+     * Input: Click on "Start" button in NetworkManager UI
      * Output: Attempt to retrieve the user's meeting status from the PlayFab database
      */
     public void EnterMeetingRoom()
@@ -113,9 +113,9 @@ public class Relay : MonoBehaviour
     }
 
     /*
-     * Purpose: Used to start the meeting and then updates the join code
-     * Input: Called by EnterMeetingRoomSuccess
-     * Output: Attempt to start meeting and then update the join code
+     * Purpose: Used to start the meeting, update the join code and update MeetingAttendees
+     * Input: Called by EnterMeetingRoomSuccess()
+     * Output: Attempt to start meeting and then update the join code and MeetingAttendees
      */
     async void CreateRelay(string meetingId)
     {
@@ -150,9 +150,9 @@ public class Relay : MonoBehaviour
     }
 
     /*
-     * Purpose: Attempt to join the meeting
+     * Purpose: Used to join the meeting and update MeetingAttendees
      * Input: Called by EnterMeetingRoomSuccess and joinCode is passed in
-     * Output: Join the meeting successfully
+     * Output: Join the meeting successfully and update MeetingAttendees
      */
     async void JoinRelay(string joinCode)
     {
@@ -182,9 +182,9 @@ public class Relay : MonoBehaviour
     }
 
     /*
-     * Purpose: Attempt to join the meeting
-     * Input: Called by EnterMeetingRoomSuccess and joinCode is passed in
-     * Output: Join the meeting successfully
+     * Purpose: Used to join the meeting's audio channel
+     * Input: Called by JoinRelay()
+     * Output: Join the meeting's audio channel 
      */
     async void JoinChannel()
     {
@@ -200,9 +200,10 @@ public class Relay : MonoBehaviour
     }
 
     /*
-    * Purpose: To stop the meeting
-    * Input: Called by ReturnToMain() in ReturnToMainScene
-    * Output: Shutdown the server and destroy the NetworkManager
+    * Purpose: Used to stop or exit the meeting
+    * Input: Click on "End" button in NetworkManager UI
+    * Output: If user is host, shutdown the server, destroy the NetworkManager and call RemoveJoinCode()
+    *         else destroy the NetworkManager and load Main Scene
     */
     public void StopRelay()
     {
@@ -222,9 +223,9 @@ public class Relay : MonoBehaviour
     }
 
     /*
-     * Purpose: Attempt to update the join code of the meeting to MongoDB by getting the meetingId
+     * Purpose: Used to retrieve the meetingId from the PlayFab database
      * Input: Called by StopRelay()
-     * Output: Attempt to retrieve the meetingID
+     * Output: Attempt to retrieve the meetingId from the PlayFab database
      */
     void RemoveJoinCode()
     {
@@ -238,7 +239,7 @@ public class Relay : MonoBehaviour
     /*
      * Purpose: Successful attempt to retrieve the meetingId, then tries to update join code of the meeting to MongoDB
      * Input: Called by RemoveJoinCode() when attempt to retrieve the meetingId is successful
-     * Output: Update "Meeting ended" to the join code of the meeting to MongoDB
+     * Output: Update "Meeting ended" to the join code of the meeting to MongoDB and load Main Scene
      */
     void RemoveJoinCodeSuccess(GetUserDataResult result)
     {
