@@ -106,7 +106,7 @@ public class NewMeetingUI : MonoBehaviour
      */
     void AddParticipantFail(PlayFabError error)
     {
-        Debug.LogError(error.GenerateErrorReport());
+        Debug.Log(error.GenerateErrorReport());
         errorText.text = error.GenerateErrorReport();
     }
 
